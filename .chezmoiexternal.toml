@@ -1,0 +1,27 @@
+[".local/share/nvim/site/autoload/plug.vim"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+    refreshPeriod = "168h"
+
+[".local/share/zsh/plugins/zsh-autopair"]
+    type = "archive"
+    url = "https://github.com/hlissner/zsh-autopair/archive/refs/tags/v1.0.tar.gz"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
+
+[".local/share/zsh/plugins/history-substring-search"]
+    type = "archive"
+    url = "https://github.com/zsh-users/zsh-history-substring-search/archive/4abed97b6e67eb5590b39bcd59080aa23192f25d.tar.gz"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
+
+[".local/share/zsh/plugins/zsh-syntax-highlighting"]
+    type = "archive"
+    url = "https://github.com/zsh-users/zsh-syntax-highlighting/archive/c7caf57ca805abd54f11f756fda6395dd4187f8a.tar.gz"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
+
+

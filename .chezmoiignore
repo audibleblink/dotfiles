@@ -1,0 +1,9 @@
+{{ if (ne .chezmoi.os "darwin") }}
+karabiner
+{{ end }}
+
+.editorconfig
+.github
+README.md
+test/*
+tests/*

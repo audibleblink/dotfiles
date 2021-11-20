@@ -1,0 +1,51 @@
+ZSH=$HOME/.zsh
+ZSH_CUSTOM=$HOME/.dotfiles/zsh-files
+
+export PATH="${HOME}/.local/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
+
+theme=pure
+plugins=(
+  vi-mode
+  clipboard
+  docker-zsh-completion
+  gpg
+  zsh-autopair
+  # fuck
+  fzf
+  todo
+  coding
+
+  #must be last
+  history-substring-search
+  zsh-syntax-highlighting
+)
+
+source <(cat $ZSH_CUSTOM/functions/**/*.zsh)  # Sources custom functions and aliases
+source $ZSH_CUSTOM/sourcer.zsh                # Sets up fpaths and plugins
+source $ZSH_CUSTOM/themes/${theme}.zsh        # Sets theme
+
+alias iedit="e ~/.config/i3/config"
+alias zedit="e ~/.zshrc"
+alias vedit="e ~/.config/nvim/init.vim"
+alias tedit="e ~/.tmux.conf"
+alias sedit="e ~/.ssh/config"
+alias reload="source ~/.zshrc"
+alias zstd='zstd -4 -v -T0'
+
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.zshrc_local ] && source ~/.zshrc_local
+
+{{ if (eq .chezmoi.os "darwin") }}
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
+{{ else }}
+export PATH="$PATH:$HOME/.fzf/bin:/opt/n/bin"
+alias sa='sudo apt'
+alias iedit="e ~/.config/i3/config"
+alias devs="tree -L 2 /media/$USER"
+alias pdf='evince'
+alias iedit="e ~/.config/i3/config"
+# necessary when using Termite
+[ "$TERM" = "xterm-termite" ] && alias ssh="TERM=screen-256color ssh"
+{{ end }}
+
