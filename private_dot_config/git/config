@@ -1,0 +1,54 @@
+[user]
+	name = Alex Flores
+	email = domain@me.com
+	signingkey = 687EF6FFF81642CB
+
+
+[advice]
+	pushNonFastForward = false
+	statusHints = false
+
+[core]
+	excludesfile = ~/.config/git/ignore
+	whitespace = trailing-space,space-before-tab
+
+[color]
+	ui = auto
+
+[init]
+	defaultBranch = main
+
+[diff]
+	algorithm = histogram
+	renamelimit = 8192
+	renames = copies
+
+[github]
+	user = audibleblink
+
+[alias]
+	pul = pull --rebase
+	rem = remote -v
+	bra = branch -v
+	com = commit -v
+	sta = status -s
+
+[http]
+	postBuffer = 52428800
+[gpg]
+	program = /usr/local/bin/gpg2
+
+[push]
+	default = current
+
+[rebase]
+	autostash = true
+
+[status]
+	submoduleSummary = true
+
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
+[url "git@github.com:"]
+	insteadOf = https://github.com
+

@@ -1,9 +1,71 @@
-{{ if (ne .chezmoi.os "darwin") }}
-karabiner
-{{ end }}
-
+.local/share/gvm/archive
+.local/share/gvm/environments
+.local/share/gvm/gos
+.local/share/gvm/logs
+.local/share/gvm/pkgsets
+zsh-autopair/**
+zsh-syntax-highlighting/**
+history-substring-search/**
 .editorconfig
 .github
 README.md
 test/*
 tests/*
+.ssh/config
+**/tmux/resurrect/**
+**/tmux/plugins/**
+!**/tmux/plugins/
+!**/tmux/plugins/tpm/**
+
+{{- if (ne .chezmoi.os "darwin") }}
+.config/karabiner
+Library/Preferences/com.amethyst.Amethyst.plist
+{{- end }}
+
+{{- if (.headless) }}
+.local/share/zsh/functions/clipboard.zsh
+.local/share/fonts
+{{- end }}
+
+{{- if (.ephemeral) }}
+.local/share/zsh/functions/fzf.zsh
+{{- end }}
+
+{{- if (not .dev) }}
+.gdbinit
+.flake8
+.rspec
+.rubocop.yml
+.ideavim
+{{- end }}
+
+
+{{- if .headless }}
+.config/conky/
+.config/dunst/
+.config/termite/
+.config/i3/
+.config/autorunner/
+.config/gtk-3.0/
+.config/compton/
+.config/polybar/
+.config/qutebrowser/
+.urxvt/
+.Xresources
+.config/obsidian/
+{{- end }}
+
+{{- if (eq .chezmoi.os "darwin") }}
+.config/conky/
+.config/dunst/
+.config/termite/
+.config/i3/
+.config/autorunner/
+.config/gtk-3.0/
+.config/compton/
+.config/polybar/
+.config/qutebrowser/
+.urxvt/
+.Xresources
+{{- end }}
+

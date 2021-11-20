@@ -1,0 +1,137 @@
+# Mod Key - Windows Key
+  set $mod Mod4
+
+# Colors
+  set_from_resource $black color0     #000000
+  set_from_resource $red   color1     #000000
+  set_from_resource $blue  color6     #000000
+  set_from_resource $slate slate      #000000
+  set_from_resource $dark  background #000000
+
+# Window Colours
+#                         border  background  text     indicator
+  client.focused          $dark   $blue       $black   $blue
+  client.focused_inactive $dark   $dark       $slate   $blue
+  client.unfocused        $dark   $dark       $slate   $blue
+  client.urgent           $dark   $red        $dark    $blue
+
+# General Configuration
+  font pango:System Source Code Pro 9
+  floating_modifier $mod
+  hide_edge_borders both
+  new_window pixel 1px
+  workspace_auto_back_and_forth yes
+
+# Set orientation of next split
+  bindsym $mod+minus split v
+  bindsym $mod+backslash split h
+
+# Program Settings
+  bindsym $mod+Return exec i3-sensible-terminal
+  bindsym $mod+d exec rofi -show run
+  bindsym $mod+p exec betterlockscreen -l dim
+  bindsym $mod+c exec CM_LAUNCHER=rofi CM_HISTLENGTH=5 clipmenu
+  bindsym $mod+g exec scrot ~/Dropbox/Screenshots/Screenshot%Y-%m-%d%H:%M:%S.png -e 'viewnior $f'
+  bindsym --release $mod+Shift+g exec flameshot gui
+
+# exit i3 (logs you out of your X session)
+  bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# Restart-Related Bindings
+  bindsym $mod+Shift+c reload
+  bindsym $mod+Shift+r restart
+
+# change container layout
+  bindsym $mod+s layout stacking
+  bindsym $mod+w layout tabbed
+  bindsym $mod+e layout toggle split
+
+# Window-Navigation Bindings
+  bindsym $mod+Shift+p focus parent
+  bindsym $mod+Shift+q kill
+  bindsym $mod+h focus left
+  bindsym $mod+j focus down
+  bindsym $mod+k focus up
+  bindsym $mod+l focus right
+  bindsym $mod+Shift+h move left
+  bindsym $mod+Shift+j move down
+  bindsym $mod+Shift+k move up
+  bindsym $mod+Shift+l move right
+  bindsym $mod+Shift+space floating toggle
+  bindsym $mod+f fullscreen toggle
+  bindsym $mod+space focus mode_toggle
+
+# Resizing Controls
+  bindsym $mod+r mode "  "
+  mode "  " {
+    bindsym h resize shrink width 5 px or 5 ppt
+    bindsym j resize grow height 5 px or 5 ppt
+    bindsym k resize shrink height 5 px or 5 ppt
+    bindsym l resize grow width 5 px or 5 ppt
+    bindsym Escape mode "default"
+  }
+
+# Workspace-Related Bindings
+  set $workspace1  "1"
+  set $workspace2  "2"
+  set $workspace3  "3"
+  set $workspace4  "4"
+  set $workspace5  "5"
+  set $workspace6  "6"
+  set $workspace7  "7"
+  set $workspace8  "8"
+  set $workspace9  "9"
+  set $workspace10 "10"
+
+  bindsym $mod+1 workspace $workspace1
+  bindsym $mod+2 workspace $workspace2
+  bindsym $mod+3 workspace $workspace3
+  bindsym $mod+4 workspace $workspace4
+  bindsym $mod+5 workspace $workspace5
+  bindsym $mod+6 workspace $workspace6
+  bindsym $mod+7 workspace $workspace7
+  bindsym $mod+8 workspace $workspace8
+  bindsym $mod+9 workspace $workspace9
+  bindsym $mod+0 workspace $workspace10
+
+  bindsym $mod+Shift+1 move container to workspace $workspace1
+  bindsym $mod+Shift+2 move container to workspace $workspace2
+  bindsym $mod+Shift+3 move container to workspace $workspace3
+  bindsym $mod+Shift+4 move container to workspace $workspace4
+  bindsym $mod+Shift+5 move container to workspace $workspace5
+  bindsym $mod+Shift+6 move container to workspace $workspace6
+  bindsym $mod+Shift+7 move container to workspace $workspace7
+  bindsym $mod+Shift+8 move container to workspace $workspace8
+  bindsym $mod+Shift+9 move container to workspace $workspace9
+  bindsym $mod+Shift+0 move container to workspace $workspace10
+
+
+# Program Workspace Assignments
+  assign [class="vivaldi"] $workspace1
+  assign [class="Station"] $workspace8
+  assign [class="Spotify"] $workspace10
+
+# Default to Floating
+  for_window [class="Lxappearance"] floating enable
+  for_window [class="Pavucontrol"] floating enable
+
+gaps inner 15
+gaps outer 1
+# smart_gaps on
+
+# Pulse Audio controls
+  bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +10% #increase sound volume
+  bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -10% #decrease sound volume
+  bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+
+# Media player controls
+  bindsym XF86Search  exec playerctl play-pause
+  bindsym XF86LaunchA exec playerctl next
+  bindsym XF86Tools   exec playerctl previous
+
+# Screen brightness controls
+  bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
+  bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
+
+# Startup
+  exec_always --no-startup-id sh ${HOME}/.local/bin/autorunner

@@ -1,0 +1,53 @@
+{{- if and (eq .chezmoi.os "darwin") (.personal) -}}
+#!/bin/bash
+
+set -eufo pipefail
+
+{{ $brews := list
+     "bat"
+     "curl"
+     "dockutil"
+     "dos2unix"
+     "entr"
+     "fd"
+     "git"
+     "gnupg"
+     "hugo"
+     "jq"
+     "neovim"
+     "pinentry-mac"
+     "ripgrep"
+     "tmux"
+     "tree"
+     "watch"
+     "wget"
+     "xz" 
+     "zstd" -}}
+
+{{- $casks := list -}}
+{{ if (and .personal .admin) -}}
+{{   $brews = concat $brews (list
+       "gopass") -}}
+{{ $casks = concat $casks (list
+     "docker"
+     "google-chrome"
+     "iterm2"
+     "karabiner-elements"
+     "spotify"
+     "visual-studio-code"
+     "vlc" 
+     "1password-cli"
+     "balenaetcher"
+     "zoom"
+     "signal") -}}
+{{ end -}}
+
+brew bundle --no-lock --file=/dev/stdin <<EOF
+{{ range ($brews | sortAlpha | uniq) -}}
+brew "{{ . }}"
+{{ end -}}
+{{ range ($casks | sortAlpha | uniq) -}}
+#cask "{{ . }}"
+{{ end -}}
+EOF
+{{ end -}}
