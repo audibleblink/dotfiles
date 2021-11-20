@@ -1,51 +1,41 @@
-ZSH=$HOME/.zsh
-ZSH_CUSTOM=$HOME/.dotfiles/zsh-files
+ZSH="${XDG_STATE_HOME}/zsh"
+ZSH_CUSTOM="${XDG_DATA_HOME}/zsh"
 
 export PATH="${HOME}/.local/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
+[ -f ~/.zshrc_local ] && source ~/.zshrc_local
 
 theme=pure
 plugins=(
   vi-mode
-  clipboard
-  docker-zsh-completion
-  gpg
   zsh-autopair
-  # fuck
-  fzf
-  todo
-  coding
 
-  #must be last
-  history-substring-search
+  {{- if (.personal) }}
+  gpg
+  todo
+  # fuck
+  # pentest
+  {{- end }}
   zsh-syntax-highlighting
+  zsh-history-substring-search
 )
 
-source <(cat $ZSH_CUSTOM/functions/**/*.zsh)  # Sources custom functions and aliases
 source $ZSH_CUSTOM/sourcer.zsh                # Sets up fpaths and plugins
+source <(cat $ZSH_CUSTOM/functions/**/*.zsh)  # Sources custom functions
 source $ZSH_CUSTOM/themes/${theme}.zsh        # Sets theme
+source <(cat $ZSH_CUSTOM/aliases/**/*.zsh)    # Sources custom  aliases
 
-alias iedit="e ~/.config/i3/config"
-alias zedit="e ~/.zshrc"
-alias vedit="e ~/.config/nvim/init.vim"
-alias tedit="e ~/.tmux.conf"
-alias sedit="e ~/.ssh/config"
+# Quickedit aliases
+alias zedit="chezmoi edit --apply ~/.zshrc"
+alias sedit="chezmoi edit --apply ~/.ssh/config"
+alias vedit="chezmoi edit --apply ~/.config/nvim/init.vim"
+alias tedit="chezmoi edit --apply ~/.config/tmux/tmux.conf"
+alias aedit="chezmoi edit --apply ~/.local/share/zsh/aliases"
+alias fedit="chezmoi edit --apply ~/.local/share/zsh/functions"
 alias reload="source ~/.zshrc"
-alias zstd='zstd -4 -v -T0'
+alias cme="e ~/.local/share/chezmoi"
 
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f ~/.zshrc_local ] && source ~/.zshrc_local
+export N_PREFIX="$HOME/.local/share/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
 
-{{ if (eq .chezmoi.os "darwin") }}
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
-{{ else }}
-export PATH="$PATH:$HOME/.fzf/bin:/opt/n/bin"
-alias sa='sudo apt'
-alias iedit="e ~/.config/i3/config"
-alias devs="tree -L 2 /media/$USER"
-alias pdf='evince'
-alias iedit="e ~/.config/i3/config"
-# necessary when using Termite
-[ "$TERM" = "xterm-termite" ] && alias ssh="TERM=screen-256color ssh"
-{{ end }}
-
+# vim: ft=bash

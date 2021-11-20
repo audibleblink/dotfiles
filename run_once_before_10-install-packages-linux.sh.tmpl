@@ -1,0 +1,32 @@
+{{- if and (eq .chezmoi.os "linux") (.personal) -}}
+
+#!/bin/bash
+
+set -eufo pipefail
+
+pkgs=(
+        curl
+        dos2unix
+        git
+        gnupg
+        jq
+        neovim
+        ripgrep
+        tmux
+        tree
+        unzip
+        zsh
+        zstd
+)
+
+{{- if .dev }}
+pkgs+=(
+        go
+        build-essential
+        make
+)
+{{- end }}
+
+sudo apt update
+sudo apt install -y ${pkgs[@]}
+{{- end }}

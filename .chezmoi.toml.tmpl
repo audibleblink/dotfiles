@@ -1,0 +1,49 @@
+{{- $ephemeral := false }}
+{{- $personal := false }}
+{{- $work := false }}
+{{- $admin := false }}
+{{- $headless := false }}
+{{- $dev := false }}
+{{- $email := "" }}
+{{- $git_user := "" }}
+
+{{- $ephemeral = promptBool "ephemeral computer" }}
+
+{{- if (not $ephemeral) }}
+
+  {{- $personal = promptBool "personal computer" }}
+  {{- if (not $personal) }}
+    {{- $work = promptBool "work computer" }}
+  {{- end }}
+
+  {{- $email = get . "email" }}
+  {{- if not $email }}
+  {{-   $email = promptString "email" }}
+  {{- end }}
+
+  {{- $git_user = get . "git_user" }}
+  {{- if not $git_user }}
+  {{-   $git_user = promptString "git_user" }}
+  {{- end }}
+{{- end }}
+
+{{- $headless = promptBool "headless computer" -}}
+{{- $admin = promptBool "will your daily be admin" }}
+
+[diff]
+  pager = "delta --diff-so-fancy --navigate "
+  format = "git"
+
+[merge]
+  command = "nvim"
+  args = "-d"
+
+[data]
+  email = {{ $email | quote }}
+  git_user = {{ $git_user | quote }}
+  work = {{ $work }}
+  personal = {{ $personal }}
+  ephemeral = {{ $ephemeral }}
+  headless = {{ $headless }}
+  admin = {{ $admin }}
+  dev = {{ $dev }}

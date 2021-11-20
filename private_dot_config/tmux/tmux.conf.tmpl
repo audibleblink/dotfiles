@@ -1,0 +1,144 @@
+{{ $data := "~/.local/share/tmux" }}
+{{ $conf := "~/.config/tmux" }}
+
+# Colors [[[
+tm_yellow=colour03
+tm_gray=colour08
+tm_purple=colour05
+tm_black=colour00
+tm_green=colour10
+# ]]]
+
+# TPM Plugins [[[
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @plugin 'tmux-plugins/tmux-pain-control'
+set -g @plugin 'tmux-plugins/tmux-yank'
+set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
+set -g @plugin 'tmux-plugins/tmux-logging'
+# ]]]
+
+# Appearance [[[
+
+# Pane colours
+set -g pane-border-style fg=$tm_gray
+set -g pane-active-border-style fg=$tm_purple
+
+# Message colours
+set -g message-style bg=$tm_green,fg=$tm_black
+
+# Pane border settings
+set -g display-panes-active-colour $tm_yellow
+set -g display-panes-colour $tm_gray
+
+# Inactive window colours and settings
+set-window-option -g window-status-style "fg=$tm_gray,bg=default"
+set -g window-status-format "   #W   "
+
+# Active window settings
+set-window-option -g window-status-current-style "fg=$tm_yellow,bg=default"
+set-window-option -g window-status-current-format "#W#F"
+
+# Statusbar
+set -g status-position top
+set -g status-justify centre
+set -g status-bg default
+set -g status-right '#(bash {{ $data }}/functions/battery.sh)'
+
+set -g @prefix_highlight_fg $tm_black
+set -g @prefix_highlight_bg $tm_yellow
+tm_session_name="#[fg=$tm_gray] #S"
+tm_hi="#{prefix_highlight}"
+set -g status-left "$tm_hi $tm_session_name"
+
+# ]]]
+
+# My Prefs [[[
+set -g focus-events on
+set -s escape-time 0
+set -g prefix C-a
+bind C-a send-prefix
+bind r source-file "{{ $conf }}/tmux.conf"
+bind C-a previous-window
+set -g history-limit 50000
+
+# Window Management
+set -g base-index 1
+set -g renumber-windows on
+bind q switch-client -l
+
+# Kill and send panes to another window
+bind x kill-pane
+bind b break-pane -d
+
+# tmux > 2.1
+set -g mouse on
+bind -n WheelUpPane if-shell -F -t = "#{mouse_any_flag}" "send-keys -M" "if -Ft= '#{pane_in_mode}' 'send-keys -M' 'select-pane -t=; copy-mode -e; send-keys -M'"
+bind -n WheelDownPane select-pane -t= \; send-keys -M
+
+# Use readline key-bindings in the tmux command prompt
+set -g status-keys "emacs"
+
+# Use vim keybindings in copy mode
+setw -g mode-keys vi
+bind -T copy-mode-vi 'v' send -X begin-selection
+bind -T copy-mode-vi 'y' send -X copy-selection
+# ]]]
+
+# Plugin Overrides [[[
+set -g @resurrect-save 'S'
+set -g @resurrect-restore 'R'
+set -g @continuum-restore 'on'
+# ]]]
+
+# Smart pane switching with awareness of Vim splits. [[[
+# See: https://github.com/christoomey/vim-tmux-navigator
+is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
+    | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
+bind-key -n 'C-h' if-shell "$is_vim" 'send-keys C-h'  'select-pane -L'
+bind-key -n 'C-j' if-shell "$is_vim" 'send-keys C-j'  'select-pane -D'
+bind-key -n 'C-k' if-shell "$is_vim" 'send-keys C-k'  'select-pane -U'
+bind-key -n 'C-l' if-shell "$is_vim" 'send-keys C-l'  'select-pane -R'
+
+bind-key -n 'C-Left' if-shell "$is_vim" 'send-keys C-h'  'select-pane -L'
+bind-key -n 'C-Down' if-shell "$is_vim" 'send-keys C-j'  'select-pane -D'
+bind-key -n 'C-Up' if-shell "$is_vim" 'send-keys C-k'  'select-pane -U'
+bind-key -n 'C-Right' if-shell "$is_vim" 'send-keys C-l'  'select-pane -R'
+
+tmux_version='$(tmux -V | sed -En "s/^tmux ([0-9]+(.[0-9]+)?).*/\1/p")'
+if-shell -b '[ "$(echo "$tmux_version < 3.0" | bc)" = 1 ]' \
+    "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\'  'select-pane -l'"
+if-shell -b '[ "$(echo "$tmux_version >= 3.0" | bc)" = 1 ]' \
+    "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\\\'  'select-pane -l'"
+
+bind-key -T copy-mode-vi 'C-h' select-pane -L
+bind-key -T copy-mode-vi 'C-j' select-pane -D
+bind-key -T copy-mode-vi 'C-k' select-pane -U
+bind-key -T copy-mode-vi 'C-l' select-pane -R
+bind-key -T copy-mode-vi 'C-\' select-pane -l
+# ]]]
+
+# Default Shell [[[
+{{ if (eq .chezmoi.os "darwin") }}
+tm_bg="#1a2332"
+set -g status-bg "$tm_bg"
+set -g default-shell /bin/zsh
+set-option -g default-terminal "xterm-256color"
+set -g -a terminal-overrides ',xterm-256color:Tc,*:Ss=\E[%p1%d q:Se=\E[2 q'
+{{ else  }}
+set -g default-shell /usr/bin/zsh
+set-option -g default-terminal "xterm-256color"
+set -g -a terminal-overrides ',*256col*:Tc,*:Ss=\E[%p1%d q:Se=\E[2 q'
+{{ end }}
+# ]]]
+
+
+# Initializes TMUX plugin manager. Must be last.
+run '{{ $data }}/plugins/tpm/tpm'
+
+# Allows clearing screen with Prefix+L
+bind C-l send-keys 'C-l'
+
+# vim: ft=bash foldmarker=[[[,]]] foldlevelstart=0 foldmethod=marker spell:
