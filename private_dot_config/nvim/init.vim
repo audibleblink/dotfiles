@@ -20,7 +20,7 @@ Plug 'junegunn/fzf',                   Cond(!exists('g:vscode'), { 'do': './inst
 Plug 'junegunn/fzf.vim',               Cond(!exists('g:vscode'))
 Plug 'jpalardy/vim-slime',             Cond(!exists('g:vscode'))
 Plug 'junegunn/goyo.vim',              Cond(!exists('g:vscode'))
-Plug 'maralla/completor.vim',          Cond(!exists('g:vscode'))
+" Plug 'maralla/completor.vim',          Cond(!exists('g:vscode'))
 Plug 'terryma/vim-multiple-cursors',   Cond(!exists('g:vscode'))
 Plug 'christoomey/vim-tmux-navigator', Cond(!exists('g:vscode'))
 Plug 'cormacrelf/vim-colors-github',   Cond(!exists('g:vscode'))
@@ -111,8 +111,9 @@ vnoremap y myy`y
 vnoremap Y myY`y
 noremap Y y$
 " Use `tab` key to select completions.  Default is arrow keys.
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"
 " Enter to accept autocompletion
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
@@ -169,7 +170,7 @@ set nowritebackup
 set cmdheight=2
 set updatetime=300
 set shortmess+=c
-set signcolumn=number
+" set signcolumn=number
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -206,18 +207,22 @@ let g:completor_auto_trigger = 0
 " let g:completor_filetype_map.go = {'ft': 'lsp', 'cmd': 'gopls'}
 " }}}
 
-" Tmux Navigator
+" Tmux Navigator {{{
+"
 " Send :update when leaving vim for tmux
 let g:tmux_navigator_save_on_switch = 1
+" }}}
 
-" EasyAlign 
+" EasyAlign  {{{
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
+" }}}
 
-" Slime
+" Slime {{{
 let g:slime_target = "tmux"
 let g:slime_default_config = {"socket_name": get(split($TMUX, ","), 0), "target_pane": ":.1"}
 let g:slime_python_ipython = 1
+" }}}
 
 " FZF {{{
 " Layout
@@ -301,7 +306,7 @@ function! Tab_Or_Complete() abort
   " If completor is not open and we are in the middle of typing a word then
   " `tab` opens completor menu.
   elseif col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^[[:keyword:][:ident:]]'
-    return "\<C-R>=completor#do('complete')\<CR>"
+    return "\<C-R>=coc#refresh()\<CR>"
   else
     " If we aren't typing a word and we press `tab` simply do the normal `tab`
     " action.
@@ -321,4 +326,4 @@ function! s:show_documentation()
 endfunction
 " }}}
 
-" vim: foldlevelstart=0 foldmethod=marker spell:
+" vim: foldlevelstart=0 foldmethod=marker
