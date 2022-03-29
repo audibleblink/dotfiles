@@ -20,7 +20,6 @@ Plug 'junegunn/fzf',                   Cond(!exists('g:vscode'), { 'do': './inst
 Plug 'junegunn/fzf.vim',               Cond(!exists('g:vscode'))
 Plug 'jpalardy/vim-slime',             Cond(!exists('g:vscode'))
 Plug 'junegunn/goyo.vim',              Cond(!exists('g:vscode'))
-" Plug 'maralla/completor.vim',          Cond(!exists('g:vscode'))
 Plug 'terryma/vim-multiple-cursors',   Cond(!exists('g:vscode'))
 Plug 'christoomey/vim-tmux-navigator', Cond(!exists('g:vscode'))
 Plug 'cormacrelf/vim-colors-github',   Cond(!exists('g:vscode'))
@@ -30,7 +29,6 @@ Plug 'sheerun/vim-polyglot',           Cond(!exists('g:vscode'))
 Plug 'rust-lang/rust.vim',             Cond(!exists('g:vscode'))
 Plug 'tpope/vim-dispatch',             Cond(!exists('g:vscode'))
 Plug 'tpope/vim-fugitive',             Cond(!exists('g:vscode'))
-" Plug 'dense-analysis/ale',             Cond(!exists('g:vscode'))
 
 Plug 'nvim-lualine/lualine.nvim'
 " If you want to have icons in your statusline choose one of these
