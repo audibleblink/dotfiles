@@ -2,6 +2,9 @@
 
 HEART='❤ '
 
+
+os=`uname`
+
 if [[ `uname` == 'Linux' ]]; then
   current_charge=$(acpi | cut -d ' ' -f 4 | sed 's/[^0-9].*//')
   total_charge=100
@@ -12,7 +15,7 @@ else
 fi
 
 # checks if this is desktop or laptop
-if [ "$(ls -A /sys/class/power_supply/)" ];then
+if [[ "${os}" == 'Darwin' || "$(ls -A /sys/class/power_supply/)" ]]; then
   charged_slots=$(echo "(($current_charge/$total_charge)*5)+1" | bc -l | cut -d '.' -f 1)
   if [[ $charged_slots -gt 5 ]]; then
     charged_slots=5
