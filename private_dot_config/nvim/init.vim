@@ -29,6 +29,7 @@ Plug 'sheerun/vim-polyglot',           Cond(!exists('g:vscode'))
 Plug 'rust-lang/rust.vim',             Cond(!exists('g:vscode'))
 Plug 'tpope/vim-dispatch',             Cond(!exists('g:vscode'))
 Plug 'tpope/vim-fugitive',             Cond(!exists('g:vscode'))
+Plug 'lukas-reineke/indent-blankline.nvim',             Cond(!exists('g:vscode'))
 
 Plug 'nvim-lualine/lualine.nvim'
 " If you want to have icons in your statusline choose one of these
@@ -60,7 +61,7 @@ set expandtab
 " set foldlevelstart=0
 " set foldmethod=marker
 set hidden
-set list listchars=tab:»·,trail:·,nbsp:·
+set list listchars=tab:»\ ,trail:·,nbsp:·
 set nowrap
 set numberwidth=3
 set relativenumber | set number
