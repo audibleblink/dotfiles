@@ -1,3 +1,10 @@
+function save_pane {
+  local filename="$(tmux display-message -p '#S').$(tmux display-message -p '#W').$(tmux display-message -p '#P').log"
+  local logdir="${HOME}/Documents/tmux"
+  mkdir -p "${logdir}"
+  tmux capture-pane -pS - > "${logdir}/${filename}"
+}
+
 function extract {
   if [ -z "$1" ]; then
     # display usage if no parameters given
