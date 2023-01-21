@@ -3,6 +3,6 @@
 
 set -eufo pipefail
 
-vim -c PlugUpdate -c qa
-# vim -c GoInstallBinaries -c qa
+nvim -c PlugUpdate -c qa
+nvim -c GoInstallBinaries -c qa /tmp/main.go
 {{ end -}}
