@@ -6,7 +6,6 @@ set -eufo pipefail
 {{ $brews := list
      "bat"
      "curl"
-     "dockutil"
      "diff-so-fancy"
      "dos2unix"
      "entr"
@@ -24,6 +23,7 @@ set -eufo pipefail
      "watch"
      "wget"
      "xz" 
+     "zsh"
      "zstd" -}}
 
 {{- $casks := list -}}
@@ -50,7 +50,7 @@ brew bundle --no-lock --file=/dev/stdin <<EOF
 brew "{{ . }}"
 {{ end -}}
 {{ range ($casks | sortAlpha | uniq) -}}
-#cask "{{ . }}"
+cask "{{ . }}"
 {{ end -}}
 EOF
 {{ end -}}

@@ -1,8 +1,8 @@
 function get-ssh() {
   # read the selected Host entry
-  IFS=: read host <<< $(grep '^Host' ${HOME}/.ssh/config | sed 's/Host //'| fzf)
+  IFS=: read host <<< $(grep '^Host [^*]' ${HOME}/.ssh/*config | sed 's/:Host//' | tr -d '"'| fzf)
   # set the local buffer to the new command
-  LBUFFER="${LBUFFER} ${host}"
+  LBUFFER="${LBUFFER} -F ${host}"
   local ret=$?
   zle reset-prompt
   return $ret

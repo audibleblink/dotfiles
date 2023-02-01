@@ -14,6 +14,7 @@ TRAPWINCH() {
 zle -N zle-keymap-select
 zle -N edit-command-line
 
+# enables vim mode
 bindkey -v
 
 # allow v to edit the command line (standard behaviour)
