@@ -5,7 +5,7 @@ function save_pane {
     local pane="$(tmux display-message -p '#P')"
     local filename="${prefix}.${session}.${window}.${pane}.log"
     local logdir="${HOME}/Documents/tmux"
-    [[ -d "${logdir}" ]] || mkdir "${logdir}"
+    [[ -d "${logdir}" ]] || mkdir -p "${logdir}"
     tmux capture-pane -pS - > "${logdir}/${filename}"
 }
 
@@ -44,7 +44,7 @@ function extract {
 
 # is x grep argument available?
 grep-flag-available() {
-echo | grep $1 "" >/dev/null 2>&1
+    echo | grep $1 "" >/dev/null 2>&1
 }
 
 GREP_OPTIONS=""
