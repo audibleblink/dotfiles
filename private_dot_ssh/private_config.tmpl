@@ -1,3 +1,4 @@
+{{ if (and (.ephemeral) (eq .chezmoi.os "darwin" "linux") (not .personal)) -}}
 Host *
     ControlMaster auto
     ControlPath ~/.ssh/sockets/%r@%h-%p
@@ -6,4 +7,4 @@ Host *
     AddKeysToAgent yes
     UseKeychain yes
     {{- end }}
-
+{{ end -}}
