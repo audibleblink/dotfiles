@@ -21,7 +21,4 @@ for extension in ${extensions[@]}; do
 	code --force --install-extension $extension
 done
 
-{{ if (eq .chezmoi.os "darwin") }}
-defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
-{{ end }}
 {{ end }}
