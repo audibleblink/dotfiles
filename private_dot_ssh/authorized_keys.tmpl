@@ -1,3 +1,5 @@
-{{ range (gitHubKeys "twpayne") -}}
+{{ if (and (.ephemeral) (eq .chezmoi.os "darwin" "linux") (not .personal)) -}}
+{{ range (gitHubKeys "audibleblink") -}}
 {{ .Key }}
+{{ end -}}
 {{ end -}}
