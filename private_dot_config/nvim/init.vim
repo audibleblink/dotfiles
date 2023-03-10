@@ -68,7 +68,7 @@ set relativenumber | set number
 set relativenumber
 set splitbelow
 set splitright
-set textwidth=99
+set textwidth=0
 set timeoutlen=1000 ttimeoutlen=10
 set wiw=100
 set wildmenu
@@ -99,34 +99,34 @@ cnoremap jk <ESC>
 nnoremap c* *Ncgn
 nnoremap <CR> :
 vnoremap <CR> :
+
 " places selected text in a search/replace command
 vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
+
 " Store relative line number jumps in the jumplist. Also treat
 " long lines as break lines (useful when moving around in them).
 noremap <expr> j v:count > 1 ? 'm`' . v:count . 'j' : 'gj'
 noremap <expr> k v:count > 1 ? 'm`' . v:count . 'k' : 'gk'
+
 " Make Yank behave
 vnoremap y myy`y
 vnoremap Y myY`y
 noremap Y y$
-" Use `tab` key to select completions.  Default is arrow keys.
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 "
-" Enter to accept autocompletion
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
-
-" Use tab to trigger auto completion.  Default suggests completions as you type.
-inoremap <expr> <Tab> Tab_Or_Complete()
-" Tab to select currently highlighted completion line
-" inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<CR>"
 " Unmap Enter in the quickfix window
-" au BufReadPost quickfix nnoremap <buffer> <CR> <CR>
-"
+au BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 
-if has("autocmd")
-    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh :call Zap()
-endif
+" Tab accepts current selection
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#confirm() :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 " }}}
 
 "   Leader Mappings {{{
@@ -163,7 +163,6 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " CoC suggested settings {{{
-set hidden
 set nobackup
 set nowritebackup
 set cmdheight=2
@@ -295,24 +294,14 @@ function! Zap() abort
     call setpos('.', l:pos)
 endfunction
 
-
-" Use TAB to complete when typing words, else inserts TABs as usual.  Uses
-" dictionary, source files, and completor to find matching words to complete.
-function! Tab_Or_Complete() abort
-  " If completor is already open the `tab` cycles through suggested completions.
-  if pumvisible()
-    return "\<C-N>"
-  " If completor is not open and we are in the middle of typing a word then
-  " `tab` opens completor menu.
-  elseif col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^[[:keyword:][:ident:]]'
-    return "\<C-R>=coc#refresh()\<CR>"
-  else
-    " If we aren't typing a word and we press `tab` simply do the normal `tab`
-    " action.
-    return "\<Tab>"
-  endif
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+if has("autocmd")
+    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh :call Zap()
+endif
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
