@@ -48,6 +48,8 @@
 	submoduleSummary = true
 
 [include]
-    path = ~/.config/git/instead
+	path = ~/.config/git/instead
 
+[include]
+	path = ~/.gitconfig_local
 

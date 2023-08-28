@@ -7,3 +7,7 @@ fi
 alias e="${EDITOR}"
 alias cm="chezmoi"
 alias reload="source ~/.zshrc"
+
+
+alias k=kubectl
+alias kg='k get'
