@@ -10,13 +10,8 @@ vim.opt.timeoutlen = 250
 M.ui = {
   theme = 'bearded-arc',
   tabufline = { enabled = false },
-  statusline = {
-    theme = "minimal",
-    separator_style = "round",
-  },
-  nvdash = {
-    load_on_startup = true,
-  },
+  statusline = { separator_style = "arrow" },
+  nvdash = { load_on_startup = true },
 }
 
 return M
