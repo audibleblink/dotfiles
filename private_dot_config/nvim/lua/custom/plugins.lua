@@ -40,15 +40,11 @@ local plugins = {
     end,
   },
 
- {
-   "williamboman/mason.nvim",
-   opts = {
-      ensure_installed = {
-        "lua-language-server",
-        "prettier",
-        "gopls"
-      },
-    },
+  {
+    "williamboman/mason.nvim",
+    opts = function()
+      require "custom.configs.symbols-outline"
+    end,
   },
 
   { "justinmk/vim-sneak" },
