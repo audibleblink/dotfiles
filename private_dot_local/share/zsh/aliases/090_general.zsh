@@ -8,6 +8,19 @@ alias e="${EDITOR}"
 alias cm="chezmoi"
 alias reload="source ~/.zshrc"
 
+############
+# kubectl
+############
+
+function kstatus() {
+  if [[ -n RPROMPT ]] 
+  then
+    unset RPROMPT
+  else
+    echo RPROMPT='$(kube_ps)'
+  fi
+}
+
 alias k=kubectl
 
 alias kg='k get'
@@ -17,3 +30,8 @@ alias kgp='kg pod'
 alias kga='kg --all-namespaces'
 alias kgas='kga svc'
 alias kgap='kga pods'
+
+alias kd='k delete'
+alias ka='k apply'
+alias kaf='ka -f'
+alias kns='k config set-context --current --namespace'
