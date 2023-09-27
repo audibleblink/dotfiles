@@ -22,9 +22,9 @@ local plugins = {
     end,
   },
 
-  { 
-    "junegunn/vim-easy-align", 
-    keys = { 
+  {
+    "junegunn/vim-easy-align",
+    keys = {
       { "ga" , "<Plug>(EasyAlign)"    , desc = "EasyAlign" , mode = "x" } ,
       { "ga" , "<Plug>(EasyAlign)"    , desc = "EasyAlign" , mode = "v" } ,
     }
@@ -41,9 +41,10 @@ local plugins = {
   },
 
   {
-    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    lazy = false,
     opts = function()
-      require "custom.configs.symbols-outline"
+      require "custom.configs.mason"
     end,
   },
 

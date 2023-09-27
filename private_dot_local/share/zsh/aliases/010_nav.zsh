@@ -19,6 +19,6 @@ alias d='dirs -v | head -7'
 alias lsa='ls -lah'
 alias ll='ls -lh'
 alias la='ls -lAh'
-alias l='ls -lth'
+alias l='ls -lthr'
 alias ls='ls -FGh'
 

@@ -1,11 +1,10 @@
----@type ChadrcConfig 
-
 local M = {}
 
-M.mappings = require "custom.mappings"
 M.plugins = "custom.plugins"
+M.mappings = require "custom.mappings"
 
 vim.opt.timeoutlen = 250
+vim.opt.swapfile   = false
 
 M.ui = {
   theme = 'bearded-arc',

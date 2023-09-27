@@ -12,7 +12,7 @@ local servers = {
   "csharp_ls",
   "sourcekit",
   "jedi_language_server",
-  "ruby-lsp",
+  "rubocop",
 }
 
 for _, lsp in ipairs(servers) do

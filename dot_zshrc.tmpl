@@ -12,6 +12,7 @@ plugins=(
   {{- if (.personal) }}
   gpg
   todo
+  kube-ps1
   # fuck
   # pentest
   {{- end }}
@@ -31,7 +32,5 @@ alias vedit="chezmoi edit --apply ~/.config/nvim/init.vim"
 alias tedit="chezmoi edit --apply ~/.config/tmux/tmux.conf"
 alias aedit="chezmoi edit --apply ~/.local/share/zsh/aliases"
 alias fedit="chezmoi edit --apply ~/.local/share/zsh/functions"
-
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh
 
 # vim: ft=bash
