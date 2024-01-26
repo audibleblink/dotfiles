@@ -1,0 +1,15 @@
+configuration {
+    modi: "window,run";
+    font: "Source Sans Pro 10";
+    dpi: 220;
+    max-history-size: 10;
+    timeout {
+	action: "kb-cancel";
+	delay:  0;
+    }
+    filebrowser {
+	directories-first: true;
+	sorting-method:    "name";
+    }
+}
+@theme "arc"
