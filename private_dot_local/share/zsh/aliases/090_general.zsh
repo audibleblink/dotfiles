@@ -32,6 +32,8 @@ alias kgas='kga svc'
 alias kgap='kga pods'
 
 alias kd='k delete'
+alias kdf='kd -f'
 alias ka='k apply'
 alias kaf='ka -f'
+alias kak='ka -k'
 alias kns='k config set-context --current --namespace'
