@@ -17,7 +17,7 @@ plugins=(
   # pentest
   {{- end }}
   zsh-syntax-highlighting
-  zsh-history-substring-search
+  # zsh-history-substring-search
 )
 
 source $ZSH_CUSTOM/sourcer.zsh                # Sets up fpaths and plugins
@@ -32,5 +32,7 @@ alias vedit="chezmoi edit --apply ~/.config/nvim/init.vim"
 alias tedit="chezmoi edit --apply ~/.config/tmux/tmux.conf"
 alias aedit="chezmoi edit --apply ~/.local/share/zsh/aliases"
 alias fedit="chezmoi edit --apply ~/.local/share/zsh/functions"
+
+eval "$(atuin init zsh)"
 
 # vim: ft=bash
