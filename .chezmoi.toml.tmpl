@@ -29,10 +29,7 @@
 
 {{- $headless = promptBool "headless computer" -}}
 {{- $admin = promptBool "will your daily be admin" }}
-
-[diff]
-  pager = "delta --diff-so-fancy --navigate "
-  format = "git"
+{{- $dev = promptBool "will be dev workstation" }}
 
 [merge]
   command = "nvim"

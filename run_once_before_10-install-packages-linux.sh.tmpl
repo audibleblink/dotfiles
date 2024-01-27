@@ -27,6 +27,16 @@ pkgs+=(
 )
 {{- end }}
 
+{{- if (not .headless) }}
+pkgs+=(
+        arandr
+        lxappearance
+        rofi
+        xfce4-terminal
+        xfce4-clipman
+)
+{{- end }}
+
 sudo apt update
 sudo apt install -y ${pkgs[@]}
 {{- end }}
