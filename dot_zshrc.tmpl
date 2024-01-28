@@ -12,11 +12,12 @@ plugins=(
   {{- if (.personal) }}
   gpg
   todo
+  kube-ps1
   # fuck
   # pentest
   {{- end }}
   zsh-syntax-highlighting
-  zsh-history-substring-search
+  # zsh-history-substring-search
 )
 
 source $ZSH_CUSTOM/sourcer.zsh                # Sets up fpaths and plugins
@@ -32,6 +33,6 @@ alias tedit="chezmoi edit --apply ~/.config/tmux/tmux.conf"
 alias aedit="chezmoi edit --apply ~/.local/share/zsh/aliases"
 alias fedit="chezmoi edit --apply ~/.local/share/zsh/functions"
 
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh
+eval "$(atuin init zsh)"
 
 # vim: ft=bash

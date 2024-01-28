@@ -9,6 +9,7 @@ history-substring-search/**
 .editorconfig
 .github
 README.md
+readme.md
 test/*
 tests/*
 .ssh/config
