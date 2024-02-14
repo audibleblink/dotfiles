@@ -40,3 +40,5 @@ pkgs+=(
 sudo apt update
 sudo apt install -y ${pkgs[@]}
 {{- end }}
+
+/bin/bash -c "$(curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh)"
