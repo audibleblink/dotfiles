@@ -33,6 +33,10 @@ alias tedit="chezmoi edit --apply ~/.config/tmux/tmux.conf"
 alias aedit="chezmoi edit --apply ~/.local/share/zsh/aliases"
 alias fedit="chezmoi edit --apply ~/.local/share/zsh/functions"
 
-eval "$(atuin init zsh --disable-up-arrow)"
+if [[ -v TMUX ]]; then
+  eval "$(atuin init zsh --disable-up-arrow --disable-ctrl-r)"
+else
+  eval "$(atuin init zsh --disable-up-arrow)"
+fi
 
 # vim: ft=bash
