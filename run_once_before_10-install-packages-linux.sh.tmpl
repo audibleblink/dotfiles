@@ -5,6 +5,7 @@
 set -eufo pipefail
 
 pkgs=(
+        cargo
         curl
         dos2unix
         git
@@ -41,4 +42,4 @@ sudo apt update
 sudo apt install -y ${pkgs[@]}
 {{- end }}
 
-/bin/bash -c "$(curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh)"
+/bin/bash -c "$(curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh)" || cargo install atuin
