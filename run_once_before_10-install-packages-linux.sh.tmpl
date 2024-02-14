@@ -22,7 +22,6 @@ pkgs=(
 
 {{- if .dev }}
 pkgs+=(
-        golang
         build-essential
         make
 )
@@ -43,4 +42,5 @@ sudo apt install -y ${pkgs[@]}
 {{- end }}
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source ~/.cargo/env
 cargo install atuin
