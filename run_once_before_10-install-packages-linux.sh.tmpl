@@ -5,7 +5,6 @@
 set -eufo pipefail
 
 pkgs=(
-        curl
         dos2unix
         fzf
         git
@@ -38,11 +37,9 @@ pkgs+=(
 {{- end }}
 
 sudo apt update
-sudo apt install -y ${pkgs[@]}
+sudo apt install -y apt-utils nala
+sudo nala install -y ${pkgs[@]}
 {{- end }}
 
 /bin/bash -c "$(curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh)"
 
-#curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-#source ~/.cargo/env
-#cargo install atuin
