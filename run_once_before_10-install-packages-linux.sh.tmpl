@@ -7,6 +7,7 @@ set -eufo pipefail
 pkgs=(
         curl
         dos2unix
+        fzf
         git
         gnupg
         jq
@@ -42,4 +43,4 @@ sudo apt install -y ${pkgs[@]}
 {{- end }}
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-/bin/bash -c "$(curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh)"
+cargo install atuin
