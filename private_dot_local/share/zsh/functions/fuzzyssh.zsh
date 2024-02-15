@@ -11,15 +11,3 @@ function get-ssh() {
 zle     -N   get-ssh
 bindkey '^S' get-ssh
 
-
-function atuin-popup() {
-  cp /dev/null /tmp/tmux-atuin
-  tmux popup -d "${PWD}" -E "\$(atuin search $* -i -- $BUFFER 3>/tmp/tmux-atuin 1>&2 2>&3)" 
-  LBUFFER="$(cat /tmp/tmux-atuin)"
-}
-
-
-if [[ -v TMUX ]]; then
-  zle     -N   atuin-popup
-  bindkey '^R' atuin-popup $LBUFFER
-fi

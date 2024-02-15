@@ -4,7 +4,6 @@ ZSH_CUSTOM="${XDG_DATA_HOME}/zsh"
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:${HOME}/.local/bin:"
 [ -f ~/.zshrc_local ] && source ~/.zshrc_local
 
-theme=pure
 plugins=(
   vi-mode
   zsh-autopair
@@ -13,30 +12,18 @@ plugins=(
   gpg
   todo
   kube-ps1
-  # fuck
+  fuck
   # pentest
   {{- end }}
   zsh-syntax-highlighting
-  # zsh-history-substring-search
 )
+
+theme=pure
 
 source $ZSH_CUSTOM/sourcer.zsh                # Sets up fpaths and plugins
 source <(cat $ZSH_CUSTOM/functions/**/*.zsh)  # Sources custom functions
 source $ZSH_CUSTOM/themes/${theme}.zsh        # Sets theme
 source <(cat $ZSH_CUSTOM/aliases/**/*.zsh)    # Sources custom  aliases
 
-# Quickedit aliases
-alias zedit="chezmoi edit --apply ~/.zshrc"
-alias sedit="chezmoi edit --apply ~/.ssh/config"
-alias vedit="chezmoi edit --apply ~/.config/nvim/init.vim"
-alias tedit="chezmoi edit --apply ~/.config/tmux/tmux.conf"
-alias aedit="chezmoi edit --apply ~/.local/share/zsh/aliases"
-alias fedit="chezmoi edit --apply ~/.local/share/zsh/functions"
-
-if [[ -v TMUX ]]; then
-  eval "$(atuin init zsh --disable-up-arrow --disable-ctrl-r)"
-else
-  eval "$(atuin init zsh --disable-up-arrow)"
-fi
 
 # vim: ft=bash

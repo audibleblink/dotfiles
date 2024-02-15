@@ -4,7 +4,7 @@ function save_pane {
     local window="$(tmux display-message -p '#W')"
     local pane="$(tmux display-message -p '#P')"
     local filename="${prefix}.${session}.${window}.${pane}.log"
-    local logdir="${HOME}/Documents/tmux"
+    local logdir="${XDG_STATE_HOME}/tmux"
     [[ -d "${logdir}" ]] || mkdir -p "${logdir}"
     tmux capture-pane -pS - > "${logdir}/${filename}"
 }
@@ -21,6 +21,8 @@ function extract {
                 *.tar.bz2)   tar xvjf ../$1    ;;
                 *.tar.gz)    tar xvzf ../$1    ;;
                 *.tar.xz)    tar xvJf ../$1    ;;
+                *.tar.zst)   tar xaf ../$1     ;;
+                *.zst)       zstd -d ../$1     ;;
                 *.lzma)      unlzma ../$1      ;;
                 *.bz2)       bunzip2 ../$1     ;;
                 *.rar)       unrar x -ad ../$1 ;;

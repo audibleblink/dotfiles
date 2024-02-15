@@ -37,3 +37,5 @@ alias ka='k apply'
 alias kaf='ka -f'
 alias kak='ka -k'
 alias kns='k config set-context --current --namespace'
+
+
