@@ -3,16 +3,14 @@ local plugins = {
   {
     "folke/noice.nvim",
     event = "VeryLazy",
-    opts = {
-      -- add any options here
-    },
+    opts = { },
     dependencies = {
       -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
       "MunifTanjim/nui.nvim",
       -- OPTIONAL:
       --   `nvim-notify` is only needed, if you want to use the notification view.
       --   If not available, we use `mini` as the fallback
-      "rcarriga/nvim-notify",
+      -- "rcarriga/nvim-notify",
       }
   },
 
@@ -63,15 +61,19 @@ local plugins = {
     end,
   },
 
+  {
+    "Pocco81/auto-save.nvim",
+    lazy = false,
+    event = { "InsertLeave", "TextChanged" } 
+  },
+
   { "christoomey/vim-tmux-navigator" , lazy = false },
   { "tpope/vim-sleuth"               , lazy = false },
   { "tpope/vim-surround"             , lazy = false },
   { "junegunn/goyo.vim"              , lazy = false },
   { "justinmk/vim-sneak"             , lazy = false },
   { "jiangmiao/auto-pairs"           , lazy = false },
-  { "lewis6991/gitsigns.nvim"        , lazy = false },
   { "tpope/vim-fugitive"             , lazy = false },
-
 }
 
 return plugins
