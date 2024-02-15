@@ -5,7 +5,6 @@ else
 fi
 
 alias e="${EDITOR}"
-alias cm="chezmoi"
 alias reload="source ~/.zshrc"
 
 ############
