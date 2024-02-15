@@ -15,6 +15,7 @@
       "go",
       "rust",
       "ruby",
+      "python",
     },
   }
 

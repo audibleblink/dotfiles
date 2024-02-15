@@ -138,6 +138,9 @@ common_subcommands = [
  "yarn",
  "pnpm",
  "kubectl",
+ "k",
+ "docker",
+ "helm",
 ]
 # 
 # Set commands that should be totally stripped and ignored from stats
