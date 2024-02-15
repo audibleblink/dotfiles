@@ -1,12 +1,6 @@
 PLUGINS=$ZSH_CUSTOM/plugins/
 mkdir $ZSH &>/dev/null
 
-function is_plugin {
-  local base_dir=$1
-  local name=$2
-  test -f $base_dir/plugins/$name/$name.plugin.zsh || test -f $base_dir/plugins/$name/_$name
-}
-
 # Load all stock functions (from $fpath files) called below.
 autoload -U compaudit compinit
 
@@ -16,13 +10,8 @@ if [[ -z "$ZSH_CACHE_DIR" ]]; then
   ZSH_CACHE_DIR="$ZSH/cache/"
 fi
 
-# Reset fpath and add all defined plugins
+# Reset fpath and add completions
 fpath=($(zsh -l -c 'echo $fpath'))
-for plugin in $plugins; do
-  if is_plugin $ZSH_CUSTOM $plugin; then
-    fpath=($ZSH_CUSTOM/plugins/$plugin $fpath)
-  fi
-done
 fpath=($ZSH_CUSTOM/completions $fpath)
 
 # Save the location of the current completion dump file.
