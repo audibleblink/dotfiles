@@ -1,0 +1,7 @@
+# recursive fzf search for directory to change into
+#
+local file
+local dir
+file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+
+# vim: ft=zsh

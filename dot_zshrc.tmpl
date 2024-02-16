@@ -25,13 +25,13 @@ SAVEHIST=10000
 # ]]]
 
 plugins=(
+  # evalcache
   vi-mode
   zsh-autopair
 
   {{- if (.personal) }}
   gpg
   todo
-  kube-ps1
   atuin
   fuck
   # pentest
@@ -41,9 +41,8 @@ plugins=(
 
 theme=pure
 source $ZSH_CUSTOM/themes/${theme}.zsh  # Sets theme
-autoload -Uz $ZSH_CUSTOM/functions/**/* # Sources custom functions
-source "${ZSH_CUSTOM}/aliases.zsh"      # Sources custom  aliases
-source "${ZSH_CUSTOM}/key-bindings.zsh" # Sources custom  aliases
+source "${ZSH_CUSTOM}/aliases.zsh"      # Sources custom aliases
+source "${ZSH_CUSTOM}/key-bindings.zsh" # Sources custom bindings
 source $ZSH_CUSTOM/sourcer.zsh          # Sets up fpaths and plugins
 
 [ -f ~/.zshrc_local ] && source ~/.zshrc_local

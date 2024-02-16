@@ -33,6 +33,7 @@ alias kgas='kga svc'
 alias kgp='kg pod'
 alias kgs='kg svc'
 alias kns='k config set-context --current --namespace'
+alias kcli="source <(echo RPROMPT='\$(kube_ps1)')"
 # ]]]
 # Chezmoi [[[
 alias cm="chezmoi"
