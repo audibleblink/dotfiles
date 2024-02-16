@@ -35,15 +35,11 @@ alias kgs='kg svc'
 alias kns='k config set-context --current --namespace'
 # ]]]
 # Chezmoi [[[
-
-
-
 alias cm="chezmoi"
 alias cma="cm edit --apply"
 
-alias aedit="cma ~/.local/share/zsh/aliases/090_general.zsh"
+alias aedit="cma ~/.local/share/zsh/aliases.zsh"
 alias tedit="cma ~/.config/tmux/tmux.conf"
-alias vedit="cma ~/.config/nvim/init.vim"
 alias zedit="cma ~/.zshrc"
 # ]]]
 # Coding [[[
@@ -103,9 +99,10 @@ unfunction grep-flag-available
 
 # ]]]
 
+alias vedit="e ${XDG_CONFIG_HOME}/nvim/lua/custom/plugins.lua +NvimTreeToggle"
+alias -g open=xdg-openk
 alias -g e="${EDITOR}"
 alias reload="source ~/.zshrc"
 type tree &>/dev/null && alias tree='LS_COLORS="di=34:ln=35:so=32;40:ex=31" tree'
-alias -g open=xdg-open
 
 # vim: ft=zsh foldmarker=[[[,]]] foldlevelstart=0 foldmethod=marker spell:

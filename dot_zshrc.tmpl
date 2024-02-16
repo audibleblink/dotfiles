@@ -1,13 +1,14 @@
 ZSH="${XDG_STATE_HOME}/zsh"
 ZSH_CUSTOM="${XDG_DATA_HOME}/zsh"
 
-# Navigation
+# Navigation [[[
 setopt auto_pushd
 setopt pushd_ignore_dups
 setopt pushdminus
 setopt AUTO_CD
+# ]]]
 
-# History
+# History [[[
 setopt append_history
 setopt extended_history
 setopt hist_expire_dups_first
@@ -21,6 +22,7 @@ if [ -z "$HISTFILE" ]; then
 fi
 HISTSIZE=10000
 SAVEHIST=10000
+# ]]]
 
 plugins=(
   vi-mode
@@ -38,12 +40,12 @@ plugins=(
 )
 
 theme=pure
-source $ZSH_CUSTOM/themes/${theme}.zsh        # Sets theme
-autoload -Uz $ZSH_CUSTOM/functions/**/*  # Sources custom functions
-source "${ZSH_CUSTOM}/aliases.zsh"    # Sources custom  aliases
-source "${ZSH_CUSTOM}/key-bindings.zsh"    # Sources custom  aliases
-source $ZSH_CUSTOM/sourcer.zsh                # Sets up fpaths and plugins
+source $ZSH_CUSTOM/themes/${theme}.zsh  # Sets theme
+autoload -Uz $ZSH_CUSTOM/functions/**/* # Sources custom functions
+source "${ZSH_CUSTOM}/aliases.zsh"      # Sources custom  aliases
+source "${ZSH_CUSTOM}/key-bindings.zsh" # Sources custom  aliases
+source $ZSH_CUSTOM/sourcer.zsh          # Sets up fpaths and plugins
 
 [ -f ~/.zshrc_local ] && source ~/.zshrc_local
 
-# vim: ft=zsh
+# vim: ft=zsh foldmarker=[[[,]]] foldlevelstart=0 foldmethod=marker 
