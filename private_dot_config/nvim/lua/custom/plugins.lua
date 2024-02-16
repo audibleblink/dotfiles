@@ -10,7 +10,7 @@ local plugins = {
       -- OPTIONAL:
       --   `nvim-notify` is only needed, if you want to use the notification view.
       --   If not available, we use `mini` as the fallback
-      -- "rcarriga/nvim-notify",
+      "rcarriga/nvim-notify",
       }
   },
 
@@ -88,6 +88,7 @@ local plugins = {
   { "justinmk/vim-sneak"             , lazy = false },
   { "jiangmiao/auto-pairs"           , lazy = false },
   { "tpope/vim-fugitive"             , lazy = false },
+  { "github/copilot.vim"             , lazy = false },
 }
 
 return plugins

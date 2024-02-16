@@ -20,10 +20,15 @@ M._MyBinds = {
   i = {
     ["jk"] = { "<ESC>", "escape insert mode" , opts = { nowait = true }},
     ["jj"] = { "<ESC>", "escape insert mode" , opts = { nowait = true }},
+    ["C-j"] = { 'copilot#Accept("\\<CR>")', "Trigget Copilot" , opts = { nowait = true }},
     -- ...
   }
 }
 
+        vim.keymap.set('i', '<C-J>', 'copilot#Accept("\\<CR>")', {
+          expr = true,
+          replace_keycodes = false
+        })
 
 M.disabled = {
   n = {
