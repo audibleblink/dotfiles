@@ -1,3 +1,5 @@
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:${HOME}/.local/bin:"
+
 export LANG=en_US.utf-8
 
 export XDG_CONFIG_HOME="${HOME}/.config"
@@ -6,4 +8,17 @@ export XDG_DATA_HOME="${HOME}/.local/share"
 export XDG_STATE_HOME="${HOME}/.local/state"
 {{- if (eq .chezmoi.os "darwin" ) }}
 export XDG_RUNTIME_DIR=/private/tmp
+eval "$(/opt/homebrew/bin/brew shellenv)"
 {{- end }}
+
+if [ -f "${XDG_DATA_HOME}"/gvm/scripts/gvm-default ]; then
+  GVM_ROOT="${XDG_DATA_HOME}/gvm"
+  source "${XDG_DATA_HOME}"/gvm/scripts/gvm-default
+  typeset -U PATH path
+fi
+
+if type nvim > /dev/null; then
+  export EDITOR="$(which nvim)"
+else
+  export EDITOR="$(which vim)"
+fi

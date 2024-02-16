@@ -1,0 +1,6 @@
+# browse snippits
+
+local file="$HOME/.snippets"
+sed -e '/^#/d' -e '/^$/d' $file | fzf-tmux | cut -d '!' -f 2 | ccopy
+
+# vim: ft=zsh

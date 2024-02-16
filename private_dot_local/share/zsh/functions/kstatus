@@ -1,0 +1,10 @@
+# sets rprompt for k8s namespaces
+
+if [[ -n RPROMPT ]] 
+then
+  unset RPROMPT
+else
+  echo RPROMPT='$(kube_ps)'
+fi
+
+# vim: ft=zsh

@@ -1,0 +1,19 @@
+## unifies clipboard functionality between linux and macos
+
+emulate -L zsh
+if [[ $OSTYPE == darwin* ]]; then
+  pbpaste
+elif [[ $OSTYPE == cygwin* ]]; then
+  cat /dev/clipboard
+else
+  if type &>/dev/null xclip &>/dev/null; then
+    xclip -out -selection clipboard
+  elif type &>/dev/null xsel &>/dev/null; then
+    xsel --clipboard --output
+  else
+    print "clipcopy: Platform $OSTYPE not supported or xclip/xsel not installed" >&2
+    return 1
+  fi
+fi
+
+# vim: ft=zsh

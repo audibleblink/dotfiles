@@ -1,0 +1,8 @@
+# clone a repo and cd into it
+
+url=$1
+reponame=$(echo $url | awk -F/ '{print $NF}' | sed -e 's/.git$//')
+git clone $url $reponame
+cd $reponame
+
+# vim: ft=zsh
