@@ -10,9 +10,10 @@ if [[ -z "$ZSH_CACHE_DIR" ]]; then
   ZSH_CACHE_DIR="$ZSH/cache/"
 fi
 
-# Reset fpath and add completions
+# Reset fpath and add functions and completions
 fpath=($(zsh -l -c 'echo $fpath'))
-fpath=($ZSH_CUSTOM/completions $fpath)
+fpath=($ZSH_CUSTOM/{completions,functions} $fpath)
+autoload -Uz $ZSH_CUSTOM/functions/**/* # Sources custom functions
 
 # Save the location of the current completion dump file.
 ZSH_COMPDUMP="${ZSH}/zcompdump-${ZSH_VERSION}"
