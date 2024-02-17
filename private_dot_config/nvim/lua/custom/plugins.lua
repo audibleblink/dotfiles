@@ -1,6 +1,8 @@
+# vim: ft=bash foldmarker=[[[,]]] foldlevelstart=0 foldmethod=marker spell:
+
 local plugins = {
 
-  {
+  { -- Noice [[[
     "folke/noice.nvim",
     event = "VeryLazy",
     opts = { },
@@ -13,8 +15,8 @@ local plugins = {
       -- "rcarriga/nvim-notify",
       }
   },
-
-  {
+-- ]]]
+  { -- [[[ TreeSitter
     "nvim-treesitter/nvim-treesitter",
     opts = function()
       local conf = require "plugins.configs.treesitter"
@@ -23,8 +25,8 @@ local plugins = {
       return conf
     end,
   },
-
-  {
+-- ]]]
+  { -- lspConfig [[[ 
     "neovim/nvim-lspconfig",
     dependencies = {
       "jose-elias-alvarez/null-ls.nvim",
@@ -36,16 +38,16 @@ local plugins = {
       require "custom.configs.lspconfig"
     end,
   },
-
-  {
+-- ]]]
+  { -- EasyAlign [[[ 
     "junegunn/vim-easy-align",
     keys = {
       { "ga" , "<Plug>(EasyAlign)"    , desc = "EasyAlign" , mode = "x" } ,
       { "ga" , "<Plug>(EasyAlign)"    , desc = "EasyAlign" , mode = "v" } ,
     }
   },
-
-  {
+-- ]]]
+  { -- SymbolsOutline [[[ 
     "simrat39/symbols-outline.nvim",
     cmd = "SymbolsOutline",
     keys = { { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
@@ -54,16 +56,16 @@ local plugins = {
       require "custom.configs.symbols-outline"
     end,
   },
-
-  {
+-- ]]]
+  { -- Mason [[[ 
     "williamboman/mason-lspconfig.nvim",
     lazy = false,
     opts = function()
       require "custom.configs.mason"
     end,
   },
-
-  {
+-- ]]]
+  { -- AutoSave [[[ 
     "okuuva/auto-save.nvim",
     cmd = "ASToggle", -- optional for lazy loading on command
     event = { "InsertLeave" }, -- optional for lazy loading on trigger events
@@ -75,8 +77,8 @@ local plugins = {
       debounce_delay = 2000
     },
   },
-
-  {
+-- ]]]
+  { -- NvimTree [[[ 
     "nvim-tree/nvim-tree.lua",
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
     init = function()
@@ -88,6 +90,8 @@ local plugins = {
       require("nvim-tree").setup(opts)
     end,
   },
+-- ]]]
+
   { "christoomey/vim-tmux-navigator" , lazy = false },
   { "tpope/vim-sleuth"               , lazy = false },
   { "tpope/vim-surround"             , lazy = false },
@@ -96,6 +100,7 @@ local plugins = {
   { "jiangmiao/auto-pairs"           , lazy = false },
   { "tpope/vim-fugitive"             , lazy = false },
   { "github/copilot.vim"             , lazy = false },
+
 }
 
 return plugins
