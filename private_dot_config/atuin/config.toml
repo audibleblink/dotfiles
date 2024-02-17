@@ -132,7 +132,6 @@ enter_accept = false
 # Set commands where we should consider the subcommand for statistics. Eg, kubectl get vs just kubectl
 common_subcommands = [
  "cargo",
- "go",
  "git",
  "npm",
  "yarn",
