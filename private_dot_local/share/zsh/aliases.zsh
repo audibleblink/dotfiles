@@ -100,8 +100,7 @@ unfunction grep-flag-available
 
 # ]]]
 
-alias vedit="e ${XDG_CONFIG_HOME}/nvim/lua/custom/plugins.lua +NvimTreeToggle"
-alias -g open=xdg-openk
+alias -g open=xdg-open
 alias -g e="${EDITOR}"
 alias reload="source ~/.zshrc"
 type tree &>/dev/null && alias tree='LS_COLORS="di=34:ln=35:so=32;40:ex=31" tree'
