@@ -92,15 +92,15 @@ local plugins = {
   },
 -- ]]]
 
-  { "christoomey/vim-tmux-navigator" , lazy = false },
-  { "tpope/vim-sleuth"               , lazy = false },
-  { "tpope/vim-surround"             , lazy = false },
-  { "junegunn/goyo.vim"              , lazy = false },
-  { "justinmk/vim-sneak"             , lazy = false },
-  { "jiangmiao/auto-pairs"           , lazy = false },
-  { "tpope/vim-fugitive"             , lazy = false },
-  { "github/copilot.vim"             , lazy = false },
+  { "tpope/vim-sleuth"      , lazy = false },
+  { "tpope/vim-surround"    , lazy = false },
+  { "junegunn/goyo.vim"     , lazy = false },
+  { "justinmk/vim-sneak"    , lazy = false },
+  { "jiangmiao/auto-pairs"  , lazy = false },
+  { "tpope/vim-fugitive"    , lazy = false },
+  { "github/copilot.vim"    , lazy = false },
 
+  { "christoomey/vim-tmux-navigator" , lazy = false },
 }
 
 return plugins
