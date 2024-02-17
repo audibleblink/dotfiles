@@ -10,14 +10,17 @@ local plugins = {
       -- OPTIONAL:
       --   `nvim-notify` is only needed, if you want to use the notification view.
       --   If not available, we use `mini` as the fallback
-      "rcarriga/nvim-notify",
+      -- "rcarriga/nvim-notify",
       }
   },
 
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function()
-      require "custom.configs.treesitter"
+      local conf = require "plugins.configs.treesitter"
+      local custom = require "custom.configs.treesitter"
+      conf.ensure_installed = custom.ensure_installed
+      return conf
     end,
   },
 
@@ -30,7 +33,6 @@ local plugins = {
       end,
     },
     config = function()
-      require "plugins.configs.lspconfig"
       require "custom.configs.lspconfig"
     end,
   },
@@ -62,9 +64,16 @@ local plugins = {
   },
 
   {
-    "Pocco81/auto-save.nvim",
-    lazy = false,
-    event = { "InsertLeave", "TextChanged" } 
+    "okuuva/auto-save.nvim",
+    cmd = "ASToggle", -- optional for lazy loading on command
+    event = { "InsertLeave" }, -- optional for lazy loading on trigger events
+    opts = {
+      trigger_events = {
+        immediate_save = { "BufLeave" }, -- vim events that trigger an immediate save
+        defer_save = { "InsertLeave" }, -- vim events that trigger a deferred save (saves after `debounce_delay`)
+      },
+      debounce_delay = 2000
+    },
   },
 
   {
@@ -73,9 +82,7 @@ local plugins = {
     init = function()
       require("core.utils").load_mappings "nvimtree"
     end,
-    opts = function()
-      return require "custom.configs.nvimtree"
-    end,
+    opts = require "custom.configs.nvimtree",
     config = function(_, opts)
       dofile(vim.g.base46_cache .. "nvimtree")
       require("nvim-tree").setup(opts)

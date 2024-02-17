@@ -20,8 +20,7 @@ M._MyBinds = {
   i = {
     ["jk"] = { "<ESC>", "escape insert mode" , opts = { nowait = true }},
     ["jj"] = { "<ESC>", "escape insert mode" , opts = { nowait = true }},
-    ["C-j"] = { 'copilot#Accept("\\<CR>")', "Trigget Copilot" , opts = { nowait = true }},
-    -- ...
+    ["C-j"] = { 'copilot#Accept("\\<CR>")', "Trigger Copilot" , opts = { nowait = true }},
   }
 }
 
@@ -38,3 +37,5 @@ M.disabled = {
 }
 
 return M
+
+

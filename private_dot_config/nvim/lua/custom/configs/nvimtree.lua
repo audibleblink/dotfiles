@@ -3,7 +3,7 @@ local options = {
     side = "right",
   },
   git = {
-    enable = true,
+    enable = false,
   },
   renderer = {
     icons = {

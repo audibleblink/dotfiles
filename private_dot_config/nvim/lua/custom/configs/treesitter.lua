@@ -16,6 +16,7 @@
       "rust",
       "ruby",
       "python",
+      "lua",
     },
   }
 
