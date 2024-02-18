@@ -9,6 +9,7 @@ vim.opt.scrolloff  = 8
 vim.opt.cursorline = true
 vim.opt.colorcolumn = "99"
 
+-- NvChad specific settings
 M.ui = {
   theme = 'bearded-arc',
   tabufline = { enabled = false },
