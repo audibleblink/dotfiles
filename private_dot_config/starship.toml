@@ -28,7 +28,8 @@ detect_files = [ 'kustomization.yaml', 'values.yaml']
 [character]
 disabled = false
 success_symbol = "[❯❯](bold white)"
-vicmd_symbol = "[❮❮](bold green)"
+vicmd_symbol = "[❮❮](bold white)"
+error_symbol = "[❯❯](bold red)"
 
 [directory]
 read_only = " "
@@ -39,7 +40,7 @@ format = "[$symbol$branch]($style)"
 style = "bright-black"
 
 [git_status]
-format = "[$ahead_behind$conflicted$modified$staged$untracked$renamed$deleted](bright-black) "
+format = '[$ahead_behind\[$conflicted$modified$staged$untracked$renamed$deleted\]](bright-black) '
 ahead = '[󱞿](cyan) '
 behind = '[󱞣](cyan) '
 staged = '[](green) '
