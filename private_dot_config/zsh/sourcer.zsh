@@ -1,4 +1,5 @@
-PLUGINS=$ZDOTDIR/plugins/
+# PLUGINS=$ZDOTDIR/plugins/
+ZSH=${ZDG_STATE_HOME}/zsh
 mkdir $ZSH &>/dev/null
 
 # Load all stock functions (from $fpath files) called below.

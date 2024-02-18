@@ -81,30 +81,35 @@ function prepend-sudo {
 }
 zle -N prepend-sudo
 bindkey -M vicmd s prepend-sudo
+
+zmodload -i zsh/parameter
+function last-command-output() {
+  echo "$(eval $history[$((HISTCMD-1))])" | ccopy
+}
+zle -N last-command-output
+bindkey -M vicmd yy last-command-output
 # ]]]
 
 plugins=(
   # evalcache
   vi-mode
   zsh-autopair
+  {{- if (.personal) }}
   gpg
   todo
   atuin
-  fuck
+  # fuck
   # pentest
+  {{- end }}
   zsh-syntax-highlighting
 )
 
-source "${ZDOTDIR}/aliases.zsh"      # Sources custom aliases
-source $ZDOTDIR/sourcer.zsh          # Sets up fpaths and plugins
-
-[ -f ~/.zshrc_local ] && source ~/.zshrc_local
+{{- if (eq .chezmoi.os "darwin")}}
+eval "$(/opt/homebrew/bin/brew shellenv)"
+{{- end }}
+source "${ZDOTDIR}/aliases.zsh"  # Sources custom aliases
+source "${ZDOTDIR}/sourcer.zsh"  # Sets up fpaths and plugins
 
 command -v starship > /dev/null && eval "$(starship init zsh)"
-
-if [ -f "${XDG_DATA_HOME}"/gvm/scripts/gvm-default ]; then
-  GVM_ROOT="${XDG_DATA_HOME}/gvm"
-  source "${XDG_DATA_HOME}"/gvm/scripts/gvm-default
-  typeset -U PATH path
-fi
+[ -f ~/.zshrc_local ] && source ~/.zshrc_local
 

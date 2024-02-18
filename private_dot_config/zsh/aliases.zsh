@@ -1,10 +1,10 @@
 # Directories [[[
 alias d='dirs -v'
 for index ({1..9}) alias "$index"="cd +${index}"; unset index
-alias -g .....='../../../..'
-alias -g ....='../../..'
+alias -g ..='cd ..'
 alias -g ...='../..'
-alias -g ..='..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
 alias l='ls -lthr'
 alias la='ls -lAh'
 alias ll='ls -lh'
@@ -26,7 +26,6 @@ alias kgas='kga svc'
 alias kgp='kg pod'
 alias kgs='kg svc'
 alias kns='k config set-context --current --namespace'
-alias kcli="source <(echo RPROMPT='\$(kube_ps1)')"
 # ]]]
 # Chezmoi [[[
 alias -g cm="chezmoi"
@@ -95,7 +94,7 @@ unfunction grep-flag-available
 
 alias -g open=xdg-open
 alias -g e="${EDITOR}"
-alias reload="source ${XDG_CONFIG_HOME}/zsh/.zshrc"
+alias reload="source ${ZDOTDIR}/.zshrc"
 type tree &>/dev/null && alias tree='LS_COLORS="di=34:ln=35:so=32;40:ex=31" tree'
 
 # vim: ft=zsh foldmarker=[[[,]]] foldlevelstart=0 foldmethod=marker spell:
