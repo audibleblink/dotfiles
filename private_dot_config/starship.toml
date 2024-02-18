@@ -8,6 +8,7 @@ $git_branch\
 $git_state\
 $git_status\
 $fill\
+$golang\
 $kubernetes\
 $line_break\
 $python\
@@ -38,15 +39,15 @@ format = "[$symbol$branch]($style)"
 style = "bright-black"
 
 [git_status]
-format = "[$ahead_behind $conflicted$modified$staged$untracked$renamed$deleted](bright-black) "
-ahead = '[󱞿](cyan)'
-behind = '[󱞣](cyan)'
-staged = '[](green)'
-# deleted = '[✖](red) '
-# renamed = '[➜](purple) '
-untracked = '[](white)'
-modified = '[](red)'
-conflicted = '[󰘖](red)'
+format = "[$ahead_behind$conflicted$modified$staged$untracked$renamed$deleted](bright-black) "
+ahead = '[󱞿](cyan) '
+behind = '[󱞣](cyan) '
+staged = '[](green) '
+deleted = '[✖](red) '
+renamed = '[➜](purple) '
+untracked = '[󱪝](white) '
+modified = '[](red) '
+conflicted = '[󰘖](red) '
 diverged = '⇕ '
 up_to_date = ''
 
@@ -61,3 +62,6 @@ style = "yellow"
 [python]
 format = '\($virtualenv\) '
 
+[golang]
+symbol = "[](bold blue) "
+format = "$symbol$version"
