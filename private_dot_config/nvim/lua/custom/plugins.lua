@@ -1,4 +1,4 @@
-# vim: ft=bash foldmarker=[[[,]]] foldlevelstart=0 foldmethod=marker spell:
+-- vim: ft=lua foldmarker=[[[,]]] foldlevelstart=0 foldmethod=marker spell:
 
 local plugins = {
 
