@@ -8,8 +8,13 @@ setopt auto_pushd
 setopt pushd_ignore_dups
 setopt pushdminus
 setopt auto_cd
-setopt menu_complete
+# case-insensitive globbing (used in pathname expansion)
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+# sort completions by when they were last used
+zstyle ':completion:*:*:*:*' file-sort modification
+# enable cycling through completions 
+zstyle ':completion:*' menu select
+
 
 # ]]]
 
