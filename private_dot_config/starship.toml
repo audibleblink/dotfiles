@@ -1,6 +1,5 @@
 format = """
 $jobs\
-$battery\
 $username\
 $hostname\
 $directory\
@@ -20,16 +19,14 @@ $cmd_duration """
 [fill]
 symbol = " "
 
-[kubernetes]
-disabled = false
-format = "[$symbol$namespace](blue)"
-detect_files = [ 'kustomization.yaml', 'values.yaml']
+[username]
+format = "[$user]($style)"
+style_user = "yellow"
 
-[character]
-disabled = false
-success_symbol = "[❯❯](bold white)"
-vicmd_symbol = "[❮❮](bold white)"
-error_symbol = "[❯❯](bold red)"
+[hostname]
+ssh_symbol = "󰒍 "
+style = "green"
+format = "[@$hostname $ssh_symbol]($style)"
 
 [directory]
 read_only = " "
@@ -56,6 +53,11 @@ up_to_date = ''
 format = '\([$state( $progress_current/$progress_total)]($style)\) '
 style = "bright-black"
 
+[kubernetes]
+disabled = false
+format = "[$symbol$namespace](blue)"
+detect_files = [ 'kustomization.yaml', 'values.yaml']
+
 [cmd_duration]
 format = "[$duration]($style) "
 style = "yellow"
@@ -66,3 +68,9 @@ format = '\($virtualenv\) '
 [golang]
 symbol = "[](bold blue) "
 format = "$symbol$version"
+
+[character]
+disabled = false
+success_symbol = "[❯❯](bold white)"
+vicmd_symbol = "[❮❮](bold white)"
+error_symbol = "[❯❯](bold red)"
