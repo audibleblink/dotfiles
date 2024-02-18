@@ -38,3 +38,10 @@ function get-ssh() {
 zle     -N   get-ssh
 bindkey '^S' get-ssh
 
+# Creates a new tmux window with a floating terminal
+function floats() {
+  tmux popup -E 
+}
+zle     -N   floats
+bindkey '^[i' floats
+
