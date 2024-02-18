@@ -24,3 +24,4 @@ for plugin in $plugins; do
   thing=$ZSH_CUSTOM/plugins/$plugin/$plugin.plugin.zsh
   [ -f $thing ] && source $thing
 done
+

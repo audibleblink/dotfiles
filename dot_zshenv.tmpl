@@ -12,12 +12,6 @@ export XDG_RUNTIME_DIR=/private/tmp
 eval "$(/opt/homebrew/bin/brew shellenv)"
 {{- end }}
 
-if [ -f "${XDG_DATA_HOME}"/gvm/scripts/gvm-default ]; then
-  GVM_ROOT="${XDG_DATA_HOME}/gvm"
-  source "${XDG_DATA_HOME}"/gvm/scripts/gvm-default
-  typeset -U PATH path
-fi
-
 if type nvim > /dev/null; then
   export EDITOR="$(which nvim)"
 else

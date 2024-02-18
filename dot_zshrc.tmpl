@@ -1,3 +1,5 @@
+# vim: ft=zsh foldmarker=[[[,]]] foldlevelstart=0 foldmethod=marker 
+#
 ZSH="${XDG_STATE_HOME}/zsh"
 ZSH_CUSTOM="${XDG_DATA_HOME}/zsh"
 
@@ -5,7 +7,10 @@ ZSH_CUSTOM="${XDG_DATA_HOME}/zsh"
 setopt auto_pushd
 setopt pushd_ignore_dups
 setopt pushdminus
-setopt AUTO_CD
+setopt auto_cd
+setopt menu_complete
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
 # ]]]
 
 # History [[[
@@ -20,8 +25,8 @@ setopt share_history # share command history data
 if [ -z "$HISTFILE" ]; then
   HISTFILE="${ZSH}/history"
 fi
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=100000
+SAVEHIST=100000
 # ]]]
 
 plugins=(
@@ -39,8 +44,6 @@ plugins=(
   zsh-syntax-highlighting
 )
 
-theme=pure
-source $ZSH_CUSTOM/themes/${theme}.zsh  # Sets theme
 source "${ZSH_CUSTOM}/aliases.zsh"      # Sources custom aliases
 source "${ZSH_CUSTOM}/key-bindings.zsh" # Sources custom bindings
 source $ZSH_CUSTOM/sourcer.zsh          # Sets up fpaths and plugins
@@ -48,4 +51,13 @@ source $ZSH_CUSTOM/sourcer.zsh          # Sets up fpaths and plugins
 [ -f ~/.zshrc_local ] && source ~/.zshrc_local
 
 
-# vim: ft=zsh foldmarker=[[[,]]] foldlevelstart=0 foldmethod=marker 
+command -v starship > /dev/null && eval "$(starship init zsh)"
+command -v atuin > /dev/null && eval "$(atuin init zsh)"
+command -v zoxide > /dev/null && eval "$(zoxide init zsh)"
+
+if [ -f "${XDG_DATA_HOME}"/gvm/scripts/gvm-default ]; then
+  GVM_ROOT="${XDG_DATA_HOME}/gvm"
+  source "${XDG_DATA_HOME}"/gvm/scripts/gvm-default
+  typeset -U PATH path
+fi
+
