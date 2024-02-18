@@ -4,13 +4,13 @@
     stripComponents = 1
     refreshPeriod = "168h"
 
-[".local/share/zsh/plugins/zsh-autopair"]
+[".config/zsh/plugins/zsh-autopair"]
     type = "archive"
     url = "https://github.com/hlissner/zsh-autopair/archive/refs/tags/v1.0.tar.gz"
     exact = true
     stripComponents = 1
 
-[".local/share/zsh/plugins/zsh-syntax-highlighting"]
+[".config/zsh/plugins/zsh-syntax-highlighting"]
     type = "archive"
     url = "https://github.com/zsh-users/zsh-syntax-highlighting/archive/refs/tags/0.8.0.tar.gz"
     exact = true
