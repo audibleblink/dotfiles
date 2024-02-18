@@ -1,3 +1,5 @@
+# vim: ft=zsh
+
 export LANG=en_US.utf-8
 
 export XDG_CONFIG_HOME="${HOME}/.config"
@@ -8,12 +10,8 @@ export XDG_STATE_HOME="${HOME}/.local/state"
 export XDG_RUNTIME_DIR=/private/tmp
 {{- end }}
 
-export EDITOR="$(which vi)"
-export VISUAL="$(which vi)"
-command -v vim > /dev/null && export EDITOR="$(which vim)"
-command -v vim > /dev/null && export VISUAL="$(which vim)"
-command -v nvim > /dev/null && export EDITOR="$(which nvim)"
-command -v nvim > /dev/null && export VISUAL="$(which nvim)"
+export EDITOR=$(command -v nvim || command -v vim || command -v vi)
+export VISUAL=$EDITOR
 
 HISTFILE="${XDG_STATE_HOME}/zsh/history"
 ZDOTDIR="${XDG_CONFIG_HOME}/zsh"

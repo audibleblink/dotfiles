@@ -1,3 +1,5 @@
 cd "${XDG_CONFIG_HOME}/nvim/lua/custom"
-nvim plugins.lua +NvimTreeToggle
+nvim chadrc.lua +NvimTreeToggle
 chezmoi add --recursive .
+chezmoi apply -k
+cd -
