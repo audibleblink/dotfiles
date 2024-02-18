@@ -1,6 +1,4 @@
-zmodload zsh/zprof
-export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:${HOME}/.local/bin:"
-
+ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 export LANG=en_US.utf-8
 
 export XDG_CONFIG_HOME="${HOME}/.config"
@@ -9,11 +7,13 @@ export XDG_DATA_HOME="${HOME}/.local/share"
 export XDG_STATE_HOME="${HOME}/.local/state"
 {{- if (eq .chezmoi.os "darwin" ) }}
 export XDG_RUNTIME_DIR=/private/tmp
-eval "$(/opt/homebrew/bin/brew shellenv)"
 {{- end }}
 
-if type nvim > /dev/null; then
-  export EDITOR="$(which nvim)"
-else
-  export EDITOR="$(which vim)"
-fi
+export EDITOR="$(which vi)"
+export VISUAL="$(which vi)"
+command -v vim > /dev/null && export EDITOR="$(which vim)"
+command -v vim > /dev/null && export VISUAL="$(which vim)"
+command -v nvim > /dev/null && export EDITOR="$(which nvim)"
+command -v nvim > /dev/null && export VISUAL="$(which nvim)"
+
+# export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:${HOME}/.local/bin:"

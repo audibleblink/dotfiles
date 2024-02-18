@@ -36,12 +36,12 @@ alias kns='k config set-context --current --namespace'
 alias kcli="source <(echo RPROMPT='\$(kube_ps1)')"
 # ]]]
 # Chezmoi [[[
-alias cm="chezmoi"
-alias cma="cm edit --apply"
+alias -g cm="chezmoi"
+alias cme="cm edit --apply"
 
-alias aedit="cma ~/.local/share/zsh/aliases.zsh"
-alias tedit="cma ~/.config/tmux/tmux.conf"
-alias zedit="cma ~/.zshrc"
+alias aedit="chezmoi edit --apply ${ZDOTDIR}/aliases.zsh"
+alias tedit="chezmoi edit --apply ${XDG_CONFIG_HOME}/tmux/tmux.conf"
+alias zedit="chezmoi edit --apply ${ZDOTDIR}/.zshrc"
 # ]]]
 # Coding [[[
 alias asi='find . -not -iwholename "*node_modules*" -type f -name *.js | xargs fixmyjs --legacy'
@@ -102,7 +102,7 @@ unfunction grep-flag-available
 
 alias -g open=xdg-open
 alias -g e="${EDITOR}"
-alias reload="source ~/.zshrc"
+alias reload="source ${XDG_CONFIG_HOME}/zsh/.zshrc"
 type tree &>/dev/null && alias tree='LS_COLORS="di=34:ln=35:so=32;40:ex=31" tree'
 
 # vim: ft=zsh foldmarker=[[[,]]] foldlevelstart=0 foldmethod=marker spell:
