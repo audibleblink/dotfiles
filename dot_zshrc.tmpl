@@ -50,9 +50,7 @@ source $ZSH_CUSTOM/sourcer.zsh          # Sets up fpaths and plugins
 
 [ -f ~/.zshrc_local ] && source ~/.zshrc_local
 
-
 command -v starship > /dev/null && eval "$(starship init zsh)"
-command -v atuin > /dev/null && eval "$(atuin init zsh)"
 command -v zoxide > /dev/null && eval "$(zoxide init zsh)"
 
 if [ -f "${XDG_DATA_HOME}"/gvm/scripts/gvm-default ]; then
