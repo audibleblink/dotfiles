@@ -1,0 +1,63 @@
+format = """
+$jobs\
+$battery\
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$fill\
+$kubernetes\
+$line_break\
+$python\
+$character"""
+
+right_format = """
+$cmd_duration """
+
+[fill]
+symbol = " "
+
+[kubernetes]
+disabled = false
+format = "[$symbol$namespace](blue)"
+detect_files = [ 'kustomization.yaml', 'values.yaml']
+
+[character]
+disabled = false
+success_symbol = "[❯❯](bold white)"
+vicmd_symbol = "[❮❮](bold green)"
+
+[directory]
+read_only = " "
+style = "blue"
+
+[git_branch]
+format = "[$symbol$branch]($style)"
+style = "bright-black"
+
+[git_status]
+format = "[$ahead_behind $conflicted$modified$staged$untracked$renamed$deleted](bright-black) "
+ahead = '[󱞿](cyan)'
+behind = '[󱞣](cyan)'
+staged = '[](green)'
+# deleted = '[✖](red) '
+# renamed = '[➜](purple) '
+untracked = '[](white)'
+modified = '[](red)'
+conflicted = '[󰘖](red)'
+diverged = '⇕ '
+up_to_date = ''
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "bright-black"
+
+[cmd_duration]
+format = "[$duration]($style) "
+style = "yellow"
+
+[python]
+format = '\($virtualenv\) '
+
