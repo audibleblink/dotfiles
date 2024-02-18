@@ -2,7 +2,7 @@
 # the LBUFFER then gets set to the contects of that file.
 function atuin-popup() {
   cp /dev/null /tmp/tmux-atuin
-  tmux popup -d "${PWD}" -E "\$(atuin search $* -i -- $BUFFER 3>/tmp/tmux-atuin 1>&2 2>&3)" 
+  tmux popup -d "${PWD}" -E "\$(ATUIN_SESSION=$ATUIN_SESSION atuin search $* -i -- $BUFFER 3>/tmp/tmux-atuin 1>&2 2>&3)" 
   LBUFFER="$(cat /tmp/tmux-atuin)"
 }
 
