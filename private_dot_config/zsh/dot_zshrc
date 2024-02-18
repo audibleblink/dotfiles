@@ -1,0 +1,62 @@
+# vim: ft=zsh foldmarker=[[[,]]] foldlevelstart=0 foldmethod=marker 
+
+ZSH="${XDG_STATE_HOME}/zsh"
+
+# Navigation [[[
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt pushdminus
+setopt auto_cd
+# case-insensitive globbing (used in pathname expansion)
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+# sort completions by when they were last used
+zstyle ':completion:*:*:*:*' file-sort modification
+# enable cycling through completions 
+zstyle ':completion:*' menu select
+
+
+# ]]]
+
+# History [[[
+setopt append_history
+setopt extended_history
+setopt hist_expire_dups_first
+setopt hist_ignore_dups # ignore duplication command history list
+setopt hist_ignore_space
+setopt hist_verify
+setopt inc_append_history
+setopt share_history # share command history data
+if [ -z "$HISTFILE" ]; then
+  HISTFILE="${ZSH}/history"
+fi
+HISTSIZE=100000
+SAVEHIST=100000
+# ]]]
+
+plugins=(
+  # evalcache
+  vi-mode
+  zsh-autopair
+  gpg
+  todo
+  atuin
+  fuck
+  # pentest
+  zsh-syntax-highlighting
+)
+
+source "${ZDOTDIR}/aliases.zsh"      # Sources custom aliases
+source "${ZDOTDIR}/key-bindings.zsh" # Sources custom bindings
+source $ZDOTDIR/sourcer.zsh          # Sets up fpaths and plugins
+
+[ -f ~/.zshrc_local ] && source ~/.zshrc_local
+
+command -v starship > /dev/null && eval "$(starship init zsh)"
+command -v zoxide > /dev/null && eval "$(zoxide init zsh)"
+
+if [ -f "${XDG_DATA_HOME}"/gvm/scripts/gvm-default ]; then
+  GVM_ROOT="${XDG_DATA_HOME}/gvm"
+  source "${XDG_DATA_HOME}"/gvm/scripts/gvm-default
+  typeset -U PATH path
+fi
+
