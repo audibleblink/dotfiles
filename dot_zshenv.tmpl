@@ -16,4 +16,5 @@ command -v vim > /dev/null && export VISUAL="$(which vim)"
 command -v nvim > /dev/null && export EDITOR="$(which nvim)"
 command -v nvim > /dev/null && export VISUAL="$(which nvim)"
 
+export cdpath=( . ${XDG_CONFIG_HOME}  ${HOME} )
 # export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:${HOME}/.local/bin:"
