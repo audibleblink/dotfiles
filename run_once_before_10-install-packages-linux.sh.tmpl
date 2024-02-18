@@ -42,5 +42,8 @@ sudo apt install -y apt-utils nala
 sudo nala install -t experimental -y ${pkgs[@]}
 {{- end }}
 
+
+# installs atuin and starship
 /bin/bash -c "$(curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh)"
+curl -sS https://starship.rs/install.sh | sh
 
