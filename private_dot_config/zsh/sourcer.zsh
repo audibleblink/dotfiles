@@ -14,7 +14,7 @@ fi
 # Reset fpath and add functions and completions
 fpath=($(zsh -l -c 'echo $fpath'))
 fpath=($ZDOTDIR/{completions,functions} $fpath)
-autoload -Uz $ZDOTDIR/functions/**/* # Sources custom functions
+autoload -Uz $ZDOTDIR/functions/**/*
 
 # Save the location of the current completion dump file.
 ZSH_COMPDUMP="${ZSH}/zcompdump-${ZSH_VERSION}"
