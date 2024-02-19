@@ -8,6 +8,7 @@ export XDG_DATA_HOME="${HOME}/.local/share"
 export XDG_STATE_HOME="${HOME}/.local/state"
 {{- if (eq .chezmoi.os "darwin" ) }}
 export XDG_RUNTIME_DIR=/private/tmp
+PATH="${PATH}:/opt/homebrew/bin"
 {{- end }}
 
 export EDITOR=$(command -v nvim || command -v vim || command -v vi)
@@ -15,3 +16,4 @@ export VISUAL=$EDITOR
 
 ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 HISTFILE="${XDG_STATE_HOME}/zsh/history"
+PATH="${PATH}:${HOME}/.local/bin"
