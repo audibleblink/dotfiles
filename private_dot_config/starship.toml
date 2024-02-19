@@ -37,15 +37,15 @@ format = "[$symbol$branch]($style)"
 style = "bright-black"
 
 [git_status]
-format = '[$ahead_behind(\[$conflicted$modified$staged$untracked$renamed$deleted\])](bright-black) '
+format = '[$ahead_behind(\[($conflicted )( $modified)( $staged)( $untracked)( $renamed)( $deleted) \])](bright-black) '
 ahead = '[󱞿](cyan) '
 behind = '[󱞣](cyan) '
-staged = '[](green) '
-deleted = '[](red) '
-renamed = '[󱀱](purple) '
-untracked = '[󱪝](grey) '
-modified = '[](yellow) '
-conflicted = '[󰘖](red) '
+staged = '[](green)'
+deleted = '[](red)'
+renamed = '[󱀱](purple)'
+untracked = '[󱪝](grey)'
+modified = '[](yellow)'
+conflicted = '[󰘖](red)'
 diverged = '⇕ '
 up_to_date = ''
 
