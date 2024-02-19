@@ -7,6 +7,8 @@ tm_gray=colour08
 tm_purple=colour05
 tm_black=colour00
 tm_green=colour10
+tm_red=colour01
+tm_blue=colour04
 # ]]]
 
 # TPM Plugins [[[
@@ -25,7 +27,7 @@ set -g @plugin 'tmux-plugins/tmux-logging'
 
 # Pane colours
 set -g pane-border-style fg=$tm_gray
-set -g pane-active-border-style fg=$tm_purple
+set -g pane-active-border-style fg=$tm_blue
 
 # Message colours
 set -g message-style bg=$tm_green,fg=$tm_black
@@ -46,7 +48,7 @@ set-window-option -g window-status-current-format "  #W#F "
 set -g status-position top
 set -g status-justify centre
 set -g status-style bg=default
-set -g status-right '#(bash {{ $data }}/functions/battery.sh)'
+set -g status-right '#(date "+%l:%M")   #(bash ~/.local/share/tmux/functions/battery.sh)'
 
 set -g @prefix_highlight_fg $tm_black
 set -g @prefix_highlight_bg $tm_yellow
