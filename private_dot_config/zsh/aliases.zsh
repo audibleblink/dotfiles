@@ -1,7 +1,9 @@
 # Directories [[[
 alias d='dirs -v'
-for index ({1..9}) alias "$index"="cd +${index}"; unset index
-alias -g ..='cd ..'
+for index ({2..9}) alias "$index"="cd +${index}"; unset index
+alias 1='cd -'
+alias -- -='cd -'
+alias -g ..='..'
 alias -g ...='../..'
 alias -g ....='../../..'
 alias -g .....='../../../..'
