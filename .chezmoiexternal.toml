@@ -41,5 +41,5 @@
 
 [".config/zsh/plugins/zsh-vi-mode"]
     type = "git-repo"
-    url = "https://github.com/jeffreytse/zsh-vi-mode"
+    url = "https://github.com/audibleblink/zsh-vi-mode"
 
