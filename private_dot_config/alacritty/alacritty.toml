@@ -8,7 +8,7 @@ import = [ "~/.config/alacritty/hackthebox.toml" ]
 draw_bold_text_with_bright_colors = true
 
 [window]
-opacity = 1
+opacity = 0.85
 blur = true
 decorations = "buttonless"
 option_as_alt = "OnlyRight"
@@ -43,8 +43,8 @@ family = "ComicCodeLigatures Nerd Font"
 style = "Italic"
 
 [window.padding]
-x = 5
-y = 5
+x = 8
+y = 4
 
 [window.class]
 instance = "Alacritty"
