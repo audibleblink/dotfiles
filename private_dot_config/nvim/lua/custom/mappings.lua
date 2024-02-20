@@ -3,6 +3,7 @@ local M = {}
 
 M._MyBinds = {
   n = {
+    ["<leader>cl"] = { "<cmd> hi Normal guibg=none <CR>", "Find buffers" },
     ["<leader>b"] = { "<cmd> Telescope buffers <CR>", "Find buffers" },
     ["<leader>p"] = { "<cmd> Telescope find_files <CR>", "Find Files" },
     ["<leader><Tab>"] = { "<cmd> b# <CR>", "Previous buffer" },

@@ -1,28 +1,16 @@
 local opts = {
+  automatic_installation = true,
   ensure_installed = {
     "clangd",
-    "cppcheck",
     "csharp_ls",
-    "csharpier",
     "cssls",
-    "flake8",
-    "goimports_reviser",
-    -- "golangci_lint",
+    "goimports-reviser",
     "gopls",
     "html",
     "jedi_language_server",
-    "lua-language-server",
-    "prettier",
-    "ruby-lsp",
     "rust_analyzer",
-    "selene",
-    "sourcekit",
     "standardrb",
-    "staticcheck",
-    "stylua",
-    "yamllint",
     "yamlls",
-    "yq",
   }
 }
 

@@ -61,9 +61,7 @@ local plugins = {
   { -- Mason [[[ 
     "williamboman/mason-lspconfig.nvim",
     lazy = false,
-    opts = function()
-      require "custom.configs.mason"
-    end,
+    opts = require "custom.configs.mason"
   },
 -- ]]]
   { -- AutoSave [[[ 
