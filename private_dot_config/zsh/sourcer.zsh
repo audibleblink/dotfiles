@@ -1,4 +1,3 @@
-# PLUGINS=$ZDOTDIR/plugins/
 ZSH=${ZDG_STATE_HOME}/zsh
 mkdir $ZSH &>/dev/null
 

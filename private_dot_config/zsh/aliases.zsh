@@ -94,7 +94,6 @@ unfunction grep-flag-available
 
 # ]]]
 
-alias -g open=xdg-open
 alias -g e="${EDITOR}"
 alias reload="source ${ZDOTDIR}/.zshrc"
 type tree &>/dev/null && alias tree='LS_COLORS="di=34:ln=35:so=32;40:ex=31" tree'
