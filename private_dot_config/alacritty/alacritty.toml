@@ -1,5 +1,6 @@
 live_config_reload = true
 # Theme configuration
+# import = [ "~/.config/alacritty/bearded-arc.toml" ]
 import = [ "~/.config/alacritty/hackthebox.toml" ]
 # import = [ "~/.config/alacritty/themes/catppuccin_mocha.toml" ]
 
