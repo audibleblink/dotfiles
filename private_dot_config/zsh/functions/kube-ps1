@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+emulate -L zsh
 
 # Kubernetes prompt helper for bash/zsh
 # Displays current context and namespace

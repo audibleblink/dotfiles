@@ -1,5 +1,6 @@
 # sets rprompt for k8s namespaces
 
+emulate -L zsh
 if [[ -n RPROMPT ]] 
 then
   unset RPROMPT

@@ -1,5 +1,9 @@
+emulate -L zsh
+
 cd "${XDG_CONFIG_HOME}/nvim/lua/custom"
 nvim chadrc.lua +NvimTreeToggle
 chezmoi add --recursive .
 chezmoi apply -k
 cd -
+
+# vim: ft=zsh

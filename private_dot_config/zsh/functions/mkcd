@@ -1,5 +1,6 @@
 # mk and cd into dir
 
+emulate -L zsh
 mkdir -p "$1"
 cd "$1"
 

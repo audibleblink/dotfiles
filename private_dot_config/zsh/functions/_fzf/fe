@@ -1,4 +1,5 @@
 # fzf search for file to open in vim
+emulate -L zsh
 
 IFS='
 '

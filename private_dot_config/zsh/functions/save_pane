@@ -1,5 +1,6 @@
 # save tmux pane contents
 
+emulate -L zsh
 local prefix="$(date +%Y.%m.%d_%H.%M.%S)"
 local session="$(tmux display-message -p '#S')"
 local window="$(tmux display-message -p '#W')"

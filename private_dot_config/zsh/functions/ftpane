@@ -1,5 +1,6 @@
 # fzf search tmux panes
 
+emulate -L zsh
 local panes current_window current_pane target target_window target_pane
 panes=$(tmux list-panes -s -F '#I:#P - #{pane_current_path} #{pane_current_command}')
 current_pane=$(tmux display-message -p '#I:#P')

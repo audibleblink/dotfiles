@@ -1,5 +1,6 @@
 # fzf search for file to open in vim
 
+emulate -L zsh
 IFS='
 '
 local declare files=($(fzf-tmux --query="$1" --select-1 --exit-0))

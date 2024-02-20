@@ -61,3 +61,5 @@ _bd () {
   reply=($reply "/")
 }
 compctl -V directories -K _bd bd
+
+# vim: ft=zsh

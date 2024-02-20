@@ -1,5 +1,6 @@
 # open file. enter for nvim or ctrl-o for xdg-open
 
+emulate -L zsh
 local out file key
 out=$(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e)
 key=$(head -1 <<< "$out")

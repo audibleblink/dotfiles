@@ -1,5 +1,6 @@
 # clone a repo and cd into it
 
+emulate -L zsh
 url=$1
 reponame=$(echo $url | awk -F/ '{print $NF}' | sed -e 's/.git$//')
 git clone $url $reponame

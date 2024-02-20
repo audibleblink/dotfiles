@@ -1,4 +1,5 @@
 # fzf search commit summaries
+emulate -L zsh
 
 git log --graph --color=always \
   --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
