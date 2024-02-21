@@ -8,7 +8,6 @@ local opts = {
     "html",
     "jedi_language_server",
     "rust_analyzer",
-    "standardrb",
     "yamlls",
   }
 }
