@@ -20,28 +20,23 @@ tests/*
 
 {{- if (ne .chezmoi.os "darwin") }}
 .config/karabiner
+.config/borders
 Library/Preferences/com.amethyst.Amethyst.plist
 {{- end }}
 
-{{- if (.headless) }}
-.local/share/zsh/functions/clipboard.zsh
-.local/share/fonts
-{{- end }}
-
 {{- if (.ephemeral) }}
-.local/share/zsh/functions/fzf.zsh
+.gnupg/*
 {{- end }}
 
 {{- if (not .dev) }}
 .gdbinit
-.flake8
-.rspec
-.rubocop.yml
 .ideavim
 {{- end }}
 
 
 {{- if .headless }}
+.local/share/fonts
+.config/alacritty
 .config/conky/
 .config/dunst/
 .config/termite/
@@ -54,6 +49,7 @@ Library/Preferences/com.amethyst.Amethyst.plist
 .urxvt/
 .Xresources
 .config/obsidian/
+.config/kitty/*
 {{- end }}
 
 {{- if (eq .chezmoi.os "darwin") }}
@@ -68,5 +64,6 @@ Library/Preferences/com.amethyst.Amethyst.plist
 .config/qutebrowser/
 .urxvt/
 .Xresources
+.config/rofi/*
 {{- end }}
 
