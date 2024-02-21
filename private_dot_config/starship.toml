@@ -67,7 +67,7 @@ format = '\($virtualenv\) '
 
 [golang]
 symbol = "[](bold blue) "
-format = "$symbol$version"
+format = "$symbol$version "
 
 [character]
 disabled = false
