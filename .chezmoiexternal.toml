@@ -36,11 +36,9 @@
     stripComponents = 1
 {{ end }}
 
-
 [".config/alacritty/themes"]
     type = "archive"
     url = "https://github.com/alacritty/alacritty-theme/archive/refs/heads/master.zip"
     exact = true
     stripComponents = 2
     path = "themes"
-

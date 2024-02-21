@@ -72,7 +72,6 @@ bindkey -M vicmd yy last-command-output
 
 plugins=(
   # evalcache
-  zsh-vi-mode
   autopair
   {{- if (.personal) }}
   gpg
@@ -83,7 +82,9 @@ plugins=(
   {{- end }}
   zsh-syntax-highlighting
   substring-search
+  zsh-vi-mode
 )
+
 
 {{- if (eq .chezmoi.os "darwin")}}
 eval "$(/opt/homebrew/bin/brew shellenv)"
