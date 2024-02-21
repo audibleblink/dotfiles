@@ -4,11 +4,17 @@
     stripComponents = 1
     refreshPeriod = "168h"
 
-[".config/zsh/plugins/zsh-autopair"]
-    type = "archive"
-    url = "https://github.com/hlissner/zsh-autopair/archive/refs/tags/v1.0.tar.gz"
-    exact = true
-    stripComponents = 1
+[".config/zsh/plugins/zsh-vi-mode"]
+    type = "git-repo"
+    url = "https://github.com/audibleblink/zsh-vi-mode"
+
+[".config/zsh/plugins/substring-search/substring-search.plugin.zsh"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/zsh-users/zsh-history-substring-search/da5f067/zsh-history-substring-search.zsh"
+
+[".config/zsh/plugins/autopair/autopair.plugin.zsh"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/hlissner/zsh-autopair/34a8bca/autopair.zsh"
 
 [".config/zsh/plugins/zsh-syntax-highlighting"]
     type = "archive"
@@ -37,9 +43,4 @@
     exact = true
     stripComponents = 2
     path = "themes"
-
-
-[".config/zsh/plugins/zsh-vi-mode"]
-    type = "git-repo"
-    url = "https://github.com/audibleblink/zsh-vi-mode"
 
