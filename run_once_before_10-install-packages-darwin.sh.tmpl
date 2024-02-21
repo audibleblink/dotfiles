@@ -6,6 +6,7 @@ set -eufo pipefail
 {{ $brews := list
      "atuin"
      "bat"
+     "borders"
      "curl"
      "diff-so-fancy"
      "dos2unix"
@@ -47,6 +48,9 @@ set -eufo pipefail
      "zoom"
      "signal") -}}
 {{ end -}}
+
+# Add the tap for "borderss"
+brew tap FelixKratz/formulae
 
 brew bundle --no-lock --file=/dev/stdin <<EOF
 {{ range ($brews | sortAlpha | uniq) -}}
