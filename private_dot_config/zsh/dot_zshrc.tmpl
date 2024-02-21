@@ -26,6 +26,28 @@ setopt share_history # share command history data
 HISTSIZE=100000
 SAVEHIST=100000
 # ]]]
+
+plugins=(
+  # evalcache
+  zsh-vi-mode
+  # vi-mode
+  zsh-autopair
+  {{- if (.personal) }}
+  gpg
+  todo
+  atuin
+  fuck
+  # pentest
+  {{- end }}
+  zsh-syntax-highlighting
+)
+
+{{- if (eq .chezmoi.os "darwin")}}
+eval "$(/opt/homebrew/bin/brew shellenv)"
+{{- end }}
+source "${ZDOTDIR}/aliases.zsh"  # Sources custom aliases
+source "${ZDOTDIR}/sourcer.zsh"  # Sets up fpaths and plugins
+
 # Key Bindings [[[
 # Make sure that the terminal is in application mode when zle is active, since
 # only then values from $terminfo are valid
@@ -86,7 +108,7 @@ function prepend-sudo {
   fi
 }
 zle -N prepend-sudo
-bindkey -M vicmd s prepend-sudo
+bindkey -M vicmd ! prepend-sudo
 
 
 zmodload -i zsh/parameter
@@ -96,27 +118,6 @@ function last-command-output() {
 zle -N last-command-output
 bindkey -M vicmd yy last-command-output
 # ]]]
-
-plugins=(
-  # evalcache
-  zsh-vi-mode
-  # vi-mode
-  zsh-autopair
-  {{- if (.personal) }}
-  gpg
-  todo
-  atuin
-  fuck
-  # pentest
-  {{- end }}
-  zsh-syntax-highlighting
-)
-
-{{- if (eq .chezmoi.os "darwin")}}
-eval "$(/opt/homebrew/bin/brew shellenv)"
-{{- end }}
-source "${ZDOTDIR}/aliases.zsh"  # Sources custom aliases
-source "${ZDOTDIR}/sourcer.zsh"  # Sets up fpaths and plugins
 
 export cdpath=( . ${XDG_CONFIG_HOME}  ${HOME} )
 command -v starship > /dev/null && eval "$(starship init zsh)"
