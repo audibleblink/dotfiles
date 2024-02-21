@@ -1,5 +1,4 @@
 {{- if and (eq .chezmoi.os "linux") (.personal) -}}
-
 #!/bin/bash
 
 set -eufo pipefail
@@ -40,10 +39,9 @@ pkgs+=(
 sudo apt update
 sudo apt install -y apt-utils nala
 sudo nala install -t experimental -y ${pkgs[@]}
-{{- end }}
-
 
 # installs zoxide, atuin, and starship
 /bin/bash -c "$(curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh)"
 curl -sS https://starship.rs/install.sh | sh
 
+{{- end }}
