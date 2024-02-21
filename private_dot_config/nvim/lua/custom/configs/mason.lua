@@ -4,7 +4,6 @@ local opts = {
     "clangd",
     "csharp_ls",
     "cssls",
-    "goimports-reviser",
     "gopls",
     "html",
     "jedi_language_server",
