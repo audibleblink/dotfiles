@@ -11,6 +11,7 @@ export XDG_RUNTIME_DIR=/private/tmp
 PATH="${PATH}:/opt/homebrew/bin"
 {{- end }}
 
+# never nano
 export EDITOR=$(command -v nvim || command -v vim || command -v vi)
 export VISUAL=$EDITOR
 

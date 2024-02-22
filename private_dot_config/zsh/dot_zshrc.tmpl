@@ -30,20 +30,6 @@ SAVEHIST=100000
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
-# Filter through multiple ssh config files and hosts
-function get-ssh() {
-  # read the selected Host entry
-  IFS=: read host <<< $(grep '^Host [^*]' ${HOME}/.ssh/*config | sed 's/:Host//' | tr -d '"'| fzf)
-  # set the local buffer to the new command
-  LBUFFER="${LBUFFER} -F ${host}"
-  local ret=$?
-  zle reset-prompt
-  return $ret
-}
-zle     -N   get-ssh
-bindkey '^S' get-ssh
-
-
 # Creates a new tmux window with a floating terminal
 function floats() {
   tmux popup -E 
@@ -92,6 +78,7 @@ source "${ZDOTDIR}/aliases.zsh"  # Sources custom aliases
 source "${ZDOTDIR}/sourcer.zsh"  # Sets up fpaths and plugins
 
 export cdpath=( . ${XDG_CONFIG_HOME}  ${HOME} )
+
 command -v starship > /dev/null && eval "$(starship init zsh)"
 [ -f ~/.zshrc_local ] && source ~/.zshrc_local
 
