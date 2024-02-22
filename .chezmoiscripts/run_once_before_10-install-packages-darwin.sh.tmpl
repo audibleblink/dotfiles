@@ -16,6 +16,8 @@ set -eufo pipefail
      "git-delta"
      "gnupg"
      "jq"
+     "koekeishiya/formulae/yabai"
+     "koekeishiya/formulae/skhd"
      "neovim"
      "pinentry-mac"
      "ripgrep"
@@ -34,22 +36,21 @@ set -eufo pipefail
        "gopass") -}}
 {{ $casks = concat $casks (list
      "1password"
-		 "alacritty"
+     "alacritty"
      "ferdium"
-     "brave-browser"
      "firefox"
      "bettertouchtool"
-     "nextcloud"
-     "iterm2"
      "karabiner-elements"
-		 "spacelauncher"
+     "seadrive"
+     "spacelauncher"
      "spotify"
+     "thorium"
      "visual-studio-code"
      "zoom"
      "signal") -}}
 {{ end -}}
 
-# Add the tap for "borderss"
+# Add the tap for "borders"
 brew tap FelixKratz/formulae
 
 brew bundle --no-lock --file=/dev/stdin <<EOF
