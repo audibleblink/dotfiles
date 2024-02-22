@@ -1,14 +1,15 @@
 live_config_reload = true
+
 # Theme configuration
-# import = [ "~/.config/alacritty/bearded-arc.toml" ]
-import = [ "~/.config/alacritty/hackthebox.toml" ]
+import = [ "~/.config/alacritty/bearded-arc.toml" ]
+# import = [ "~/.config/alacritty/hackthebox.toml" ]
 # import = [ "~/.config/alacritty/themes/catppuccin_mocha.toml" ]
 
 [colors]
 draw_bold_text_with_bright_colors = true
 
 [window]
-opacity = 0.85
+opacity = 0.95
 blur = true
 decorations = "buttonless"
 option_as_alt = "OnlyRight"
@@ -18,11 +19,11 @@ TERM = "xterm-256color"
 
 [font]
 size = 16.0
-#
-# [font.offset]
-# x = -1
+
+[font.offset]
+# x = 1
 # y = 1
-# #
+ 
 # [font.glyph_offset]
 # x = 2
 
@@ -31,16 +32,20 @@ history = 50000
 multiplier = 3
 
 [font.normal]
-family = "ComicCodeLigatures Nerd Font"
+family = "CodeliaLigatures Nerd Font"
 style = "Regular"
 
-# [font.bold]
-# family = "ComicCodeLigatures Nerd Font"
-# style = "Medium"
-#
+[font.bold]
+family = "CodeliaLigatures Nerd Font"
+style = "Bold"
+
 [font.italic]
-family = "ComicCodeLigatures Nerd Font"
+family = "CodeliaLigatures Nerd Font"
 style = "Italic"
+
+[font.bold_italic]
+family = "CodeliaLigatures Nerd Font"
+style = "BoldItalic"
 
 [window.padding]
 x = 8
