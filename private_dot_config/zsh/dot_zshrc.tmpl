@@ -85,13 +85,11 @@ plugins=(
   zsh-vi-mode
 )
 
-
 {{- if (eq .chezmoi.os "darwin")}}
 eval "$(/opt/homebrew/bin/brew shellenv)"
 {{- end }}
 source "${ZDOTDIR}/aliases.zsh"  # Sources custom aliases
 source "${ZDOTDIR}/sourcer.zsh"  # Sets up fpaths and plugins
-
 
 export cdpath=( . ${XDG_CONFIG_HOME}  ${HOME} )
 command -v starship > /dev/null && eval "$(starship init zsh)"
