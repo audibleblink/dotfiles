@@ -28,14 +28,6 @@
     exact = true
     stripComponents = 1
 
-{{ if (.dev) }}
-[".local/share/gvm"]
-    type = "archive"
-    url = "https://github.com/moovweb/gvm/archive/dd652539fa4b771840846f8319fad303c7d0a8d2.zip"
-    exact = true
-    stripComponents = 1
-{{ end }}
-
 [".config/alacritty/themes"]
     type = "archive"
     url = "https://github.com/alacritty/alacritty-theme/archive/refs/heads/master.zip"
