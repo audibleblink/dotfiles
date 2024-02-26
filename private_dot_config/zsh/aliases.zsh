@@ -98,5 +98,6 @@ alias -g e="${EDITOR}"
 alias reload="source ${ZDOTDIR}/.zshrc"
 type tree &>/dev/null && alias tree='LS_COLORS="di=34:ln=35:so=32;40:ex=31" tree'
 alias view='nvim -R'
+alias theme='kitty +kitten themes' 
 
 # vim: ft=zsh foldmarker=[[[,]]] foldlevelstart=0 foldmethod=marker spell:
