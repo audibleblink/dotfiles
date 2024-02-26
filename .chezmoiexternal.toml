@@ -28,9 +28,9 @@
     exact = true
     stripComponents = 1
 
-[".config/alacritty/themes"]
+[".config/kitty/themes"]
     type = "archive"
-    url = "https://github.com/alacritty/alacritty-theme/archive/refs/heads/master.zip"
+    url = "https://github.com/kovidgoyal/kitty-themes/archive/refs/heads/master.zip"
     exact = true
     stripComponents = 2
     path = "themes"
