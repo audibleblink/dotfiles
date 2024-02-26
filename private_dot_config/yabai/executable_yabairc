@@ -35,3 +35,5 @@ yabai -m rule --add app="^QuickTime Player$" manage=off
 yabai -m rule --add app="^Finder$" manage=off
 yabai -m rule --add app="^Raycast" manage=off
 yabai -m rule --add app="^1Password" manage=off
+yabai -m rule --add app="^Siril" manage=off
+yabai -m rule --add app="Photoshop" manage=off
