@@ -30,7 +30,7 @@
 
 [".config/kitty/themes"]
     type = "archive"
-    url = "https://github.com/kovidgoyal/kitty-themes/archive/refs/heads/master.zip"
+    url = "https://github.com/audibleblink/kitty-themes/archive/refs/heads/master.zip"
     exact = true
     stripComponents = 2
     path = "themes"
