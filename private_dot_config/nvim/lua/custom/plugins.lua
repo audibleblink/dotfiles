@@ -98,6 +98,7 @@ local plugins = {
   { "jiangmiao/auto-pairs"  , lazy = false },
   { "tpope/vim-fugitive"    , lazy = false },
   { "github/copilot.vim"    , lazy = false },
+  {"ellisonleao/glow.nvim", config = true, cmd = "Glow"},
 
   { "christoomey/vim-tmux-navigator" , lazy = false },
 }

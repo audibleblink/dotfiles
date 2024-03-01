@@ -17,6 +17,8 @@
       "ruby",
       "python",
       "lua",
+      "hcl",
+      "terraform",
     },
   }
 
