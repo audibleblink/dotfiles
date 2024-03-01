@@ -1,5 +1,8 @@
 # -- Changing Window Focus --
-alt - return : yabai -m window --focus $(yabai -m query --windows --window | jq -re '.id')
+alt - d : open -a Ferdium.app
+alt - w : open -a Safari.app
+alt - t : open -a Kitty.app
+alt - return : kitty -d ~
 
 # change window focus within space
 alt - j : yabai -m window --focus south
