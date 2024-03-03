@@ -1,5 +1,6 @@
 {{ $data := "~/.local/share/tmux" }}
 {{ $conf := "~/.config/tmux" }}
+
 # TPM Plugins [[[
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
@@ -11,7 +12,7 @@ set -g @plugin 'junegunn/tmux-fzf-url'
 set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
 set -g @plugin 'tmux-plugins/tmux-logging'
 set -g @plugin 'fcsonline/tmux-thumbs'
-set -g @plugin 'catppuccin/tmux'
+set -g @plugin 'audibleblink/tmux-theme'
 # ]]]
 
 # Plugin Overrides [[[
@@ -39,6 +40,7 @@ set -g @catppuccin_status_modules_right "user date_time"
 set -g @catppuccin_user_text "#($HOME/.local/share/tmux/functions/battery.sh)"
 set -g @catppuccin_date_time_text "%H:%M"
 # Initializes TMUX plugin manager. Must be last.
+set -g @catppuccin_flavour 'passthru' # or frappe, macchiato, mocha
 run '{{ $data }}/plugins/tpm/tpm'
 # ]]]
 
