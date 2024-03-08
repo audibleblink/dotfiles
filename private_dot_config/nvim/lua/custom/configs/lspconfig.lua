@@ -2,6 +2,7 @@ local configs = require("plugins.configs.lspconfig")
 local on_attach = configs.on_attach
 local capabilities = configs.capabilities
 
+local util = require "lspconfig/util"
 local lspconfig = require "lspconfig"
 local servers = {
   "html",
@@ -21,3 +22,15 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
+
+lspconfig.gopls.setup {
+  cmd = {"gopls"},
+  filetypes = {"go", "gomod", "gowork", "gotmpl"},
+  root_dir = util.root_pattern("go.work", "go.mod"),
+  settings = {
+    gopls = {
+      completeUnimported = true,
+      usePlaceholders = true,
+    }
+  }
+}

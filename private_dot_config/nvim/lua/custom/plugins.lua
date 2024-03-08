@@ -5,7 +5,7 @@ local plugins = {
   { -- Noice [[[
     "folke/noice.nvim",
     event = "VeryLazy",
-    opts = { },
+    opts = {},
     dependencies = {
       -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
       "MunifTanjim/nui.nvim",
@@ -13,9 +13,9 @@ local plugins = {
       --   `nvim-notify` is only needed, if you want to use the notification view.
       --   If not available, we use `mini` as the fallback
       -- "rcarriga/nvim-notify",
-      }
+    }
   },
--- ]]]
+  -- ]]]
   { -- [[[ TreeSitter
     "nvim-treesitter/nvim-treesitter",
     opts = function()
@@ -25,8 +25,13 @@ local plugins = {
       return conf
     end,
   },
--- ]]]
-  { -- lspConfig [[[ 
+  -- ]]]
+  { -- Mason [[[
+    "williamboman/mason-lspconfig.nvim",
+    opts = require "custom.configs.mason"
+  },
+  -- ]]]
+  { -- lspConfig [[[
     "neovim/nvim-lspconfig",
     dependencies = {
       "jose-elias-alvarez/null-ls.nvim",
@@ -39,16 +44,16 @@ local plugins = {
       require "custom.configs.lspconfig"
     end,
   },
--- ]]]
-  { -- EasyAlign [[[ 
+  -- ]]]
+  { -- EasyAlign [[[
     "junegunn/vim-easy-align",
     keys = {
-      { "ga" , "<Plug>(EasyAlign)"    , desc = "EasyAlign" , mode = "x" } ,
-      { "ga" , "<Plug>(EasyAlign)"    , desc = "EasyAlign" , mode = "v" } ,
+      { "ga", "<Plug>(EasyAlign)", desc = "EasyAlign", mode = "x" },
+      { "ga", "<Plug>(EasyAlign)", desc = "EasyAlign", mode = "v" },
     }
   },
--- ]]]
-  { -- SymbolsOutline [[[ 
+  -- ]]]
+  { -- SymbolsOutline [[[
     "simrat39/symbols-outline.nvim",
     cmd = "SymbolsOutline",
     keys = { { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
@@ -57,27 +62,21 @@ local plugins = {
       require "custom.configs.symbols-outline"
     end,
   },
--- ]]]
-  { -- Mason [[[ 
-    "williamboman/mason-lspconfig.nvim",
-    lazy = false,
-    opts = require "custom.configs.mason"
-  },
--- ]]]
-  { -- AutoSave [[[ 
+  -- ]]]
+  { -- AutoSave [[[
     "okuuva/auto-save.nvim",
-    cmd = "ASToggle", -- optional for lazy loading on command
+    -- cmd = "ASToggle", -- optional for lazy loading on command
     event = { "InsertLeave" }, -- optional for lazy loading on trigger events
     opts = {
       trigger_events = {
         immediate_save = { "BufLeave" }, -- vim events that trigger an immediate save
-        defer_save = { "InsertLeave" }, -- vim events that trigger a deferred save (saves after `debounce_delay`)
+        -- defer_save = { "InsertLeave" }, -- vim events that trigger a deferred save (saves after `debounce_delay`)
       },
       debounce_delay = 2000
     },
   },
--- ]]]
-  { -- NvimTree [[[ 
+  -- ]]]
+  { -- NvimTree [[[
     "nvim-tree/nvim-tree.lua",
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
     init = function()
@@ -89,18 +88,18 @@ local plugins = {
       require("nvim-tree").setup(opts)
     end,
   },
--- ]]]
+  -- ]]]
 
-  { "tpope/vim-sleuth"      , lazy = false },
-  { "tpope/vim-surround"    , lazy = false },
-  { "junegunn/goyo.vim"     , lazy = false },
-  { "justinmk/vim-sneak"    , lazy = false },
-  { "jiangmiao/auto-pairs"  , lazy = false },
-  { "tpope/vim-fugitive"    , lazy = false },
-  { "github/copilot.vim"    , lazy = false },
-  {"ellisonleao/glow.nvim", config = true, cmd = "Glow"},
-
-  { "christoomey/vim-tmux-navigator" , lazy = false },
+  { "github/copilot.vim" },
+  { "junegunn/goyo.vim" },
+  { "tpope/vim-fugitive" },
+  { "someone-stole-my-name/yaml-companion.nvim" },
+  { "tpope/vim-sleuth",                         lazy = false },
+  { "tpope/vim-surround",                       lazy = false },
+  { "justinmk/vim-sneak",                       lazy = false },
+  { "jiangmiao/auto-pairs",                     lazy = false },
+  { "ellisonleao/glow.nvim",                    config = true, cmd = "Glow" },
+  { "christoomey/vim-tmux-navigator",           lazy = false },
 }
 
 return plugins
