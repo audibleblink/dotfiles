@@ -10,7 +10,7 @@ local servers = {
 	"yamlls",
 	-- "csharp_ls",
 	-- "sourcekit",
-	"jedi-language-server",
+	"jedi_language_server",
 	-- "rubocop",
 }
 

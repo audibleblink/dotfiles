@@ -9,3 +9,4 @@ opt.swapfile = false
 opt.scrolloff = 5
 opt.cursorline = true
 opt.colorcolumn = "99"
+opt.guifont = "CodeliaLigatures Nerd Font"
