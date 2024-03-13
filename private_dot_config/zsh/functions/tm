@@ -1,0 +1,6 @@
+emulate -L zsh
+
+local SESS="$@"
+tmux attach -t "${SESS}" 2>/dev/null || tmux new -s "${SESS}"
+
+# vim: ft=zsh

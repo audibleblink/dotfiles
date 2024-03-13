@@ -31,11 +31,11 @@ alias kns='k config set-context --current --namespace'
 # ]]]
 # Chezmoi [[[
 alias -g cm="chezmoi"
-alias cme="cm edit --apply"
+alias cme="cm edit --watch"
 alias cmcd="cd $(chezmoi source-path)"
-alias aedit="chezmoi edit --apply ${ZDOTDIR}/aliases.zsh"
-alias tedit="chezmoi edit --apply ${XDG_CONFIG_HOME}/tmux/tmux.conf"
-alias zedit="chezmoi edit --apply ${ZDOTDIR}/.zshrc"
+alias aedit="cme ${ZDOTDIR}/aliases.zsh"
+alias tedit="cme ${XDG_CONFIG_HOME}/tmux/tmux.conf"
+alias zedit="cme ${ZDOTDIR}/.zshrc"
 # ]]]
 # Coding [[[
 alias asi='find . -not -iwholename "*node_modules*" -type f -name *.js | xargs fixmyjs --legacy'
@@ -56,11 +56,6 @@ alias gr='git remote -v'
 alias gst='git status'
 alias gt='git tag'
 alias fml='e -O $( git diff --name-only | uniq )' # Open all merge conflicts
-# ]]]
-# Tmux [[[
-alias tls='tmux ls'
-alias tma='tmux attach -t'
-alias tmn='tmux new -s'
 # ]]]
 # Grep [[[
 # is x grep argument available?
