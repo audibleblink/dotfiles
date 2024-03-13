@@ -1,9 +1,3 @@
-[".config/nvim"]
-    type = "archive"
-    url = "https://codeload.github.com/NvChad/NvChad/zip/refs/heads/v2.0"
-    stripComponents = 1
-    refreshPeriod = "168h"
-
 [".config/zsh/plugins/zsh-vi-mode"]
     type = "git-repo"
     url = "https://github.com/audibleblink/zsh-vi-mode"
