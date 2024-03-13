@@ -19,3 +19,16 @@ map("n", "<C-l>",         "<cmd> TmuxNavigateRight <CR>",       { desc = "Naviga
 
 
 map("i", "jk", "<ESC>", { desc = "Escape insert mode" })
+
+-- new terminals
+map({ "n", "t" }, "<leader>h", function()
+  require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm", size = 0.3 }
+end, { desc = "Terminal New horizontal term" })
+
+map({ "n", "t" }, "<leader>v", function()
+  require("nvchad.term").toggle { pos = "vsp", id = "vtoggleTerm", size = 0.3 }
+end, { desc = "Terminal Toggleable vertical term" })
+
+map({ "n", "t" }, "<leader>i", function()
+  require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
+end, { desc = "Terminal Toggle Floating term" })
