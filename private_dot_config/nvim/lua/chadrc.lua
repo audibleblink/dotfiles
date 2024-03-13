@@ -1,8 +1,5 @@
 local M = {}
 
--- M.plugins = "plugins"
--- M.mappings = require "mappings"
-
 M.ui = {
 	theme = "bearded-arc",
 	tabufline = { enabled = false },

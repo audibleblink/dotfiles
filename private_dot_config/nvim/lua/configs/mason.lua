@@ -2,7 +2,7 @@ local opts = {
 	automatic_installation = true,
 	ensure_installed = {
 		-- Language Servers
-		"clangd",
+		-- "clangd",
 		-- "csharp-language-server",
 		-- "css-lsp",
 		"gopls",

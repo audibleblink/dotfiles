@@ -7,6 +7,6 @@ local opt = vim.opt
 opt.timeoutlen = 250
 opt.swapfile = false
 opt.scrolloff = 5
-opt.cursorline = true
+opt.cursorlineopt = "both"
 opt.colorcolumn = "99"
 opt.guifont = "CodeliaLigatures Nerd Font"
