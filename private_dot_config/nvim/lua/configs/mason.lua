@@ -1,30 +1,32 @@
 local opts = {
-  automatic_installation = true,
-  ensure_installed = {
-    -- Language Servers
-    "clangd",
-    "csharp-language-server",
-    "css-lsp",
-    "gopls",
-    "html-lsp",
-    "jedi-language-server",
-    "lua-language-server",
-    "rust-analyzer",
-    "selene",
-    "yaml-language-server",
+	automatic_installation = true,
+	ensure_installed = {
+		-- Language Servers
+		"clangd",
+		-- "csharp-language-server",
+		-- "css-lsp",
+		"gopls",
+		-- "html-lsp",
+		"jedi-language-server",
+		"lua-language-server",
+		"rust-analyzer",
+		"yaml-language-server",
 
-    -- Linters
-    "prettier",
-    "stylua",
-    "gofumpt",
-    "goimports-reviser",
-    "golines",
-    "csharpier",
-    "yq",
-    "flake8",
-    "cppcheck",
-    "standardrb",
-  }
+		-- Linters
+		"cppcheck",
+		-- "csharpier",
+		"flake8",
+		"gofumpt",
+		"goimports-reviser",
+		"golangci-lint",
+		"golines",
+		"prettier",
+		"selene",
+		"standardrb",
+		"staticcheck",
+		"stylua",
+		"yq",
+	},
 }
 
 return opts

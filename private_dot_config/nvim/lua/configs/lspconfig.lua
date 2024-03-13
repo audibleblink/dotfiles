@@ -1,21 +1,17 @@
 require("nvchad.configs.lspconfig").defaults()
--- local configs = require("configs")
---
--- local on_attach = configs.on_attach
--- local capabilities = configs.capabilities
 
 local util = require("lspconfig/util")
 local lspconfig = require("lspconfig")
 local servers = {
-	"html",
-	"cssls",
-	"clangd",
+	-- "html",
+	-- "cssls",
+	-- "clangd",
 	"gopls",
 	"yamlls",
-	"csharp_ls",
-	"sourcekit",
-	"jedi_language_server",
-	"rubocop",
+	-- "csharp_ls",
+	-- "sourcekit",
+	"jedi-language-server",
+	-- "rubocop",
 }
 
 for _, lsp in ipairs(servers) do

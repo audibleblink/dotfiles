@@ -11,7 +11,6 @@ return {
 				hover = { enabled = false },
 			},
 		},
-		-- config.lsp.hover.enabled = false
 		dependencies = {
 			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
 			"MunifTanjim/nui.nvim",
@@ -100,17 +99,17 @@ return {
 		},
 	},
 	-- ]]]
-  { -- [[[ Copilot
-  'github/copilot.vim',
-  cmd = "Copilot",
-  config = function()
-    vim.cmd([[
+	{ -- [[[ Copilot
+		"github/copilot.vim",
+		cmd = "Copilot",
+		config = function()
+			vim.cmd([[
       imap <silent><script><expr> <C-;> copilot#Accept("\<CR>")
       let g:copilot_no_tab_map = v:true
-    ]])
-  end,
-},
--- ]]]
+      ]])
+		end,
+	},
+	-- ]]]
 
 	{ "junegunn/goyo.vim" },
 	{ "tpope/vim-fugitive" },
