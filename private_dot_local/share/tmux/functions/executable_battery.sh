@@ -1,7 +1,7 @@
 #!/bin/bash
 
-HEART=' '
-IHEART=' '
+HEART='󰣐 '
+IHEART='󱢠 '
 os=`uname`
 
 if [[ `uname` == 'Linux' ]]; then
