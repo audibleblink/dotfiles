@@ -14,6 +14,8 @@ zstyle ':completion:*' menu select
 # don't show cdpath directories in completion
 zstyle ':completion:*:complete:(cd|pushd):*' tag-order 'local-directories named-directories'
 
+export cdpath=( . ${XDG_CONFIG_HOME}  ${HOME} )
+
 # ]]]
 # History [[[
 setopt append_history
@@ -31,6 +33,19 @@ SAVEHIST=100000
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
+# Ctrl+Z to toggle last job (likely nvim)
+fancy-ctrl-z () {
+  if [[ $#BUFFER -eq 0 ]]; then
+    BUFFER="fg"
+    zle accept-line
+  else
+    zle push-input
+    zle clear-screen
+  fi
+}
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z
+
 # Creates a new tmux window with a floating terminal
 function floats() {
   tmux popup -E 
@@ -47,15 +62,17 @@ function prepend-sudo {
 }
 zle -N prepend-sudo
 bindkey -M vicmd ! prepend-sudo
-
-
-zmodload -i zsh/parameter
-function last-command-output() {
-  echo "$(eval $history[$((HISTCMD-1))])" | ccopy
-}
-zle -N last-command-output
-bindkey -M vicmd yy last-command-output
 # ]]]
+
+{{- if (eq .chezmoi.os "darwin")}}
+eval "$(/opt/homebrew/bin/brew shellenv)"
+{{- end }}
+source "${ZDOTDIR}/aliases.zsh"  # Sources custom aliases
+
+# Reset fpath and add functions and completions
+fpath=($(zsh -l -c 'echo $fpath'))
+fpath=($ZDOTDIR/{completions,functions} $fpath)
+autoload -Uz $ZDOTDIR/functions/**/*
 
 plugins=(
   autopair
@@ -70,14 +87,20 @@ plugins=(
   zsh-vi-mode
 )
 
-{{- if (eq .chezmoi.os "darwin")}}
-eval "$(/opt/homebrew/bin/brew shellenv)"
-{{- end }}
-source "${ZDOTDIR}/aliases.zsh"  # Sources custom aliases
-source "${ZDOTDIR}/sourcer.zsh"  # Sets up fpaths and plugins
+for plugin in $plugins; do
+  thing=$ZDOTDIR/plugins/$plugin/$plugin.plugin.zsh
+  [[ -f $thing ]] && zsh-defer source $thing
+done
 
-export cdpath=( . ${XDG_CONFIG_HOME}  ${HOME} )
+# Refresh compinit once every 24 hours
+autoload -U compinit
+() {
+  if [[ $# -gt 0 ]]; then
+    compinit
+  else
+    compinit -C
+  fi
+} ${ZDOTDIR}/.zcompdump(N.mh+24)
 
 command -v starship > /dev/null && eval "$(starship init zsh)"
 [ -f ~/.zshrc_local ] && source ~/.zshrc_local
-

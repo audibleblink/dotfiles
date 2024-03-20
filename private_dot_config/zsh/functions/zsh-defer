@@ -1,6 +1,7 @@
 emulate -L zsh
 
 # zsh-defer: Defer execution of a command until zle is idle.
+# https://github.com/romkatv/zsh-defer
 #
 # There are two way to load function zsh-defer:
 #

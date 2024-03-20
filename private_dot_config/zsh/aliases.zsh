@@ -15,7 +15,7 @@ alias lsa='ls -lah'
 
 # ]]]
 # Kubernetes [[[
-alias k=kubectl
+alias -g k=kubectl
 alias ka='k apply'
 alias kaf='ka -f'
 alias kak='ka -k'
@@ -51,6 +51,7 @@ alias gcm='git commit -m'
 alias gco='git checkout'
 alias gd='git diff'
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias gp="git push"
 alias gpo="git push origin"
 alias gr='git remote -v'
 alias gst='git status'
@@ -91,7 +92,7 @@ unfunction grep-flag-available
 
 alias -g e="${EDITOR}"
 alias reload="source ${ZDOTDIR}/.zshrc"
-type tree &>/dev/null && alias tree='LS_COLORS="di=34:ln=35:so=32;40:ex=31" tree'
+command -v tree >/dev/null && alias tree='LS_COLORS="di=34:ln=35:so=32;40:ex=31" tree'
 alias view='nvim -R'
 alias theme='kitty +kitten themes' 
 
