@@ -1,8 +1,7 @@
 #!/bin/bash
 
-HEART='❤ '
-
-
+HEART=' '
+IHEART=' '
 os=`uname`
 
 if [[ `uname` == 'Linux' ]]; then
@@ -30,5 +29,5 @@ for i in `seq 1 $charged_slots`; do printf "$HEART"; done
 
 if [[ $charged_slots -lt 5 ]]; then
   printf '#[fg=white]'
-  for i in `seq 1 $(echo "5-$charged_slots" | bc)`; do printf "$HEART"; done
+  for i in `seq 1 $(echo "5-$charged_slots" | bc)`; do printf "$IHEART"; done
 fi

@@ -37,10 +37,10 @@ set -g @catppuccin_status_fill "icon"
 set -g @catppuccin_status_connect_separator "no"
 # 'user' module is swapped for battery status
 set -g @catppuccin_status_modules_right "user date_time"
-set -g @catppuccin_user_text "#($HOME/.local/share/tmux/functions/battery.sh)"
+set -g @catppuccin_user_text "#({{ $data }}/functions/battery.sh)"
 set -g @catppuccin_date_time_text "%H:%M"
-# Initializes TMUX plugin manager. Must be last.
 set -g @catppuccin_flavour 'passthru' # or frappe, macchiato, mocha
+# Initializes TMUX plugin manager. Must be last.
 run '{{ $data }}/plugins/tpm/tpm'
 # ]]]
 
