@@ -1,6 +1,16 @@
-emulate -L zsh
+# emulate -L zsh
 
-local SESS="$@"
-tmux attach -t "${SESS}" 2>/dev/null || tmux new -s "${SESS}"
+[[ $# -eq 0 ]] && tmux list-sessions && return 0
+
+local session="$1"
+
+if [ -z "$TMUX" ]; then
+    tmux new-session -As "${session}"
+else
+  if ! tmux has-session -t "${session}" 2> /dev/null; then
+    TMUX= tmux new-session -ds "${session}"
+  fi
+  tmux switch-client -t "${session}"
+fi
 
 # vim: ft=zsh
