@@ -1,4 +1,5 @@
 # vim: ft=zsh foldmarker=[[[,]]] foldlevelstart=0 foldmethod=marker 
+# zmodload zsh/zprof
 
 # Navigation [[[
 setopt auto_pushd
@@ -63,7 +64,7 @@ function prepend-sudo {
 zle -N prepend-sudo
 bindkey -M vicmd ! prepend-sudo
 # ]]]
-
+# Functions and Aliases [[[
 {{- if (eq .chezmoi.os "darwin")}}
 eval "$(/opt/homebrew/bin/brew shellenv)"
 {{- end }}
@@ -73,14 +74,14 @@ source "${ZDOTDIR}/aliases.zsh"  # Sources custom aliases
 fpath=($(zsh -l -c 'echo $fpath'))
 fpath=($ZDOTDIR/{completions,functions} $fpath)
 autoload -Uz $ZDOTDIR/functions/**/*
-
+# ]]]
+# Plugins [[[
 plugins=(
-  autopair
   {{- if (.personal) }}
   # gpg
+  # pentest
   todo
   atuin
-  # pentest
   {{- end }}
   zsh-syntax-highlighting
   substring-search
@@ -88,10 +89,11 @@ plugins=(
 )
 
 for plugin in $plugins; do
-  thing=$ZDOTDIR/plugins/$plugin/$plugin.plugin.zsh
-  [[ -f $thing ]] && zsh-defer source $thing
+  zsh-defer source "${ZDOTDIR}/plugins/${plugin}/${plugin}.plugin.zsh"
 done
 
+# ]]]
+# Compinit [[[
 # Refresh compinit once every 24 hours
 autoload -U compinit
 () {
@@ -101,6 +103,7 @@ autoload -U compinit
     compinit -C
   fi
 } ${ZDOTDIR}/.zcompdump(N.mh+24)
+# ]]]
 
 command -v starship > /dev/null && eval "$(starship init zsh)"
 [ -f ~/.zshrc_local ] && source ~/.zshrc_local
