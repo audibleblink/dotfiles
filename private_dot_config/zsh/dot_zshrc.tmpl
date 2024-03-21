@@ -30,26 +30,6 @@ setopt share_history # share command history data
 HISTSIZE=100000
 SAVEHIST=100000
 # ]]]
-# Key Bindings [[[
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-
-# Ctrl+Z to toggle last job (likely nvim)
-zle -N fancy-ctrl-z
-bindkey '^Z' fancy-ctrl-z
-
-# Creates a new tmux window with a floating terminal
-zle -N floats
-bindkey '^[i' floats
-
-# Prepend sudo to the current command
-zle -N prepend-sudo
-bindkey -M vicmd ! prepend-sudo
-
-# fzf-powered jumplist
-zle -N cdjump
-bindkey '^O' cdjump
-# ]]]
 # Functions and Aliases [[[
 {{- if (eq .chezmoi.os "darwin")}}
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -70,6 +50,26 @@ lazy zsh-syntax-highlighting
 lazy substring-search
 lazy zsh-vi-mode
 plug autopair # can't be lazy-loaded
+# ]]]
+# Key Bindings [[[
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# Ctrl+Z to toggle last job (likely nvim)
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z
+
+# Creates a new tmux window with a floating terminal
+zle -N floats
+bindkey '^[i' floats
+
+# Prepend sudo to the current command
+zle -N prepend-sudo
+bindkey -M vicmd ! prepend-sudo
+
+# fzf-powered jumplist
+zle -N cdjump
+bindkey '^O' cdjump
 # ]]]
 # Compinit [[[
 # Refresh compinit once every 24 hours
