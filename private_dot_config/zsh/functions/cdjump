@@ -1,6 +1,19 @@
 emulate -L zsh
 
-dir=$(dirs -v | fzf-tmux | awk '{print $2}')
+local umask=117
+local in=$(mktemp -t cdjump -p $XDG_RUNTIME_DIR)
+local out=$(mktemp -t cdjump -p $XDG_RUNTIME_DIR)
+trap "rm -- ${in} ${out} 2>/dev/null" EXIT
+
+dirs -v > $in
+
+if [[ -v TMUX ]]; then
+  tmux popup -b rounded -E "fzf <$in >$out" 
+  local dir=$(awk '{print $2}' $out)
+else
+  local dir=$(dirs -v | fzf | awk '{print $2}')
+fi
+
 BUFFER="cd ${dir}"
 zle accept-line
 

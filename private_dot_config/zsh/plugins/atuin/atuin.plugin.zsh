@@ -1,9 +1,11 @@
 # atuin-popup spawns atuin in a tmux floating window and writes selected item to a file
 # the LBUFFER then gets set to the contects of that file.
 function atuin-popup() {
-  cp /dev/null /tmp/tmux-atuin
-  tmux popup -S fg=black -b rounded -d "${PWD}" -E "\$(ATUIN_SESSION=$ATUIN_SESSION atuin search $* -i -- $BUFFER 3>/tmp/tmux-atuin 1>&2 2>&3)" 
-  LBUFFER="$(cat /tmp/tmux-atuin)"
+  local umask=117
+  local out=$(mktemp -t atuin -p $XDG_RUNTIME_DIR)
+  trap "rm -- ${out} 2>/dev/null" EXIT
+  tmux popup -S fg=black -b rounded -d "${PWD}" -E "\$(ATUIN_SESSION=$ATUIN_SESSION atuin search $* -i -- $BUFFER 3>$out 1>&2 2>&3)" 
+  LBUFFER="$(sed 1q $out)"
 }
 
 # bind ^R only if we're in a tmux terminal
