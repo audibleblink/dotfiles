@@ -1,0 +1,6 @@
+# emulate -L zsh
+
+local plugin=$1
+source "${ZDOTDIR}/plugins/${plugin}/${plugin}.plugin.zsh"
+
+# vim: ft=zsh

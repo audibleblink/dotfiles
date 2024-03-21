@@ -70,28 +70,20 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 {{- end }}
 source "${ZDOTDIR}/aliases.zsh"  # Sources custom aliases
 
-# Reset fpath and add functions and completions
+# Reset fpath and add custom functions and completions
 fpath=($(zsh -l -c 'echo $fpath'))
 fpath=($ZDOTDIR/{completions,functions} $fpath)
 autoload -Uz $ZDOTDIR/functions/**/*
 # ]]]
 # Plugins [[[
-plugins=(
-  {{- if (.personal) }}
-  # gpg
-  # pentest
-  todo
-  atuin
-  {{- end }}
-  zsh-syntax-highlighting
-  substring-search
-  zsh-vi-mode
-)
-
-for plugin in $plugins; do
-  zsh-defer source "${ZDOTDIR}/plugins/${plugin}/${plugin}.plugin.zsh"
-done
-
+{{- if (.personal) }}
+lazy todo
+lazy atuin
+{{- end }}
+lazy zsh-syntax-highlighting
+lazy substring-search
+lazy zsh-vi-mode
+plug autopair # can't be lazy-loaded
 # ]]]
 # Compinit [[[
 # Refresh compinit once every 24 hours
