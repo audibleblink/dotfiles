@@ -1,0 +1,5 @@
+emulate -L zsh
+
+tmux popup -E 
+
+# vim: ft=zsh

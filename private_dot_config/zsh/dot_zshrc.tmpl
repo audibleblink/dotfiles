@@ -15,7 +15,7 @@ zstyle ':completion:*' menu select
 # don't show cdpath directories in completion
 zstyle ':completion:*:complete:(cd|pushd):*' tag-order 'local-directories named-directories'
 
-export cdpath=( . ${XDG_CONFIG_HOME}  ${HOME} )
+export cdpath=( . ${XDG_CONFIG_HOME} ${HOME}/.local ${HOME} )
 
 # ]]]
 # History [[[
@@ -35,32 +35,14 @@ bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
 # Ctrl+Z to toggle last job (likely nvim)
-fancy-ctrl-z () {
-  if [[ $#BUFFER -eq 0 ]]; then
-    BUFFER="fg"
-    zle accept-line
-  else
-    zle push-input
-    zle clear-screen
-  fi
-}
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
 # Creates a new tmux window with a floating terminal
-function floats() {
-  tmux popup -E 
-}
-zle     -N   floats
+zle -N floats
 bindkey '^[i' floats
 
-
 # Prepend sudo to the current command
-function prepend-sudo {
-  if [[ $BUFFER != "sudo "* ]]; then
-    BUFFER="sudo $BUFFER"; CURSOR+=5
-  fi
-}
 zle -N prepend-sudo
 bindkey -M vicmd ! prepend-sudo
 

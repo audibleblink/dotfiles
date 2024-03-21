@@ -1,0 +1,7 @@
+emulate -L zsh
+
+if [[ $BUFFER != "sudo "* ]]; then
+  BUFFER="sudo $BUFFER"; CURSOR+=5
+fi
+
+# vim: ft=zsh
