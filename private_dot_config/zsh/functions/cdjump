@@ -1,0 +1,7 @@
+emulate -L zsh
+
+dir=$(dirs -v | fzf-tmux | awk '{print $2}')
+BUFFER="cd ${dir}"
+zle accept-line
+
+# vim: ft=zsh
