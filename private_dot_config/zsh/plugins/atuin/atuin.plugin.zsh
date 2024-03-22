@@ -12,12 +12,7 @@ function atuin-popup() {
 if [[ -v TMUX ]]; then
   zle     -N   atuin-popup
   bindkey '^R' atuin-popup $LBUFFER
-fi
-
-# initialize atuin based on environment
-if [[ -v TMUX ]]; then
   eval "$(atuin init zsh --disable-up-arrow --disable-ctrl-r)"
 else
   eval "$(atuin init zsh --disable-up-arrow)"
 fi
-
