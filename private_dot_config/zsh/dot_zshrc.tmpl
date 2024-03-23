@@ -19,6 +19,7 @@ export cdpath=( . ${XDG_CONFIG_HOME} ${HOME}/.local ${HOME} )
 
 # ]]]
 # History [[[
+export HISTFILE="${XDG_STATE_HOME}/zsh_history"
 setopt append_history
 setopt extended_history
 setopt hist_expire_dups_first
@@ -49,6 +50,7 @@ lazy atuin
 lazy zsh-syntax-highlighting
 lazy substring-search
 lazy zsh-vi-mode
+lazy zsh-z
 plug autopair # can't be lazy-loaded
 # ]]]
 # Key Bindings [[[
@@ -76,12 +78,14 @@ bindkey '^O' cdjump
 autoload -U compinit
 () {
   if [[ $# -gt 0 ]]; then
-    compinit
+    compinit -d $1
   else
-    compinit -C
+    compinit -C -d $1
   fi
-} ${ZDOTDIR}/.zcompdump(N.mh+24)
+} ${ZSH_CACHE_DIR}/.zcompdump
+# } ${ZSH_CACHE_DIR}/.zcompdump(N.mh+24)
 # ]]]
 
-command -v starship > /dev/null && eval "$(starship init zsh)"
+# only source if not already sourced and if exists
+[[ -v STARSHIP_SHELL ]] || command -v starship > /dev/null && eval "$(starship init zsh)" 
 [ -f ~/.zshrc_local ] && source ~/.zshrc_local

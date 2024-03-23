@@ -1,5 +1,7 @@
 # emulate -L zsh
 
+tmux server-info
+[[ $? -gt 0 ]] && return 1
 [[ $# -eq 0 ]] && tmux list-sessions && return 0
 
 local session="$1"
