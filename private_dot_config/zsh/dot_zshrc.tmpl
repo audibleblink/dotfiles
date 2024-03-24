@@ -71,19 +71,22 @@ bindkey -M vicmd ! prepend-sudo
 
 # fzf-powered jumplist
 zle -N cdjump
-bindkey '^O' cdjump
+bindkey '^G' cdjump
+
+# navigate up the dir stack
+zle -N popdir
+bindkey '^O' popdir
 # ]]]
 # Compinit [[[
 # Refresh compinit once every 24 hours
 autoload -U compinit
 () {
   if [[ $# -gt 0 ]]; then
-    compinit -d $1
+    compinit
   else
-    compinit -C -d $1
+    compinit -C
   fi
-} ${ZSH_CACHE_DIR}/.zcompdump
-# } ${ZSH_CACHE_DIR}/.zcompdump(N.mh+24)
+} ${ZSHDOTDIR}/.zcompdump(N.mh+24)
 # ]]]
 
 # only source if not already sourced and if exists
