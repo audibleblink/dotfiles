@@ -1,4 +1,4 @@
-## unifies clipboard functionality between linux and macos
+# unifies clipboard functionality between linux and macos
 
 emulate -L zsh
 if [[ $OSTYPE == darwin* ]]; then

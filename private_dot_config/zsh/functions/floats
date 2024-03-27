@@ -1,3 +1,5 @@
+# open a tmux popup
+
 emulate -L zsh
 
 tmux popup -E 

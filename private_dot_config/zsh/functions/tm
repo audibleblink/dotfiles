@@ -1,4 +1,6 @@
-# emulate -L zsh
+# tmux default start/attach
+
+emulate -L zsh
 
 local session="${1:-LOCAL}"
 

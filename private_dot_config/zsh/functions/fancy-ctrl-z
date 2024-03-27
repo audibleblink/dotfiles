@@ -1,3 +1,5 @@
+# toggle backgrounding something, usually nvim
+
 emulate -L zsh
 
 if [[ $#BUFFER -eq 0 ]]; then

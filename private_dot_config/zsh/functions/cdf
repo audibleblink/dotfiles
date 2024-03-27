@@ -1,5 +1,5 @@
 # recursive fzf search for directory to change into
-#
+
 emulate -L zsh
 local file
 local dir

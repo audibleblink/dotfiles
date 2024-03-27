@@ -48,11 +48,11 @@ autoload -Uz $ZDOTDIR/functions/**/*
 lazy todo
 lazy atuin
 {{- end }}
-lazy substring-search
+# plugins added to stack are loaded in reverse order
+lazy zsh-syntax-highlighting
+lazy autopair 
 lazy zsh-vi-mode
-# can't be lazy-loaded
-plug autopair 
-plug zsh-syntax-highlighting
+lazy substring-search
 # ]]]
 # Compinit [[[
 autoload -U compinit
@@ -76,7 +76,7 @@ bindkey -M vicmd ! prepend-sudo
 
 # fzf-powered jumplist
 zle -N cdjump
-bindkey '^G' cdjump
+bindkey '^F' cdjump
 
 # navigate up the dir stack
 zle -N popdir

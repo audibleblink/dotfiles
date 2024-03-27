@@ -1,5 +1,6 @@
-emulate -L zsh
+# interactively search dirstack, prefering tmux popup when possible
 
+emulate -L zsh
 local umask=117
 local in=$(mktemp -t cdjump -p $XDG_RUNTIME_DIR)
 local out=$(mktemp -t cdjump -p $XDG_RUNTIME_DIR)

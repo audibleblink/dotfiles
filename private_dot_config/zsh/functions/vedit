@@ -1,3 +1,5 @@
+# edit vim directory and track changes with chezmoi on exit
+
 emulate -L zsh
 
 cd "${XDG_CONFIG_HOME}/nvim/lua"
