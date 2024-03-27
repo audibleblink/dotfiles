@@ -1,4 +1,5 @@
 # vim: ft=zsh foldmarker=[[[,]]] foldlevelstart=0 foldmethod=marker 
+
 # zmodload zsh/zprof
 
 # Navigation [[[
@@ -47,11 +48,14 @@ autoload -Uz $ZDOTDIR/functions/**/*
 lazy todo
 lazy atuin
 {{- end }}
-lazy zsh-syntax-highlighting
+plug autopair # can't be lazy-loaded
 lazy substring-search
 lazy zsh-vi-mode
-lazy zsh-z
-plug autopair # can't be lazy-loaded
+lazy zsh-syntax-highlighting
+# ]]]
+# Compinit [[[
+autoload -U compinit
+compinit
 # ]]]
 # Key Bindings [[[
 bindkey '^[[A' history-substring-search-up
@@ -76,17 +80,6 @@ bindkey '^G' cdjump
 # navigate up the dir stack
 zle -N popdir
 bindkey '^O' popdir
-# ]]]
-# Compinit [[[
-# Refresh compinit once every 24 hours
-autoload -U compinit
-() {
-  if [[ $# -gt 0 ]]; then
-    compinit
-  else
-    compinit -C
-  fi
-} ${ZSHDOTDIR}/.zcompdump(N.mh+24)
 # ]]]
 
 # only source if not already sourced and if exists
