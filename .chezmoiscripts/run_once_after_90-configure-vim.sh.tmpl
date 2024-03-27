@@ -1,8 +1,0 @@
-{{ if (and (.personal) (eq .chezmoi.os "darwin" "linux") (not .ephemeral)) -}}
-#!/bin/bash
-
-set -eufo pipefail
-
-nvim -c PlugUpdate -c qa
-nvim -c GoInstallBinaries -c qa /tmp/main.go
-{{ end -}}

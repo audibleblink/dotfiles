@@ -9,18 +9,16 @@ set -eufo pipefail
 	"bat"
 	"borders"
 	"curl"
-	"diff-so-fancy"
+	"docutil"
 	"dos2unix"
-	"entr"
 	"fd"
+	"fzf"
 	"git"
 	"git-delta"
-	"gnupg"
 	"jq"
 	"koekeishiya/formulae/yabai"
 	"koekeishiya/formulae/skhd"
 	"neovim"
-	"pinentry-mac"
 	"ripgrep"
 	"starship"
 	"tmux"
@@ -28,13 +26,10 @@ set -eufo pipefail
 	"watch"
 	"wget"
 	"xz"
-	"zsh"
 	"zstd" -}}
 
 {{- $casks := list -}}
 {{ if (and .personal .admin) -}}
-{{   $brews = concat $brews (list
-		"gopass") -}}
 {{ $casks = concat $casks (list
 	"1password"
 	"alex313031-thorium"
@@ -45,7 +40,6 @@ set -eufo pipefail
 	"karabiner-elements"
 	"kitty"
 	"obsidian"
-	"spacelauncher"
 	"spotify"
 	"tailscale"
 	"visual-studio-code"
