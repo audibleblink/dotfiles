@@ -48,10 +48,11 @@ autoload -Uz $ZDOTDIR/functions/**/*
 lazy todo
 lazy atuin
 {{- end }}
-plug autopair # can't be lazy-loaded
 lazy substring-search
 lazy zsh-vi-mode
-lazy zsh-syntax-highlighting
+# can't be lazy-loaded
+plug autopair 
+plug zsh-syntax-highlighting
 # ]]]
 # Compinit [[[
 autoload -U compinit
