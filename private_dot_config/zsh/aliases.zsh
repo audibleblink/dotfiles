@@ -91,9 +91,10 @@ unfunction grep-flag-available
 
 # ]]]
 
+(( $+commands[tree] )) && alias tree='LS_COLORS="di=34:ln=35:so=32;40:ex=31" tree'
+
 alias -g e="${EDITOR}"
 alias reload="source ${ZDOTDIR}/.zshrc"
-command -v tree >/dev/null && alias tree='LS_COLORS="di=34:ln=35:so=32;40:ex=31" tree'
 alias view='nvim -R'
 alias theme='kitty +kitten themes' 
 

@@ -111,7 +111,7 @@ return {
 	},
 	-- ]]]
 
-	{ "junegunn/goyo.vim" },
+	{ "folke/zen-mode.nvim" },
 	{ "tpope/vim-fugitive" },
 	{ "someone-stole-my-name/yaml-companion.nvim" },
 	{ "tpope/vim-sleuth", lazy = false },
