@@ -81,6 +81,10 @@ bindkey '^F' cdjump
 # navigate up the dir stack
 zle -N popdir
 bindkey '^O' popdir
+
+# navigate hash -d bookmarks and cd
+zle -N bookmarks
+bindkey '^B' bookmarks
 # ]]]
 
 # starship is installed and hasn't been run
