@@ -13,7 +13,7 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 
 zstyle ':completion:*:*:*:*' file-sort modification
 # enable cycling through completions 
 zstyle ':completion:*' menu select
-# don't show cdpath directories in completion
+# don't show $cdpath directories in completion
 zstyle ':completion:*:complete:(cd|pushd):*' tag-order 'local-directories named-directories'
 
 export cdpath=( . ${XDG_CONFIG_HOME} ${HOME}/.local ${HOME} )
@@ -34,14 +34,14 @@ SAVEHIST=100000
 # ]]]
 # Functions and Aliases [[[
 {{- if (eq .chezmoi.os "darwin")}}
-eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$(brew shellenv)"
 {{- end }}
 source "${ZDOTDIR}/aliases.zsh"  # Sources custom aliases
 
 # Reset fpath and add custom functions and completions
 fpath=($(zsh -l -c 'echo $fpath'))
 fpath=($ZDOTDIR/{completions,functions} $fpath)
-autoload -Uz $ZDOTDIR/functions/**/*
+autoload -Uz $ZDOTDIR/functions/**/*(N.:t)
 # ]]]
 # Plugins [[[
 {{- if (.personal) }}
@@ -83,6 +83,9 @@ zle -N popdir
 bindkey '^O' popdir
 # ]]]
 
-# only source if not already sourced and if exists
-[[ -v STARSHIP_SHELL ]] || command -v starship > /dev/null && eval "$(starship init zsh)" 
+# starship is installed and hasn't been run
+(( $+functions[starship_zle-keymap-select] )) || {
+  (( $+commands[starship] )) && eval "$(starship init zsh)"
+}
+
 [ -f ~/.zshrc_local ] && source ~/.zshrc_local
