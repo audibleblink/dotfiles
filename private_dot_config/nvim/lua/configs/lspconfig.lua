@@ -12,6 +12,7 @@ local servers = {
 	-- "sourcekit",
 	"jedi_language_server",
 	-- "rubocop",
+	"rust_analyzer",
 }
 
 for _, lsp in ipairs(servers) do

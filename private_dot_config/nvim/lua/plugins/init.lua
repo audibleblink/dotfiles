@@ -1,5 +1,3 @@
--- vim: ft=lua foldmarker=[[[,]]] foldlevelstart=0 foldmethod=marker spell:
-
 return {
 	{ "tpope/vim-fugitive" },
 	{ "someone-stole-my-name/yaml-companion.nvim" },
