@@ -97,5 +97,6 @@ alias -g e="${EDITOR}"
 alias reload="source ${ZDOTDIR}/.zshrc"
 alias view='nvim -R'
 alias theme='kitty +kitten themes' 
+alias zl="e ~/.zshrc_local"
 
 # vim: ft=zsh foldmarker=[[[,]]] foldlevelstart=0 foldmethod=marker spell:

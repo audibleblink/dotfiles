@@ -1,0 +1,32 @@
+# setup bindings
+
+emulate -L zsh
+
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# Ctrl+Z to toggle last job (likely nvim)
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z
+
+# Creates a new tmux window with a floating terminal
+zle -N floats
+bindkey '^[i' floats
+
+# Prepend sudo to the current command
+zle -N prepend-sudo
+bindkey -M vicmd ! prepend-sudo
+
+# fzf-powered jumplist
+zle -N cdjump
+bindkey '^F' cdjump
+
+# navigate up the dir stack
+zle -N popdir
+bindkey '^O' popdir
+
+# navigate hash -d bookmarks and cd
+zle -N bookmarks
+bindkey '^B' bookmarks
+
+# vim: ft=zsh
