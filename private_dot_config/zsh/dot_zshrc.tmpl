@@ -5,6 +5,7 @@
 setopt auto_pushd
 setopt pushd_ignore_dups
 setopt pushdminus
+setopt globstarshort
 # setopt auto_cd
 # case-insensitive globbing (used in pathname expansion)
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
@@ -40,10 +41,11 @@ source "${ZDOTDIR}/aliases.zsh"  # Sources custom aliases
 # Reset fpath and add custom functions and completions
 fpath=($(zsh -l -c 'echo $fpath'))
 fpath=($ZDOTDIR/{completions,functions} $fpath)
-autoload -Uz $ZDOTDIR/functions/**/*(N.:t)
+autoload -Uz $ZDOTDIR/functions/**(N.:t)
 # ]]]
 # Plugins [[[
 {{- if (.personal) }}
+lazy no-op
 lazy todo
 lazy atuin
 {{- end }}
