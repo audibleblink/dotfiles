@@ -1,6 +1,7 @@
 return {
 	"okuuva/auto-save.nvim",
 	-- cmd = "ASToggle", -- optional for lazy loading on command
+	enabled = false,
 	event = { "InsertLeave" }, -- optional for lazy loading on trigger events
 	opts = {
 		trigger_events = {
