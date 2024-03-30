@@ -6,5 +6,9 @@ return {
 	{ "justinmk/vim-sneak", lazy = false },
 	{ "jiangmiao/auto-pairs", lazy = false },
 	{ "ellisonleao/glow.nvim", config = true, cmd = "Glow" },
-	{ "christoomey/vim-tmux-navigator", lazy = false },
+	-- {
+	-- 	"mrcjkb/rustaceanvim",
+	-- 	version = "^4", -- Recommended
+	-- 	ft = { "rust" },
+	-- },
 }
