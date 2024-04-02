@@ -21,6 +21,8 @@ return {
 			"lua",
 			"hcl",
 			"terraform",
+			"markdown",
+			"markdown_inline",
 		},
 	},
 }
