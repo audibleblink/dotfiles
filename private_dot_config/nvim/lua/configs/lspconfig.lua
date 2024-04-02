@@ -12,7 +12,7 @@ local servers = {
 	-- "sourcekit",
 	"jedi_language_server",
 	-- "rubocop",
-	-- "rust_analyzer",
+	"rust_analyzer",
 }
 
 for _, lsp in ipairs(servers) do
@@ -22,32 +22,32 @@ for _, lsp in ipairs(servers) do
 	})
 end
 
--- lspconfig.rust_analyzer.setup({
--- 	cmd = { "rust-analyzer" },
--- 	filetypes = { "rs" },
--- 	root_dir = util.root_pattern("Cargo.toml"),
--- 	settings = {
--- 		["rust-analyzer"] = {
--- 			rustfmt = {
--- 				extraArgs = { "+nightly" },
--- 			},
--- 			imports = {
--- 				granularity = {
--- 					group = "module",
--- 				},
--- 				prefix = "self",
--- 			},
--- 			cargo = {
--- 				buildScripts = {
--- 					enable = true,
--- 				},
--- 			},
--- 			procMacro = {
--- 				enable = true,
--- 			},
--- 		},
--- 	},
--- })
+lspconfig.rust_analyzer.setup({
+	cmd = { "rust-analyzer" },
+	filetypes = { "rs" },
+	root_dir = util.root_pattern("Cargo.toml"),
+	settings = {
+		["rust-analyzer"] = {
+			rustfmt = {
+				extraArgs = { "+nightly" },
+			},
+			imports = {
+				granularity = {
+					group = "module",
+				},
+				prefix = "self",
+			},
+			cargo = {
+				buildScripts = {
+					enable = true,
+				},
+			},
+			procMacro = {
+				enable = true,
+			},
+		},
+	},
+})
 
 lspconfig.gopls.setup({
 	cmd = { "gopls" },
