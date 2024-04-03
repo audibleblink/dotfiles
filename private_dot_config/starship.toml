@@ -56,7 +56,7 @@ style = "bright-black"
 [kubernetes]
 disabled = false
 format = "[$symbol$cluster:$namespace](blue)"
-detect_files = [ 'kustomization.yaml', 'values.yaml']
+detect_files = [ '.k8s', 'kustomization.yaml', 'values.yaml']
 
 [cmd_duration]
 format = "[$duration]($style) "
