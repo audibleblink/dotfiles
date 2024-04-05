@@ -38,7 +38,7 @@ pkgs+=(
 
 sudo apt update
 sudo apt install -y apt-utils nala
-sudo nala install -t experimental -y ${pkgs[@]}
+sudo nala install -t unstable -y ${pkgs[@]}
 
 # installs atuin and starship
 /bin/bash -c "$(curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh)"
