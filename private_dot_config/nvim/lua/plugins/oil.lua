@@ -2,18 +2,14 @@ return {
 	"stevearc/oil.nvim",
 	lazy = false,
 	dependencies = { "nvim-tree/nvim-web-devicons" },
-	keys = { { "-", "<cmd>Oil<cr>", desc = "Start Oil" } },
+	keys = { { "-", "<cmd>Oil --float<cr>", desc = "Start Oil" } },
 	opts = {
-		-- Oil will take over directory buffers ()
-		-- Set to false if you still want to use netrw.
 		default_file_explorer = true,
-		-- Id is automatically added at the beginning, and name at the end
-		-- See :help oil-columns
 		columns = {
 			"icon",
-			-- "permissions",
-			-- "size",
-			-- "mtime",
+			"permissions",
+			"size",
+			"mtime",
 		},
 		-- Buffer-local options to use for oil buffers
 		buf_options = {
@@ -146,6 +142,7 @@ return {
 			-- Whether the preview window is automatically updated when the cursor is moved
 			update_on_cursor_moved = true,
 		},
+
 		-- Configuration for the floating progress window
 		progress = {
 			max_width = 0.9,

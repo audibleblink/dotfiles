@@ -63,3 +63,11 @@ opt.colorcolumn = "99"
 opt.guifont = "CodeliaLigatures Nerd Font"
 
 g.tmux_navigator_save_on_switch = 2
+
+-- highlight yanked text for 200ms using the "Visual" highlight group
+vim.cmd([[
+	augroup highlight_yank
+		autocmd!
+		au TextYankPost * silent! lua vim.highlight.on_yank({higroup="Visual", timeout=300})
+	augroup END
+]])
