@@ -2,8 +2,8 @@
 
 emulate -L zsh
 local umask=117
-local in=$(mktemp -t cdjump -p $XDG_RUNTIME_DIR)
-local out=$(mktemp -t cdjump -p $XDG_RUNTIME_DIR)
+local in=$(mktemp -t cdjump.XXX -p $XDG_RUNTIME_DIR)
+local out=$(mktemp -t cdjump.XXX -p $XDG_RUNTIME_DIR)
 trap "rm -- ${in} ${out} 2>/dev/null" EXIT
 dirs -v > $in
 

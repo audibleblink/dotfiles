@@ -33,7 +33,7 @@ alias kns='k config set-context --current --namespace'
 # Chezmoi [[[
 alias -g cm="chezmoi"
 alias cme="cm edit --watch"
-alias cmcd="cd $(chezmoi source-path)"
+alias cmcd="cd $(chezmoi source-path 2>/dev/null)"
 alias aedit="cme ${ZDOTDIR}/aliases.zsh"
 alias tedit="cme ${XDG_CONFIG_HOME}/tmux/tmux.conf"
 alias zedit="cme ${ZDOTDIR}/.zshrc"
