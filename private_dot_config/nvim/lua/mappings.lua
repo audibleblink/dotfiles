@@ -2,6 +2,7 @@ local map = vim.keymap.set
 
 map("n", "<CR>", ":", { desc = "CMD enter command mode" })
 map("n", "<leader>cl", "<cmd> hi Normal guibg=none <CR>", { desc = "Clear Background (Transparency)" })
+map("n", "<leader>cs", "<cmd> SymbolsOutline <CR>", { desc = "Toggle Symbol Outline" })
 map("n", "<leader>b", "<cmd> Telescope buffers <CR>", { desc = "Search buffers" })
 map("n", "<leader><Tab>", "<cmd> b# <CR>", { desc = "Previous Buffer" })
 map("n", "<leader>m", "<cmd> wincmd | <CR>:windcmd _ <CR>", { desc = "Zoom Pane" })
