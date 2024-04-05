@@ -47,6 +47,9 @@ set-environment -g TMUX_PLUGIN_MANAGER_PATH '{{ $data }}/plugins'
 run '{{ $data }}/plugins/tpm/tpm'
 # ]]]
 # My Prefs [[[
+set -g status-bg default
+set -g status-style bg=default
+
 set -g focus-events on
 set -s escape-time 0
 set -g prefix C-a
@@ -90,8 +93,6 @@ bind C-l send-keys 'C-l'
 # ]]]
 # Default Shell [[[
 {{ if (eq .chezmoi.os "darwin") }}
-tm_bg="#1a2332"
-set -g status-bg "$tm_bg"
 set -g default-shell /bin/zsh
 set-option -g default-terminal "xterm-256color"
 set -g -a terminal-overrides ',xterm-256color:Tc,*:Ss=\E[%p1%d q:Se=\E[2 q'
