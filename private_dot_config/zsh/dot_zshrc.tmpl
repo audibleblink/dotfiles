@@ -40,7 +40,7 @@ source "${ZDOTDIR}/aliases.zsh"  # Sources custom aliases
 
 # Reset fpath and add custom functions and completions
 fpath=($(zsh -l -c 'echo $fpath'))
-fpath=($ZDOTDIR/{completions,functions} $fpath)
+fpath=($ZDOTDIR/{completions,functions,functions/{widgets,fzf}} $fpath)
 autoload -Uz $ZDOTDIR/functions/**(N.:t)
 # ]]]
 # Plugins [[[
