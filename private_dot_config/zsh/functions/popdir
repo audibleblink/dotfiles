@@ -1,7 +1,7 @@
 # emulate -L zsh
 
 stacklevel="$(echo ${stacklevel:=0}+1 | bc)"
-cd -${stacklevel} 2>/dev/null || echo -n 'end of jumplist'; sleep 0.2
+cd -${stacklevel} &>/dev/null || echo -n 'end of jumplist'; sleep 0.2
 zle reset-prompt
 
 # vim: ft=zsh
