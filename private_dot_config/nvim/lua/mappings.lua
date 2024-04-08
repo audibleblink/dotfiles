@@ -1,6 +1,7 @@
 local map = vim.keymap.set
 
 map("n", "<CR>", ":", { desc = "CMD enter command mode" })
+map("n", "<c-q>", ":quitall<CR>", { desc = "Quit all bufers" })
 map("n", "<leader>cl", "<cmd> hi Normal guibg=none <CR>", { desc = "Clear Background (Transparency)" })
 map("n", "<leader>b", "<cmd> Telescope buffers <CR>", { desc = "Search buffers" })
 map("n", "<leader><Tab>", "<cmd> b# <CR>", { desc = "Previous Buffer" })
