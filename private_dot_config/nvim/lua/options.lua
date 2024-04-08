@@ -5,10 +5,34 @@ local o = vim.o
 -------------------------------------- globals -----------------------------------------
 g.toggle_theme_icon = "   "
 g.markdown_folding = 1
+g.tmux_navigator_save_on_switch = 2
+
+-- disable some default providers
+g["loaded_node_provider"] = 0
+g["loaded_python3_provider"] = 0
+g["loaded_perl_provider"] = 0
+g["loaded_ruby_provider"] = 0
 
 -------------------------------------- options ------------------------------------------
+-- disable nvim intro
+opt.shortmess:append("sI")
+opt.fillchars = { eob = " " }
+-- go to previous/next line with h,l,left arrow and right arrow
+-- when cursor reaches end/beginning of line
+opt.whichwrap:append("<>[]hl")
+
+-- interval for writing swap file to disk, also used by gitsigns
+o.updatetime = 250
 o.laststatus = 3
 o.showmode = false
+o.ignorecase = true
+o.smartcase = true
+o.signcolumn = "yes"
+o.splitbelow = true
+o.splitright = true
+o.timeoutlen = 250
+o.undofile = true
+o.mouse = "a"
 
 o.clipboard = "unnamedplus"
 o.cursorline = true
@@ -21,37 +45,10 @@ o.smartindent = true
 o.tabstop = 2
 o.softtabstop = 2
 
-opt.fillchars = { eob = " " }
-o.ignorecase = true
-o.smartcase = true
-o.mouse = "a"
-
 -- Numbers
 o.number = true
 o.numberwidth = 2
 o.ruler = false
-
--- disable nvim intro
-opt.shortmess:append("sI")
-
-o.signcolumn = "yes"
-o.splitbelow = true
-o.splitright = true
-o.timeoutlen = 250
-o.undofile = true
-
--- interval for writing swap file to disk, also used by gitsigns
-o.updatetime = 250
-
--- go to previous/next line with h,l,left arrow and right arrow
--- when cursor reaches end/beginning of line
-opt.whichwrap:append("<>[]hl")
-
--- disable some default providers
-vim.g["loaded_node_provider"] = 0
-vim.g["loaded_python3_provider"] = 0
-vim.g["loaded_perl_provider"] = 0
-vim.g["loaded_ruby_provider"] = 0
 
 -- add binaries installed by mason.nvim to path
 local is_windows = vim.fn.has("win32") ~= 0
@@ -59,11 +56,9 @@ vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin" .. (is_windows and ";" or 
 
 -- Custom
 opt.swapfile = false
-opt.scrolloff = 5
+opt.scrolloff = 8
 opt.colorcolumn = "99"
 opt.guifont = "CodeliaLigatures Nerd Font"
-
-g.tmux_navigator_save_on_switch = 2
 
 -- highlight yanked text for 200ms using the "Visual" highlight group
 vim.cmd([[
