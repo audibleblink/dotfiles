@@ -86,15 +86,15 @@ map("i", "<C-j>", "<Down>", { desc = "Move Down" })
 map("i", "<C-k>", "<Up>", { desc = "Move Up" })
 
 -- new terminals
-map({ "n", "t" }, "<leader>h", function()
+map({ "n", "t" }, "<leader>hh", function()
 	require("nvchad.term").toggle({ pos = "sp", id = "htoggleTerm", size = 0.3 })
 end, { desc = "Terminal New horizontal term" })
 
-map({ "n", "t" }, "<leader>v", function()
+map({ "n", "t" }, "<leader>vv", function()
 	require("nvchad.term").toggle({ pos = "vsp", id = "vtoggleTerm", size = 0.3 })
 end, { desc = "Terminal Toggleable vertical term" })
 
-map({ "n", "t" }, "<leader>i", function()
+map({ "n", "t" }, "<leader>ii", function()
 	require("nvchad.term").toggle({ pos = "float", id = "floatTerm" })
 end, { desc = "Terminal Toggle Floating term" })
 
