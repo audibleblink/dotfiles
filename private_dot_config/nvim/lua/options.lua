@@ -20,7 +20,7 @@ opt.fillchars = { eob = " " }
 -- go to previous/next line with h,l,left arrow and right arrow
 -- when cursor reaches end/beginning of line
 opt.whichwrap:append("<>[]hl")
-
+opt.conceallevel = 1
 -- interval for writing swap file to disk, also used by gitsigns
 o.updatetime = 250
 o.laststatus = 3
