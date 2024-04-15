@@ -33,10 +33,10 @@ shift + alt - e : yabai -m space --balance
 
 # -- Moving Windows Around --
 #move windows between external displays 
-shift + alt - y : yabai -m window --display west; yabai -m display --focus east
-shift + alt - u : yabai -m window --display south; yabai -m display --focus south
 shift + alt - i : yabai -m window --display north; yabai -m display --focus north
-shift + alt - o : yabai -m window --display east; yabai -m display --focus west
+shift + alt - u : yabai -m window --display south; yabai -m display --focus south
+shift + alt - o : yabai -m window --display east; yabai -m display --focus east
+shift + alt - y : yabai -m window --display west; yabai -m display --focus west
 # swap windows
 shift + alt - j : yabai -m window --swap south
 shift + alt - k : yabai -m window --swap north
