@@ -22,7 +22,6 @@ return {
 
 	opts = {
 		open_app_foreground = false,
-		disable_frontmatter = true,
 		workspaces = {
 			{
 				name = "personal",
@@ -32,24 +31,38 @@ return {
 				},
 			},
 		},
+
 		daily_notes = {
 			folder = "05 - Journals",
 			template = "0402 - Daily.md",
-			-- alias_format = "%Y-%m-%d",
+			alias_format = "%B %-d, %Y",
 		},
+
 		templates = {
 			subdir = "04 - Templates",
-			-- time_format = "%X",
-			-- substitutions = {
-			-- 	["time:HH:mm:ss"] = function()
-			-- 		return os.date("%X")
-			-- 	end,
-			-- },
 		},
 
 		attachments = {
-			img_folder = "03 - Content/files", -- This is the default
+			img_folder = "03 - Content/files",
 		},
-		-- see below for full list of options 👇
+
+		note_frontmatter_func = function(note)
+			-- Add the title of the note as an alias.
+			if note.title then
+				note:add_alias(note.title)
+			end
+
+			local out = { aliases = note.aliases }
+
+			-- `note.metadata` contains any manually added fields in the frontmatter.
+			-- So here we just make sure those fields are kept in the frontmatter.
+			if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
+				for k, v in pairs(note.metadata) do
+					out[k] = v
+				end
+			end
+
+			return out
+		end,
 	},
 }
