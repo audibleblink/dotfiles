@@ -17,6 +17,7 @@ g["loaded_ruby_provider"] = 0
 -- disable nvim intro
 opt.shortmess:append("sI")
 opt.fillchars = { eob = " " }
+opt.autoread = true
 -- go to previous/next line with h,l,left arrow and right arrow
 -- when cursor reaches end/beginning of line
 opt.whichwrap:append("<>[]hl")
@@ -60,10 +61,16 @@ opt.scrolloff = 8
 opt.colorcolumn = "99"
 opt.guifont = "CodeliaLigatures Nerd Font"
 
--- highlight yanked text for 200ms using the "Visual" highlight group
+-- highlight yanked text for 300ms using the "Visual" highlight group
 vim.cmd([[
 	augroup highlight_yank
 		autocmd!
 		au TextYankPost * silent! lua vim.highlight.on_yank({higroup="Visual", timeout=300})
 	augroup END
 ]])
+
+-- Reload files if changed externally
+vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
+	command = "if mode() != 'c' | checktime | endif",
+	pattern = { "*" },
+})
