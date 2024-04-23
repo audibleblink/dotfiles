@@ -53,3 +53,5 @@
 [include]
 	path = ~/.gitconfig_local
 
+[rerere]
+	enabled = true
