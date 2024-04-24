@@ -4,7 +4,6 @@ local o = vim.o
 
 -------------------------------------- globals -----------------------------------------
 g.toggle_theme_icon = "   "
-g.markdown_folding = 1
 g.tmux_navigator_save_on_switch = 2
 
 -- disable some default providers
