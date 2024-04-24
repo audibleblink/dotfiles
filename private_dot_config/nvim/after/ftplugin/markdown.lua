@@ -1,5 +1,11 @@
-vim.cmd("setlocal spell")
-vim.cmd("setlocal wrap")
-
 vim.g.markdown_folding = 1
-vim.opt.foldlevel = 1
+vim.opt_local.foldlevel = 1
+vim.opt_local.foldmethod = "expr"
+vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt_local.foldtext = ""
+vim.opt_local.linebreak = false
+vim.opt_local.spell = true
+vim.opt_local.wrap = true
+vim.opt_local.formatexpr = ""
+vim.opt_local.conceallevel = 2
+vim.opt_local.concealcursor = "nc"
