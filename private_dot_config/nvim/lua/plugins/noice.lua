@@ -6,6 +6,17 @@ return {
 			signature = { enabled = false },
 			hover = { enabled = false },
 		},
+
+		routes = {
+			{
+				filter = { find = "No information available" },
+				view = "mini",
+			},
+			{
+				filter = { find = "written" },
+				view = "mini",
+			},
+		},
 	},
 	dependencies = {
 		-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
@@ -13,6 +24,6 @@ return {
 		-- OPTIONAL:
 		--   `nvim-notify` is only needed, if you want to use the notification view.
 		--   If not available, we use `mini` as the fallback
-		-- "rcarriga/nvim-notify",
+		"rcarriga/nvim-notify",
 	},
 }
