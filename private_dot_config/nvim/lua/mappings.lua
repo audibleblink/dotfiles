@@ -3,7 +3,7 @@ local map = vim.keymap.set
 map("n", "<CR>", ":", { desc = "CMD enter command mode" })
 map("n", "<c-q>", ":quitall<CR>", { desc = "Quit all bufers" })
 map("n", "<leader>cl", "<cmd> hi Normal guibg=none <CR>", { desc = "Clear Background (Transparency)" })
-map("n", "<leader>b", "<cmd> Telescope buffers <CR>", { desc = "Search buffers" })
+-- map("n", "<leader>b", "<cmd> Telescope buffers <CR>", { desc = "Search buffers" })
 map("n", "<leader><Tab>", "<cmd> b# <CR>", { desc = "Previous Buffer" })
 map("n", "<leader>m", "<cmd> wincmd | <CR>:windcmd _ <CR>", { desc = "Zoom Pane" })
 map("n", "<leader>mm", "<cmd> wincmd = <CR>", { desc = "Reset Zoom" })
@@ -12,7 +12,7 @@ map("n", "<Esc>", "<cmd>noh<CR>", { desc = "General Clear highlights" })
 map("n", "<leader>n", "<cmd>set nu!<CR>", { desc = "Toggle Line number" })
 map("n", "<leader>rn", "<cmd>set rnu!<CR>", { desc = "Toggle Relative number" })
 map("n", "<leader>ch", "<cmd>NvCheatsheet<CR>", { desc = "Toggle NvCheatsheet" })
-map("n", "<leader>fm", function()
+map("n", "gm", function()
 	require("conform").format({ lsp_fallback = true })
 end, { desc = "Format Files" })
 
@@ -55,6 +55,7 @@ map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "Nvimtree Toggle window" }
 map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "Nvimtree Focus window" })
 
 -- telescope
+map("n", "<leader>fm", "<cmd>Telescope messages<CR>", { desc = "Telescope Messages" })
 map("n", "<leader>fw", "<cmd>Telescope live_grep<CR>", { desc = "Telescope Live grep" })
 map("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "Telescope Find buffers" })
 map("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", { desc = "Telescope Help page" })
