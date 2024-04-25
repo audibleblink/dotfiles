@@ -2,8 +2,8 @@
 
 emulate -L zsh
 
-cd "${XDG_CONFIG_HOME}/nvim/lua"
-nvim chadrc.lua +NvimTreeToggle
+cd "${XDG_CONFIG_HOME}/nvim"
+nvim lua/mappings.lua +NvimTreeToggle +edit\ lua/mappings.lua
 chezmoi add --recursive .
 chezmoi apply -k
 cd -
