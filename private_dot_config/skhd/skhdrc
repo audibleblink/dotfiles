@@ -2,6 +2,7 @@
 alt - d : open -a Ferdium.app
 alt - w : open -a Safari.app
 alt - t : open -a Kitty.app
+alt - b : open -a Obsidian.app
 
 # -- Changing Window Focus --
 #change focus between external displays
