@@ -3,7 +3,11 @@ local path = vim.fn.expand("~") .. "/Vaults"
 return {
 	"epwalsh/obsidian.nvim",
 	version = "*",
-	cmd = { "ObsidianQuickSwitch", "ObsidianDailies", "ObsidianToday", "ObsidianNew" },
+	cmd = { "ObsidianQuickSwitch", "ObsidianDailies", "ObsidianToday", "ObsidianNew", "ObsidianWorkspace" },
+	keys = {
+		{ "<leader>oo", "<cmd>ObsidianWorkspace<CR>", desc = "Open Obsidian Workspace Picker" },
+		{ "<leader>on", "<cmd>ObsidianNew<CR>", desc = "New Note (Obsidian)" },
+	},
 	event = {
 		"BufNewFile " .. path .. "/**.md",
 		"BufReadPre " .. path .. "/**.md",
@@ -19,19 +23,19 @@ return {
 
 			{
 				name = "personal",
-				path = path .. "/Wiki",
+				path = path .. "/Personal",
 				overrides = {
-					notes_subdir = "03 - Content",
+					notes_subdir = "Notes",
 					daily_notes = {
-						folder = "05 - Journals",
-						template = "0402 - Daily.md",
+						folder = "Journals",
+						template = "daily.md",
 						alias_format = "%B %-d, %Y",
 					},
 					templates = {
-						subdir = "04 - Templates",
+						subdir = "Templates",
 					},
 					attachments = {
-						img_folder = "03 - Content/files",
+						img_folder = "Notes/files",
 					},
 				},
 			},
@@ -43,14 +47,14 @@ return {
 					notes_subdir = "Notes",
 					daily_notes = {
 						folder = "Journals",
-						template = "Daily.md",
+						template = "daily.md",
 						alias_format = "%B %-d, %Y",
 					},
 					templates = {
 						subdir = "Templates",
 					},
 					attachments = {
-						img_folder = "Notes/data",
+						img_folder = "Notes/files",
 					},
 				},
 			},

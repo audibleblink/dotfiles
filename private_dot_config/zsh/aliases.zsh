@@ -59,6 +59,11 @@ alias gst='git status'
 alias gt='git tag'
 alias fml='e -O $( git diff --name-only | uniq )' # Open all merge conflicts
 # ]]]
+# Obsidian [[[
+alias ot="nvim +ObsidianToday"
+alias ow="nvim +ObsidianWorkspace"
+alias on="nvim +ObsidianNew"
+# ]]]
 
 (( $+commands[tree] )) && alias tree='LS_COLORS="di=34:ln=35:so=32;40:ex=31" tree'
 
