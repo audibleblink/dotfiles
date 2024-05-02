@@ -7,6 +7,8 @@ return {
 			hover = { enabled = false },
 		},
 
+		timeout = 2000,
+		fps = 60,
 		routes = {
 			{
 				filter = { find = "No information available" },
@@ -24,6 +26,13 @@ return {
 		-- OPTIONAL:
 		--   `nvim-notify` is only needed, if you want to use the notification view.
 		--   If not available, we use `mini` as the fallback
-		"rcarriga/nvim-notify",
+		-- {
+		-- 	"rcarriga/nvim-notify",
+		-- 	opts = {
+		-- 		timeout = 2000,
+		-- 		fps = 60,
+		-- 		background_colour = "#000000",
+		-- 	},
+		-- },
 	},
 }

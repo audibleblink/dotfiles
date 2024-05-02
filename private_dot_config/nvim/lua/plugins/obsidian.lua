@@ -100,6 +100,7 @@ return {
 			end,
 		},
 
+		disable_frontmatter = true,
 		note_frontmatter_func = function(note)
 			-- Add the title of the note as an alias.
 			if note.title then
