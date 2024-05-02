@@ -42,6 +42,9 @@ set -g @catppuccin_status_modules_right "user date_time"
 set -g @catppuccin_user_text "#({{ $conf }}/functions/battery.sh)"
 set -g @catppuccin_date_time_text "%H:%M"
 set -g @catppuccin_flavour 'passthru' # or frappe, macchiato, mocha
+# set -g @catppuccin_flavour 'macchiato' # dark mode
+# set -g @catppuccin_flavour 'latte' # light mode
+#
 # Initializes TMUX plugin manager. Must be last.
 set-environment -g TMUX_PLUGIN_MANAGER_PATH '{{ $data }}/plugins'
 run '{{ $data }}/plugins/tpm/tpm'
