@@ -15,7 +15,7 @@ return {
 			"yaml-language-server",
 
 			-- Linters
-			"cppcheck",
+			-- "cppcheck",
 			-- "csharpier",
 			"flake8",
 			"gofumpt",

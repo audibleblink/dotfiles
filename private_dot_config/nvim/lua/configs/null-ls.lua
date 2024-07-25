@@ -18,7 +18,6 @@ local sources = {
 	diagnostics.flake8,
 	diagnostics.golangci_lint,
 	diagnostics.staticcheck,
-	diagnostics.cppcheck,
 	diagnostics.standardrb,
 
 	lint.shellcheck,
