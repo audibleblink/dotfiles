@@ -49,6 +49,7 @@ set -g @catppuccin_flavour 'passthru' # or frappe, macchiato, mocha
 set -g @floax-bind 'i'
 set -g @floax-width '60%'
 set -g @floax-height '60%'
+set -g @floax-title 'вєωαяє, ι αм ƒαη¢у!'
 #
 # Initializes TMUX plugin manager. Must be last.
 set-environment -g TMUX_PLUGIN_MANAGER_PATH '{{ $data }}/plugins'
@@ -94,17 +95,19 @@ set -g status 2
 # Use vim keybindings in copy mode
 setw -g mode-keys vi
 bind -T copy-mode-vi 'v' send -X begin-selection
-bind -T copy-mode-vi 'y' send -X copy-selection
+bind -T copy-mode-vi 'y' send -X copy-pipe-and-cancel
 
 # Allows clearing screen with Prefix+L
 bind C-l send-keys 'C-l'
 # ]]]
 # Default Shell [[[
 {{ if (eq .chezmoi.os "darwin") }}
+set -s copy-command 'pbcopy'
 set -g default-shell /bin/zsh
 set-option -g default-terminal "xterm-256color"
 set -g -a terminal-overrides ',xterm-256color:Tc,*:Ss=\E[%p1%d q:Se=\E[2 q'
 {{ else  }}
+set -s copy-command 'xsel -i'
 set -g default-shell /usr/bin/zsh
 set-option -g default-terminal "xterm-256color"
 set -g -a terminal-overrides ',*256col*:Tc,*:Ss=\E[%p1%d q:Se=\E[2 q'
