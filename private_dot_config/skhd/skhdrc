@@ -1,6 +1,6 @@
 # -- Application Keymaps --
 alt - d : open -a Ferdium.app
-alt - w : open -a Safari.app
+alt - w : open -a Arc.app
 alt - t : open -a Kitty.app
 alt - b : open -a Obsidian.app
 
