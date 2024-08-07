@@ -3,6 +3,7 @@ local path = vim.fn.expand("~") .. "/Vaults"
 return {
 	"epwalsh/obsidian.nvim",
 	version = "*",
+	ui = { enable = false },
 	cmd = { "ObsidianQuickSwitch", "ObsidianDailies", "ObsidianToday", "ObsidianNew", "ObsidianWorkspace" },
 	keys = {
 		{ "<leader>oo", "<cmd>ObsidianWorkspace<CR>", desc = "Open Obsidian Workspace Picker" },
