@@ -2,7 +2,7 @@ local M = {}
 
 M.ui = {
 	transparency = true,
-	theme = "bearded-arc",
+	theme = "catppuccin",
 	tabufline = { enabled = false },
 	statusline = { separator_style = "round" },
 	hl_override = { CursorLine = { bg = "black2" } },

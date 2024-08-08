@@ -35,8 +35,10 @@
 
 [http]
 	postBuffer = 52428800
+
 [gpg]
 	program = /usr/local/bin/gpg2
+	format = ssh
 
 [push]
 	default = current
