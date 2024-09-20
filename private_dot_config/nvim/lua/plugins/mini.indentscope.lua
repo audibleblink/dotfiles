@@ -15,5 +15,21 @@ return {
 				}),
 			},
 		})
+
+		local disabled = {
+			"help",
+			"terminal",
+		}
+
+		vim.api.nvim_create_autocmd("FileType", {
+			pattern = "*",
+			callback = function()
+				if disabled[vim.bo.filetype] ~= nil or vim.bo.buftype ~= "" then
+					vim.b.miniindentscope_disable = true
+				end
+			end,
+		})
+
+		vim.cmd([[highlight! link MiniIndentscopeSymbol Identifier]])
 	end,
 }
