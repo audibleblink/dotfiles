@@ -6,6 +6,7 @@ return {
 	{ "justinmk/vim-sneak", lazy = false },
 	{ "jiangmiao/auto-pairs", lazy = false },
 	{ "ellisonleao/glow.nvim", config = true, cmd = "Glow" },
+	{ "lukas-reineke/indent-blankline.nvim", enabled = false },
 	-- {
 	-- 	"mrcjkb/rustaceanvim",
 	-- 	version = "^4", -- Recommended
