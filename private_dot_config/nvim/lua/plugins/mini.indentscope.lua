@@ -2,13 +2,18 @@ return {
 	"echasnovski/mini.indentscope",
 	version = false,
 	lazy = false,
-	opts = {
-		symbol = "│",
-		draw = {
-			priority = 2,
-			animation = function(s, n)
-				return s / n * 20
-			end,
-		},
-	},
+	config = function()
+		require("mini.indentscope").setup({
+			symbol = "┃",
+			draw = {
+				delay = 40,
+				priority = 2,
+				animation = require("mini.indentscope").gen_animation.exponential({
+					easing = "in-out",
+					duration = 80,
+					unit = "total",
+				}),
+			},
+		})
+	end,
 }
