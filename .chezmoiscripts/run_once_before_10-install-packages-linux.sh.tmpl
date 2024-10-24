@@ -4,11 +4,13 @@
 set -eufo pipefail
 
 pkgs=(
+        apt-utils
         dos2unix
         fzf
         git
         gnupg
         jq
+        nala
         neovim
         ripgrep
         tmux
@@ -37,8 +39,7 @@ pkgs+=(
 
 
 sudo apt update
-sudo apt install -y apt-utils nala
-sudo nala install -t unstable -y ${pkgs[@]}
+sudo apt install -t unstable -y ${pkgs[@]}
 
 # installs atuin and starship
 /bin/bash -c "$(curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh)"
