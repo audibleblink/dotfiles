@@ -87,18 +87,35 @@ map("i", "<C-l>", "<Right>", { desc = "Move Right" })
 map("i", "<C-j>", "<Down>", { desc = "Move Down" })
 map("i", "<C-k>", "<Up>", { desc = "Move Up" })
 
+local terminal = require("nvchad.term")
+local modes = { "n", "t" }
+
 -- new terminals
-map({ "n", "t" }, "<leader>hh", function()
-	require("nvchad.term").toggle({ pos = "sp", id = "htoggleTerm", size = 0.3 })
+map(modes, "<leader>hh", function()
+	terminal.toggle({ pos = "sp", id = "htoggleTerm", size = 0.3 })
 end, { desc = "Terminal New horizontal term" })
 
-map({ "n", "t" }, "<leader>vv", function()
-	require("nvchad.term").toggle({ pos = "vsp", id = "vtoggleTerm", size = 0.3 })
+map(modes, "<leader>vv", function()
+	terminal.toggle({ pos = "vsp", id = "vtoggleTerm", size = 0.3 })
 end, { desc = "Terminal Toggleable vertical term" })
 
-map({ "n", "t" }, "<leader>ii", function()
-	require("nvchad.term").toggle({ pos = "float", id = "floatTerm" })
+map(modes, "<leader>ii", function()
+	terminal.toggle({ pos = "float", id = "floatTerm" })
 end, { desc = "Terminal Toggle Floating term" })
+
+local ft_cmds = {
+	python = "python3 " .. vim.fn.expand("%"),
+	zig = "zig build; exit ",
+}
+
+map(modes, "<leader>it", function()
+	terminal.runner({
+		pos = "float",
+		cmd = ft_cmds[vim.bo.filetype],
+		id = "runner",
+		clear_cmd = false,
+	})
+end, { desc = "Run zig build in Floating term" })
 
 -- noremap <expr> j v:count > 1 ? 'm`' . v:count . 'j' : 'gj'
 -- noremap <expr> k v:count > 1 ? 'm`' . v:count . 'k' : 'gk'

@@ -13,6 +13,7 @@ return {
 			"lua-language-server",
 			"rust-analyzer",
 			"yaml-language-server",
+			"zls",
 
 			-- Linters
 			-- "cppcheck",

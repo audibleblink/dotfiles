@@ -13,6 +13,7 @@ local servers = {
 	"jedi_language_server",
 	-- "rubocop",
 	"rust_analyzer",
+	"zls",
 }
 
 for _, lsp in ipairs(servers) do
