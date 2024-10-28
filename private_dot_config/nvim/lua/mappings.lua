@@ -1,4 +1,5 @@
 local map = vim.keymap.set
+local vim = vim
 
 map("n", "<CR>", ":", { desc = "CMD enter command mode" })
 map("n", "<c-q>", ":quitall<CR>", { desc = "Quit all bufers" })
