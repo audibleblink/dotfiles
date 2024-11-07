@@ -8,7 +8,16 @@ M.base46 = {
 
 M.ui = {
 	tabufline = { enabled = false },
-	statusline = { separator_style = "round" },
+	statusline = {
+		separator_style = "round",
+		-- order = { "mode", "f", "git", "%=", "lsp_msg", "%=", "lsp", "cwd", "abc" },
+		modules = {
+			abc = function()
+				return "hi"
+			end,
+			f = "%f",
+		},
+	},
 	term = {
 		sizes = { sp = 0.3, vsp = 0.2 },
 		float = {
