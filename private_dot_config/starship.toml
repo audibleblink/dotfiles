@@ -54,7 +54,7 @@ format = '\([$state( $progress_current/$progress_total)]($style)\) '
 style = "bright-black"
 
 [kubernetes]
-disabled = true
+disabled = false
 format = "[$symbol$cluster:$namespace](blue)"
 detect_files = [ '.k8s', 'kustomization.yaml', 'values.yaml']
 
