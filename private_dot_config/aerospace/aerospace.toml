@@ -34,6 +34,8 @@ outer.top =        30
 outer.right =      30
 
 [mode.main.binding]
+alt-enter = 'exec-and-forget kitty -d $HOME'
+
 alt--f = 'fullscreen'
 alt-ctrl-f = 'layout floating tiling'
 
@@ -46,11 +48,10 @@ alt-shift-right = 'join-with right'
 alt-slash = 'layout tiles horizontal vertical'
 alt-comma = 'layout accordion horizontal vertical'
 
-# See: https://nikitabobko.github.io/AeroSpace/commands#focus
-alt-h = 'focus --boundaries-action wrap-around-all-monitors left'
-alt-j = 'focus --boundaries-action wrap-around-all-monitors down'
-alt-k = 'focus --boundaries-action wrap-around-all-monitors up'
-alt-l = 'focus --boundaries-action wrap-around-all-monitors right'
+alt-h = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors left'
+alt-j = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors down'
+alt-k = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors up'
+alt-l = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors right'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move
 alt-shift-h = 'move left'
@@ -66,14 +67,11 @@ alt-4 = 'workspace --auto-back-and-forth 4'
 alt-5 = 'workspace --auto-back-and-forth 5'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-alt-shift-1 = 'move-node-to-workspace 1 --focus-follows-window'
-alt-shift-2 = 'move-node-to-workspace 2 --focus-follows-window'
-alt-shift-3 = 'move-node-to-workspace 3 --focus-follows-window'
-alt-shift-4 = 'move-node-to-workspace 4 --focus-follows-window'
-alt-shift-5 = 'move-node-to-workspace 5 --focus-follows-window'
-
-
-alt-enter = 'exec-and-forget open -a /Applications/kitty.app'
+alt-shift-1 = 'move-node-to-workspace 1'
+alt-shift-2 = 'move-node-to-workspace 2'
+alt-shift-3 = 'move-node-to-workspace 3'
+alt-shift-4 = 'move-node-to-workspace 4'
+alt-shift-5 = 'move-node-to-workspace 5'
 
 alt-shift-semicolon = 'mode service'
 alt-shift-r = 'mode resize'
@@ -81,8 +79,6 @@ alt-shift-r = 'mode resize'
 [mode.service.binding]
 esc = ['reload-config', 'mode main']
 r = ['flatten-workspace-tree', 'mode main'] # reset layout
-f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
-backspace = ['close-all-windows-but-current', 'mode main']
 
 [mode.resize.binding]
 h = 'resize width -50'
