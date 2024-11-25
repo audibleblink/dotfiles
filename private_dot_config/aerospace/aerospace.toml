@@ -1,13 +1,5 @@
-after-startup-command = 'exec-and-forget borders'
-
 start-at-login = true
-enable-normalization-flatten-containers = true
-enable-normalization-opposite-orientation-for-nested-containers = true
-accordion-padding = 50
-default-root-container-layout = 'tiles'
-default-root-container-orientation = 'auto'
-on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
-automatically-unhide-macos-hidden-apps = false
+after-startup-command = 'exec-and-forget borders'
 
 # [[on-window-detected]]
 # if.app-id = 'com.apple.systempreferences'
@@ -38,7 +30,7 @@ inner.horizontal = 15
 inner.vertical =   15
 outer.left =       30
 outer.bottom =     30
-outer.top =        50
+outer.top =        30
 outer.right =      30
 
 [mode.main.binding]
@@ -55,10 +47,10 @@ alt-slash = 'layout tiles horizontal vertical'
 alt-comma = 'layout accordion horizontal vertical'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#focus
-alt-h = 'focus --boundaries-action wrap-around-the-workspace left'
-alt-j = 'focus --boundaries-action wrap-around-the-workspace down'
-alt-k = 'focus --boundaries-action wrap-around-the-workspace up'
-alt-l = 'focus --boundaries-action wrap-around-the-workspace right'
+alt-h = 'focus --boundaries-action wrap-around-all-monitors left'
+alt-j = 'focus --boundaries-action wrap-around-all-monitors down'
+alt-k = 'focus --boundaries-action wrap-around-all-monitors up'
+alt-l = 'focus --boundaries-action wrap-around-all-monitors right'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move
 alt-shift-h = 'move left'
@@ -67,11 +59,11 @@ alt-shift-k = 'move up'
 alt-shift-l = 'move right'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
-alt-1 = 'workspace 1'
-alt-2 = 'workspace 2'
-alt-3 = 'workspace 3'
-alt-4 = 'workspace 4'
-alt-5 = 'workspace 5'
+alt-1 = 'workspace --auto-back-and-forth 1'
+alt-2 = 'workspace --auto-back-and-forth 2'
+alt-3 = 'workspace --auto-back-and-forth 3'
+alt-4 = 'workspace --auto-back-and-forth 4'
+alt-5 = 'workspace --auto-back-and-forth 5'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
 alt-shift-1 = 'move-node-to-workspace 1 --focus-follows-window'
@@ -86,7 +78,6 @@ alt-enter = 'exec-and-forget open -a /Applications/kitty.app'
 alt-shift-semicolon = 'mode service'
 alt-shift-r = 'mode resize'
 
-
 [mode.service.binding]
 esc = ['reload-config', 'mode main']
 r = ['flatten-workspace-tree', 'mode main'] # reset layout
@@ -94,9 +85,9 @@ f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling
 backspace = ['close-all-windows-but-current', 'mode main']
 
 [mode.resize.binding]
-h = 'resize smart -50'
-j = 'resize smart -50'
-k = 'resize smart -50'
-l = 'resize smart -50'
+h = 'resize width -50'
+j = 'resize height +50'
+k = 'resize height -50'
+l = 'resize width +50'
+enter = 'mode main'
 esc = 'mode main'
-enter =  'mode main'
