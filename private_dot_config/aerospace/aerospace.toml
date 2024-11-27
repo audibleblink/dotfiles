@@ -74,8 +74,14 @@ alt-shift-3 = 'move-node-to-workspace 3'
 alt-shift-4 = 'move-node-to-workspace 4'
 alt-shift-5 = 'move-node-to-workspace 5'
 
-alt-shift-semicolon = 'mode service'
-alt-shift-r = 'mode resize'
+alt-shift-semicolon = [
+  "exec-and-forget osascript -e 'display notification \"Service\" with title \"Aerospace Mode\"'",
+  'mode service',
+]
+alt-shift-r = [
+  "exec-and-forget osascript -e 'display notification \"Resize\" with title \"Aerospace Mode\"'",
+  'mode resize',
+]
 
 [mode.service.binding]
 esc = ['reload-config', 'mode main']
