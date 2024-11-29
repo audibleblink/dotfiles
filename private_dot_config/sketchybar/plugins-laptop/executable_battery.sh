@@ -1,8 +1,8 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Battery is here bcause the ICON_COLOR doesn't play well with all background colors
 
-PERCENTAGE=$(pmset -g batt | grep -Po "\d+%" | cut -d% -f1)
+PERCENTAGE=$(pmset -g batt | /usr/bin/grep -Eo "\d+%")
 CHARGING=$(pmset -g batt | grep 'AC Power')
 
 if [ $PERCENTAGE = "" ]; then
@@ -37,7 +37,4 @@ if [[ $CHARGING != "" ]]; then
     ICON_COLOR=0xffeed49f
 fi
 
-sketchybar --set $NAME \
-    icon=$ICON \
-    label="${PERCENTAGE}%" \
-    icon.color=${ICON_COLOR}
+sketchybar --set "${NAME}" icon="${ICON}" label="${PERCENTAGE}" icon.color="${ICON_COLOR}"
