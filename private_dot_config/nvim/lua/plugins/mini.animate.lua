@@ -8,7 +8,7 @@ return {
 			scroll = {
 				timing = mini.gen_timing.exponential({
 					easing = "out",
-					duration = 8,
+					duration = 4,
 					unit = "step",
 				}),
 			},
