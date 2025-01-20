@@ -30,13 +30,13 @@ run = 'layout floating'
 preset = 'qwerty'
 
 [gaps]
-outer.top    = [ { monitor."retina" = 5 }, 30]
-outer.bottom = [ { monitor."retina" = 10 }, 30]
-outer.left   = [ { monitor."retina" = 10 }, 30]
-outer.right  = [ { monitor."retina" = 10 }, 30]
+outer.top    = [ { monitor."retina" = 5 }, 10]
+outer.bottom = [ { monitor."retina" = 10 }, 15]
+outer.left   = [ { monitor."retina" = 10 }, 15]
+outer.right  = [ { monitor."retina" = 10 }, 15]
 
-inner.horizontal = [ { monitor."retina" = 12 }, 30]
-inner.vertical   = [ { monitor."retina" = 12 }, 30]
+inner.horizontal = [ { monitor."retina" = 12 }, 20]
+inner.vertical   = [ { monitor."retina" = 12 }, 20]
 
 [mode.main.binding]
 alt-enter = 'exec-and-forget kitty -d $HOME'
