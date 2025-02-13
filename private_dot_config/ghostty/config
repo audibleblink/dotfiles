@@ -10,6 +10,8 @@ font-family-bold-italic = CodeliaLigatures Nerd Font Bold Italic
 copy-on-select = true
 
 macos-titlebar-style = hidden
+window-padding-y = 15,1
+window-padding-x = 4
 
-window-padding-y = 15,4
-window-padding-x = 5,2
+keybind = global:cmd+grave_accent=toggle_quick_terminal
+quick-terminal-position = left
