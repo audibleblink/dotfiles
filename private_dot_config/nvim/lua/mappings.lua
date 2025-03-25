@@ -1,6 +1,10 @@
 local map = vim.keymap.set
 local vim = vim
 
+map('n', 'gr', vim.lsp.buf.references, { desc = "Show References" } )
+map('n', 'gd', vim.lsp.buf.definition, { desc = "Go to Definition" } )
+map('n', 'ga', vim.lsp.buf.rename, { desc = "Rename Symbol" } )
+
 map("n", "<CR>", ":", { desc = "CMD enter command mode" })
 map("n", "<c-q>", ":quitall<CR>", { desc = "Quit all bufers" })
 map("n", "<leader>cl", "<cmd> hi Normal guibg=none <CR>", { desc = "Clear Background (Transparency)" })
