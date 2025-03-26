@@ -32,5 +32,5 @@ require("options")
 require("nvchad.autocmds")
 
 vim.schedule(function()
-	require("mappings")
+	require("mappings").load()
 end)

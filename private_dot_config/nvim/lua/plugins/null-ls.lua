@@ -1,12 +1,10 @@
 -- Setup null-ls module with on_attach function for formatting
-local on_attach = nil
-
 local M = {
 	"nvimtools/none-ls.nvim",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 	},
-	config = function()
+	opts = function()
 		local null_ls = require("null-ls")
 
 		local formatting = null_ls.builtins.formatting
@@ -19,10 +17,7 @@ local M = {
 			formatting.gofumpt,
 			formatting.goimports_reviser,
 			formatting.golines,
-<<<<<<< HEAD
-=======
 			formatting.ruff,
->>>>>>> 415f792 ((nvim) claude sonnet refactor)
 			-- formatting.csharpier,
 			formatting.yq,
 
@@ -36,11 +31,11 @@ local M = {
 			diagnostics.shellcheck,
 		}
 
-		local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-
-		-- Define on_attach in module scope so it can be used by lspconfig
-		on_attach = function(client, bufnr)
+		-- Define on_attach function for formatting on save
+		local on_attach = function(client, bufnr)
 			if client.supports_method("textDocument/formatting") then
+				local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
 				vim.api.nvim_clear_autocmds({
 					group = augroup,
 					buffer = bufnr,
@@ -56,17 +51,20 @@ local M = {
 			end
 		end
 
-		null_ls.setup({
+		return {
 			debug = true,
 			sources = sources,
 			on_attach = on_attach,
-		})
+		}
+	end,
+	config = function(_, opts)
+		require("null-ls").setup(opts)
 	end,
 }
 
 -- Function to get the on_attach function for use in other modules
 function M.get_on_attach()
-	return on_attach
+	return M.opts().on_attach
 end
 
 return M
