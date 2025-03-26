@@ -6,9 +6,6 @@ return {
 	{ "justinmk/vim-sneak", lazy = false },
 	{ "jiangmiao/auto-pairs", lazy = false },
 	{ "ellisonleao/glow.nvim", config = true, cmd = "Glow" },
-	-- {
-	-- 	"mrcjkb/rustaceanvim",
-	-- 	version = "^4", -- Recommended
-	-- 	ft = { "rust" },
-	-- },
+	{ "echasnovski/mini.ai", lazy = false, version = "*" },
+	{ "numToStr/Comment.nvim" },
 }

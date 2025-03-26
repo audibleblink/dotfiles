@@ -18,7 +18,7 @@ return {
 			split_command = nil,
 
 			-- Percentage or integer of columns
-			width = 20,
+			width = 15,
 			-- Whether width is relative to the total width of nvim
 			-- When relative_width = true, this means take 25% of the total
 			-- screen width for outline window.
@@ -131,7 +131,7 @@ return {
 			-- If you disable this you can still open hover_symbol using your keymap
 			-- below.
 			open_hover_on_preview = false,
-			width = 50, -- Percentage or integer of columns
+			width = 50,  -- Percentage or integer of columns
 			min_width = 50, -- This is the number of columns
 			-- Whether width is relative to the total width of nvim.
 			-- When relative_width = true, this means take 50% of the total
@@ -199,8 +199,8 @@ return {
 				-- Lsp client names to ignore
 				blacklist_clients = {},
 			},
+			-- List of supported ft's to use the markdown provider
 			markdown = {
-				-- List of supported ft's to use the markdown provider
 				filetypes = { "markdown" },
 			},
 		},

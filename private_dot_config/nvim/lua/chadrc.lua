@@ -9,12 +9,13 @@ M.base46 = {
 M.ui = {
 	tabufline = { enabled = false },
 	statusline = {
+		-- theme = "default",
 		separator_style = "round",
-		-- order = { "mode", "f", "git", "%=", "lsp_msg", "%=", "lsp", "cwd", "abc" },
+		order = { "mode", "file", "git", "%=", "lsp_msg", "%=", "diagnostics", "lsp", "cursor", "cwd", "f" },
 		modules = {
-			abc = function()
-				return "hi"
-			end,
+			-- abc = function()
+			-- 	return "hi"
+			-- end,
 			f = "%f",
 		},
 	},

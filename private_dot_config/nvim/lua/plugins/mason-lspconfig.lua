@@ -1,33 +1,22 @@
 return {
 	"williamboman/mason-lspconfig.nvim",
+	dependencies = {
+		"williamboman/mason.nvim",
+	},
 	opts = {
 		automatic_installation = true,
 		ensure_installed = {
 			-- Language Servers
 			-- "clangd",
-			-- "csharp-language-server",
-			-- "css-lsp",
-			-- "html-lsp",
+			-- "csharp_language_server",
+			-- "css_lsp",
+			-- "html_lsp",
+			-- "lua_ls",
 			"gopls",
 			"ruff",
-			"lua-language-server",
-			"rust-analyzer",
-			"yaml-language-server",
+			"rust_analyzer",
+			"yamlls",
 			"zls",
-
-			-- Linters
-			-- "cppcheck",
-			-- "csharpier",
-			"gofumpt",
-			"goimports-reviser",
-			"golangci-lint",
-			"golines",
-			"prettier",
-			"selene",
-			"standardrb",
-			"staticcheck",
-			"stylua",
-			"yq",
 		},
 	},
 }
