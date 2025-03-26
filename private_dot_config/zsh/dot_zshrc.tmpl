@@ -40,8 +40,13 @@ eval "$(brew shellenv)"
 source "${ZDOTDIR}/aliases.zsh"  # Sources custom aliases
 
 # Reset fpath and add custom functions and completions
+# Get clean fpath from login shell to avoid duplicate entries
 fpath=($(zsh -l -c 'echo $fpath'))
+# Add local completions and function directories to fpath
+# (N/) - nullglob for directories only, returns nothing if no match
 fpath=($ZDOTDIR/{completions,functions/**(N/)} $fpath)
+# Autoload all function files in functions directories
+# (N.:t) - nullglob, basename only, return nothing if no match
 autoload -Uz $ZDOTDIR/functions/**(N.:t)
 # ]]]
 # Plugins [[[
@@ -55,11 +60,13 @@ lazy zsh-syntax-highlighting
 lazy autopair 
 plug zsh-vi-mode
 lazy substring-search
-
+# Load key bindings via zsh-defer for better startup performance
 zsh-defer bindings
 # ]]]
 # Compinit [[[
+# Load the completion system
 autoload -U compinit
+# Initialize completion system and create cache
 compinit
 # ]]]
 
