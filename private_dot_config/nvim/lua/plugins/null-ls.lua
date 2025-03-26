@@ -19,6 +19,10 @@ local M = {
 			formatting.gofumpt,
 			formatting.goimports_reviser,
 			formatting.golines,
+<<<<<<< HEAD
+=======
+			formatting.ruff,
+>>>>>>> 415f792 ((nvim) claude sonnet refactor)
 			-- formatting.csharpier,
 			formatting.yq,
 
