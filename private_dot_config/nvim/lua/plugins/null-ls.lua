@@ -6,10 +6,10 @@ local M = {
 	},
 	opts = function()
 		local null_ls = require("null-ls")
-
+		
 		local formatting = null_ls.builtins.formatting
 		local diagnostics = null_ls.builtins.diagnostics
-
+		
 		local sources = {
 			-- Formatters
 			formatting.prettier,
@@ -30,12 +30,12 @@ local M = {
 			diagnostics.standardrb,
 			diagnostics.shellcheck,
 		}
-
+		
 		-- Define on_attach function for formatting on save
 		local on_attach = function(client, bufnr)
 			if client.supports_method("textDocument/formatting") then
 				local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-
+				
 				vim.api.nvim_clear_autocmds({
 					group = augroup,
 					buffer = bufnr,
@@ -50,7 +50,7 @@ local M = {
 				})
 			end
 		end
-
+		
 		return {
 			debug = true,
 			sources = sources,
@@ -68,4 +68,3 @@ function M.get_on_attach()
 end
 
 return M
-
