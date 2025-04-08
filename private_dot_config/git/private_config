@@ -50,17 +50,20 @@
 	submoduleSummary = true
 
 [include]
-	# path = ~/.config/git/instead
+  path = ~/.config/git/instead
 
 [include]
 	path = ~/.gitconfig_local
 
 [rerere]
 	enabled = true
+
 [gpg "ssh"]
 	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+
 [commit]
 	gpgsign = true
+
 [filter "lfs"]
 	process = git-lfs filter-process
 	required = true
