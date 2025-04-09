@@ -27,5 +27,6 @@ map("n", "<leader>cm", "<cmd>Telescope git_commits<CR>", { desc = "Telescope Git
 map("n", "<leader>gt", "<cmd>Telescope git_status<CR>", { desc = "Telescope Git status" })
 
 -- Messages and terms
-map("n", "<leader>fm", "<cmd>Telescope messages<CR>", { desc = "Telescope Messages" })
+map("n", "<leader>fm", "<cmd>Telescope marks<CR>", { desc = "Telescope Messages" })
 map("n", "<leader>pt", "<cmd>Telescope terms<CR>", { desc = "Telescope Pick hidden term" })
+
