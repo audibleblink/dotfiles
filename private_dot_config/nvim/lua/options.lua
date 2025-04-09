@@ -72,3 +72,15 @@ vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGai
 	command = "if mode() != 'c' | checktime | endif",
 	pattern = { "*" },
 })
+
+-- Create project-specific shada-files for things like marks
+opt.shadafile = (function()
+	local data = vim.fn.stdpath("state")
+	local cwd = vim.fn.getcwd()
+	cwd = vim.fs.root(0, ".git") or cwd
+
+	local cwd_b64 = vim.base64.encode(cwd)
+	local file = vim.fs.joinpath(data, "_shada", cwd_b64)
+	vim.fn.mkdir(vim.fs.dirname(file), "p")
+	return file
+end)()
