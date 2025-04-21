@@ -2,6 +2,7 @@ local path = vim.fn.expand("~") .. "/Vaults"
 
 return {
 	"epwalsh/obsidian.nvim",
+	enabled = false,
 	version = "*",
 	ui = { enable = false },
 	cmd = { "ObsidianQuickSwitch", "ObsidianDailies", "ObsidianToday", "ObsidianNew", "ObsidianWorkspace" },

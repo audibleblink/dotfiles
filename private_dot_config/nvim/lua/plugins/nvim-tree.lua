@@ -17,7 +17,7 @@ return {
 			},
 		},
 		git = {
-			enable = false,
+			enable = true,
 		},
 	},
 }

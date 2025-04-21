@@ -1,18 +1,20 @@
 return {
 	"neovim/nvim-lspconfig",
+
 	dependencies = {
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
 		"nvim-lua/plenary.nvim",
 		"jose-elias-alvarez/null-ls.nvim",
 	},
+
 	opts = function()
 		local util = require("lspconfig/util")
-		
+
 		-- Get the on_attach function from the null-ls plugin
 		local null_ls = require("plugins.null-ls")
 		local null_ls_on_attach = null_ls.get_on_attach()
-		
+
 		-- Create default on_attach function
 		local on_attach = function(client, bufnr)
 			-- Apply default on_attach from NvChad
@@ -90,30 +92,43 @@ return {
 					},
 				},
 			},
-
+			basedpyright = {
+				settings = {
+					basedpyright = {
+						analysis = {
+							disableOrganizeImports = true, -- using ruff
+							typeCheckingMode = 'off', -- using ruff
+							-- typeCheckingMode = "standard",
+							diagnosticMode = "workspace",
+							useLibraryCodeForTypes = true,
+						},
+					},
+				},
+			},
 			yamlls = {},
 			zls = {},
 		}
-		
+
 		return {
 			on_attach = on_attach,
 			capabilities = require("nvchad.configs.lspconfig").capabilities,
 			server_configs = server_configs,
 		}
 	end,
+
 	config = function(_, opts)
 		-- Load NvChad defaults
 		require("nvchad.configs.lspconfig").defaults()
-		
+
 		local lspconfig = require("lspconfig")
-		
+
 		-- Setup servers
 		for server_name, server_config in pairs(opts.server_configs) do
 			local config = vim.tbl_deep_extend("force", {
 				on_attach = opts.on_attach,
 				capabilities = opts.capabilities,
 			}, server_config)
-			
+
 			lspconfig[server_name].setup(config)
 		end
 	end,
