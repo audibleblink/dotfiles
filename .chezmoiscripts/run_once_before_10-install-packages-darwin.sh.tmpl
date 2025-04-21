@@ -7,6 +7,7 @@ set -eufo pipefail
 	"asdf"
 	"atuin"
 	"bat"
+	"cormacrelf/tap/dark-notify"
 	"borders"
 	"curl"
 	"dockutil"
@@ -16,8 +17,6 @@ set -eufo pipefail
 	"git"
 	"git-delta"
 	"jq"
-	"koekeishiya/formulae/yabai"
-	"koekeishiya/formulae/skhd"
 	"neovim"
 	"ripgrep"
 	"starship"
@@ -32,13 +31,13 @@ set -eufo pipefail
 {{ if (and .personal .admin) -}}
 {{ $casks = concat $casks (list
 	"1password"
-	"alex313031-thorium"
+	"nikitabobko/tap/aerospace"
 	"dropbox"
 	"ferdium"
 	"firefox"
 	"bettertouchtool"
 	"karabiner-elements"
-	"kitty"
+	"ghostty"
 	"obsidian"
 	"spotify"
 	"tailscale"
@@ -50,7 +49,7 @@ set -eufo pipefail
 # Add the tap for "borders"
 brew tap FelixKratz/formulae
 
-brew bundle --no-lock --file=/dev/stdin <<EOF
+brew bundle  --file=/dev/stdin <<EOF
 {{ range ($brews | sortAlpha | uniq) -}}
 brew "{{ . }}"
 {{ end -}}
