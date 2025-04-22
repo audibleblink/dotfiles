@@ -14,61 +14,78 @@ set -g @plugin 'tmux-plugins/tmux-logging'
 set -g @plugin 'audibleblink/tmux-thumbs'
 set -g @plugin 'christoomey/vim-tmux-navigator'
 set -g @plugin 'audibleblink/tmux-floax'
-set -g @plugin 'audibleblink/tmux-theme'
-
+set -g @plugin 'catppuccin/tmux'
+set -g @plugin 'erikw/tmux-dark-notify'
 # ]]]
 # Plugin Overrides [[[
+set -g @continuum-restore 'on'
+
 set -g @resurrect-save 'S'
 set -g @resurrect-restore 'R'
-set -g @continuum-restore 'on'
 set -g @resurrect-strategy-nvim 'session'
+
 set -g @thumbs-key f
 set -g @thumbs-command 'echo -n {} | pbcopy && tmux display-message "Copied {}"'
 set -g @thumbs-contrast 1
-set -g @catppuccin_window_left_separator ""
-set -g @catppuccin_window_right_separator " "
-set -g @catppuccin_window_middle_separator " █"
+
+# set -g @catppuccin_flavor 'latte' # light mode
+set -g @catppuccin_flavor 'macchiato' # light mode
+set -g @catppuccin_window_status_style "rounded"
+set -g @catppuccin_date_time_text " %H:%M"
+set -g @catppuccin_window_current_number_color "#{@thm_peach}"
+set -g @catppuccin_window_text "#W"
+set -g @catppuccin_window_current_text "#W#{?window_zoomed_flag,(),}"
 set -g @catppuccin_window_number_position "right"
 set -g @catppuccin_window_default_fill "number"
 set -g @catppuccin_window_default_text "#W"
 set -g @catppuccin_window_current_fill "number"
-set -g @catppuccin_window_current_text "#W#{?window_zoomed_flag,(),}"
-set -g @catppuccin_status_modules_left "session"
-set -g @catppuccin_status_left_separator  " "
 set -g @catppuccin_status_right_separator " "
-set -g @catppuccin_status_right_separator_inverse "no"
 set -g @catppuccin_status_fill "icon"
 set -g @catppuccin_status_connect_separator "no"
-# 'user' module is swapped for battery status
-set -g @catppuccin_status_modules_right "user date_time"
-set -g @catppuccin_user_text "#({{ $conf }}/functions/battery.sh)"
-set -g @catppuccin_date_time_text "%H:%M"
-# set -g @catppuccin_flavour 'passthru' # or frappe, macchiato, mocha
-set -g @catppuccin_flavour 'macchiato' # dark mode
-# set -g @catppuccin_flavour 'latte' # light mode
+# set -g @catppuccin_window_status_style "custom"
+# set -g @catppuccin_window_left_separator ""
+# set -g @catppuccin_window_right_separator " "
+# set -g @catppuccin_window_middle_separator " █"
+# set -g @catppuccin_status_left_separator  " "
+
 set -g @floax-bind '-n C-t'
-set -g @floax-width '66%'
+set -g @floax-width '70%'
 set -g @floax-height '66%'
 set -g @floax-title '─── вєωαяє, ι αм ƒαη¢у! '
 set -g @floax-border-color 'yellow'
 set -g @floax-text-color 'white'
 set -g @floax-change-path 'false'
 
+set -g @dark-notify-theme-path-light '{{ $data }}/plugins/tmux/themes/catppuccin_latte_tmux.conf'
+set -g @dark-notify-theme-path-dark '{{ $data }}/plugins/tmux/themes/catppuccin_macchiato_tmux.conf'
+
 # Initializes TMUX plugin manager. Must be last.
 set-environment -g TMUX_PLUGIN_MANAGER_PATH '{{ $data }}/plugins'
 run '{{ $data }}/plugins/tpm/tpm'
+
+if-shell "test -e ~/.local/state/tmux/tmux-dark-notify-theme.conf" \
+     "source-file ~/.local/state/tmux/tmux-dark-notify-theme.conf"
+
 # ]]]
 # My Prefs [[[
 set -g status-bg default
 set -g status-style bg=default
+set -g status-right-length 120
+set -g status-left-length 120
+
+set -g status-left "#{E:@catppuccin_status_session}"
+
+set -g status-right "#[bg=#{@thm_lavender},fg=#{@thm_crust}]#[reverse]#[noreverse]󱀙  "
+set -ag status-right "#[fg=#{@thm_fg},bg=#{@thm_mantle}] #({{ $conf }}/functions/battery.sh) "
+set -ag status-right "#{E:@catppuccin_status_date_time}"
+
 
 set -g focus-events on
 set -s escape-time 0
 set -g prefix C-a
 bind C-a send-prefix
 bind r source-file "{{ $conf }}/tmux.conf"
-# bind C-a previous-window
-set -g history-limit 50000
+set -g history-limit 80000
 
 # Window Management
 set -g base-index 1
@@ -89,7 +106,6 @@ bind -n WheelDownPane select-pane -t= \; send-keys -M
 # Use readline key-bindings in the tmux command prompt
 set -g status-keys "emacs"
 set -g status-position top
-# set -g status-justify centre
 
 # Create an empty second status bar for psuedo padding
 set -Fg 'status-format[1]' '#{status-format[0]}'
@@ -117,5 +133,6 @@ set-option -g default-terminal "xterm-256color"
 set -g -a terminal-overrides ',*256col*:Tc,*:Ss=\E[%p1%d q:Se=\E[2 q'
 {{ end }}
 # ]]]
+
 
 # vim: ft=bash foldmarker=[[[,]]] foldlevelstart=0 foldmethod=marker spell:
