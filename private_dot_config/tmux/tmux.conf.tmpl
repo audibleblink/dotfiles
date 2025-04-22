@@ -48,8 +48,9 @@ set -g @catppuccin_status_connect_separator "no"
 # set -g @catppuccin_window_middle_separator " █"
 # set -g @catppuccin_status_left_separator  " "
 
+set -g @floax-session-name 'floax'
 set -g @floax-bind '-n C-t'
-set -g @floax-width '70%'
+set -g @floax-width '75%'
 set -g @floax-height '66%'
 set -g @floax-title '─── вєωαяє, ι αм ƒαη¢у! '
 set -g @floax-border-color 'yellow'
@@ -66,6 +67,7 @@ run '{{ $data }}/plugins/tpm/tpm'
 if-shell "test -e ~/.local/state/tmux/tmux-dark-notify-theme.conf" \
      "source-file ~/.local/state/tmux/tmux-dark-notify-theme.conf"
 
+
 # ]]]
 # My Prefs [[[
 set -g status-bg default
@@ -73,12 +75,10 @@ set -g status-style bg=default
 set -g status-right-length 120
 set -g status-left-length 120
 
-set -g status-left "#{E:@catppuccin_status_session}"
-
-set -g status-right "#[bg=#{@thm_lavender},fg=#{@thm_crust}]#[reverse]#[noreverse]󱀙  "
+set -g  status-left  "#{E:@catppuccin_status_session}"
+set -g  status-right "#[bg=#{@thm_mauve},fg=#{@thm_crust}]#[reverse]#[noreverse]󰯙 "
 set -ag status-right "#[fg=#{@thm_fg},bg=#{@thm_mantle}] #({{ $conf }}/functions/battery.sh) "
 set -ag status-right "#{E:@catppuccin_status_date_time}"
-
 
 set -g focus-events on
 set -s escape-time 0
