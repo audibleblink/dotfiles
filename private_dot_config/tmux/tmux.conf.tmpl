@@ -31,8 +31,11 @@ set -g @thumbs-contrast 1
 set -g @catppuccin_flavor 'macchiato' # light mode
 set -g @catppuccin_window_status_style "rounded"
 set -g @catppuccin_date_time_text " %H:%M"
+set -g @catppuccin_date_time_color "#{@thm_green}"
 set -g @catppuccin_session_icon "  "
-set -g @catppuccin_window_current_number_color "#{@thm_peach}"
+set -g @catppuccin_session_color "#{?client_prefix,#{@thm_peach},#{@thm_sapphire}}"
+
+set -g @catppuccin_window_current_number_color "#{@thm_flamingo}"
 set -g @catppuccin_window_text "#W"
 set -g @catppuccin_window_current_text "#W#{?window_zoomed_flag,(),}"
 set -g @catppuccin_window_number_position "right"
