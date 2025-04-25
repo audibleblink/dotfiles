@@ -11,18 +11,18 @@ if [[ $# -eq 1 && "$1" =~ ^[0-9]+$ ]]; then
   percentage=$1
 elif [[ $(uname) == 'Linux' ]]; then
   percentage=$(acpi | cut -d ' ' -f 4 | sed 's/[^0-9].*//')
-
+else
   battery_info=$(ioreg -rc AppleSmartBattery)
   current_charge=$(echo $battery_info | grep -o '"CurrentCapacity" = [0-9]\+' | awk '{print $3}')
   total_charge=$(echo $battery_info | grep -o '"MaxCapacity" = [0-9]\+' | awk '{print $3}')
   percentage=$((current_charge * 100 / total_charge))
-
+fi
 
 # naively checks if this is desktop or laptop
 if [[ "${os}" == 'Darwin' || "$(ls -A /sys/class/power_supply/ 2>/dev/null)" ]]; then
   # Fix special cases first
-  if [[ $percentage -lt 10 ]]; then
-    # 0-9%: Show 5 red empty hearts
+  if [[ $percentage -lt 6 ]]; then
+    # 0-5%: Show 5 red empty hearts
     output="#[fg=colour9]$EMPTY_HEART$EMPTY_HEART$EMPTY_HEART$EMPTY_HEART$EMPTY_HEART"
   elif [[ $percentage -ge 95 ]]; then
     # 95-100%: Show five full hearts
@@ -62,9 +62,9 @@ if [[ "${os}" == 'Darwin' || "$(ls -A /sys/class/power_supply/ 2>/dev/null)" ]];
       done
     fi
   fi
-
+else
   # We're on a desktop, show 5 full hearts
   output="#[fg=colour9]$FULL_HEART$FULL_HEART$FULL_HEART$FULL_HEART$FULL_HEART"
-
+fi
 
 printf "%s" "$output"
