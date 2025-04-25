@@ -50,7 +50,7 @@ if [[ "${os}" == 'Darwin' || "$(ls -A /sys/class/power_supply/ 2>/dev/null)" ]];
     output="#[fg=colour9]$FULL_HEART$FULL_HEART$FULL_HEART$FULL_HEART#[fg=white]$EMPTY_HEART"
   elif [[ $percentage -lt 95 ]]; then
     # 90-95%: Show four full hearts and one half heart
-    output="#[fg=colour9]$FULL_HEART$FULL_HEART$FULL_HEART$FULL_HEART$HALF_HEART#[fg=white]"
+    output="#[fg=colour9]$FULL_HEART$FULL_HEART$FULL_HEART$FULL_HEART$HALF_HEART"
   else
     # 95-100%: Show five full hearts
     output="#[fg=colour9]$FULL_HEART$FULL_HEART$FULL_HEART$FULL_HEART$FULL_HEART"
