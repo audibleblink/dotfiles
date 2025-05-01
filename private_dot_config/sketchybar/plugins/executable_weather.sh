@@ -3,13 +3,8 @@ sketchybar --set $NAME \
   icon.color=0xff5edaff
 
 # fetch weather data
-LOCATION="bentonville"
-REGION=""
-LANG="en"
-
-# Line below replaces spaces with +
-LOCATION_ESCAPED="${LOCATION// /+}+${REGION// /+}"
-WEATHER_JSON=$(curl -s "https://wttr.in/$LOCATION_ESCAPED?0pq&format=j1&lang=$LANG")
+LOCATION="xna"
+WEATHER_JSON=$(curl -s "https://wttr.in/$LOCATION?0&format=j1")
 
 # Fallback if empty
 if [ -z $WEATHER_JSON ]; then
@@ -21,4 +16,4 @@ TEMPERATURE=$(echo $WEATHER_JSON | jq -r '.current_condition[0].temp_F')
 WEATHER_DESCRIPTION=$(echo $WEATHER_JSON | jq -r '.current_condition[0].weatherDesc[0].value')
 
 sketchybar --set $NAME \
-  label="$TEMPERATURE$(echo '°')F • $WEATHER_DESCRIPTION"
+  label="${TEMPERATURE}° • ${WEATHER_DESCRIPTION}"
