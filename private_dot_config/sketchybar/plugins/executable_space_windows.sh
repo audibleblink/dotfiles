@@ -63,7 +63,7 @@ if [ "$SENDER" = "aerospace_workspace_change" ]; then
   # current workspace space border color
   sketchybar --set space.$AEROSPACE_FOCUSED_WORKSPACE icon.highlight=true \
                          label.highlight=true \
-                         background.border_color=$GREY
+                         background.border_color=$BLUE
 
   # prev workspace space border color
   sketchybar --set space.$AEROSPACE_PREV_WORKSPACE icon.highlight=false \
