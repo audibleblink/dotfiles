@@ -62,8 +62,12 @@ return {
 				root_dir = util.root_pattern("go.work", "go.mod"),
 				settings = {
 					gopls = {
-						completeUnimported = true,
 						usePlaceholders = true,
+						analyses = {
+							unusedparams = true,
+						},
+						staticcheck = true,
+						gofumpt = true,
 					},
 				},
 			},
