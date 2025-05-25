@@ -84,3 +84,8 @@ opt.shadafile = (function()
 	vim.fn.mkdir(vim.fs.dirname(file), "p")
 	return file
 end)()
+
+g.augment_workspace_folders = {
+	'~/Code/agno-playground/',
+	'~/Code/mildew/',
+}
