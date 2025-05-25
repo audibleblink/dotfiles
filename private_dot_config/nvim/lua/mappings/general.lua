@@ -1,7 +1,6 @@
 -- General mappings
 
 local map = vim.keymap.set
-local vim = vim
 
 -- Basic operations
 map("n", "<CR>", ":", { desc = "CMD enter command mode" })

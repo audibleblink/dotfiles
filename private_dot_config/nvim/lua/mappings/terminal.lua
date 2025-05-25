@@ -4,8 +4,21 @@ local map = vim.keymap.set
 local modes = { "n", "t" }
 local terminal = require("nvchad.term")
 
+local function term_nav(dir)
+	return function()
+		return "<c-" .. dir .. ">" or vim.schedule(function()
+			vim.cmd.wincmd(dir)
+		end)
+	end
+end
+
 -- Terminal mode escape
 map("t", "<C-x>", "<C-\\><C-N>", { desc = "Terminal Escape terminal mode" })
+
+map("t", "<C-h>", term_nav("h"), { desc = "Terminal Escape terminal mode", expr = true })
+map("t", "<C-l>", term_nav("l"), { desc = "Terminal Escape terminal mode", expr = true })
+map("t", "<C-k>", term_nav("k"), { desc = "Terminal Escape terminal mode", expr = true })
+map("t", "<C-j>", term_nav("j"), { desc = "Terminal Escape terminal mode", expr = true })
 
 -- Terminal toggles
 map(modes, "<leader>hh", function()
