@@ -60,12 +60,13 @@ opt.colorcolumn = "99"
 opt.guifont = "CodeliaLigatures Nerd Font"
 
 -- highlight yanked text for 300ms using the "Visual" highlight group
-vim.cmd([[
-	augroup highlight_yank
-		autocmd!
-		au TextYankPost * silent! lua vim.highlight.on_yank({higroup="Visual", timeout=300})
-	augroup END
-]])
+vim.api.nvim_create_autocmd('TextYankPost', {
+	desc = 'Highlight when yanking (copying) text',
+	group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
+	callback = function()
+		vim.hl.on_yank()
+	end,
+})
 
 -- Reload files if changed externally
 vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {

@@ -18,7 +18,28 @@ return {
       'nvim-neotest/nvim-nio',
     },
     ft = "go",
-    cmd = "DapUiToggle",
+    opts = {
+      layouts = {
+        {
+          elements = {
+            { id = "scopes",      size = 0.33 },
+            { id = "stacks",      size = 0.33 },
+            { id = "breakpoints", size = 0.33 },
+          },
+          position = "right",
+          size = 30
+        },
+        {
+          elements = {
+            { id = "watches", size = 0.33 },
+            { id = "repl",    size = 0.33 },
+            { id = "console", size = 0.33 }
+          },
+          position = "bottom",
+          size = 10
+        }
+      },
+    },
     config = function()
       require('dapui').setup()
     end,

@@ -5,6 +5,7 @@ return {
 	{ "tpope/vim-surround",                       lazy = false },
 	{ "justinmk/vim-sneak",                       lazy = false },
 	{ "jiangmiao/auto-pairs",                     lazy = false },
+	{ "alexghergh/nvim-tmux-navigation",          lazy = false },
 	{ "ellisonleao/glow.nvim",                    config = true, cmd = "Glow" },
 	{ "echasnovski/mini.ai",                      lazy = false,  version = "*" },
 	{ "numToStr/Comment.nvim" },
