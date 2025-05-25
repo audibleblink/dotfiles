@@ -14,12 +14,12 @@ map("n", "<leader>n", "<cmd>set nu!<CR>", { desc = "Toggle Line number" })
 map("n", "<leader>rn", "<cmd>set rnu!<CR>", { desc = "Toggle Relative number" })
 
 -- Window management
-map("n", "<leader>m", "<cmd> wincmd | <CR>:windcmd _ <CR>", { desc = "Zoom Pane" })
+map("n", "<leader>m", "<cmd> wincmd | <CR>:wincmd _ <CR>", { desc = "Zoom Pane" })
 map("n", "<leader>mm", "<cmd> wincmd = <CR>", { desc = "Reset Zoom" })
 
 -- Text editing
 map("n", "c*", "*Ncgn", { desc = "Search and Replace 1x1" })
-map("v", "<C-r>", "hy:%s/<C-r>h//gc<left><left><left>", { desc = "Inster highlight as search string" })
+map("v", "<C-r>", 'y:%s/<C-r>"//gc<left><left><left>', { desc = "Inster highlight as search string" })
 
 -- Insert mode navigation
 map("i", "jk", "<ESC>", { desc = "Escape insert mode" })

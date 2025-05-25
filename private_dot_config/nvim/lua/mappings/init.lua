@@ -7,7 +7,6 @@ function M.load()
   require("mappings.general")
   require("mappings.lsp")
   require("mappings.plugins")
-  require("mappings.telescope")
   require("mappings.terminal")
   require("mappings.navigation")
 end
