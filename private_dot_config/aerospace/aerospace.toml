@@ -5,28 +5,9 @@ exec-on-workspace-change = [
     'sketchybar --trigger aerospace_workspace_change AEROSPACE_FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE AEROSPACE_PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE',
 ]
 
-# [[on-window-detected]]
-# if.app-id = 'com.apple.systempreferences'
-# if.app-name-regex-substring = 'settings'
-# if.window-title-regex-substring = 'substring'
-# if.workspace = 'workspace-name'
-# if.during-aerospace-startup = true
-# check-further-callbacks = true
-# run = ['layout floating', 'move-node-to-workspace S']  # The callback itself
-
-on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
-
 [[on-window-detected]]
-if.app-name-regex-substring = '1password'
-run = 'layout floating'
-
-# [[on-window-detected]]
-# if.app-name-regex-substring = 'messages'
-# run = 'layout floating'
-
-# [[on-window-detected]]
-# if.app-name-regex-substring = 'finder'
-# run = 'layout floating'
+if.app-id = 'com.microsoft.VSCodeInsiders'
+run = ['layout floating']
 
 [key-mapping]
 preset = 'qwerty'
@@ -39,7 +20,6 @@ outer.right  = [ { monitor."retina" = 10 }, 20]
 
 inner.horizontal = [ { monitor."retina" = 12 }, 20]
 inner.vertical   = [ { monitor."retina" = 12 }, 20]
-
 
 [mode.main.binding]
 alt-enter = 'exec-and-forget open -a Ghostty.app'
@@ -107,3 +87,16 @@ k = 'resize height -50'
 l = 'resize width +50'
 enter = 'mode main'
 esc = 'mode main'
+
+
+# on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+# on-focused-changed = ['move-mouse monitor-lazy-center']
+# [[on-window-detected]]
+# if.app-id = 'com.apple.systempreferences'
+# if.app-name-regex-substring = 'settings'
+# if.window-title-regex-substring = 'substring'
+# if.workspace = 'workspace-name'
+# if.during-aerospace-startup = true
+# check-further-callbacks = true
+# run = ['layout floating', 'move-node-to-workspace S']  # The callback itself
+
