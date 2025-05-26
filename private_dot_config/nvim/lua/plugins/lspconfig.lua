@@ -5,15 +5,11 @@ return {
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
 		"nvim-lua/plenary.nvim",
-		"jose-elias-alvarez/null-ls.nvim",
 	},
 
 	opts = function()
 		local util = require("lspconfig/util")
 
-		-- Get the on_attach function from the null-ls plugin
-		local null_ls = require("plugins.null-ls")
-		local null_ls_on_attach = null_ls.get_on_attach()
 
 		-- Create default on_attach function
 		local on_attach = function(client, bufnr)
@@ -21,10 +17,6 @@ return {
 			local nvchad_on_attach = require("nvchad.configs.lspconfig").on_attach
 			nvchad_on_attach(client, bufnr)
 
-			-- Apply null-ls formatting on save if function is available
-			if null_ls_on_attach then
-				null_ls_on_attach(client, bufnr)
-			end
 		end
 
 		-- Language-specific configurations

@@ -13,7 +13,6 @@ return {
 			-- "html_lsp",
 			-- "lua_ls",
 			"basedpyright",
-			"delve",
 			"gopls",
 			"ruff",
 			"rust_analyzer",
