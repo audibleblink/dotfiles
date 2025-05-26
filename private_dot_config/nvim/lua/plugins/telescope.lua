@@ -57,12 +57,14 @@ return {
 			}
 		end, { desc = 'Telescope Find All' })
 
+		map("n", "<leader>b", function()
+			ts.buffers({select_current = true, sort_mru = true})
+		end, { desc = "Telescope - Find buffers" })
 		map('n', '<leader>cm', require("telescope").extensions.chezmoi.find_files, { desc = 'Chezmoi' })
 		map("n", "<leader>ff", ts.find_files, { desc = "Telescope Find files" })
 		map("n", "<leader>fo", ts.oldfiles, { desc = "Telescope Find oldfiles" })
 		map("n", "<leader>fz", ts.current_buffer_fuzzy_find, { desc = "Telescope Find in current buffer" })
 		map("n", "<leader>fw", ts.live_grep, { desc = "Telescope Live grep" })
-		map("n", "<leader>b", ts.buffers, { desc = "Telescope Find buffers" })
 		map("n", "<leader>fh", ts.help_tags, { desc = "Telescope Help page" })
 		map("n", "<leader>gc", ts.git_commits, { desc = "Telescope Git commits" })
 		map("n", "<leader>gs", ts.git_status, { desc = "Telescope Git status" })

@@ -38,6 +38,7 @@ alias aedit="nvim '+ChezmoiEdit ${ZDOTDIR}/aliases.zsh'"
 alias tedit="nvim '+ChezmoiEdit ${XDG_CONFIG_HOME}/tmux/tmux.conf'"
 alias zedit="nvim '+ChezmoiEdit ${ZDOTDIR}/.zshrc'"
 alias vedit="nvim -c 'Telescope chezmoi find_files'"
+alias dots="nvim -c 'Telescope chezmoi find_files'"
 # ]]]
 # Coding [[[
 alias asi='find . -not -iwholename "*node_modules*" -type f -name *.js | xargs fixmyjs --legacy'
