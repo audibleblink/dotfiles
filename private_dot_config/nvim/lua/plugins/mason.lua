@@ -2,9 +2,9 @@ return {
 	"williamboman/mason-lspconfig.nvim",
 	dependencies = {
 		"williamboman/mason.nvim",
-		opts = {
-			automatic_installation = true,
-		},
+		-- opts = {
+		-- 	automatic_installation = true,
+		-- },
 	},
 	opts = {
 		automatic_installation = true,
@@ -14,8 +14,7 @@ return {
 			-- "csharp_language_server",
 			-- "css_lsp",
 			-- "html_lsp",
-			-- "lua_ls",
-			"lua_language_server",
+			"lua_ls",
 			"basedpyright",
 			"gopls",
 			"ruff",
