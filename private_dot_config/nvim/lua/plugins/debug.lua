@@ -110,19 +110,19 @@ return {
 			automatic_installation = true,
 			handlers = {},
 			ensure_installed = {
-				"delve",
-				"debugpy",
+				"delve", -- golang
+				"debugpy", -- python
+				-- "codelldb",	-- rust, c, cpp, zig
+				-- "js-debug-adapter", -- microsoft's javascript DA
 			},
 		})
 
 		-- Setup dependencies from below
 		require("dap-python").setup("uv")
 		require("dap-go").setup({
-			delve = {
-				-- On Windows delve must be run attached or it crashes.
-				-- https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
-				detached = vim.fn.has("win32") == 0,
-			},
+			-- On Windows delve must be run attached or it crashes.
+			-- https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
+			delve = { detached = vim.fn.has("win32") == 0 },
 		})
 	end,
 
@@ -131,6 +131,7 @@ return {
 		"nvim-neotest/nvim-nio",
 		"mason-org/mason.nvim",
 		"jay-babu/mason-nvim-dap.nvim",
+		"theHamsta/nvim-dap-virtual-text",
 		-- Add new nvim/dap providers here
 		"leoluz/nvim-dap-go",
 		"mfussenegger/nvim-dap-python",
