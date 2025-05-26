@@ -38,3 +38,6 @@ map("n", "<leader>cc", function()
 		end
 	end
 end, { desc = "Blankline Jump to current context" })
+
+map("n", "gb", require("nvchad.tabufline").next, { desc = "Focus next buffer" })
+map("n", "gB", require("nvchad.tabufline").prev, { desc = "Focus prev buffer" })

@@ -3,11 +3,20 @@ local M = {}
 M.base46 = {
 	transparency = true,
 	theme = "catppuccin",
+	theme_toggle = { "catppuccin", "one_light" },
 	hl_override = { CursorLine = { bg = "black2" } },
 }
 
+-- :h nvui.tabufline.api
 M.ui = {
-	tabufline = { enabled = true },
+	tabufline = {
+		enabled = true,
+		lazyload = true,
+		order = { "treeOffset", "buffers", "tabs", "btns" },
+		modules = nil,
+		bufwidth = 21,
+	},
+	telescope = { style = "bordered" }, -- borderless / bordered
 	statusline = {
 		-- theme = "default",
 		separator_style = "round",
@@ -31,5 +40,6 @@ M.ui = {
 		},
 	},
 }
+
 
 return M

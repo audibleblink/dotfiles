@@ -1,6 +1,9 @@
 return {
-	'stevearc/conform.nvim',
+	"stevearc/conform.nvim",
 	opts = {},
+	keys = {
+		{ "<leader>p", require("conform").format, desc = "[Conform] Format file" },
+	},
 	config = function()
 		require("conform").setup({
 			formatters_by_ft = {
@@ -17,5 +20,5 @@ return {
 			},
 		})
 		vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-	end
+	end,
 }

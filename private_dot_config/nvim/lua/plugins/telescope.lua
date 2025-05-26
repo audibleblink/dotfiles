@@ -58,7 +58,7 @@ return {
 		end, { desc = 'Telescope Find All' })
 
 		map("n", "<leader>b", function()
-			ts.buffers({select_current = true, sort_mru = true})
+			ts.buffers({ignore_current_buffer = true, sort_mru = true})
 		end, { desc = "Telescope - Find buffers" })
 		map('n', '<leader>cm', require("telescope").extensions.chezmoi.find_files, { desc = 'Chezmoi' })
 		map("n", "<leader>ff", ts.find_files, { desc = "Telescope Find files" })
