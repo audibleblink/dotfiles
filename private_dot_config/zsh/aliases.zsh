@@ -65,7 +65,7 @@ alias ow="nvim +ObsidianWorkspace"
 alias on="nvim +ObsidianNew"
 # ]]]
 
-(( $+commands[tree] )) && alias tree='LS_COLORS="di=34:ln=35:so=32;40:ex=31" tree'
+(( $+commands[tree] )) && alias tree='LS_COLORS="di=34:ln=35:so=32;40:ex=31" tree --charset utf-8'
 
 alias -g e="${EDITOR}"
 alias reload="source ${ZDOTDIR}/.zshrc"
