@@ -22,7 +22,7 @@ end, { desc = "Terminal Toggle Floating term" })
 
 -- File type specific terminal commands
 local ft_cmds = {
-	python = "python3 " .. vim.fn.expand("%"),
+	python = "python " .. vim.fn.expand("%"),
 	zig = "zig build; exit ",
 }
 
@@ -34,3 +34,4 @@ map(modes, "<leader>it", function()
 		clear_cmd = false,
 	})
 end, { desc = "Run zig build in Floating term" })
+

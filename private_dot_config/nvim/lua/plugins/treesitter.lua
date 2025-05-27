@@ -1,5 +1,8 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
+	event = { "BufReadPost", "BufNewFile" },
+	cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
+	build = ":TSUpdate",
 	opts = {
 		ensure_installed = {
 			-- web dev
@@ -23,6 +26,16 @@ return {
 			"terraform",
 			"markdown",
 			"markdown_inline",
+			"luadoc",
+			"printf",
+			"vim",
+			"vimdoc",
 		},
+		highlight = {
+			enable = true,
+			use_languagetree = true,
+		},
+
+		indent = { enable = true },
 	},
 }
