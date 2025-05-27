@@ -3,8 +3,8 @@ return {
 	event = "VeryLazy",
 	opts = {
 		lsp = {
-			signature = { enabled = false },
-			hover = { enabled = false },
+			-- signature = { enabled = false },
+			-- hover = { enabled = false },
 		},
 
 		timeout = 2000,

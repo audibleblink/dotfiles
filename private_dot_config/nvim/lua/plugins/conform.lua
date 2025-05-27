@@ -1,10 +1,7 @@
 return {
 	"stevearc/conform.nvim",
-	-- keys = {
-	-- 	{ "<leader>p", require("conform").format, desc = "[Conform] Format file" },
-	-- },
+	event = "VeryLazy",
 	config = function()
-
 		require("conform").setup({
 
 			formatters_by_ft = {
@@ -18,9 +15,9 @@ return {
 				-- These options will be passed to conform.format()
 				timeout_ms = 500,
 				lsp_format = "fallback",
-			}
+			},
 		})
 
 		vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-	end
+	end,
 }
