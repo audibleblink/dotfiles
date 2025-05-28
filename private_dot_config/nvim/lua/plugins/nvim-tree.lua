@@ -29,5 +29,5 @@ return {
 		local api = require("nvim-tree.api")
 		map("n", "<C-n>", api.tree.toggle, { desc = "Nvimtree Toggle window" })
 		map("n", "<leader>e", api.tree.focus, { desc = "Nvimtree Focus window" })
-	end
+	end,
 }

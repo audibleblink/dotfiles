@@ -1,4 +1,3 @@
-
 local o = vim.o
 
 o.expandtab = false

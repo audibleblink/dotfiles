@@ -1,6 +1,7 @@
 return {
 	"nvim-telescope/telescope.nvim",
-	lazy = false,
+	-- lazy = false,
+	keys = "<Leader>",
 	dependencies = {
 		{ "nvim-lua/plenary.nvim" },
 		{ "nvim-treesitter/nvim-treesitter" },

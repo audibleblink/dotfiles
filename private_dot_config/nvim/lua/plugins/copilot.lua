@@ -4,19 +4,19 @@ return {
 	dependencies = {
 		{
 			"zbirenbaum/copilot-cmp",
-			config = function ()
+			config = function()
 				require("copilot_cmp").setup()
-			end
+			end,
 		},
 	},
 	opts = {
-		panel = { enabled = false, },
-		suggestion = { 
-			-- enabled = true, 
+		copilot_model = "claude-sonnet-4",
+		panel = { enabled = false },
+		suggestion = {
+			-- enabled = true,
 			auto_trigger = true,
 		},
 		auth_provider_url = nil, -- URL to authentication provider, if not "https://github.com/"
 		workspace_folders = {},
-		copilot_model = "claude-sonnet-4",
-	}
+	},
 }

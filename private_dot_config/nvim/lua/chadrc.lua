@@ -41,5 +41,4 @@ M.ui = {
 	},
 }
 
-
 return M

@@ -34,4 +34,3 @@ map(modes, "<leader>it", function()
 		clear_cmd = false,
 	})
 end, { desc = "Run zig build in Floating term" })
-

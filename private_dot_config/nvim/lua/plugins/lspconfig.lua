@@ -10,13 +10,11 @@ return {
 	opts = function()
 		local util = require("lspconfig/util")
 
-
 		-- Create default on_attach function
 		local on_attach = function(client, bufnr)
 			-- Apply default on_attach from NvChad
 			local nvchad_on_attach = require("nvchad.configs.lspconfig").on_attach
 			nvchad_on_attach(client, bufnr)
-
 		end
 
 		-- Language-specific configurations
@@ -93,7 +91,7 @@ return {
 					basedpyright = {
 						analysis = {
 							disableOrganizeImports = true, -- using ruff
-							typeCheckingMode = 'off', -- using ruff
+							typeCheckingMode = "off", -- using ruff
 							-- typeCheckingMode = "standard",
 							diagnosticMode = "workspace",
 							useLibraryCodeForTypes = true,

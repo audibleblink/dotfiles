@@ -38,7 +38,7 @@ return {
 				{ name = "buffer" },
 				{ name = "nvim_lua" },
 				{ name = "path" },
-			}
+			},
 		})
 	end,
 
