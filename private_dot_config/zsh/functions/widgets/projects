@@ -1,0 +1,24 @@
+# interactively search ~/Code/, prefering tmux popup when possible
+
+emulate -L zsh
+local umask=117
+local in=$(mktemp -t projects.XXX -p $XDG_RUNTIME_DIR)
+local out=$(mktemp -t projects.XXX -p $XDG_RUNTIME_DIR)
+trap "rm -- ${in} ${out} 2>/dev/null" EXIT
+ 
+fd . ~/code -d 1 -t d | xargs basename > $in
+
+if [[ -v TMUX ]]; then
+  tmux popup -b rounded -E "fzf <$in >$out" 
+  local dirb=$(cat $out)
+else
+  local dirb=$(fzf <$in)
+fi
+
+if ! [[ -z $dirb ]]; then
+  BUFFER="cd ~/code/${dirb}"
+  zle accept-line
+fi
+
+# vim: ft=zsh
+

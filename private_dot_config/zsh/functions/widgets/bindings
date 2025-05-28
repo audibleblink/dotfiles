@@ -29,4 +29,8 @@ bindkey '^O' popdir
 zle -N bookmarks
 bindkey '^B' bookmarks
 
+# cd to a ~/code project
+zle -N projects
+bindkey '^G' projects
+
 # vim: ft=zsh
