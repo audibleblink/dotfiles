@@ -1,22 +1,33 @@
 return {
-	"zbirenbaum/copilot.lua",
-	cmd = "Copilot",
-	dependencies = {
+	{
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		dependencies = {
+			{
+				"zbirenbaum/copilot-cmp",
+				config = function()
+					require("copilot_cmp").setup()
+				end,
+			},
+		},
+		opts = {
+			copilot_model = "claude-sonnet-4",
+			panel = { enabled = false },
+			suggestion = {
+				-- enabled = true,
+				auto_trigger = true,
+			},
+			auth_provider_url = nil, -- URL to authentication provider, if not "https://github.com/"
+			workspace_folders = {},
+		},
 		{
-			"zbirenbaum/copilot-cmp",
-			config = function()
-				require("copilot_cmp").setup()
-			end,
+			"CopilotC-Nvim/CopilotChat.nvim",
+			cmd = "CopilotChatToggle",
+			build = "make tiktoken", -- Only on MacOS or Linux
+			opts = {
+				-- See Configuration section for options
+			},
+			-- See Commands section for default commands if you want to lazy load on them
 		},
-	},
-	opts = {
-		copilot_model = "claude-sonnet-4",
-		panel = { enabled = false },
-		suggestion = {
-			-- enabled = true,
-			auto_trigger = true,
-		},
-		auth_provider_url = nil, -- URL to authentication provider, if not "https://github.com/"
-		workspace_folders = {},
 	},
 }
