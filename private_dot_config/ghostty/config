@@ -6,6 +6,9 @@ font-family-bold        = CodeliaLigatures Nerd Font Bold
 font-family-italic      = CodeliaLigatures Nerd Font Italic
 font-family-bold-italic = CodeliaLigatures Nerd Font Bold Italic
 
+macos-option-as-alt = right
+keybind = alt+left=unbind
+keybind = alt+right=unbind
 #term = xterm-256color
 copy-on-select = true
 
