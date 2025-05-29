@@ -4,6 +4,8 @@ return {
 	cmd = "WhichKey",
 	opts = function()
 		dofile(vim.g.base46_cache .. "whichkey")
-		return {}
+		return {
+			preset = "helix",
+		}
 	end,
 }

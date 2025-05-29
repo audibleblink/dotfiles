@@ -55,7 +55,7 @@ vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin" .. (is_windows and ";" or 
 
 -- Custom
 opt.swapfile = false
-opt.scrolloff = 8
+opt.scrolloff = 5
 opt.colorcolumn = "99"
 opt.guifont = "CodeliaLigatures Nerd Font"
 

@@ -3,7 +3,7 @@ return {
 		"julwrites/llm-nvim",
 		cmd = LLMToggle,
 		keys = {
-			{ "<Leader>ai", "<cmd>LLMToggle<CR>", desc = "Toggle NvimTree" },
+			{ "<Leader>ai", "<cmd>LLMToggle<CR>", desc = "Toggle LLM AI" },
 		},
 		-- Optional: Specify dependencies if needed, e.g., for UI components
 		-- dependencies = { 'nvim-lua/plenary.nvim' },

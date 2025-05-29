@@ -5,7 +5,6 @@ return {
 		branch = "v2.5",
 		import = "nvchad.plugins",
 	},
-	{ "numToStr/Comment.nvim" },
 	{ "someone-stole-my-name/yaml-companion.nvim" },
 	{ "Darazaki/indent-o-matic", lazy = false },
 
