@@ -11,6 +11,7 @@ return {
 		require("mini.align").setup()
 		require("mini.comment").setup()
 		require("mini.move").setup()
+		require("mini.jump").setup()
 		-- Add/delete/replace surroundings (brackets, quotes, etc.)
 		--
 		-- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
