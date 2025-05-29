@@ -21,7 +21,7 @@ opt.autoread = true
 -- when cursor reaches end/beginning of line
 opt.whichwrap:append("<>[]hl")
 -- interval for writing swap file to disk, also used by gitsigns
-o.updatetime = 250
+o.updatetime = 500
 o.laststatus = 3
 o.showmode = false
 o.ignorecase = true
@@ -29,7 +29,7 @@ o.smartcase = true
 o.signcolumn = "yes"
 o.splitbelow = true
 o.splitright = true
-o.timeoutlen = 250
+o.timeoutlen = 500
 o.undofile = true
 o.mouse = "a"
 

@@ -13,4 +13,5 @@ return {
 	{ "nvzone/volt", enabled = false },
 	{ "nvzone/minty", enabled = false },
 	{ "nvzone/menu", enabled = false },
+	{ "lukas-reineke/indent-blankline.nvim", enabled = false },
 }

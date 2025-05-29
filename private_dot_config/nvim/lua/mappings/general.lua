@@ -30,7 +30,6 @@ map("i", "<C-l>", "<Right>", { desc = "Move Right" })
 map("i", "<C-j>", "<Down>", { desc = "Move Down" })
 map("i", "<C-k>", "<Up>", { desc = "Move Up" })
 
--- Formatting
-map("n", "gm", function()
-	require("conform").format({ lsp_fallback = true })
-end, { desc = "Format Files" })
+-- Custom navigation (commented out in original)
+map("n", "j", "v:count > 1 ? 'm`' . v:count . 'j' : 'gj'", { expr = true })
+map("n", "k", "v:count > 1 ? 'm`' . v:count . 'k' : 'gk'", { expr = true })

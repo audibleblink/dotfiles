@@ -40,3 +40,8 @@ vim.diagnostic.config({
 		header = "",
 	},
 })
+
+-- Formatting
+map("n", "gm", function()
+	require("conform").format({ lsp_fallback = true })
+end, { desc = "Format Files" })
