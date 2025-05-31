@@ -4,8 +4,11 @@ M.base46 = {
 	transparency = true,
 	theme = "catppuccin",
 	theme_toggle = { "catppuccin", "one_light" },
-	hl_override = { CursorLine = { bg = "black2" } },
+	hl_override = { CursorLine = { bg = "one_bg" } },
 }
+-- force color change
+-- require("base46").compile()
+-- require("base46").load_all_highlights()
 
 -- :h nvui.tabufline.api
 M.ui = {
