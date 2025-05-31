@@ -1,6 +1,6 @@
 return {
 	"alexghergh/nvim-tmux-navigation",
-	lazy = false,
+	keys = { "<C-h>", "<C-j>", "<C-k>", "<C-l>" },
 	config = function()
 		require("nvim-tmux-navigation").setup({
 			disable_when_zoomed = true,

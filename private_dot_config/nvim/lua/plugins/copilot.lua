@@ -1,6 +1,7 @@
 return {
 	{
 		"zbirenbaum/copilot.lua",
+		lazy = true,
 		cmd = "Copilot",
 		dependencies = {
 			{
@@ -22,6 +23,7 @@ return {
 		},
 		{
 			"CopilotC-Nvim/CopilotChat.nvim",
+			lazy = true,
 			cmd = "CopilotChatToggle",
 			build = "make tiktoken", -- Only on MacOS or Linux
 			opts = {

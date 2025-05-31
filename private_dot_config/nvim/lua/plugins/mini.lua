@@ -1,6 +1,5 @@
 return {
 	"echasnovski/mini.nvim",
-	lazy = false,
 	config = function()
 		-- Better Around/Inside textobjects
 		--

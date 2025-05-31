@@ -1,12 +1,7 @@
 return {
-	{
-		"NvChad/NvChad",
-		lazy = false,
-		branch = "v2.5",
-		import = "nvchad.plugins",
-	},
-	{ "someone-stole-my-name/yaml-companion.nvim" },
-	{ "Darazaki/indent-o-matic", lazy = false },
+	{ "NvChad/NvChad", branch = "v2.5", import = "nvchad.plugins" },
+	{ "Darazaki/indent-o-matic" },
+	{ "OXY2DEV/markview.nvim", ft = { "md", "yaml" } },
 
 	-- override nvchad
 	{ "L3MON4D3/LuaSnip", enabled = false },

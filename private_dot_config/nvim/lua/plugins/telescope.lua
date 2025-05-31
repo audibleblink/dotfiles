@@ -1,13 +1,12 @@
 return {
 	"nvim-telescope/telescope.nvim",
-	-- lazy = false,
 	keys = "<Leader>",
 	dependencies = {
 		{ "nvim-lua/plenary.nvim" },
 		{ "nvim-treesitter/nvim-treesitter" },
 		{ "nvim-telescope/telescope-ui-select.nvim" },
-		{ "nvim-tree/nvim-web-devicons", enabled = true },
-		{ "xvzc/chezmoi.nvim" },
+		{ "nvim-tree/nvim-web-devicons" },
+		{ "xvzc/chezmoi.nvim", cmd = { "ChezmoiEdit", "ChezmoiList" } },
 		{
 			"nvim-telescope/telescope-fzf-native.nvim",
 			build = "make",
