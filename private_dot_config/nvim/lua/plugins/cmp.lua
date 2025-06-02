@@ -3,9 +3,6 @@ return {
 	event = "InsertEnter",
 	config = function()
 		local cmp = require("cmp")
-		cmp.event:on("menu_opened", function()
-			vim.b.copilot_suggestion_hidden = true
-		end)
 
 		cmp.setup({
 			completion = { completeopt = "menu,menuone" },
