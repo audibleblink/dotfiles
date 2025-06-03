@@ -12,16 +12,6 @@ map("n", "ga", vim.lsp.buf.rename, { desc = "Rename Symbol" })
 map("n", "<leader>lf", vim.diagnostic.open_float, { desc = "Lsp floating diagnostics" })
 map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Lsp diagnostic loclist" })
 
--- Go to previous diagnostic
-map("n", "[d", function()
-	vim.diagnostic.jump({ count = -1 })
-end, { desc = "Lsp prev diagnostic" })
-
--- Go to next diagnostic
-map("n", "]d", function()
-	vim.diagnostic.jump({ count = 1 })
-end, { desc = "Lsp next diagnostic" })
-
 -- Log level
 vim.lsp.set_log_level(vim.log.levels.WARN)
 
