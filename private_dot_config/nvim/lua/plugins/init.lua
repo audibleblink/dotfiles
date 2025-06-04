@@ -4,7 +4,6 @@ return {
 	{ "OXY2DEV/markview.nvim",               ft = { "md", "yaml" } },
 
 	-- override nvchad
-	-- { "L3MON4D3/LuaSnip", enabled = false },
 	{ "nvzone/volt",                         enabled = false },
 	{ "nvzone/minty",                        enabled = false },
 	{ "nvzone/menu",                         enabled = false },
