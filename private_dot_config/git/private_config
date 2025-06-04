@@ -11,17 +11,6 @@
 [core]
 	excludesfile = ~/.config/git/ignore
 	whitespace = trailing-space,space-before-tab
-	pager = delta
-
-[interactive]
-	diffFilter = delta --color-only
-
-[include]
-	path = ~/.config/git/themes.config
-
-[delta]
-	features = arctic-fox decorations 
-	navigate = true
 
 [merge]
 	conflictStyle = zdiff3
