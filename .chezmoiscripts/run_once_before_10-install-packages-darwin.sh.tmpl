@@ -12,13 +12,18 @@ set -eufo pipefail
 	"curl"
 	"dockutil"
 	"dos2unix"
+	"dust"
 	"fd"
 	"fzf"
 	"git"
 	"git-delta"
 	"jq"
+	"kustomize"
+	"ncspot"
 	"neovim"
+	"presenterm"
 	"ripgrep"
+	"rga"
 	"starship"
 	"tmux"
 	"tree"
@@ -39,7 +44,6 @@ set -eufo pipefail
 	"karabiner-elements"
 	"ghostty"
 	"obsidian"
-	"spotify"
 	"tailscale"
 	"visual-studio-code"
 	"zoom"
@@ -48,6 +52,8 @@ set -eufo pipefail
 
 # Add the tap for "borders"
 brew tap FelixKratz/formulae
+brew tap cormacrelf/tap
+brew tap nikitabobko/tap
 
 brew bundle  --file=/dev/stdin <<EOF
 {{ range ($brews | sortAlpha | uniq) -}}
