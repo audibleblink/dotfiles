@@ -16,7 +16,11 @@
 [interactive]
 	diffFilter = delta --color-only
 
+[include]
+	path = ~/.config/git/themes.config
+
 [delta]
+	features = arctic-fox decorations 
 	navigate = true
 
 [merge]
