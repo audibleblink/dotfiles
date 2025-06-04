@@ -11,6 +11,16 @@
 [core]
 	excludesfile = ~/.config/git/ignore
 	whitespace = trailing-space,space-before-tab
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+
+[merge]
+	conflictStyle = zdiff3
 
 [color]
 	ui = auto
@@ -50,7 +60,7 @@
 	submoduleSummary = true
 
 [include]
-  path = ~/.config/git/instead
+	path = ~/.config/git/instead
 
 [include]
 	path = ~/.gitconfig_local
