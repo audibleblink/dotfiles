@@ -21,6 +21,10 @@ return {
 				}),
 			},
 		})
+		require('mini.bufremove').setup()
+		vim.keymap.set('n', '<leader>cc', function()
+			require('mini.bufremove').delete()
+		end, { desc = 'Close buffer, keep split' })
 
 		local disabled = {
 			"help",
