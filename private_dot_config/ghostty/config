@@ -13,8 +13,10 @@ keybind = alt+right=unbind
 copy-on-select = true
 
 macos-titlebar-style = hidden
-window-padding-y = 15,1
+window-padding-y = 10,1
 window-padding-x = 4
+fullscreen = true
+macos-non-native-fullscreen = true
 
 keybind = global:cmd+grave_accent=toggle_quick_terminal
 quick-terminal-position = left
