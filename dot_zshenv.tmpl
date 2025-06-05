@@ -14,7 +14,6 @@ PATH="${PATH}:/opt/homebrew/bin"
 # never nano
 export EDITOR=$(command -v nvim || command -v vim || command -v vi)
 export VISUAL=$EDITOR
-export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"                                                             3m46s
-
+export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
 export PATH="${PATH}:${HOME}/.local/bin"
 export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
