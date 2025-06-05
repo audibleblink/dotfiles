@@ -6,6 +6,9 @@ local map = vim.keymap.set
 map("n", "<CR>", ":", { desc = "CMD enter command mode" })
 map("n", "<c-q>", ":quitall<CR>", { desc = "Quit all bufers" })
 map("n", "<leader>cl", "<cmd> hi Normal guibg=none <CR>", { desc = "Clear Background (Transparency)" })
+map("n", "<leader>cc", function()
+	vim.api.nvim_buf_delete(0, {})
+end, { desc = "Close buffer" })
 map("n", "<leader><Tab>", "<cmd> b# <CR>", { desc = "Previous Buffer" })
 map("n", "<Esc>", "<cmd>noh<CR>", { desc = "General Clear highlights" })
 
