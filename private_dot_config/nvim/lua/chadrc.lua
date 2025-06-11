@@ -7,8 +7,8 @@ M.base46 = {
 	-- hl_override = { CursorLine = { bg = "one_bg" } },
 }
 -- force color change
-require("base46").compile()
-require("base46").load_all_highlights()
+-- require("base46").compile()
+-- require("base46").load_all_highlights()
 
 -- :h nvui.tabufline.api
 M.ui = {
