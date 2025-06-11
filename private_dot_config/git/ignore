@@ -5,3 +5,5 @@ custom_plan.rb
 zeus.json
 Session.vim
 scratch
+
+**/.claude/settings.local.json
