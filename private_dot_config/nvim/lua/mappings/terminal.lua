@@ -24,14 +24,14 @@ local ft_cmds = {
 	zig = "zig build; exit ",
 }
 
-map(modes, "<leader>it", function()
-	terminal.runner({
-		pos = "float",
-		cmd = ft_cmds[vim.bo.filetype],
-		id = "runner",
-		clear_cmd = false,
-	})
-end, { desc = "Run zig build in Floating term" })
+-- map(modes, "<leader>it", function()
+-- 	terminal.runner({
+-- 		pos = "float",
+-- 		cmd = ft_cmds[vim.bo.filetype],
+-- 		id = "runner",
+-- 		clear_cmd = false,
+-- 	})
+-- end, { desc = "Run zig build in Floating term" })
 
 -- Term Nav
 local function navigate_from_terminal(direction)

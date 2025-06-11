@@ -1,24 +1,18 @@
 local M = {}
 
 M.base46 = {
-	transparency = true,
-	theme = "catppuccin",
-	theme_toggle = { "catppuccin", "one_light" },
-	hl_override = { CursorLine = { bg = "one_bg" } },
+	-- transparency = true,
+	theme = "catppuccin-macchiato",
+	theme_toggle = { "catppuccin-macchiato", "one_light" },
+	-- hl_override = { CursorLine = { bg = "one_bg" } },
 }
 -- force color change
--- require("base46").compile()
--- require("base46").load_all_highlights()
+require("base46").compile()
+require("base46").load_all_highlights()
 
 -- :h nvui.tabufline.api
 M.ui = {
-	tabufline = {
-		enabled = false,
-		lazyload = true,
-		order = { "treeOffset", "buffers", "tabs", "btns" },
-		modules = nil,
-		bufwidth = 21,
-	},
+	tabufline = { enabled = false },
 	telescope = { style = "bordered" }, -- borderless / bordered
 	statusline = {
 		-- theme = "default",

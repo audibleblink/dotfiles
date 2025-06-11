@@ -76,6 +76,11 @@ alt-shift-r = [
   'mode resize',
 ]
 
+cmd-semicolon = [
+  "exec-and-forget osascript -e 'display notification \"Toggled\" with title \"Aerospace Mode\"'",
+  'mode X',
+]
+
 [mode.service.binding]
 esc = ['reload-config', 'mode main']
 r = ['flatten-workspace-tree', 'mode main'] # reset layout
@@ -88,6 +93,10 @@ l = 'resize width +50'
 enter = 'mode main'
 esc = 'mode main'
 
+[mode.X.binding]
+# A mode to just pass keys through!
+cmd-semicolon = 'mode main'
+esc = 'mode main'
 
 # on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 # on-focused-changed = ['move-mouse monitor-lazy-center']

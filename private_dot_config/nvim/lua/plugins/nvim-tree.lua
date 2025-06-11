@@ -1,0 +1,81 @@
+local function my_on_attach(bufnr)
+	local api = require("nvim-tree.api")
+
+	local function opts(desc)
+		return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+	end
+
+	local function edit_or_open()
+		local node = api.tree.get_node_under_cursor()
+		if node.nodes ~= nil then
+			api.node.open.edit()
+		else
+			api.node.open.edit()
+			api.tree.close()
+		end
+	end
+
+
+	local function close_node()
+		local node = api.tree.get_node_under_cursor()
+
+		if node.nodes ~= nil then
+			api.node.open.edit()
+		else
+			-- open file
+			-- api.node.open.edit()
+			-- Close the tree if file was opened
+			-- api.tree.close()
+		end
+	end
+
+	api.config.mappings.default_on_attach(bufnr)
+
+	vim.keymap.set('n', 'l', edit_or_open, opts('Edit or Open'))
+	vim.keymap.set('n', 'h', close_node, opts('Collapse node'))
+end
+
+return {
+	"nvim-tree/nvim-tree.lua",
+	keys = {
+		{ "<C-n>", "<cmd>NvimTreeFindFileToggle<CR>", desc = "Toggle NvimTree" },
+	},
+	config = function()
+		require("nvim-tree").setup({
+			on_attach = my_on_attach,
+			view = {
+				centralize_selection = true,
+				float = {
+					quit_on_focus_loss = true,
+					enable = true,
+					open_win_config = function()
+						-- open top right of current window
+						local win_width = vim.api.nvim_win_get_width(0)
+						local win_height = vim.api.nvim_win_get_height(0)
+						local width = math.min(30, win_width)
+						local height = math.min(30, win_height)
+						return {
+							relative = "win",
+							border = "rounded",
+							width = width,
+							height = height,
+							row = 0,
+							col = win_width,
+							anchor = "NE",
+						}
+					end,
+				},
+			},
+			diagnostics = {
+				enable = true,
+			},
+		})
+
+		local map = vim.keymap.set
+		local api = require("nvim-tree.api")
+		-- map("n", "<C-n>", api.tree.toggle, { desc = "Nvimtree Toggle window" })
+		map("n", "<leader>e", api.tree.focus, { desc = "Nvimtree Focus window" })
+		map("n", "]h", api.node.navigate.git.next_recursive, { desc = "Nvimtree - Next Git" })
+		map("n", "[h", api.node.navigate.git.prev_recursive, { desc = "Nvimtree - Prev Git" })
+	end,
+}
