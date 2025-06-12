@@ -4,13 +4,15 @@ return {
 		-- Better Around/Inside textobjects
 		require("mini.ai").setup({ n_lines = 500 })
 		require("mini.align").setup()
-		require("mini.comment").setup()
-		require("mini.move").setup()
-		require("mini.jump").setup()
-		require("mini.surround").setup()
 		require("mini.bracketed").setup()
+		require("mini.comment").setup()
+		require("mini.diff").setup()
+		require("mini.jump").setup()
+		require("mini.move").setup()
+		require("mini.surround").setup()
 		require("mini.indentscope").setup({
 			symbol = "┃",
+
 			draw = {
 				delay = 40,
 				priority = 2,
