@@ -1,4 +1,4 @@
-karatheme = dark:catppuccin-macchiato,light:catppuccin-latte
+theme = dark:catppuccin-macchiato,light:catppuccin-latte
 
 font-size = 16
 font-family             = CodeliaLigatures Nerd Font
