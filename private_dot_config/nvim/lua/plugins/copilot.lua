@@ -40,7 +40,6 @@ return {
 		keys = {
 			{ "<Leader>cc", ":CopilotChatToggle<CR>",  desc = "Toggle CopilotChat" },
 			{ "<Leader>cp", ":CopilotChatPrompts<CR>", desc = "Toggle CopilotChat Prompts" },
-			{ "<Leader>cm", ":CopilotChatModels<CR>",  desc = "Toggle CopilotChat Models" },
 		},
 		cmd = "CopilotChatToggle",
 		build = "make tiktoken", -- Only on MacOS or Linux

@@ -19,5 +19,10 @@ return {
 		})
 
 		vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+
+		vim.keymap.set("n", "gm",
+			function() require("conform").format({ lsp_fallback = true }) end,
+			{ desc = "Format Files" }
+		)
 	end,
 }
