@@ -1,5 +1,6 @@
 local function my_on_attach(bufnr)
 	local api = require("nvim-tree.api")
+	local map = vim.keymap.set
 
 	local function opts(desc)
 		return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
@@ -31,8 +32,12 @@ local function my_on_attach(bufnr)
 
 	api.config.mappings.default_on_attach(bufnr)
 
-	vim.keymap.set('n', 'l', edit_or_open, opts('Edit or Open'))
-	vim.keymap.set('n', 'h', close_node, opts('Collapse node'))
+	map('n', 'l', edit_or_open, opts('Edit or Open'))
+	map('n', 'h', close_node, opts('Collapse node'))
+	map("n", "]h", api.node.navigate.git.next_recursive, { desc = "Nvimtree - Next Git" })
+	map("n", "[h", api.node.navigate.git.prev_recursive, { desc = "Nvimtree - Prev Git" })
+	map("n", "]d", api.node.navigate.diagnostics.next_recursive, { desc = "Nvimtree - Next Diag" })
+	map("n", "[d", api.node.navigate.diagnostics.prev_recursive, { desc = "Nvimtree - Prev Diag" })
 end
 
 return {
@@ -53,13 +58,13 @@ return {
 						local win_width = vim.api.nvim_win_get_width(0)
 						local win_height = vim.api.nvim_win_get_height(0)
 						local width = math.min(30, win_width)
-						local height = math.min(30, win_height)
+						local height = math.min(40, win_height)
 						return {
 							relative = "win",
 							border = "rounded",
 							width = width,
 							height = height,
-							row = 0,
+							row = 2,
 							col = win_width,
 							anchor = "NE",
 						}
@@ -75,7 +80,5 @@ return {
 		local api = require("nvim-tree.api")
 		-- map("n", "<C-n>", api.tree.toggle, { desc = "Nvimtree Toggle window" })
 		map("n", "<leader>e", api.tree.focus, { desc = "Nvimtree Focus window" })
-		map("n", "]h", api.node.navigate.git.next_recursive, { desc = "Nvimtree - Next Git" })
-		map("n", "[h", api.node.navigate.git.prev_recursive, { desc = "Nvimtree - Prev Git" })
 	end,
 }

@@ -63,8 +63,8 @@ return {
 		end, { desc = " - Find buffers" })
 
 
-		map("n", "<leader>gc", function() ts.git_commits({ initial_mode = "normal" }) end, { desc = " Git commits" })
-		map("n", "<leader>gs", function() ts.git_status({ initial_mode = "normal" }) end, { desc = " Git status" })
+		map("n", "<leader>gc", ts.git_commits, { desc = " Git commits" })
+		map("n", "<leader>gs", ts.git_status, { desc = " Git status" })
 		map("n", "<leader>cm", tt.extensions.chezmoi.find_files, { desc = " Chezmoi" })
 		map("n", "<leader>ff", ts.find_files, { desc = " Find files" })
 		map("n", "<leader>fo", ts.oldfiles, { desc = " Find oldfiles" })

@@ -24,7 +24,7 @@ return {
 			},
 		})
 		require('mini.bufremove').setup()
-		vim.keymap.set('n', '<leader>cc', function()
+		vim.keymap.set('n', '<leader>bc', function()
 			require('mini.bufremove').delete()
 		end, { desc = 'Close buffer, keep split' })
 

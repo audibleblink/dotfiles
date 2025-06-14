@@ -37,7 +37,7 @@ alias cmcd="cd $(chezmoi source-path 2>/dev/null)"
 alias aedit="nvim '+ChezmoiEdit ${ZDOTDIR}/aliases.zsh'"
 alias tedit="nvim '+ChezmoiEdit ${XDG_CONFIG_HOME}/tmux/tmux.conf'"
 alias zedit="nvim '+ChezmoiEdit ${ZDOTDIR}/.zshrc'"
-alias vedit="nvim -c 'Telescope chezmoi find_files'"
+alias vedit="nvim ${XDG_CONFIG_HOME}/nvim/init.lua"
 alias dots="nvim -c 'Telescope chezmoi find_files'"
 # ]]]
 # Coding [[[
