@@ -6,15 +6,15 @@ local terminal = require("nvchad.term")
 
 
 -- Terminal toggles
-map(modes, "<leader>hh", function()
+map(modes, "<leader>th", function()
 	terminal.toggle({ pos = "sp", id = "htoggleTerm", size = 0.3 })
 end, { desc = "Terminal New horizontal term" })
 
-map(modes, "<leader>vv", function()
+map(modes, "<leader>tv", function()
 	terminal.toggle({ pos = "vsp", id = "vtoggleTerm", size = 0.3 })
 end, { desc = "Terminal Toggleable vertical term" })
 
-map(modes, "<leader>ii", function()
+map(modes, "<leader>ti", function()
 	terminal.toggle({ pos = "float", id = "floatTerm" })
 end, { desc = "Terminal Toggle Floating term" })
 
@@ -24,14 +24,14 @@ local ft_cmds = {
 	zig = "zig build; exit ",
 }
 
--- map(modes, "<leader>it", function()
--- 	terminal.runner({
--- 		pos = "float",
--- 		cmd = ft_cmds[vim.bo.filetype],
--- 		id = "runner",
--- 		clear_cmd = false,
--- 	})
--- end, { desc = "Run zig build in Floating term" })
+map(modes, "<leader>tr", function()
+	terminal.runner({
+		pos = "float",
+		cmd = ft_cmds[vim.bo.filetype],
+		id = "runner",
+		clear_cmd = false,
+	})
+end, { desc = "Run zig build in Floating term" })
 
 -- Term Nav
 local function navigate_from_terminal(direction)
