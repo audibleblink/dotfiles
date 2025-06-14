@@ -34,8 +34,8 @@ local function my_on_attach(bufnr)
 
 	map('n', 'l', edit_or_open, opts('Edit or Open'))
 	map('n', 'h', close_node, opts('Collapse node'))
-	map("n", "]h", api.node.navigate.git.next_recursive, { desc = "Nvimtree - Next Git" })
-	map("n", "[h", api.node.navigate.git.prev_recursive, { desc = "Nvimtree - Prev Git" })
+	map("n", "]g", api.node.navigate.git.next_recursive, { desc = "Nvimtree - Next Git" })
+	map("n", "[g", api.node.navigate.git.prev_recursive, { desc = "Nvimtree - Prev Git" })
 	map("n", "]d", api.node.navigate.diagnostics.next_recursive, { desc = "Nvimtree - Next Diag" })
 	map("n", "[d", api.node.navigate.diagnostics.prev_recursive, { desc = "Nvimtree - Prev Diag" })
 end

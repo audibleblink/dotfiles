@@ -62,12 +62,12 @@ return {
 			ts.buffers({ ignore_current_buffer = true, sort_mru = true, previewer = false })
 		end, { desc = " - Find buffers" })
 
-		map("n", "<leader>gs", function()
+		map("n", "<leader>fg", function()
 			ts.git_status({ sort_lastused = true })
 		end, { desc = " - Git Status" })
 
 
-		map("n", "<leader>gc", ts.git_commits, { desc = " Git commits" })
+		map("n", "<leader>fc", ts.git_commits, { desc = " Git commits" })
 		map("n", "<leader>cm", tt.extensions.chezmoi.find_files, { desc = " Chezmoi" })
 		map("n", "<leader>ff", ts.find_files, { desc = " Find files" })
 		map("n", "<leader>fo", ts.oldfiles, { desc = " Find oldfiles" })
