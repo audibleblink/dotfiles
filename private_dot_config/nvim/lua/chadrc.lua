@@ -1,9 +1,9 @@
 local M = {}
 
 M.base46 = {
-	-- transparency = true,
 	theme = "catppuccin-macchiato",
-	theme_toggle = { "catppuccin-macchiato", "one_light" },
+	theme_toggle = { "catppuccin-macchiato", "catppuccin-light" },
+	-- transparency = true,
 	-- hl_override = { CursorLine = { bg = "one_bg" } },
 }
 -- force color change

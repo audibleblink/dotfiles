@@ -127,15 +127,18 @@ bind C-l send-keys 'C-l'
 {{ if (eq .chezmoi.os "darwin") }}
 set -s copy-command 'pbcopy'
 set -g default-shell /bin/zsh
-set-option -g default-terminal "xterm-256color"
-set -g -a terminal-overrides ',xterm-256color:Tc,*:Ss=\E[%p1%d q:Se=\E[2 q'
+# set-option -g default-terminal "xterm-256color"
+# set -g -a terminal-overrides ',xterm-256color:Tc,*:Ss=\E[%p1%d q:Se=\E[2 q'
 {{ else  }}
 set -s copy-command 'xsel -i'
 set -g default-shell /usr/bin/zsh
-set-option -g default-terminal "xterm-256color"
-set -g -a terminal-overrides ',*256col*:Tc,*:Ss=\E[%p1%d q:Se=\E[2 q'
+# set-option -g default-terminal "xterm-256color"
+# set -g -a terminal-overrides ',*256col*:Tc,*:Ss=\E[%p1%d q:Se=\E[2 q'
 {{ end }}
 # ]]]
-
+#
+set -ga terminal-overrides ",*256col*:Tc"
+set -ga terminal-overrides '*:Ss=\E[%p1%d q:Se=\E[ q'
+set-environment -g COLORTERM "truecolor"
 
 # vim: ft=bash foldmarker=[[[,]]] foldlevelstart=0 foldmethod=marker spell:

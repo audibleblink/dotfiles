@@ -41,7 +41,7 @@ o.cursorlineopt = "both"
 o.expandtab = true
 o.shiftwidth = 2
 o.smartindent = true
-o.tabstop = 2
+o.tabstop = 4
 o.softtabstop = 2
 
 -- Numbers
@@ -56,7 +56,7 @@ vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin" .. (is_windows and ";" or 
 -- Custom
 opt.swapfile = false
 opt.scrolloff = 5
-opt.colorcolumn = "99"
+opt.colorcolumn = "120"
 opt.guifont = "CodeliaLigatures Nerd Font"
 
 -- highlight yanked text for 300ms using the "Visual" highlight group

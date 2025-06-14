@@ -3,7 +3,7 @@ return {
 	lazy = true,
 	cmd = { "Outline", "OutlineOpen" },
 	keys = {
-		{ "<leader>cs", "<cmd>Outline<CR>", desc = "Toggle symbol outline" },
+		{ "<leader>o", "<cmd>Outline<CR>", desc = "Toggle symbol outline" },
 	},
 	opts = {
 		outline_window = {
@@ -18,7 +18,7 @@ return {
 			split_command = nil,
 
 			-- Percentage or integer of columns
-			width = 10,
+			width = 20,
 			-- Whether width is relative to the total width of nvim
 			-- When relative_width = true, this means take 25% of the total
 			-- screen width for outline window.
@@ -188,8 +188,8 @@ return {
 			-- Move down/up by one line and peek_location immediately.
 			-- You can also use outline_window.auto_jump=true to do this for any
 			-- j/k/<down>/<up>.
-			down_and_jump = "<C-j>",
-			up_and_jump = "<C-k>",
+			down_and_jump = "<C-n>",
+			up_and_jump = "<C-p>",
 		},
 
 		providers = {

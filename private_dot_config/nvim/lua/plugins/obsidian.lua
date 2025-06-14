@@ -7,8 +7,8 @@ return {
 	-- ui = { enable = false },
 	cmd = { "ObsidianQuickSwitch", "ObsidianDailies", "ObsidianToday", "ObsidianNew", "ObsidianWorkspace" },
 	keys = {
-		{ "<leader>oo", "<cmd>ObsidianWorkspace<CR>", desc = "Open Obsidian Workspace Picker" },
-		{ "<leader>on", "<cmd>ObsidianNew<CR>", desc = "New Note (Obsidian)" },
+		-- { "<leader>oo", "<cmd>ObsidianWorkspace<CR>", desc = "Open Obsidian Workspace Picker" },
+		-- { "<leader>on", "<cmd>ObsidianNew<CR>", desc = "New Note (Obsidian)" },
 	},
 	event = {
 		"BufNewFile " .. path .. "/**.md",

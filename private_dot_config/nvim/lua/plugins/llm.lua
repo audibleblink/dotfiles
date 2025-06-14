@@ -1,7 +1,7 @@
 return {
 	{
 		"julwrites/llm-nvim",
-		cmd = LLMToggle,
+		cmd = "LLMToggle",
 		keys = {
 			{ "<Leader>ai", "<cmd>LLMToggle<CR>", desc = "Toggle LLM AI" },
 		},
