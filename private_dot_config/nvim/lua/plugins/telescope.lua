@@ -6,7 +6,7 @@ return {
 		{ "nvim-treesitter/nvim-treesitter" },
 		{ "nvim-telescope/telescope-ui-select.nvim" },
 		{ "nvim-tree/nvim-web-devicons" },
-		{ "xvzc/chezmoi.nvim", cmd = { "ChezmoiEdit", "ChezmoiList" } },
+		{ "xvzc/chezmoi.nvim",                      cmd = { "ChezmoiEdit", "ChezmoiList" } },
 		{
 			"nvim-telescope/telescope-fzf-native.nvim",
 			build = "make",
@@ -18,7 +18,8 @@ return {
 	cmd = "Telescope",
 	config = function()
 		-- config options
-		require("telescope").setup({
+		local tt = require("telescope")
+		tt.setup({
 			defaults = {
 				prompt_prefix = "   ",
 				selection_caret = " ",
@@ -26,11 +27,11 @@ return {
 				sorting_strategy = "ascending",
 				layout_config = {
 					horizontal = {
-						prompt_position = "top",
+						prompt_position = "bottom",
 						preview_width = 0.55,
 					},
-					width = 0.87,
-					height = 0.80,
+					width = 0.80,
+					height = 0.60,
 				},
 				mappings = {
 					n = { ["q"] = require("telescope.actions").close },
@@ -41,9 +42,9 @@ return {
 			extensions = {},
 		})
 
-		pcall(require("telescope").load_extension, "fzf")
-		pcall(require("telescope").load_extension, "ui-select")
-		pcall(require("telescope").load_extension, "chezmoi")
+		pcall(tt.load_extension, "fzf")
+		pcall(tt.load_extension, "ui-select")
+		pcall(tt.load_extension, "chezmoi")
 
 		local map = vim.keymap.set
 		local ts = require("telescope.builtin")
@@ -55,20 +56,22 @@ return {
 				no_ignore = true,
 				hidden = true,
 			})
-		end, { desc = "Telescope Find All" })
+		end, { desc = " Find All" })
 
-		map("n", "<leader>b", function()
+		map("n", "<leader>fb", function()
 			ts.buffers({ ignore_current_buffer = true, sort_mru = true, previewer = false })
-		end, { desc = "Telescope - Find buffers" })
-		map("n", "<leader>cm", require("telescope").extensions.chezmoi.find_files, { desc = "Chezmoi" })
-		map("n", "<leader>ff", ts.find_files, { desc = "Telescope Find files" })
-		map("n", "<leader>fo", ts.oldfiles, { desc = "Telescope Find oldfiles" })
-		map("n", "<leader>fz", ts.current_buffer_fuzzy_find, { desc = "Telescope Find in current buffer" })
-		map("n", "<leader>fw", ts.live_grep, { desc = "Telescope Live grep" })
-		map("n", "<leader>fh", ts.help_tags, { desc = "Telescope Help page" })
-		map("n", "<leader>gc", ts.git_commits, { desc = "Telescope Git commits" })
-		map("n", "<leader>gs", ts.git_status, { desc = "Telescope Git status" })
-		map("n", "<leader>fm", ts.keymaps, { desc = "Telescope Keymaps" })
-		map("n", "<leader><leader>", ts.resume, { desc = "Telescope Reopen" })
+		end, { desc = " - Find buffers" })
+
+
+		map("n", "<leader>gc", function() ts.git_commits({ initial_mode = "normal" }) end, { desc = " Git commits" })
+		map("n", "<leader>gs", function() ts.git_status({ initial_mode = "normal" }) end, { desc = " Git status" })
+		map("n", "<leader>cm", tt.extensions.chezmoi.find_files, { desc = " Chezmoi" })
+		map("n", "<leader>ff", ts.find_files, { desc = " Find files" })
+		map("n", "<leader>fo", ts.oldfiles, { desc = " Find oldfiles" })
+		map("n", "<leader>fz", ts.current_buffer_fuzzy_find, { desc = " Find in current buffer" })
+		map("n", "<leader>fw", ts.live_grep, { desc = " Live grep" })
+		map("n", "<leader>fh", ts.help_tags, { desc = " Help page" })
+		map("n", "<leader>fm", ts.keymaps, { desc = " Keymaps" })
+		map("n", "<leader><leader>", ts.resume, { desc = " Reopen" })
 	end,
 }
