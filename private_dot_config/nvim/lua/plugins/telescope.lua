@@ -59,7 +59,7 @@ return {
 		end, { desc = " Find All" })
 
 		map("n", "<leader>fb", function()
-			ts.buffers({ ignore_current_buffer = true, sort_mru = true, previewer = fase })
+			ts.buffers({ ignore_current_buffer = true, sort_mru = true, previewer = false })
 		end, { desc = " - Find buffers" })
 
 		map("n", "<c-e>", function()

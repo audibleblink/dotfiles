@@ -7,7 +7,7 @@ return {
 		require("mini.bracketed").setup()
 		require("mini.comment").setup()
 		require("mini.diff").setup()
-		require("mini.jump").setup()
+		-- require("mini.jump").setup()
 		require("mini.move").setup()
 		require("mini.surround").setup()
 		require("mini.indentscope").setup({
@@ -23,10 +23,10 @@ return {
 				}),
 			},
 		})
-		require('mini.bufremove').setup()
-		vim.keymap.set('n', '<leader>bc', function()
-			require('mini.bufremove').delete()
-		end, { desc = 'Close buffer, keep split' })
+		require("mini.bufremove").setup()
+		vim.keymap.set("n", "<leader>bc", function()
+			require("mini.bufremove").delete()
+		end, { desc = "Close buffer, keep split" })
 
 		local disabled = {
 			"help",

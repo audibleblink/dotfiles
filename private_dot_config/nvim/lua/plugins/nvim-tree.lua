@@ -18,14 +18,8 @@ local function my_on_attach(bufnr)
 
 	local function close_node()
 		local node = api.tree.get_node_under_cursor()
-
 		if node.nodes ~= nil then
 			api.node.open.edit()
-		else
-			-- open file
-			-- api.node.open.edit()
-			-- Close the tree if file was opened
-			-- api.tree.close()
 		end
 	end
 
@@ -78,7 +72,6 @@ return {
 
 		local map = vim.keymap.set
 		local api = require("nvim-tree.api")
-		-- map("n", "<C-n>", api.tree.toggle, { desc = "Nvimtree Toggle window" })
 		map("n", "<leader>e", api.tree.focus, { desc = "Nvimtree Focus window" })
 	end,
 }

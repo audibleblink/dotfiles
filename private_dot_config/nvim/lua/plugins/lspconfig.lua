@@ -1,6 +1,6 @@
 return {
 	"neovim/nvim-lspconfig",
-
+	enabled = not vim.g.vscode,
 	dependencies = {
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",

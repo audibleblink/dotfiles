@@ -1,5 +1,6 @@
 return {
 	"karb94/neoscroll.nvim",
+	enabled = not vim.g.neovide,
 	keys = { "<C-u>", "<C-d>" },
 	opts = {
 		mappings = { -- Keys to be mapped to their corresponding default scrolling animation
