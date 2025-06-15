@@ -38,29 +38,33 @@ return {
 	keys = { { "<C-n>", "<cmd>NvimTreeFindFileToggle<CR>", desc = "Toggle NvimTree" } },
 	opts = {
 		on_attach = my_on_attach,
+		actions = {
+			open_file = { quit_on_open = true },
+		},
 		view = {
 			centralize_selection = true,
 			side = "right",
-			float = {
-				quit_on_focus_loss = true,
-				enable = false,
-				open_win_config = function()
-					-- open top right of current window
-					local win_width = vim.api.nvim_win_get_width(0)
-					local win_height = vim.api.nvim_win_get_height(0)
-					local width = math.min(30, win_width)
-					local height = math.min(40, win_height)
-					return {
-						relative = "win",
-						border = "rounded",
-						width = width,
-						height = height,
-						row = 2,
-						col = win_width,
-						anchor = "NE",
-					}
-				end,
-			},
+			preserve_window_proportions = true,
+			-- float = {
+			-- 	quit_on_focus_loss = true,
+			-- 	enable = false,
+			-- 	open_win_config = function()
+			-- 		-- open top right of current window
+			-- 		local win_width = vim.api.nvim_win_get_width(0)
+			-- 		local win_height = vim.api.nvim_win_get_height(0)
+			-- 		local width = math.min(30, win_width)
+			-- 		local height = math.min(40, win_height)
+			-- 		return {
+			-- 			relative = "win",
+			-- 			border = "none",
+			-- 			width = width,
+			-- 			height = win_height,
+			-- 			row = 0,
+			-- 			col = win_width,
+			-- 			anchor = "NE",
+			-- 		}
+			-- 	end,
+			-- },
 		},
 		diagnostics = {
 			enable = true,

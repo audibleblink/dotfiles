@@ -23,7 +23,7 @@ return {
 	opts = {
 		modes = {
 			symbols = {
-				focus = true,
+				focus = false,
 				win = { position = "left" },
 			},
 		},
