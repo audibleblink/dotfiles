@@ -3,7 +3,7 @@ local function my_on_attach(bufnr)
 	local map = vim.keymap.set
 
 	local function opts(desc)
-		return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+		return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
 	end
 
 	local function edit_or_open()
@@ -15,7 +15,6 @@ local function my_on_attach(bufnr)
 			api.tree.close()
 		end
 	end
-
 
 	local function close_node()
 		local node = api.tree.get_node_under_cursor()
@@ -32,12 +31,12 @@ local function my_on_attach(bufnr)
 
 	api.config.mappings.default_on_attach(bufnr)
 
-	map('n', 'l', edit_or_open, opts('Edit or Open'))
-	map('n', 'h', close_node, opts('Collapse node'))
-	map("n", "]g", api.node.navigate.git.next_recursive, { desc = "Nvimtree - Next Git" })
-	map("n", "[g", api.node.navigate.git.prev_recursive, { desc = "Nvimtree - Prev Git" })
-	map("n", "]d", api.node.navigate.diagnostics.next_recursive, { desc = "Nvimtree - Next Diag" })
-	map("n", "[d", api.node.navigate.diagnostics.prev_recursive, { desc = "Nvimtree - Prev Diag" })
+	map("n", "l", edit_or_open, opts("Edit or Open"))
+	map("n", "h", close_node, opts("Collapse node"))
+	map("n", "]g", api.node.navigate.git.next_recursive, opts("Next Git"))
+	map("n", "[g", api.node.navigate.git.prev_recursive, opts("Prev Git"))
+	map("n", "]d", api.node.navigate.diagnostics.next_recursive, opts("Next Diag"))
+	map("n", "[d", api.node.navigate.diagnostics.prev_recursive, opts("Prev Diag"))
 end
 
 return {
@@ -50,9 +49,10 @@ return {
 			on_attach = my_on_attach,
 			view = {
 				centralize_selection = true,
+				side = "right",
 				float = {
 					quit_on_focus_loss = true,
-					enable = true,
+					enable = false,
 					open_win_config = function()
 						-- open top right of current window
 						local win_width = vim.api.nvim_win_get_width(0)

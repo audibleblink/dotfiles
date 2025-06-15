@@ -6,7 +6,7 @@ return {
 		{ "nvim-treesitter/nvim-treesitter" },
 		{ "nvim-telescope/telescope-ui-select.nvim" },
 		{ "nvim-tree/nvim-web-devicons" },
-		{ "xvzc/chezmoi.nvim",                      cmd = { "ChezmoiEdit", "ChezmoiList" } },
+		{ "xvzc/chezmoi.nvim", cmd = { "ChezmoiEdit", "ChezmoiList" } },
 		{
 			"nvim-telescope/telescope-fzf-native.nvim",
 			build = "make",
@@ -59,13 +59,16 @@ return {
 		end, { desc = " Find All" })
 
 		map("n", "<leader>fb", function()
-			ts.buffers({ ignore_current_buffer = true, sort_mru = true, previewer = false })
+			ts.buffers({ ignore_current_buffer = true, sort_mru = true, previewer = fase })
 		end, { desc = " - Find buffers" })
+
+		map("n", "<c-e>", function()
+			ts.git_status({ sort_lastused = true })
+		end, { desc = " - Git Status" })
 
 		map("n", "<leader>fg", function()
 			ts.git_status({ sort_lastused = true })
 		end, { desc = " - Git Status" })
-
 
 		map("n", "<leader>fc", ts.git_commits, { desc = " Git commits" })
 		map("n", "<leader>cm", tt.extensions.chezmoi.find_files, { desc = " Chezmoi" })

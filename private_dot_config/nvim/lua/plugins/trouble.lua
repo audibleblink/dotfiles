@@ -2,6 +2,8 @@ return {
 	"folke/trouble.nvim",
 	cmd = "Trouble",
 	keys = {
+		{ "<leader>x" },
+		{ "<leader>o" },
 		{
 			"<leader>xx",
 			"<cmd>Trouble diagnostics toggle<cr>",
@@ -13,25 +15,33 @@ return {
 			desc = "Buffer Diagnostics (Trouble)",
 		},
 		{
-			"<leader>xs",
-			"<cmd>Trouble symbols toggle focus=false<cr>",
-			desc = "Symbols (Trouble)",
-		},
-		{
 			"<leader>xl",
 			"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
 			desc = "LSP Definitions / references / ... (Trouble)",
 		},
-		{
-			"<leader>xL",
-			"<cmd>Trouble loclist toggle<cr>",
-			desc = "Location List (Trouble)",
-		},
-		{
-			"<leader>xQ",
-			"<cmd>Trouble qflist toggle<cr>",
-			desc = "Quickfix List (Trouble)",
+	},
+	opts = {
+		modes = {
+			symbols = {
+				focus = true,
+				win = { position = "left" },
+			},
 		},
 	},
-	opts = {}, -- for default options, refer to the configuration section for custom setup.
+	config = function(_, opts)
+		local trouble = require("trouble")
+		trouble.setup(opts)
+
+		vim.keymap.set("n", "<leader>o", function()
+			trouble.toggle({ mode = "symbols" })
+		end, { desc = "Symbols Outline" })
+
+		vim.keymap.set("n", "<leader>xq", function()
+			trouble.toggle({ mode = "qflist" })
+		end, { desc = "Quickfix List (Trouble)" })
+
+		vim.keymap.set("n", "<leader>xl", function()
+			trouble.toggle({ mode = "loclist" })
+		end, { desc = "Location List (Trouble)" })
+	end,
 }
