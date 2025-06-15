@@ -20,8 +20,8 @@ return {
 			["<C-Space>"] = require("cmp").mapping.complete(),
 
 			["<C-l>"] = require("cmp").mapping.confirm({
-				behavior = require("cmp").ConfirmBehavior.Insert,
-				select = false,
+				behavior = require("cmp").ConfirmBehavior.Replace,
+				select = true,
 			}),
 		},
 
