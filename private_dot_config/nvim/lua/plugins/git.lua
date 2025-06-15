@@ -55,7 +55,6 @@ return {
 					gitsigns.blame_line({ full = true })
 				end, { desc = "[Git] Blame Hunk" })
 
-
 				map("n", "<leader>gD", function()
 					gitsigns.diffthis("~")
 				end, { desc = "[Git] Diff This" })

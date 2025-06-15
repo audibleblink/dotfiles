@@ -6,7 +6,9 @@ return {
 		{ "nvim-telescope/telescope.nvim" },
 	},
 	ft = { "yaml", "yml" },
-	config = function()
+	opts = {},
+	config = function(_, opts)
+		require("yaml-companion").setup(opts)
 		require("telescope").load_extension("yaml_schema")
 	end,
 }

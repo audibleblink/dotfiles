@@ -38,14 +38,11 @@ return {
 		"CopilotC-Nvim/CopilotChat.nvim",
 		lazy = true,
 		keys = {
-			{ "<Leader>cc", ":CopilotChatToggle<CR>",  desc = "Toggle CopilotChat" },
+			{ "<Leader>cc", ":CopilotChatToggle<CR>", desc = "Toggle CopilotChat" },
 			{ "<Leader>cp", ":CopilotChatPrompts<CR>", desc = "Toggle CopilotChat Prompts" },
 		},
 		cmd = "CopilotChatToggle",
 		build = "make tiktoken", -- Only on MacOS or Linux
 		opts = {},
-		config = function()
-			require("CopilotChat").setup()
-		end
 	},
 }

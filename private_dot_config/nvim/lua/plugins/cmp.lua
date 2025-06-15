@@ -1,47 +1,41 @@
 return {
 	"hrsh7th/nvim-cmp",
 	event = "InsertEnter",
-	config = function()
-		local cmp = require("cmp")
+	opts = {
+		completion = { completeopt = "menu,menuone" },
+		preselect = require("cmp").PreselectMode.None,
+		snippet = {
+			expand = function(args)
+				require("luasnip").lsp_expand(args.body)
+			end,
+		},
 
-		cmp.setup({
-			completion = { completeopt = "menu,menuone" },
-			preselect = cmp.PreselectMode.None,
-			snippet = {
-				expand = function(args)
-					require("luasnip").lsp_expand(args.body)
-				end,
-			},
+		mapping = {
+			["<CR>"] = require("cmp").config.disable,
+			["<C-p>"] = require("cmp").mapping.select_prev_item(),
+			["<C-n>"] = require("cmp").mapping.select_next_item(),
+			["<C-d>"] = require("cmp").mapping.scroll_docs(-4),
+			["<C-f>"] = require("cmp").mapping.scroll_docs(4),
+			["<C-e>"] = require("cmp").mapping.close(),
+			["<C-Space>"] = require("cmp").mapping.complete(),
 
-			mapping = {
-				["<CR>"] = cmp.config.disable,
-				["<C-p>"] = cmp.mapping.select_prev_item(),
-				["<C-n>"] = cmp.mapping.select_next_item(),
-				["<C-d>"] = cmp.mapping.scroll_docs(-4),
-				["<C-f>"] = cmp.mapping.scroll_docs(4),
-				["<C-e>"] = cmp.mapping.close(),
-				["<C-Space>"] = cmp.mapping.complete(),
+			["<C-l>"] = require("cmp").mapping.confirm({
+				behavior = require("cmp").ConfirmBehavior.Insert,
+				select = false,
+			}),
+		},
 
-				["<C-l>"] = cmp.mapping.confirm({
-					behavior = cmp.ConfirmBehavior.Insert,
-					select = false,
-				}),
-			},
-
-			sources = {
-				{ name = "nvim_lsp" },
-				{ name = "copilot" },
-				{ name = "luasnip" },
-				{ name = "buffer" },
-				{ name = "nvim_lua" },
-				{ name = "cmdline" },
-				{ name = "path" },
-			},
-		})
-	end,
-
+		sources = {
+			{ name = "nvim_lsp" },
+			{ name = "copilot" },
+			{ name = "luasnip" },
+			{ name = "buffer" },
+			{ name = "nvim_lua" },
+			{ name = "cmdline" },
+			{ name = "path" },
+		},
+	},
 	dependencies = {
-		-- autopairing of (){}[] etc
 		{
 			"windwp/nvim-autopairs",
 			opts = {
@@ -54,27 +48,25 @@ return {
 				require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
 			end,
 		},
-
 		{
 			"hrsh7th/cmp-cmdline",
-			config = function()
-				local cmp = require("cmp")
-				cmp.setup.cmdline(':', {
-					mapping = cmp.mapping.preset.cmdline(),
-					sources = cmp.config.sources({
-						{ name = 'path' }
-					}, {
-						{
-							name = 'cmdline',
-							option = {
-								ignore_cmds = { 'Man', '!' }
-							}
-						}
-					})
-				})
-			end
+			opts = {
+				mapping = require("cmp").mapping.preset.cmdline(),
+				sources = require("cmp").config.sources({
+					{ name = "path" },
+				}, {
+					{
+						name = "cmdline",
+						option = {
+							ignore_cmds = { "Man", "!" },
+						},
+					},
+				}),
+			},
+			config = function(_, opts)
+				require("cmp").setup.cmdline(":", opts)
+			end,
 		},
-
 		{
 			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-nvim-lua",

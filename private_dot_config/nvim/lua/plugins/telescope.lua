@@ -16,31 +16,32 @@ return {
 		},
 	},
 	cmd = "Telescope",
-	config = function()
+	opts = {
+		defaults = {
+			prompt_prefix = "   ",
+			selection_caret = " ",
+			entry_prefix = " ",
+			sorting_strategy = "ascending",
+			layout_config = {
+				horizontal = {
+					prompt_position = "bottom",
+					preview_width = 0.55,
+				},
+				width = 0.80,
+				height = 0.60,
+			},
+			mappings = {
+				n = { ["q"] = require("telescope.actions").close },
+				i = { ["<esc>"] = require("telescope.actions").close },
+			},
+		},
+		extensions_list = { "themes", "terms" },
+		extensions = {},
+	},
+	config = function(_, opts)
 		-- config options
 		local tt = require("telescope")
-		tt.setup({
-			defaults = {
-				prompt_prefix = "   ",
-				selection_caret = " ",
-				entry_prefix = " ",
-				sorting_strategy = "ascending",
-				layout_config = {
-					horizontal = {
-						prompt_position = "bottom",
-						preview_width = 0.55,
-					},
-					width = 0.80,
-					height = 0.60,
-				},
-				mappings = {
-					n = { ["q"] = require("telescope.actions").close },
-					i = { ["<esc>"] = require("telescope.actions").close },
-				},
-			},
-			extensions_list = { "themes", "terms" },
-			extensions = {},
-		})
+		tt.setup(opts)
 
 		pcall(tt.load_extension, "fzf")
 		pcall(tt.load_extension, "ui-select")
