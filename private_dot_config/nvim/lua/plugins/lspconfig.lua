@@ -125,5 +125,13 @@ return {
 
 			lspconfig[server_name].setup(config)
 		end
+
+		vim.diagnostic.config({
+			update_in_insert = false, -- false so diags are updated on InsertLeave
+			virtual_text = { current_line = true, severity = { min = "WARN", max = "ERROR" } },
+			-- virtual_lines = { current_line = true, severity = { min = "ERROR" } },
+			severity_sort = true,
+			float = false,
+		})
 	end,
 }
