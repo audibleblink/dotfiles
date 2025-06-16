@@ -17,20 +17,20 @@ map(modes, "<leader>li", function()
 	terminal.toggle({ pos = "float", id = "floatTerm" })
 end, { desc = "Terminal Toggle Floating term" })
 
--- File type specific terminal commands
-local ft_cmds = {
-	python = "python " .. vim.fn.expand("%"),
-	zig = "zig build; exit ",
-}
-
+local last_cmd = ""
 map(modes, "<leader>lr", function()
-	terminal.runner({
-		pos = "float",
-		cmd = vim.fn.input("Cmd: ") or ft_cmds[vim.bo.filetype],
-		id = "runner",
-		clear_cmd = false,
-	})
-end, { desc = "Run zig build in Floating term" })
+	local cmd = vim.fn.input("Command to run: ", last_cmd)
+	if cmd and cmd ~= "" then
+		last_cmd = cmd
+		local term_buf = vim.api.nvim_create_buf(false, true)
+		vim.cmd("buffer " .. term_buf)
+		vim.fn.termopen(cmd, {
+			on_exit = function()
+				require("mini.bufremove").unshow()
+			end,
+		})
+	end
+end, { desc = "Run user command in terminal" })
 
 map(modes, "<leader>gc", function()
 	local term_buf = vim.api.nvim_create_buf(false, true)
