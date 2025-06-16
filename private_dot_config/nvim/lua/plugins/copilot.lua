@@ -43,6 +43,15 @@ return {
 		},
 		cmd = "CopilotChatToggle",
 		build = "make tiktoken", -- Only on MacOS or Linux
-		opts = {},
+		opts = {
+			prompts = {
+				Commit = {
+					prompt = "Write a commit message for these changes. Keep the title under 80 characters. Everything but the title should be indented by 2 spaces and wrapped at 80 characters. ",
+					system_prompt = "you only reply with descriptive commitizen-compliant commit messages as a code block",
+					description = "Create a detailed commit message",
+					context = "git:staged",
+				},
+			},
+		},
 	},
 }
