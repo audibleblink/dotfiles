@@ -27,7 +27,7 @@ return {
 					prompt_position = "bottom",
 					preview_width = 0.55,
 				},
-				width = 0.80,
+				width = 0.66,
 				height = 0.60,
 			},
 			mappings = {
@@ -62,10 +62,6 @@ return {
 		map("n", "<leader>fb", function()
 			ts.buffers({ ignore_current_buffer = true, sort_mru = true, previewer = false })
 		end, { desc = " - Find buffers" })
-
-		map("n", "<c-e>", function()
-			ts.git_status({ sort_lastused = true })
-		end, { desc = " - Git Status" })
 
 		map("n", "<leader>fs", function()
 			ts.git_status({ sort_lastused = true })

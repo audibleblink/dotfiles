@@ -4,9 +4,6 @@ local map = vim.keymap.set
 
 -- Basic operations
 map("n", "<CR>", ":", { desc = "CMD enter command mode" })
-map("n", "<leader>bc", function()
-	vim.api.nvim_buf_delete(0, {})
-end, { desc = "Close buffer" })
 map("n", "<leader><Tab>", "<cmd> b# <CR>", { desc = "Previous Buffer" })
 map("n", "<Esc>", "<cmd>noh<CR>", { desc = "General Clear highlights" })
 map("n", "<C-q>", "<cmd>copen<CR>", { desc = "Open QuickFix" })

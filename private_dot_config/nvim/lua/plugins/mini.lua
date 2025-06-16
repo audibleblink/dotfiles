@@ -22,16 +22,16 @@ return {
 				}),
 			},
 		})
+
 		require("mini.bufremove").setup()
-		vim.keymap.set("n", "<leader>bc", function()
-			require("mini.bufremove").delete()
-		end, { desc = "Close buffer, keep split" })
+		vim.keymap.set(
+			"n",
+			"<leader>q",
+			require("mini.bufremove").unshow_in_window,
+			{ desc = "Close buffer, keep split" }
+		)
 
-		local disabled = {
-			"help",
-			"terminal",
-		}
-
+		local disabled = { "help", "terminal" }
 		vim.api.nvim_create_autocmd("FileType", {
 			pattern = "*",
 			callback = function()
