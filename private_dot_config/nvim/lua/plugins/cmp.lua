@@ -9,7 +9,6 @@ return {
 				require("luasnip").lsp_expand(args.body)
 			end,
 		},
-
 		mapping = {
 			["<CR>"] = require("cmp").config.disable,
 			["<C-p>"] = require("cmp").mapping.select_prev_item(),
@@ -28,10 +27,9 @@ return {
 		sources = {
 			{ name = "nvim_lsp" },
 			{ name = "copilot" },
-			{ name = "luasnip" },
 			{ name = "buffer" },
 			{ name = "nvim_lua" },
-			{ name = "cmdline" },
+			{ name = "luasnip" },
 			{ name = "path" },
 		},
 	},
