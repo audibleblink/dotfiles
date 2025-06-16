@@ -4,17 +4,16 @@ local map = vim.keymap.set
 local modes = { "n", "t" }
 local terminal = require("nvchad.term")
 
-
 -- Terminal toggles
-map(modes, "<leader>th", function()
+map(modes, "<leader><space>h", function()
 	terminal.toggle({ pos = "sp", id = "htoggleTerm", size = 0.3 })
 end, { desc = "Terminal New horizontal term" })
 
-map(modes, "<leader>tv", function()
+map(modes, "<leader><space>v", function()
 	terminal.toggle({ pos = "vsp", id = "vtoggleTerm", size = 0.3 })
 end, { desc = "Terminal Toggleable vertical term" })
 
-map(modes, "<leader>ti", function()
+map(modes, "<leader><space>i", function()
 	terminal.toggle({ pos = "float", id = "floatTerm" })
 end, { desc = "Terminal Toggle Floating term" })
 
@@ -24,7 +23,7 @@ local ft_cmds = {
 	zig = "zig build; exit ",
 }
 
-map(modes, "<leader>tr", function()
+map(modes, "<leader><space>r", function()
 	terminal.runner({
 		pos = "float",
 		cmd = ft_cmds[vim.bo.filetype],
@@ -35,29 +34,28 @@ end, { desc = "Run zig build in Floating term" })
 
 -- Term Nav
 local function navigate_from_terminal(direction)
-	return '<C-\\><C-N><C-w>' .. direction
+	return "<C-\\><C-N><C-w>" .. direction
 end
 
-vim.keymap.set('t', '<C-h>', navigate_from_terminal('h'))
-vim.keymap.set('t', '<C-j>', navigate_from_terminal('j'))
-vim.keymap.set('t', '<C-k>', navigate_from_terminal('k'))
-vim.keymap.set('t', '<C-l>', navigate_from_terminal('l'))
+vim.keymap.set("t", "<C-h>", navigate_from_terminal("h"))
+vim.keymap.set("t", "<C-j>", navigate_from_terminal("j"))
+vim.keymap.set("t", "<C-k>", navigate_from_terminal("k"))
+vim.keymap.set("t", "<C-l>", navigate_from_terminal("l"))
 
 -- More specific autocmd that only triggers on window focus
 vim.api.nvim_create_autocmd("WinEnter", {
 	pattern = "*",
+	group = vim.api.nvim_create_augroup("term_insert", { clear = true }),
 	callback = function()
-		if vim.bo.buftype == 'terminal' then
+		if vim.bo.buftype == "terminal" then
 			vim.cmd("startinsert")
 		end
 	end,
-	desc = "Enter insert mode when focusing terminal"
+	desc = "Enter insert mode when focusing terminal",
 })
 
 -- Terminal mode escape
 map("t", "<C-x>", "<C-\\><C-N>", { desc = "Terminal Escape terminal mode" })
-
-
 
 -- TODO: try this later as a replacement for nvchad's term:
 -- -- Terminal management module

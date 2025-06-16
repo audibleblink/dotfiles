@@ -39,7 +39,7 @@ pkgs+=(
 
 
 sudo apt update
-sudo apt install -t unstable -y ${pkgs[@]}
+sudo apt install -y ${pkgs[@]}
 
 # installs atuin and starship
 /bin/bash -c "$(curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh)"

@@ -72,11 +72,14 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
 	command = "if mode() != 'c' | checktime | endif",
 	pattern = { "*" },
+	desc = "Enter insert mode when focusing terminal",
 })
 
 --  e.g. ~/.local/share/chezmoi/*
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	desc = "Editing a chezmoi file",
 	pattern = { os.getenv("HOME") .. "/.local/share/chezmoi/*" },
+	group = vim.api.nvim_create_augroup("chezmoi", { clear = true }),
 	callback = function(ev)
 		local bufnr = ev.buf
 		local edit_watch = function()

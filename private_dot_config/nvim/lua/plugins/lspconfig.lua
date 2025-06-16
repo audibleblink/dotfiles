@@ -61,18 +61,6 @@ return {
 					},
 				},
 			},
-
-			-- lua_ls = {
-			-- 	settings = {
-			-- 		Lua = {
-			-- 			diagnostics = {
-			-- 				enable = true,
-			-- 				globals = { "vim" },
-			-- 			},
-			-- 		},
-			-- 	},
-			-- },
-
 			ruff = {
 				init_options = {
 					settings = {
