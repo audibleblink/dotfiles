@@ -32,6 +32,16 @@ map(modes, "<leader>lr", function()
 	})
 end, { desc = "Run zig build in Floating term" })
 
+map(modes, "<leader>gc", function()
+	local term_buf = vim.api.nvim_create_buf(false, true)
+	vim.cmd("buffer " .. term_buf)
+	vim.fn.termopen("git commit -v", {
+		on_exit = function()
+			require("mini.bufremove").unshow()
+		end,
+	})
+end, { desc = "Git Commit" })
+
 -- Term Nav
 local function navigate_from_terminal(direction)
 	return "<C-\\><C-N><C-w>" .. direction
