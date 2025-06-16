@@ -32,6 +32,17 @@ map(modes, "<leader>lr", function()
 	end
 end, { desc = "Run user command in terminal" })
 
+map(modes, "<leader>lsv", function()
+	local cmd = vim.fn.input("Command to run (vs): ", last_cmd)
+	if cmd and cmd ~= "" then
+		last_cmd = cmd
+		vim.cmd("vsplit")
+		local term_buf = vim.api.nvim_create_buf(false, true)
+		vim.api.nvim_win_set_buf(0, term_buf)
+		vim.fn.termopen(cmd)
+	end
+end, { desc = "Run user command in vertical split terminal" })
+
 map(modes, "<leader>gc", function()
 	local term_buf = vim.api.nvim_create_buf(false, true)
 	vim.cmd("buffer " .. term_buf)
