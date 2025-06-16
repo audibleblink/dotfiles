@@ -1,19 +1,19 @@
 -- Terminal related mappings
 
 local map = vim.keymap.set
-local modes = { "n", "t" }
 local terminal = require("nvchad.term")
+local modes = { "n", "t" }
 
 -- Terminal toggles
-map(modes, "<leader><space>h", function()
+map(modes, "<leader>lh", function()
 	terminal.toggle({ pos = "sp", id = "htoggleTerm", size = 0.3 })
 end, { desc = "Terminal New horizontal term" })
 
-map(modes, "<leader><space>v", function()
+map(modes, "<leader>lv", function()
 	terminal.toggle({ pos = "vsp", id = "vtoggleTerm", size = 0.3 })
 end, { desc = "Terminal Toggleable vertical term" })
 
-map(modes, "<leader><space>i", function()
+map(modes, "<leader>li", function()
 	terminal.toggle({ pos = "float", id = "floatTerm" })
 end, { desc = "Terminal Toggle Floating term" })
 
@@ -23,10 +23,10 @@ local ft_cmds = {
 	zig = "zig build; exit ",
 }
 
-map(modes, "<leader><space>r", function()
+map(modes, "<leader>lr", function()
 	terminal.runner({
 		pos = "float",
-		cmd = ft_cmds[vim.bo.filetype],
+		cmd = vim.fn.input("Cmd: ") or ft_cmds[vim.bo.filetype],
 		id = "runner",
 		clear_cmd = false,
 	})

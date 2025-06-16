@@ -4,10 +4,12 @@ local map = vim.keymap.set
 
 -- Basic operations
 map("n", "<CR>", ":", { desc = "CMD enter command mode" })
-map("n", "<c-q>", ":quitall<CR>", { desc = "Quit all bufers" })
-map("n", "<leader>bc", function() vim.api.nvim_buf_delete(0, {}) end, { desc = "Close buffer" })
+map("n", "<leader>bc", function()
+	vim.api.nvim_buf_delete(0, {})
+end, { desc = "Close buffer" })
 map("n", "<leader><Tab>", "<cmd> b# <CR>", { desc = "Previous Buffer" })
 map("n", "<Esc>", "<cmd>noh<CR>", { desc = "General Clear highlights" })
+map("n", "<C-q>", "<cmd>copen<CR>", { desc = "Open QuickFix" })
 
 -- Line numbers
 map("n", "<leader>n", "<cmd>set nu!<CR>", { desc = "Toggle Line number" })
@@ -32,3 +34,18 @@ map("i", "<C-k>", "<Up>", { desc = "Move Up" })
 -- Custom navigation (commented out in original)
 map("n", "j", "v:count > 1 ? 'm`' . v:count . 'j' : 'gj'", { expr = true })
 map("n", "k", "v:count > 1 ? 'm`' . v:count . 'k' : 'gk'", { expr = true })
+
+-- More specific autocmd that only triggers on window focus
+vim.api.nvim_create_autocmd("BufWinEnter", {
+	pattern = "*",
+	group = vim.api.nvim_create_augroup("qf", { clear = true }),
+	callback = function()
+		if vim.bo.buftype == "quickfix" then
+			map("n", "<c-q>", function()
+				vim.cmd("cclose")
+			end, { buffer = true })
+			map("n", "<cr>", "<cr>", { buffer = true })
+		end
+	end,
+	desc = "Binding qf",
+})

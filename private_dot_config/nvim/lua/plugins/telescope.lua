@@ -67,7 +67,7 @@ return {
 			ts.git_status({ sort_lastused = true })
 		end, { desc = " - Git Status" })
 
-		map("n", "<leader>fg", function()
+		map("n", "<leader>fs", function()
 			ts.git_status({ sort_lastused = true })
 		end, { desc = " - Git Status" })
 
