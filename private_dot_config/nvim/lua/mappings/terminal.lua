@@ -75,14 +75,7 @@ vim.api.nvim_create_user_command("GitCommit", function()
 end, {})
 
 map(modes, "<leader>gc", function()
-	run_in_terminal("git commit -v", {
-		direction = "normal",
-		termopen_opts = {
-			on_exit = function()
-				require("mini.bufremove").unshow()
-			end,
-		},
-	})
+	vim.cmd("GitCommit")
 end, { desc = "Git Commit" })
 
 -- Term Nav
