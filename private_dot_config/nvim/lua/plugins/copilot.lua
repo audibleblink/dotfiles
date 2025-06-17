@@ -40,13 +40,19 @@ return {
 		keys = {
 			{ "<Leader>cc", ":CopilotChatToggle<CR>", desc = "Toggle CopilotChat" },
 			{ "<Leader>cp", ":CopilotChatPrompts<CR>", desc = "Toggle CopilotChat Prompts" },
+			{ "<Leader>co", ":CopilotChatCommit<CR>", desc = "Show commit message pane" },
+			{ "<Leader>ce", ":CopilotChatExplain<CR>", desc = "Show Explanation" },
 		},
 		cmd = "CopilotChatToggle",
 		build = "make tiktoken", -- Only on MacOS or Linux
 		opts = {
 			prompts = {
 				Commit = {
-					prompt = "Write a commit message for these changes. Keep the title under 80 characters. Everything but the title should be indented by 2 spaces and wrapped at 80 characters. ",
+					prompt = [[ 
+					  Write a commit message for these changes. 
+					  Keep the title under 80 characters. 
+					  Bullet points should be indented by 2 spaces and wrapped at 80 characters.
+					]],
 					system_prompt = "you only reply with descriptive commitizen-compliant commit messages as a code block",
 					description = "Create a detailed commit message",
 					context = "git:staged",
