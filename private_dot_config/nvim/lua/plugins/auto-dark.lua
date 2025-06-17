@@ -7,15 +7,14 @@ end
 
 return {
 	"f-person/auto-dark-mode.nvim",
-	lazy = false,
-	update_interval = 1000,
-	fallback = "dark",
-	opts = {
+	event = "VeryLazy",
+	config = {
+		update_interval = 500,
 		set_dark_mode = function()
-			set_theme("catppuccin")
+			set_theme("catppuccin-macchiato")
 		end,
 		set_light_mode = function()
-			set_theme("one_light")
+			set_theme("catppuccin-latte")
 		end,
-	}
+	},
 }
