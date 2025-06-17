@@ -5,6 +5,7 @@ local terminal = require("nvchad.term")
 local modes = { "n", "t" }
 
 -- Terminal toggles
+--
 map(modes, "<leader>lh", function()
 	terminal.toggle({ pos = "sp", id = "htoggleTerm", size = 0.3 })
 end, { desc = "Terminal New horizontal term" })
@@ -17,7 +18,8 @@ map(modes, "<leader>li", function()
 	terminal.toggle({ pos = "float", id = "floatTerm" })
 end, { desc = "Terminal Toggle Floating term" })
 
-local last_cmd = ""
+-- Temp Terminals and Runner bindings
+--
 local function run_in_terminal(cmd, opts)
 	opts = opts or {}
 	local direction = opts.direction or "normal"
@@ -30,9 +32,11 @@ local function run_in_terminal(cmd, opts)
 	end
 	local term_buf = vim.api.nvim_create_buf(false, true)
 	vim.api.nvim_win_set_buf(0, term_buf)
+	---@diagnostic disable-next-line: deprecated
 	vim.fn.termopen(cmd, opts.termopen_opts or {})
 end
 
+local last_cmd = ""
 map(modes, "<leader>lr", function()
 	local cmd = vim.fn.input("Command to run: ", last_cmd)
 	if cmd and cmd ~= "" then
@@ -49,20 +53,18 @@ map(modes, "<leader>lsv", function()
 	end
 end, { desc = "Run user command in vertical split terminal" })
 
+-- Register GitCommit to commit in current buffer
+--
 vim.api.nvim_create_user_command("GitCommit", function()
 	-- Save current file
 	vim.cmd("write")
-
 	-- Get git directory
 	local git_dir = vim.fn.system("git rev-parse --git-dir"):gsub("\n", "")
-
 	-- Use 'true' as editor - it immediately exits with success
 	-- This causes git to create COMMIT_EDITMSG but not complete the commit
 	vim.fn.system("GIT_EDITOR=true git commit -v")
-
 	-- Replace current buffer with COMMIT_EDITMSG
 	vim.cmd("edit! " .. git_dir .. "/COMMIT_EDITMSG")
-
 	-- Set up autocmd to run actual commit on save
 	vim.api.nvim_create_autocmd("BufWritePost", {
 		pattern = "COMMIT_EDITMSG",
@@ -73,12 +75,11 @@ vim.api.nvim_create_user_command("GitCommit", function()
 		end,
 	})
 end, {})
-
 map(modes, "<leader>gc", function()
 	vim.cmd("GitCommit")
 end, { desc = "Git Commit" })
 
--- Term Nav
+-- Terminal Navigation
 local function navigate_from_terminal(direction)
 	return "<C-\\><C-N><C-w>" .. direction
 end
@@ -88,7 +89,8 @@ vim.keymap.set("t", "<C-j>", navigate_from_terminal("j"))
 vim.keymap.set("t", "<C-k>", navigate_from_terminal("k"))
 vim.keymap.set("t", "<C-l>", navigate_from_terminal("l"))
 
--- More specific autocmd that only triggers on window focus
+-- Enter insert mode when focusing terminal
+--
 vim.api.nvim_create_autocmd("WinEnter", {
 	pattern = "*",
 	group = vim.api.nvim_create_augroup("term_insert", { clear = true }),
@@ -101,6 +103,7 @@ vim.api.nvim_create_autocmd("WinEnter", {
 })
 
 -- Terminal mode escape
+--
 map("t", "<C-x>", "<C-\\><C-N>", { desc = "Terminal Escape terminal mode" })
 
 -- TODO: try this later as a replacement for nvchad's term:
