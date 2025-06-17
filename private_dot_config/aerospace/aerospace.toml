@@ -1,9 +1,5 @@
 start-at-login = true
-after-startup-command = ['exec-and-forget borders', 'exec-and-forget sketchybar']
-exec-on-workspace-change = [
-    '/bin/bash', '-c',
-    'sketchybar --trigger aerospace_workspace_change AEROSPACE_FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE AEROSPACE_PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE',
-]
+after-startup-command = ['exec-and-forget borders' ]
 
 [[on-window-detected]]
 if.app-id = 'com.microsoft.VSCodeInsiders'
@@ -13,10 +9,10 @@ run = ['layout floating']
 preset = 'qwerty'
 
 [gaps]
-outer.top    = [ { monitor."retina" = 5 }, 50]
-outer.bottom = [ { monitor."retina" = 10 }, 20]
-outer.left   = [ { monitor."retina" = 10 }, 20]
-outer.right  = [ { monitor."retina" = 10 }, 20]
+outer.top    = [ { monitor."retina" = 0 }, 15]
+outer.bottom = [ { monitor."retina" = 5 }, 15]
+outer.left   = [ { monitor."retina" = 5 }, 15]
+outer.right  = [ { monitor."retina" = 5 }, 15]
 
 inner.horizontal = [ { monitor."retina" = 12 }, 20]
 inner.vertical   = [ { monitor."retina" = 12 }, 20]

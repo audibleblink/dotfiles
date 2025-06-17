@@ -49,6 +49,31 @@ map(modes, "<leader>lsv", function()
 	end
 end, { desc = "Run user command in vertical split terminal" })
 
+vim.api.nvim_create_user_command("GitCommit", function()
+	-- Save current file
+	vim.cmd("write")
+
+	-- Get git directory
+	local git_dir = vim.fn.system("git rev-parse --git-dir"):gsub("\n", "")
+
+	-- Use 'true' as editor - it immediately exits with success
+	-- This causes git to create COMMIT_EDITMSG but not complete the commit
+	vim.fn.system("GIT_EDITOR=true git commit -v")
+
+	-- Replace current buffer with COMMIT_EDITMSG
+	vim.cmd("edit! " .. git_dir .. "/COMMIT_EDITMSG")
+
+	-- Set up autocmd to run actual commit on save
+	vim.api.nvim_create_autocmd("BufWritePost", {
+		pattern = "COMMIT_EDITMSG",
+		once = true,
+		callback = function()
+			vim.fn.system("git commit -F " .. vim.fn.expand("%:p"))
+			require("mini.bufremove").delete()
+		end,
+	})
+end, {})
+
 map(modes, "<leader>gc", function()
 	run_in_terminal("git commit -v", {
 		direction = "normal",
