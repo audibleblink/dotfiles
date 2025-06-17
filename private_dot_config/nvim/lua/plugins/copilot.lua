@@ -40,8 +40,8 @@ return {
 		keys = {
 			{ "<Leader>cc", ":CopilotChatToggle<CR>", desc = "Toggle CopilotChat" },
 			{ "<Leader>cp", ":CopilotChatPrompts<CR>", desc = "Toggle CopilotChat Prompts" },
-			{ "<Leader>co", ":CopilotChatCommit<CR>", desc = "Show commit message pane" },
-			{ "<Leader>ce", ":CopilotChatExplain<CR>", desc = "Show Explanation" },
+			{ "<Leader>co", mode = { "n", "v" }, ":CopilotChatCommit<CR>", desc = "Show commit message pane" },
+			{ "<Leader>ce", mode = { "n", "v" }, ":CopilotChatExplain<CR>", desc = "Show Explanation" },
 		},
 		cmd = "CopilotChatToggle",
 		build = "make tiktoken", -- Only on MacOS or Linux
