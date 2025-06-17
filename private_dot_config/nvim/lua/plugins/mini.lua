@@ -24,12 +24,7 @@ return {
 		})
 
 		require("mini.bufremove").setup()
-		vim.keymap.set(
-			"n",
-			"<leader>q",
-			require("mini.bufremove").unshow_in_window,
-			{ desc = "Close buffer, keep split" }
-		)
+		vim.keymap.set("n", "<leader>q", require("mini.bufremove").delete, { desc = "Close buffer, keep split" })
 
 		local disabled = { "help", "terminal" }
 		vim.api.nvim_create_autocmd("FileType", {
