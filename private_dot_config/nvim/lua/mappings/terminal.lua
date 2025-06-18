@@ -76,7 +76,7 @@ vim.api.nvim_create_user_command("GitCommit", function()
 		end,
 	})
 end, {})
-map({ "n", "v" }, "<leader>gc", vim.cmd.GitCommit, { desc = "Git Commit" })
+map("n", "<leader>gc", vim.cmd.GitCommit, { desc = "Git Commit" })
 
 -- Terminal Navigation
 local function navigate_from_terminal(direction)
