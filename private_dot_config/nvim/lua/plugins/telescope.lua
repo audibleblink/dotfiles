@@ -17,6 +17,11 @@ return {
 	},
 	cmd = "Telescope",
 	opts = {
+		pickers = {
+			buffers = {
+				theme = "dropdown",
+			},
+		},
 		defaults = {
 			prompt_prefix = "   ",
 			selection_caret = " ",
@@ -35,39 +40,31 @@ return {
 				i = { ["<esc>"] = require("telescope.actions").close },
 			},
 		},
-		extensions_list = { "themes", "terms" },
-		extensions = {},
+		extensions = { "themes", "terms", "fzf", "ui-select", "chezmoi" },
 	},
 	config = function(_, opts)
 		-- config options
 		local tt = require("telescope")
 		tt.setup(opts)
 
-		pcall(tt.load_extension, "fzf")
-		pcall(tt.load_extension, "ui-select")
-		pcall(tt.load_extension, "chezmoi")
-
 		local map = vim.keymap.set
 		local ts = require("telescope.builtin")
 
 		-- File navigation
 		map("n", "<leader>fa", function()
-			ts.find_files({
-				follow = true,
-				no_ignore = true,
-				hidden = true,
-			})
+			ts.find_files({ follow = true, no_ignore = true, hidden = true })
 		end, { desc = " Find All" })
 
 		map("n", "<leader>fb", function()
-			ts.buffers({ ignore_current_buffer = true, sort_mru = true, previewer = false })
+			ts.buffers({ ignore_current_buffer = true, sort_mru = true })
 		end, { desc = " - Find buffers" })
 
 		map("n", "<leader>fs", function()
 			ts.git_status({ sort_lastused = true })
 		end, { desc = " - Git Status" })
 
-		map("n", "<leader>fc", ts.git_commits, { desc = " Git commits" })
+		map("n", "<leader>fc", ts.git_bcommits, { desc = " Git buffer history" })
+		map("n", "<leader>fC", ts.git_commits, { desc = " Git commits" })
 		map("n", "<leader>cm", tt.extensions.chezmoi.find_files, { desc = " Chezmoi" })
 		map("n", "<leader>ff", ts.find_files, { desc = " Find files" })
 		map("n", "<leader>fo", ts.oldfiles, { desc = " Find oldfiles" })
