@@ -33,7 +33,7 @@ local function run_in_terminal(cmd, opts)
 	local term_buf = vim.api.nvim_create_buf(false, true)
 	vim.api.nvim_win_set_buf(0, term_buf)
 	---@diagnostic disable-next-line: deprecated
-	vim.fn.termopen(cmd, opts.termopen_opts or {})
+	vim.fn.termopen(cmd, opts or {})
 end
 
 local last_cmd = ""
