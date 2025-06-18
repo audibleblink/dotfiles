@@ -66,7 +66,18 @@ vim.api.nvim_create_user_command("GitCommit", function()
 	-- Replace current buffer with COMMIT_EDITMSG
 	vim.cmd("edit! " .. git_dir .. "/COMMIT_EDITMSG")
 
-	-- Set up autocmd to run actual commit on save
+	-- Set up autocmd to run actual commit on save and block quit commands
+	vim.api.nvim_create_autocmd("BufEnter", {
+		pattern = "COMMIT_EDITMSG",
+		once = true,
+		callback = function()
+			-- Block :q and :quit
+			vim.cmd([[
+				cabbrev <buffer> q echoerr "Use :w to commit or :bd! to abort"
+				cabbrev <buffer> quit echoerr "Use :w to commit or :bd! to abort"
+			]])
+		end,
+	})
 	vim.api.nvim_create_autocmd("BufWritePost", {
 		pattern = "COMMIT_EDITMSG",
 		once = true,
