@@ -3,6 +3,8 @@ return {
 	keys = "<Leader>",
 	dependencies = {
 		{ "nvim-lua/plenary.nvim" },
+		{ "nvim-telescope/telescope-file-browser.nvim" },
+		{ "nvim-telescope/telescope-frecency.nvim" },
 		{ "nvim-treesitter/nvim-treesitter" },
 		{ "nvim-telescope/telescope-ui-select.nvim" },
 		{ "nvim-tree/nvim-web-devicons" },
@@ -40,7 +42,7 @@ return {
 				i = { ["<esc>"] = require("telescope.actions").close },
 			},
 		},
-		extensions = { "themes", "terms", "fzf", "ui-select", "chezmoi" },
+		extensions = { "themes", "terms", "fzf", "ui-select", "chezmoi", "frecency", "file-browser" },
 	},
 	config = function(_, opts)
 		-- config options
