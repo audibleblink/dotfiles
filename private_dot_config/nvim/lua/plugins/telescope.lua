@@ -65,11 +65,17 @@ return {
 			ts.git_status({ sort_lastused = true })
 		end, { desc = " - Git Status" })
 
+		local picker = require("telescope._extensions.file_browser")
+		map("n", "<space>fo", function()
+			local themes = require("telescope.themes")
+			tt.extensions.file_browser.file_browser(themes.get_ivy())
+		end, { desc = " File Browser", noremap = true })
+
 		map("n", "<leader>fc", ts.git_bcommits, { desc = " Git buffer history" })
 		map("n", "<leader>fC", ts.git_commits, { desc = " Git commits" })
 		map("n", "<leader>cm", tt.extensions.chezmoi.find_files, { desc = " Chezmoi" })
 		map("n", "<leader>ff", ts.find_files, { desc = " Find files" })
-		map("n", "<leader>fo", ts.oldfiles, { desc = " Find oldfiles" })
+		map("n", "<leader>fr", tt.extensions.frecency.frecency, { desc = " Find oldfiles" })
 		map("n", "<leader>fz", ts.current_buffer_fuzzy_find, { desc = " Find in current buffer" })
 		map("n", "<leader>fw", ts.live_grep, { desc = " Live grep" })
 		map("n", "<leader>fh", ts.help_tags, { desc = " Help page" })
