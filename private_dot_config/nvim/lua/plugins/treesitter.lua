@@ -19,6 +19,7 @@ return {
 			"c",
 			"go",
 			"rust",
+			"glsl",
 			"ruby",
 			"python",
 			"lua",

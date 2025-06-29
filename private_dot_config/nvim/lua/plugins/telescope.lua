@@ -65,7 +65,6 @@ return {
 			ts.git_status({ sort_lastused = true })
 		end, { desc = " - Git Status" })
 
-		local picker = require("telescope._extensions.file_browser")
 		map("n", "<space>fo", function()
 			local themes = require("telescope.themes")
 			tt.extensions.file_browser.file_browser(themes.get_ivy())
