@@ -8,7 +8,7 @@ return {
 		{ "nvim-treesitter/nvim-treesitter" },
 		{ "nvim-telescope/telescope-ui-select.nvim" },
 		{ "nvim-tree/nvim-web-devicons" },
-		{ "xvzc/chezmoi.nvim", cmd = { "ChezmoiEdit", "ChezmoiList" } },
+		{ "xvzc/chezmoi.nvim",                         cmd = { "ChezmoiEdit", "ChezmoiList" } },
 		{
 			"nvim-telescope/telescope-fzf-native.nvim",
 			build = "make",
@@ -32,10 +32,10 @@ return {
 			layout_config = {
 				horizontal = {
 					prompt_position = "bottom",
-					preview_width = 0.55,
+					preview_width = 0.5,
 				},
-				width = 0.66,
-				height = 0.60,
+				width = 0.8,
+				height = 0.7,
 			},
 			mappings = {
 				n = { ["q"] = require("telescope.actions").close },
