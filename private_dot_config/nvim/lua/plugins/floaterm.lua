@@ -6,7 +6,7 @@ return {
 	dependencies = "nvzone/volt",
 	opts = {
 		border = false,
-		size = { h = 60, w = 70 },
+		size = { h = 70, w = 80 },
 		mappings = {
 			sidebar = nil,
 			term = function(buf)
