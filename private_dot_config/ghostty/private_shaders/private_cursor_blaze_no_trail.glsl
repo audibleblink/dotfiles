@@ -111,14 +111,11 @@ float determineStartVertexFactor(vec2 a, vec2 b) {
 //const vec4 TRAIL_COLOR = vec4(0.706, 0.745, 0.996, 1.0) //Lavander #b4befe
 //const vec4 TRAIL_COLOR = vec4(0.537, 0.706, 0.980, 1.0) //Blue #89b4fa
 //const vec4 TRAIL_COLOR = vec4(0.651, 0.890, 0.631, 1.0) //Green #a6e3a1
+// const vec4 TRAIL_COLOR = vec4(0.980, 0.702, 0.529, 1.0); //Peach #fab387
 
-const vec4 TRAIL_COLOR = vec4(0.537, 0.706, 0.980, 1.);
-const vec4 TRAIL_COLOR_ACCENT = vec4(0.980, 0.702, 0.529, 1.0); //Peach #fab387
-// const vec4 TRAIL_COLOR_ACCENT = vec4(1.0, 0., 0., 1.0);
+const vec4 TRAIL_COLOR = vec4(0.141, 0.153, 0.227, 0.1); //Graphite
+const vec4 TRAIL_COLOR_ACCENT = vec4(0.537, 0.706, 0.980, 1.);
 
-// blue
-// const vec4 TRAIL_COLOR = vec4(0.482, 0.886, 1.0, 1.0);
-// const vec4 TRAIL_COLOR_ACCENT = vec4(0.0, 0.424, 1.0, 1.0);
 const vec4 CURRENT_CURSOR_COLOR = TRAIL_COLOR;
 const vec4 PREVIOUS_CURSOR_COLOR = TRAIL_COLOR;
 const float DURATION = 0.1;

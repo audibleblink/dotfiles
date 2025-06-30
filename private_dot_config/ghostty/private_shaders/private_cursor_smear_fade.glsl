@@ -61,12 +61,13 @@ float ease(float x) {
 }
 
 // Colors of capuccino-mocha
-//const vec4 TRAIL_COLOR = vec4(0.796, 0.651, 0.969, 1.0); //Mauve #cba6f7
-const vec4 TRAIL_COLOR = vec4(0.706, 0.745, 0.996, 1.0); //Lavander #b4befe
+// const vec4 TRAIL_COLOR = vec4(0.796, 0.651, 0.969, 1.0); //Mauve #cba6f7
+// const vec4 TRAIL_COLOR = vec4(0.706, 0.745, 0.996, 1.0); //Lavander #b4befe
 // const vec4 TRAIL_COLOR = vec4(0.537, 0.706, 0.980, 1.0); //Blue #89b4fa
-// const vec4 TRAIL_COLOR = vec4(0.537, 0.706, 0.980, 1.);
 //const vec4 TRAIL_COLOR = vec4(0.651, 0.890, 0.631, 1.0); //Green #a6e3a1
 // const vec4 TRAIL_COLOR = vec4(0.980, 0.702, 0.529, 1.0); //Peach #fab387
+
+const vec4 TRAIL_COLOR = vec4(0.141, 0.153, 0.227, 0.1); //Graphite
 const float DURATION = 0.3; //IN SECONDS
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord)
