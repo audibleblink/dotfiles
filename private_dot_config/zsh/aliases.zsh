@@ -68,6 +68,11 @@ alias on="nvim +ObsidianNew"
 
 (( $+commands[tree] )) && alias tree='LS_COLORS="di=34:ln=35:so=32;40:ex=31" tree --charset utf-8'
 
+export FZF_DEFAULT_OPTS=' --color=bg:-1,bg+:-1
+  --border="none" --border-label="" --preview-window="border-rounded" --padding="1"
+  --margin="1" --prompt="❯ " --marker="+" --pointer="◆"
+  --separator="─" --scrollbar="│" --info="right"'
+
 alias -g e="${EDITOR}"
 alias reload="source ${ZDOTDIR}/.zshrc"
 alias view='nvim -R'

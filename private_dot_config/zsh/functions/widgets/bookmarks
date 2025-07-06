@@ -6,7 +6,7 @@ local in=$(mktemp -t bookmarks.XXX -p $XDG_RUNTIME_DIR)
 local out=$(mktemp -t bookmarks.XXX -p $XDG_RUNTIME_DIR)
 trap "rm -- ${in} ${out} 2>/dev/null" EXIT
 
-hash -d | awk -F'=' '{print $1"\t"$2}' > $in
+hash -d | awk -F'=' '{print $1"\t"$2}' | column -t > $in
 
 if [[ -v TMUX ]]; then
   tmux popup -b rounded -E "fzf <$in >$out" 
