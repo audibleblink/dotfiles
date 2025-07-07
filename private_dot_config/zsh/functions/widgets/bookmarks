@@ -9,10 +9,10 @@ trap "rm -- ${in} ${out} 2>/dev/null" EXIT
 hash -d | awk -F'=' '{print $1"\t"$2}' | column -t > $in
 
 if [[ -v TMUX ]]; then
-  tmux popup -b rounded -E "fzf <$in >$out" 
+  tmux popup -b none -E "tv <$in >$out" 
   local dirb=$(awk '{print $2}' $out)
 else
-  local dirb=$(fzf <$in | awk '{print $2}')
+  local dirb=$(tv <$in | awk '{print $2}')
 fi
 
 if ! [[ -z $dirb ]]; then

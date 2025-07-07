@@ -5,13 +5,14 @@ local umask=117
 local in=$(mktemp -t cdjump.XXX -p $XDG_RUNTIME_DIR)
 local out=$(mktemp -t cdjump.XXX -p $XDG_RUNTIME_DIR)
 trap "rm -- ${in} ${out} 2>/dev/null" EXIT
+
 dirs -v > $in
 
 if [[ -v TMUX ]]; then
-  tmux popup -b rounded -E "fzf <$in >$out" 
+  tmux popup -b none -E "tv <$in >$out" 
   local dirb=$(awk '{print $2}' $out)
 else
-  local dirb=$(dirs -v | fzf | awk '{print $2}')
+  local dirb=$(dirs -v | tv | awk '{print $2}')
 fi
 
 if ! [[ -z $dirb ]]; then

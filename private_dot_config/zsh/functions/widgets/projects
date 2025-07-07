@@ -9,10 +9,10 @@ trap "rm -- ${in} ${out} 2>/dev/null" EXIT
 fd . ~/code -d 1 -t d | xargs basename > $in
 
 if [[ -v TMUX ]]; then
-  tmux popup -b rounded -E "fzf <$in >$out" 
+  tmux popup -b none -E "tv <$in >$out" 
   local dirb=$(cat $out)
 else
-  local dirb=$(fzf <$in)
+  local dirb=$(tv <$in)
 fi
 
 if ! [[ -z $dirb ]]; then
