@@ -12,4 +12,12 @@ description: Create a WIP git commit
 
 ## Your task
 
-Create a WIP commit with the latest changes. This will be squashed later.
+Create a WIP commit with the latest changes. This will be squashed later. Match the following commit style:
+
+```
+WIP: {summary of users' last question}
+
+  - {summary of specific change claude just made}
+  - {summary of another specific change claude just made}
+```
+

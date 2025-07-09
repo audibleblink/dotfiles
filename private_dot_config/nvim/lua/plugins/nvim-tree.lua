@@ -44,7 +44,7 @@ return {
 		view = {
 			centralize_selection = true,
 			side = "right",
-			preserve_window_proportions = false,
+			preserve_window_proportions = true,
 			-- float = {
 			-- 	quit_on_focus_loss = true,
 			-- 	enable = false,
