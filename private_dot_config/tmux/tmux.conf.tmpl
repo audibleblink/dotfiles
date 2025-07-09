@@ -27,15 +27,16 @@ set -g @thumbs-command 'echo -n {} | pbcopy && tmux display-message "Copied {}"'
 set -g @thumbs-contrast 1
 set -g @thumbs-key f
 
+set -g @catppuccin_date_time_icon "󰃰  "
 set -g @catppuccin_date_time_color "#{@thm_green}"
-set -g @catppuccin_date_time_text " %H:%M"
+set -g @catppuccin_date_time_text " %a %d   %H:%M"
 # set -g @catppuccin_flavor 'latte' # light mode
 # set -g @catppuccin_flavor 'macchiato' # dark mode
 set -g @catppuccin_pane_active_border_style "##{?pane_in_mode,fg=#{@thm_blue},##{?pane_synchronized,fg=#{@thm_mauve},fg=#{@thm_blue}}}"
 set -g @catppuccin_pane_border_status "on"
 set -g @catppuccin_session_bg_color "#{@thm_pink}"
 set -g @catppuccin_session_color "#{?client_prefix,#{E:@thm_yellow},#{E:@thm_blue}}"
-set -g @catppuccin_session_icon "#{?client_prefix, , }"
+set -g @catppuccin_session_icon "#{?client_prefix,  ,  }"
 set -g @catppuccin_status_connect_separator "no"
 set -g @catppuccin_status_fill "icon"
 set -g @catppuccin_status_middle_separator ""
@@ -79,7 +80,7 @@ set -g status-left-length 120
 
 set -g  status-left  "#{E:@catppuccin_status_session} "
 set -g status-right ""
-set -ag  status-right "#[bg=#{@thm_sapphire},fg=#{@thm_crust}]#[reverse]#[noreverse]󰯙 #[fg=#{@thm_fg},bg=#{@thm_surface_0}]  #({{ $conf }}/functions/battery.sh)#[bg=default]#[fg=#{@thm_surface_0}]#{@catppuccin_status_right_separator} "
+set -ag  status-right "#[bg=#{@thm_sapphire},fg=#{@thm_crust}]#[reverse]#[noreverse]󰯙  #[fg=#{@thm_fg},bg=#{@thm_surface_0}]  #({{ $conf }}/functions/battery.sh)#[bg=default]#[fg=#{@thm_surface_0}]#{@catppuccin_status_right_separator} "
 set -ag status-right "#{E:@catppuccin_status_date_time}"
 
 set -g focus-events on
