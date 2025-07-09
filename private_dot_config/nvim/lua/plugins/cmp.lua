@@ -18,10 +18,7 @@ return {
 			["<C-e>"] = require("cmp").mapping.close(),
 			["<C-Space>"] = require("cmp").mapping.complete(),
 
-			["<C-l>"] = require("cmp").mapping.confirm({
-				behavior = require("cmp").ConfirmBehavior.Replace,
-				select = true,
-			}),
+			["<C-l>"] = require("cmp").mapping.confirm({ select = true }),
 		},
 
 		sources = {
