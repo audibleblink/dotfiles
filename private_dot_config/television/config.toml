@@ -1,0 +1,23 @@
+tick_rate = 50
+default_channel = "git-repos"
+
+history_size = 10
+global_history = false
+
+[ui]
+use_nerd_font_icons = true
+ui_scale = 70
+input_bar_position = "bottom"
+orientation = "landscape"
+theme = "catppuccin"
+preview_size = 60
+
+[ui.features]
+preview_panel = { enabled = true, visible = true }
+help_panel = { enabled = false, visible = false }
+status_bar = { enabled = false, visible = false }
+remote_control = { enabled = false, visible = false }
+
+[ui.preview_panel]
+size = 60
+scrollbar = true
