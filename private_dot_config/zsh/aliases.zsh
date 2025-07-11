@@ -40,7 +40,6 @@ alias zedit="nvim '+ChezmoiEdit ${ZDOTDIR}/.zshrc'"
 alias dots="nvim -c 'Telescope chezmoi find_files'"
 # ]]]
 # Coding [[[
-alias asi='find . -not -iwholename "*node_modules*" -type f -name *.js | xargs fixmyjs --legacy'
 alias be='bundle exec'
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 # ]]]
@@ -60,11 +59,6 @@ alias gst='git status'
 alias gt='git tag'
 alias fml='e -O $( git diff --name-only | uniq )' # Open all merge conflicts
 # ]]]
-# Obsidian [[[
-alias ot="nvim +ObsidianToday"
-alias ow="nvim +ObsidianWorkspace"
-alias on="nvim +ObsidianNew"
-# ]]]
 
 (( $+commands[tree] )) && alias tree='LS_COLORS="di=34:ln=35:so=32;40:ex=31" tree --charset utf-8'
 
@@ -73,6 +67,8 @@ export FZF_DEFAULT_OPTS=' --color=bg:-1,bg+:-1
   --border="none" --border-label="" --preview-window="border-rounded" --padding="1"
   --margin="1" --prompt="❯ " --marker="+" --pointer="◆"
   --separator="─" --scrollbar="│" --info="right"'
+
+export PATH=$PATH:$HOME/.cargo/bin
 
 alias -g e="${EDITOR}"
 alias reload="source ${ZDOTDIR}/.zshrc"

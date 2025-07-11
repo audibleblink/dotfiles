@@ -6,7 +6,7 @@ global_history = false
 
 [ui]
 use_nerd_font_icons = true
-ui_scale = 70
+ui_scale = 90
 input_bar_position = "bottom"
 orientation = "landscape"
 theme = "catppuccin"
