@@ -8,11 +8,11 @@ pkgs=(
         dos2unix
         fzf
         git
-        gnupg
         jq
         nala
         neovim
         ripgrep
+        fd-find
         tmux
         tree
         unzip
@@ -29,17 +29,13 @@ pkgs+=(
 
 {{- if (not .headless) }}
 pkgs+=(
-        arandr
-        lxappearance
-        rofi
-        xfce4-terminal
-        xfce4-clipman
+        clipman
 )
 {{- end }}
 
 
 sudo apt update
-sudo apt install -y ${pkgs[@]}
+sudo nala install -y ${pkgs[@]}
 
 # installs atuin and starship
 /bin/bash -c "$(curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh)"
