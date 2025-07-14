@@ -1,19 +1,21 @@
-# unifies clipboard functionality between linux and macos
-
+## Unified clipboard paste for macOS and Linux (Wayland/X11)
 emulate -L zsh
+
+local paste_cmd
+
 if [[ $OSTYPE == darwin* ]]; then
-  pbpaste
-elif [[ $OSTYPE == cygwin* ]]; then
-  cat /dev/clipboard
+  paste_cmd="pbpaste"
+elif [[ $XDG_SESSION_TYPE == "wayland" ]] && command -v cliphist &>/dev/null; then
+  paste_cmd="cliphist list | head -n1 | cliphist decode"
+elif command -v xclip &>/dev/null; then
+  paste_cmd="xclip -out -selection clipboard"
+elif command -v xsel &>/dev/null; then
+  paste_cmd="xsel --clipboard --output"
 else
-  if type &>/dev/null xclip &>/dev/null; then
-    xclip -out -selection clipboard
-  elif type &>/dev/null xsel &>/dev/null; then
-    xsel --clipboard --output
-  else
-    print "clipcopy: Platform $OSTYPE not supported or xclip/xsel not installed" >&2
-    return 1
-  fi
+  print "clippaste: No suitable clipboard utility found for $OSTYPE" >&2
+  return 1
 fi
+
+eval $paste_cmd
 
 # vim: ft=zsh

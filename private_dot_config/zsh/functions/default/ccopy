@@ -1,36 +1,26 @@
-## unifies clipboard functionality between linux and macos
-
+## Unified clipboard copy for macOS and Linux (Wayland/X11)
 emulate -L zsh
+
 local file=$1
+local copy_cmd
+
 if [[ $OSTYPE == darwin* ]]; then
-  if [[ -z $file ]]; then
-    pbcopy
-  else
-    cat $file | pbcopy
-  fi
-elif [[ $OSTYPE == cygwin* ]]; then
-  if [[ -z $file ]]; then
-    cat > /dev/clipboard
-  else
-    cat $file > /dev/clipboard
-  fi
+  copy_cmd="pbcopy"
+elif [[ $XDG_SESSION_TYPE == "wayland" ]] && command -v cliphist &>/dev/null; then
+  copy_cmd="cliphist store"
+elif command -v xclip &>/dev/null; then
+  copy_cmd="xclip -in -selection clipboard"
+elif command -v xsel &>/dev/null; then
+  copy_cmd="xsel --clipboard --input"
 else
-  if type &>/dev/null xclip &>/dev/null; then
-    if [[ -z $file ]]; then
-      xclip -in -selection clipboard
-    else
-      xclip -in -selection clipboard $file
-    fi
-  elif type &>/dev/null xsel &>/dev/null; then
-    if [[ -z $file ]]; then
-      xsel --clipboard --input 
-    else
-      cat "$file" | xsel --clipboard --input
-    fi
-  else
-    print "clipcopy: Platform $OSTYPE not supported or xclip/xsel not installed" >&2
-    return 1
-  fi
+  print "clipcopy: No suitable clipboard utility found for $OSTYPE" >&2
+  return 1
+fi
+
+if [[ -z $file ]]; then
+  $copy_cmd
+else
+  cat "$file" | $copy_cmd
 fi
 
 # vim: ft=zsh
