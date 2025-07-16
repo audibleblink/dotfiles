@@ -14,8 +14,19 @@ map(modes, "<leader>lv", function()
 	terminal.toggle({ pos = "vsp", id = "vtoggleTerm", size = 0.3 })
 end, { desc = "Terminal Toggleable vertical term" })
 
-map(modes, "<leader>li", function()
-	terminal.toggle({ pos = "float", id = "floatTerm" })
+map(modes, "<leader>lf", function()
+	terminal.toggle({
+		pos = "float",
+		id = "floatTerm",
+		float_opts = {
+			relative = "editor",
+			row = 0.05,
+			col = 0.1,
+			width = 0.8,
+			height = 0.8,
+			border = "single",
+		},
+	})
 end, { desc = "Terminal Toggle Floating term" })
 
 -- Temp Terminals and Runner bindings
