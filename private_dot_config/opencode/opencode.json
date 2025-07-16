@@ -36,6 +36,7 @@
     }
   },
   "keybinds": {
+    "leader": "ctrl+b",
     "messages_half_page_down": "ctrl+d",
     "messages_half_page_up": "ctrl+u",
     "messages_next": "ctrl+j",
