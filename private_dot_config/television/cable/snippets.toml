@@ -1,0 +1,22 @@
+[metadata]
+name = "snippets"
+requirements = ["fd", "rg"]
+description = """
+A channel to select snippets
+"""
+
+[source]
+command = "fd . ~/.config/snippets -t f -d 4 --prune"
+display = "{split:/:-1}"
+
+[preview]
+command = "bat -n --color=always '{}'"
+env = { BAT_THEME = "ansi" }
+
+[ui]
+ui_scale = 100
+input_header = "Snippets"
+
+[ui.preview_panel]
+size = 60
+header = 'Results'

@@ -15,6 +15,7 @@ env = { BAT_THEME = "ansi" }
 [ui]
 ui_scale = 100
 input_header = "Search"
+input_prompt = "  "
 
 [ui.preview_panel]
 size = 60
