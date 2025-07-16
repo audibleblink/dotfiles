@@ -6,17 +6,15 @@ local in=$(mktemp -t projects.XXX -p $XDG_RUNTIME_DIR)
 local out=$(mktemp -t projects.XXX -p $XDG_RUNTIME_DIR)
 trap "rm -- ${in} ${out} 2>/dev/null" EXIT
  
-fd . ~/code -d 1 -t d | xargs basename > $in
-
 if [[ -v TMUX ]]; then
-  tmux popup -b none -E "tv <$in >$out" 
+  tmux popup -w 66% -h 66% -b none -E "tv --ui-scale 100 projects >$out" 
   local dirb=$(cat $out)
 else
-  local dirb=$(tv <$in)
+  local dirb=$(tv projects)
 fi
 
 if ! [[ -z $dirb ]]; then
-  BUFFER="cd ~/code/${dirb}"
+  BUFFER="cd ${dirb}"
   zle accept-line
 fi
 

@@ -1,5 +1,5 @@
 tick_rate = 50
-default_channel = "git-repos"
+default_channel = "files"
 
 history_size = 10
 global_history = false
