@@ -14,3 +14,12 @@ display = "{split:/:-1}"
 
 [preview]
 command = "cd {}; git log -n 20 --pretty=medium --all --graph --color"
+
+[ui]
+ui_scale = 100
+input_header = "Search"
+
+[ui.preview_panel]
+size = 60
+header = ''
+footer = 'Dirs'

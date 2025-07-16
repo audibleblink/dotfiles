@@ -1,0 +1,21 @@
+[metadata]
+name = "git-status"
+description = "A channel to select files from git status commands"
+requirements = ["git"]
+
+[source]
+command = "git status --short"
+output = "{split: :2}"
+
+[preview]
+command = "git diff HEAD --color=always -- {split: :2}"
+
+
+[ui]
+ui_scale = 100
+input_header = "Search"
+
+[ui.preview_panel]
+size = 60
+header = ''
+footer = 'Files'

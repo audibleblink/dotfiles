@@ -16,8 +16,13 @@ preview_size = 60
 preview_panel = { enabled = true, visible = true }
 help_panel = { enabled = false, visible = false }
 status_bar = { enabled = false, visible = false }
-remote_control = { enabled = false, visible = false }
+remote_control = { enabled = true, visible = false }
 
 [ui.preview_panel]
 size = 60
 scrollbar = true
+
+[shell_integration.channel_triggers]
+"git-status" = ["git add", "ga"]
+"dirs" = ["cd", "ls", "rmdir"]
+"files" = ["mv", "cp", "nvim", "e"]

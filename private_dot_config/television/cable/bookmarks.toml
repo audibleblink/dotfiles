@@ -1,0 +1,25 @@
+[metadata]
+name = "bookmarks"
+description = "A channel to browse bookmarks"
+requirements = ["zsh"]
+
+[source]
+command = "source ~/.zshrc_local ; hash -d"
+display = "{split:=:0|pad:8}\t~/{split:/:-2..}"
+output = "{split:=:2}"
+
+[preview]
+command = 'ls -larth {split:=:2}'
+env = { BAT_THEME = "ansi" }
+
+[ui]
+ui_scale = 100
+input_header = "Search"
+
+[ui.preview_panel]
+size = 60
+header = ''
+footer = 'Dirs'
+
+[keybindings]
+quit = ["esc", "ctrl-c", "ctrl-b"]

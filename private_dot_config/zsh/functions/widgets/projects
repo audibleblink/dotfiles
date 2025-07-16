@@ -7,7 +7,7 @@ local out=$(mktemp -t projects.XXX -p $XDG_RUNTIME_DIR)
 trap "rm -- ${in} ${out} 2>/dev/null" EXIT
  
 if [[ -v TMUX ]]; then
-  tmux popup -w 66% -h 66% -b none -E "tv --ui-scale 100 projects >$out" 
+  tmux popup -w 66% -h 66% -b none -E "tv projects >$out" 
   local dirb=$(cat $out)
 else
   local dirb=$(tv projects)

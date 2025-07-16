@@ -6,13 +6,11 @@ local in=$(mktemp -t bookmarks.XXX -p $XDG_RUNTIME_DIR)
 local out=$(mktemp -t bookmarks.XXX -p $XDG_RUNTIME_DIR)
 trap "rm -- ${in} ${out} 2>/dev/null" EXIT
 
-hash -d | awk -F'=' '{print $1"\t"$2}' | column -t > $in
-
 if [[ -v TMUX ]]; then
-  tmux popup -b none -E "tv <$in >$out" 
-  local dirb=$(awk '{print $2}' $out)
+  tmux popup -w 66% -h 66% -b none -E "tv bookmarks >$out" 
+  local dirb=$(cat $out)
 else
-  local dirb=$(tv <$in | awk '{print $2}')
+  local dirb=$(tv bookmarks)
 fi
 
 if ! [[ -z $dirb ]]; then
