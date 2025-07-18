@@ -17,9 +17,12 @@ command = "cd {}; git log -n 20 --pretty=medium --all --graph --color"
 
 [ui]
 ui_scale = 100
-input_header = "Search"
+input_header = "Projects"
 
 [ui.preview_panel]
 size = 60
 header = ''
-footer = 'Dirs'
+footer = 'Git Log'
+
+[keybindings]
+quit = ["esc", "ctrl-c", "ctrl-g"]
