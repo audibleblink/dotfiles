@@ -7,7 +7,7 @@ global_history = false
 [ui]
 use_nerd_font_icons = true
 ui_scale = 90
-input_prompt = "  "
+input_prompt = " "
 input_bar_position = "bottom"
 orientation = "landscape"
 theme = "catppuccin"
@@ -28,3 +28,4 @@ scrollbar = true
 "dirs" = ["cd", "ls", "rmdir"]
 "files" = ["mv", "cp", "nvim", "e"]
 "snippets" = ["ccopy"]
+"hosts" = ["ssh"]
