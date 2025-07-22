@@ -76,6 +76,7 @@ set -g status-bg default
 set -g status-style bg=default
 set -g status-right-length 120
 set -g status-left-length 120
+set -g allow-rename off
 
 set -g  status-left  "#{E:@catppuccin_status_session} "
 set -g status-right ""
@@ -94,11 +95,13 @@ set -g base-index 0
 set -g renumber-windows on
 bind q switch-client -l
 
+# Auto zooming panes
 bind Z if-shell -F "#{?@auto-zoom,1,0}" \
     "set-option -p -u @auto-zoom; display 'Auto-zoom disabled'" \
     "set-option -p @auto-zoom 1; display 'Auto-zoom enabled'"
-
 set-hook -g pane-focus-in 'if-shell -F "#{&&:#{?@auto-zoom,1,0},#{==:#{window_zoomed_flag},0}}" "resize-pane -Z"'
+# Rename panes on pane exit
+set-hook -g pane-focus-out 'select-pane -T "#{pane_current_command}"'
 
 
 # Kill and send panes to another window

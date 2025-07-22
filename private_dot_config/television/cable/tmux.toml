@@ -3,10 +3,9 @@ name = "tmux"
 description = "A channel to preview and select tmux panes"
 
 [source]
-command = "tmux list-panes -a"
-display = "{split:::0}:{split:::1}"
-output = "{split:::0}:{split:::1}"
+command = "tmux list-panes -a -F '#S:#I.#P | #W#F | #T'"
+output = "{split: :0}"
 
 [preview]
-command = "tmux capture-pane -ep -t {split:::0}:{split:::1}"
+command = "tmux capture-pane -ep -t {split: :0}"
 

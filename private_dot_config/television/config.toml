@@ -35,3 +35,4 @@ border_type = 'none'
 "files" = ["mv", "cp", "nvim", "e"]
 "snippets" = ["ccopy"]
 "hosts" = ["ssh"]
+"tmux" = ["tm", "tmux"]
