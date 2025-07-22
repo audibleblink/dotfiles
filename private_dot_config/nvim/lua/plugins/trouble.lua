@@ -68,6 +68,7 @@ return {
 			symbols = {
 				focus = false,
 				win = { position = "left" },
+				mode = "lsp_document_symbols",
 			},
 		},
 	},
