@@ -23,6 +23,12 @@ remote_control = { enabled = true, visible = false }
 size = 60
 scrollbar = true
 
+[ui.input_bar]
+border_type = 'none'
+
+[ui.results_panel]
+border_type = 'none'
+
 [shell_integration.channel_triggers]
 "git-status" = ["git add", "ga"]
 "dirs" = ["cd", "ls", "rmdir"]
