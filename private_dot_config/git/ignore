@@ -7,3 +7,6 @@ Session.vim
 scratch
 
 **/.claude/settings.local.json
+.serena/
+AGENTS.md
+opencode.json
