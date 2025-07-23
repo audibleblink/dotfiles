@@ -20,7 +20,7 @@ opt.autoread = true
 -- go to previous/next line with h,l,left arrow and right arrow
 -- when cursor reaches end/beginning of line
 opt.whichwrap:append("<>[]hl")
--- interval for writing swap file to disk, also used by gitsigns
+-- interval for writing swap file to disk, also used by gitsigns/CursorHold
 o.updatetime = 500
 o.laststatus = 3
 o.showmode = false
@@ -38,20 +38,21 @@ o.cursorline = true
 o.cursorlineopt = "both"
 
 -- Indenting
-o.expandtab = true
-o.shiftwidth = 2
 o.smartindent = true
 o.tabstop = 4
-o.softtabstop = 2
+-- o.expandtab = true
+-- o.shiftwidth = 2
+-- o.softtabstop = 2
 
 -- Numbers
 o.number = true
 o.numberwidth = 2
 o.ruler = false
 
--- add binaries installed by mason.nvim to path
+-- add binaries installed by mise and mason.nvim to path
 local is_windows = vim.fn.has("win32") ~= 0
 vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin" .. (is_windows and ";" or ":") .. vim.env.PATH
+vim.env.PATH = vim.env.XDG_DATA_HOME .. "/mise/shims:" .. vim.env.PATH
 
 -- Custom
 opt.swapfile = false
