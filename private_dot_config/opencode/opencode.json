@@ -27,12 +27,9 @@
     "plan": {
       "model": "anthropic/claude-opus-4-20250514"
     },
-    "git": {
-      "model": "github-copilot/gemini-2.5-pro",
-      "prompt": "{file:./prompts/git.md}",
-      "tools": {
-        "bash": true
-      }
+    "serena": {
+      "model": "anthropic/claude-sonnet-4-20250514",
+      "prompt": "serena: read initial instruction when i say go. Ready?"
     }
   },
   "keybinds": {
