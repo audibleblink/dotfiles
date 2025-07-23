@@ -4,11 +4,10 @@ description = "A channel to find and select ssh hosts"
 
 [source]
 command = """rg -e "^Host" --no-heading --no-line-number ~/.ssh | grep -v '*'"""
-display = "{split:::0|split:/:-1}:{split: :1|pad:8}"
-output = "{split: :1}"
+display = "{split:::0|split:/:-1}:{split: :1}"
+output = '-F {split:::0|strip_ansi} {split: :1}'
 
 [preview]
-# command = "echo sed -n \"/^Host {split: :1}/,/^Host / { /^Host /b; /^\\s*$/b; p }\" ~/.ssh/config"
 command = "rg  -A3 \"^Host {split: :1}\" {split:::0}"
 env = { BAT_THEME = "ansi" }
 offset = '{split:\::1}'

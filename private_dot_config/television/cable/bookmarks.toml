@@ -10,11 +10,10 @@ output = "{split:=:2}"
 
 [preview]
 command = 'ls -larth {split:=:2}'
-env = { BAT_THEME = "ansi" }
 
 [ui]
 ui_scale = 100
-input_header = "Search"
+input_header = "Bookmarks"
 input_prompt = "  "
 
 [ui.preview_panel]
