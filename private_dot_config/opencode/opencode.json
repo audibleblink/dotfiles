@@ -29,7 +29,7 @@
     },
     "serena": {
       "model": "anthropic/claude-sonnet-4-20250514",
-      "prompt": "serena, read initial instructions when I say go, ready?"
+      "prompt": "serena: read initial instruction when i say go. Ready?"
     }
   },
   "keybinds": {
