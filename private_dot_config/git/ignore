@@ -1,12 +1,27 @@
 .DS_Store
 cache
 tags
-custom_plan.rb
-zeus.json
 Session.vim
 scratch
 
+# AI Stuff
 **/.claude/settings.local.json
 .serena/
 AGENTS.md
 opencode.json
+
+# Python specific
+.venv/
+.mypy_cache/
+.pytest_cache/
+__pycache__/
+.hypothesis/
+.ruff_cache/
+.ropeproject/
+
+# Rust specific
+target/
+
+# Zig specific
+.zig-cache/
+zig-out/

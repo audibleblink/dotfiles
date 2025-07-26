@@ -7,10 +7,18 @@
 [advice]
 	pushNonFastForward = false
 	statusHints = false
+    addEmptyPathspec = false
+
+[blame]
+    coloring = highlightRecent
+    date = relative
 
 [core]
 	excludesfile = ~/.config/git/ignore
 	whitespace = trailing-space,space-before-tab
+    compression = 9  # trade cpu for network
+    fsync = none
+    preloadindex = true  # preload index for faster status
 
 [merge]
 	conflictStyle = zdiff3
@@ -25,6 +33,7 @@
 	algorithm = histogram
 	renamelimit = 8192
 	renames = copies
+    context = 2  # less context in diffs
 
 [github]
 	user = audibleblink
@@ -37,13 +46,26 @@
 	format = ssh
 
 [push]
-	default = current
+    autoSetupRemote = true  # easier to push new branches
+    default = current  # push only current branch by default
+    followTags = true  # push also tags
+
+[pull]
+    rebase = true
+    default = current
 
 [rebase]
 	autostash = true
 
+[branch]
+    sort = -committerdate
+
 [status]
 	submoduleSummary = true
+    branch = true
+    short = true
+    showStash = true
+    showUntrackedFiles = all  # show individual untracked files
 
 [include]
 	path = ~/.config/git/instead
@@ -62,6 +84,7 @@
 	gpgsign = true
 {{ else  }}
 {{ end }}
+    verbose = true  # add more context to commit messages
 
 [filter "lfs"]
 	process = git-lfs filter-process

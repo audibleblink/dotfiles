@@ -41,8 +41,8 @@
     "leader": "ctrl+b",
     "messages_half_page_down": "ctrl+d",
     "messages_half_page_up": "ctrl+u",
-    "messages_next": "ctrl+j",
-    "messages_previous": "ctrl+k",
+    "messages_next": "ctrl+n",
+    "messages_previous": "ctrl+p",
     "input_clear": "ctrl+u",
     "app_exit": "<leader>q"
   }

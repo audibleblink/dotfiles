@@ -1,0 +1,10 @@
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
+[url "git@github.com:"]
+	insteadOf = https://github.com
+
+[url "git@github.com:"]
+    insteadOf = "gh:"
+
+[url "git@github.com:audibleblink/"]
+    insteadOf = "ab:"

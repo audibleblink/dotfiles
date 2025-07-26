@@ -24,7 +24,9 @@ size = 60
 scrollbar = true
 
 [ui.input_bar]
-border_type = 'none'
+# border_type = 'none'
+prompt = " "
+position = "bottom"
 
 [ui.results_panel]
 border_type = 'none'
