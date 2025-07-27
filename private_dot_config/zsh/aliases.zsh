@@ -52,7 +52,7 @@ alias gcm='git commit -m'
 alias gco='git checkout'
 alias gd='git diff'
 # alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
-alias gl='git log --graph --decorate --all --pretty=format:"%C(cyan)%h%Creset %C(dim italic white) %ar %Creset %C(magenta) %an%Creset%C(yellow)  %D%n%C(white)%s%n"'
+alias gl='git log --graph --decorate --all --pretty=format:"%C(cyan)%h%Creset %C()%s%Creset%C(yellow)  %D%n%C(dim italic white)      └─ %ar by %an%n"'
 alias gp="git push"
 alias gpo="git push origin"
 alias gr='git remote -v'
