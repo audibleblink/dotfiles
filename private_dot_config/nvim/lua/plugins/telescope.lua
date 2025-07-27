@@ -8,7 +8,7 @@ return {
 		{ "nvim-treesitter/nvim-treesitter" },
 		{ "nvim-telescope/telescope-ui-select.nvim" },
 		{ "nvim-tree/nvim-web-devicons" },
-		{ "xvzc/chezmoi.nvim",                         cmd = { "ChezmoiEdit", "ChezmoiList" } },
+		{ "xvzc/chezmoi.nvim", cmd = { "ChezmoiEdit", "ChezmoiList" } },
 		{
 			"nvim-telescope/telescope-fzf-native.nvim",
 			build = "make",
@@ -42,13 +42,14 @@ return {
 				i = { ["<esc>"] = require("telescope.actions").close },
 			},
 		},
-		extensions = { "themes", "terms", "fzf", "ui-select", "chezmoi", "frecency", "file-browser" },
+		extensions = { themes = {}, "terms", fzf = {}, "ui-select", "chezmoi", "frecency", "file-browser" },
 	},
 	config = function(_, opts)
 		-- config options
 		local tt = require("telescope")
 		tt.setup(opts)
 
+		require("telescope").load_extension("fzf")
 		local map = vim.keymap.set
 		local ts = require("telescope.builtin")
 
@@ -69,6 +70,10 @@ return {
 			local themes = require("telescope.themes")
 			tt.extensions.file_browser.file_browser(themes.get_ivy())
 		end, { desc = " File Browser", noremap = true })
+
+		map("n", "<leader>fp", function()
+			ts.find_files({ cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy") })
+		end, { desc = " - Search Neovim Plugins" })
 
 		map("n", "<leader>fc", ts.git_bcommits, { desc = " Git buffer history" })
 		map("n", "<leader>fC", ts.git_commits, { desc = " Git commits" })
