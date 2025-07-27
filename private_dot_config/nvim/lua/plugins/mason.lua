@@ -1,17 +1,12 @@
 return {
-	{
-		"williamboman/mason.nvim",
-		dependencies = {
-			"williamboman/mason-lspconfig.nvim",
-		},
-		opts = {
-			automatic_installation = true,
+	"williamboman/mason.nvim",
+	event = "VeryLazy",
+	dependencies = { "williamboman/mason-lspconfig.nvim" },
+
+	config = function()
+		require("mason").setup()
+		require("mason-lspconfig").setup({
 			ensure_installed = {
-				-- Language Servers
-				-- "clangd",
-				-- "csharp_language_server",
-				-- "css_lsp",
-				-- "html_lsp",
 				"basedpyright",
 				"gopls",
 				"lua_ls",
@@ -21,10 +16,6 @@ return {
 				"yamlls",
 				"zls",
 			},
-		},
-		config = function(_, opts)
-			require("mason").setup()
-			require("mason-lspconfig").setup(opts)
-		end,
-	},
+		})
+	end,
 }
