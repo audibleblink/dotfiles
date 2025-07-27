@@ -1,42 +1,44 @@
+-- Global because I use this to enable TS for these types
+-- in an autocmd in init.lua
+_G.treesitter = {
+	-- web dev
+	"html",
+	"css",
+	"javascript",
+	"typescript",
+	"tsx",
+	"json",
+	"vue",
+	"svelte",
+
+	-- other
+	"c",
+	"go",
+	"rust",
+	"glsl",
+	"ruby",
+	"python",
+	"lua",
+	"hcl",
+	"terraform",
+	"markdown",
+	"markdown_inline",
+	"luadoc",
+	"printf",
+	"vim",
+	"vimdoc",
+}
+
 return {
 	"nvim-treesitter/nvim-treesitter",
+	lazy = false,
 	event = { "BufReadPost", "BufNewFile" },
 	cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
+	branch = "main",
 	build = ":TSUpdate",
-	opts = {
-		ensure_installed = {
-			-- web dev
-			"html",
-			"css",
-			"javascript",
-			"typescript",
-			"tsx",
-			"json",
-			"vue",
-			"svelte",
-
-			-- other
-			"c",
-			"go",
-			"rust",
-			"glsl",
-			"ruby",
-			"python",
-			"lua",
-			"hcl",
-			"terraform",
-			"markdown",
-			"markdown_inline",
-			"luadoc",
-			"printf",
-			"vim",
-			"vimdoc",
-		},
-		highlight = {
-			enable = true,
-			use_languagetree = true,
-		},
-
-		indent = { enable = true },
-	},
+	config = function()
+		local ts = require('nvim-treesitter')
+		ts.setup()
+		ts.install(_G.treesitter)
+	end,
 }

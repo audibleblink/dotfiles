@@ -10,13 +10,6 @@ return {
 	opts = function()
 		local util = require("lspconfig/util")
 
-		-- Create default on_attach function
-		local on_attach = function(client, bufnr)
-			-- Apply default on_attach from NvChad
-			local nvchad_on_attach = require("nvchad.configs.lspconfig").on_attach
-			nvchad_on_attach(client, bufnr)
-		end
-
 		-- Language-specific configurations
 		local server_configs = {
 			rust_analyzer = {
@@ -46,21 +39,21 @@ return {
 				},
 			},
 
-			gopls = {
-				cmd = { "gopls" },
-				filetypes = { "go", "gomod", "gowork", "gotmpl" },
-				root_dir = util.root_pattern("go.work", "go.mod"),
-				settings = {
-					gopls = {
-						usePlaceholders = true,
-						analyses = {
-							unusedparams = true,
-						},
-						staticcheck = true,
-						gofumpt = true,
-					},
-				},
-			},
+			-- gopls = {
+			-- 	cmd = { "gopls" },
+			-- 	filetypes = { "go", "gomod", "gowork", "gotmpl" },
+			-- 	root_dir = util.root_pattern("go.work", "go.mod"),
+			-- 	settings = {
+			-- 		gopls = {
+			-- 			usePlaceholders = true,
+			-- 			analyses = {
+			-- 				unusedparams = true,
+			-- 			},
+			-- 			staticcheck = true,
+			-- 			gofumpt = true,
+			-- 		},
+			-- 	},
+			-- },
 			ruff = {
 				init_options = {
 					settings = {
@@ -92,16 +85,11 @@ return {
 		}
 
 		return {
-			on_attach = on_attach,
-			capabilities = require("nvchad.configs.lspconfig").capabilities,
 			server_configs = server_configs,
 		}
 	end,
 
 	config = function(_, opts)
-		-- Load NvChad defaults
-		require("nvchad.configs.lspconfig").defaults()
-
 		local lspconfig = require("lspconfig")
 
 		-- Setup servers

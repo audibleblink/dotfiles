@@ -12,17 +12,13 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- load plugins
-require("lazy").setup({
-	import = "plugins",
-	install = { colorscheme = { "nvchad" } },
-})
+require("lazy").setup({ import = "plugins" })
 
 -- load theme
 dofile(vim.g.base46_cache .. "defaults")
 dofile(vim.g.base46_cache .. "statusline")
 
 require("options")
-require("nvchad.autocmds")
 
 vim.schedule(function()
 	require("mappings").load()

@@ -1,36 +1,8 @@
 -- Terminal related mappings
 
 local map = vim.keymap.set
-local terminal = require("nvchad.term")
 local modes = { "n", "t" }
 
--- Terminal toggles
---
-map(modes, "<leader>lh", function()
-	terminal.toggle({ pos = "sp", id = "htoggleTerm", size = 0.3 })
-end, { desc = "Terminal New horizontal term" })
-
-map(modes, "<leader>lv", function()
-	terminal.toggle({ pos = "vsp", id = "vtoggleTerm", size = 0.3 })
-end, { desc = "Terminal Toggleable vertical term" })
-
-map(modes, "<leader>lf", function()
-	terminal.toggle({
-		pos = "float",
-		id = "floatTerm",
-		float_opts = {
-			relative = "editor",
-			row = 0.05,
-			col = 0.1,
-			width = 0.8,
-			height = 0.8,
-			border = "single",
-		},
-	})
-end, { desc = "Terminal Toggle Floating term" })
-
--- Temp Terminals and Runner bindings
---
 local function run_in_terminal(cmd, opts)
 	opts = opts or {}
 	local direction = opts.direction or "normal"

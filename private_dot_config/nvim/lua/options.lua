@@ -125,11 +125,21 @@ function Fd(file_pattern, _)
 		file_pattern = file_pattern:gsub(".", ".*%0") .. ".*"
 	end
 	local cmd = 'fd  --color=never --full-path --type file --hidden --exclude=".git" --exclude="deps" "'
-		.. file_pattern
-		.. '"'
+	    .. file_pattern
+	    .. '"'
 	local result = vim.fn.systemlist(cmd)
 	return result
 end
 
 vim.opt.findfunc = "v:lua.Fd"
 vim.keymap.set("n", "<C-p>", ":find ", { desc = "raw-dog: Project Files" })
+
+
+vim.api.nvim_create_autocmd('FileType', {
+	pattern = _G.treesitter,
+	callback = function()
+		vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+		vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+		vim.treesitter.start()
+	end,
+})
