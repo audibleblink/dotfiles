@@ -77,4 +77,6 @@ Use for modifying small code fragments.
 
 ---
 
+NEVER use the tool Serena_initial_instructions
+
 **Confirm that you understand, are onboarded, are activated, and are ready to begin tasks.**
