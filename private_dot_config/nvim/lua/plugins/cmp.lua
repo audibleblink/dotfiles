@@ -1,24 +1,25 @@
+local cmp = require("cmp")
 return {
 	"hrsh7th/nvim-cmp",
 	event = "InsertEnter",
 	opts = {
 		completion = { completeopt = "menu,menuone" },
-		preselect = require("cmp").PreselectMode.None,
+		preselect = cmp.PreselectMode.Item,
 		snippet = {
 			expand = function(args)
 				require("luasnip").lsp_expand(args.body)
 			end,
 		},
 		mapping = {
-			["<CR>"] = require("cmp").config.disable,
-			["<C-p>"] = require("cmp").mapping.select_prev_item(),
-			["<C-n>"] = require("cmp").mapping.select_next_item(),
-			["<C-d>"] = require("cmp").mapping.scroll_docs(-4),
-			["<C-f>"] = require("cmp").mapping.scroll_docs(4),
-			["<C-e>"] = require("cmp").mapping.close(),
-			["<C-Space>"] = require("cmp").mapping.complete(),
+			["<CR>"] = cmp.config.disable,
+			["<C-p>"] = cmp.mapping.select_prev_item(),
+			["<C-n>"] = cmp.mapping.select_next_item(),
+			["<C-d>"] = cmp.mapping.scroll_docs(-4),
+			["<C-f>"] = cmp.mapping.scroll_docs(4),
+			["<C-e>"] = cmp.mapping.close(),
+			["<C-Space>"] = cmp.mapping.complete(),
 
-			["<C-l>"] = require("cmp").mapping.confirm({ select = true }),
+			["<C-l>"] = cmp.mapping.confirm({ select = true }),
 		},
 
 		sources = {
@@ -40,14 +41,24 @@ return {
 			config = function(_, opts)
 				require("nvim-autopairs").setup(opts)
 				local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-				require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
+				cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 			end,
 		},
 		{
 			"hrsh7th/cmp-cmdline",
 			opts = {
-				mapping = require("cmp").mapping.preset.cmdline(),
-				sources = require("cmp").config.sources({
+				mapping = cmp.mapping.preset.cmdline({
+					["<C-l>"] = {
+						c = function(fallback)
+							if cmp.visible() then
+								cmp.confirm()
+							else
+								fallback()
+							end
+						end,
+					},
+				}),
+				sources = cmp.config.sources({
 					{ name = "path" },
 				}, {
 					{
@@ -59,7 +70,7 @@ return {
 				}),
 			},
 			config = function(_, opts)
-				require("cmp").setup.cmdline(":", opts)
+				cmp.setup.cmdline(":", opts)
 			end,
 		},
 		{
