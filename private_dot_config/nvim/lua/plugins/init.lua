@@ -13,6 +13,5 @@ return {
 			require("base46").load_all_highlights()
 		end,
 	},
-	{ "Darazaki/indent-o-matic" },
-	{ "OXY2DEV/markview.nvim" },
+	-- { "Darazaki/indent-o-matic" },
 }
