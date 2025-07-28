@@ -33,7 +33,7 @@ _G.treesitter = {
 return {
 	"nvim-treesitter/nvim-treesitter",
 	dependencies = {
-		{ "OXY2DEV/markview.nvim" },
+		{ "OXY2DEV/markview.nvim" }, -- not really a dep but satisfied load order
 	},
 	lazy = false,
 	event = { "BufReadPost", "BufNewFile" },

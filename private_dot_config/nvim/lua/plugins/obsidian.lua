@@ -6,7 +6,7 @@ return {
 	lazy = true,
 	version = "*",
 	-- ui = { enable = false },
-	cmd = { "ObsidianQuickSwitch", "ObsidianDailies", "ObsidianToday", "ObsidianNew", "ObsidianWorkspace" },
+	cmd = { "Obsidian" },
 	keys = {
 		-- { "<leader>oo", "<cmd>ObsidianWorkspace<CR>", desc = "Open Obsidian Workspace Picker" },
 		-- { "<leader>on", "<cmd>ObsidianNew<CR>", desc = "New Note (Obsidian)" },
@@ -15,10 +15,11 @@ return {
 		"BufNewFile " .. path .. "/**.md",
 		"BufReadPre " .. path .. "/**.md",
 	},
+
 	---@module 'obsidian'
 	---@type obsidian.config
 	opts = {
-
+		legacy_commands = false,
 		open_app_foreground = false,
 		workspaces = {
 
@@ -139,7 +140,7 @@ return {
 		end,
 	},
 	config = function(_, opts)
-		vim.o.conceallevel = 1
 		require("obsidian").setup(opts)
+		vim.o.concealcursor = ""
 	end,
 }
