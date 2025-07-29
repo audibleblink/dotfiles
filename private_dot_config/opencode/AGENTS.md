@@ -7,6 +7,7 @@
 4. **Clean codebase** - Flag obsolete files for removal
 5. **Think first** - Clear thinking prevents bugs
 6. **Use abstraction sparingly** - Keep it simple until abstractions add value and maintainability
+7. **Documentation Lookup** - Use the `context7` tool when you need to better understand how to use a package/library
 
 ## Collaboration Guidelines 
 - Challenge and question: Don't immediately agree or proceed with requests that seem suboptimal, unclear, or potentially problematic

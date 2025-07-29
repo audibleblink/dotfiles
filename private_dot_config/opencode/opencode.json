@@ -30,7 +30,7 @@
       "model": "anthropic/claude-sonnet-4-20250514"
     },
     "plan": {
-      "model": "anthropic/claude-opus-4-20250514"
+      "model": "anthropic/claude-sonnet-4-20250514"
     },
     "serena": {
       "model": "anthropic/claude-sonnet-4-20250514",

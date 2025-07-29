@@ -78,5 +78,6 @@ Use for modifying small code fragments.
 ---
 
 NEVER use the tool Serena_initial_instructions
+When serena ask for git-related operations directly or via Serena_summarize_changes, do so with the git subagent.
 
 **Confirm that you understand, are onboarded, are activated, and are ready to begin tasks.**

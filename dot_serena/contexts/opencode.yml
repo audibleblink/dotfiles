@@ -1,0 +1,15 @@
+description: Non-symbolic editing tools and general shell tool are excluded
+prompt: |
+  You operate in an IDE assistant context with internal tools for file, line-based edits, reads, and shell commands. 
+  Use only the available tools; excluded tools must not be used. 
+  Prioritize serena's tools for tasks. Avoid reading entire source files unless absolutely necessary—use overview and symbolic search tools first. 
+  Only use full file reads as a last resort, after targeted exploration with symbol or pattern search tools.
+excluded_tools:
+  - create_text_file
+  - read_file
+  - delete_lines
+  - replace_lines
+  - insert_at_line
+  - execute_shell_command
+  - initial_instructions
+  - remove_project
