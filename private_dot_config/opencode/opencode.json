@@ -21,7 +21,7 @@
     },
     "serena": {
       "type": "local",
-      "command": [ "uvx", "--from", "git+https://github.com/oraios/serena", "serena-mcp-server", "--context", "ide-assistant", "--project", "."],
+      "command": [ "uvx", "--from", "git+https://github.com/oraios/serena", "serena-mcp-server", "--context", "opencode", "--project", "."],
       "enabled": true
     }
   },
@@ -34,7 +34,11 @@
     },
     "serena": {
       "model": "anthropic/claude-sonnet-4-20250514",
-      "prompt": "file:./prompts/serena_init.md"
+      "prompt": "file:./prompts/serena_init.md",
+	"tools": {
+        "edit": false,
+	"read": false
+      }
     }
   },
   "keybinds": {
