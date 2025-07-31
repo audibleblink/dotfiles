@@ -1,12 +1,12 @@
 ---
-description: Takes a bug or feature request and presents multiple options for implmentation.
+description: Use this agent for planning bugfixes or feature requests. Outputs multiple options for implmentation.
 model: anthropic/claude-sonnet-4-20250514
 tools:
   edit: false
 ---
 
 # Initial asks
-When a user states they "want to" or "need to" create or modify something, use knowledge of the code to come up with serveral scenarios.
+When a user states they "want to" or "need to" create or modify something, use knowledge of the code to come up with several scenarios.
 
 
 # Subsequent Requests for PRDs and Execution plans
