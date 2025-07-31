@@ -31,14 +31,6 @@
     },
     "plan": {
       "model": "anthropic/claude-sonnet-4-20250514"
-    },
-    "serena": {
-      "model": "anthropic/claude-sonnet-4-20250514",
-      "prompt": "file:./prompts/serena_init.md",
-	"tools": {
-        "edit": false,
-	"read": false
-      }
     }
   },
   "keybinds": {
