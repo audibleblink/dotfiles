@@ -22,4 +22,6 @@ header = ''
 footer = 'Dirs'
 
 [keybindings]
-quit = ["esc", "ctrl-c", "ctrl-b"]
+esc = "quit"
+ctrl-c = "quit"
+ctrl-b = "quit"

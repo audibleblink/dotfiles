@@ -10,5 +10,10 @@ command = ["fd -t f", "fd -t f -H"]
 command = "bat -n --color=always '{}'"
 env = { BAT_THEME = "ansi" }
 
+[actions.edit]
+description = "open in vim"
+command = "nvim '{}'"
+mode = "execute"
+
 [keybindings]
-shortcut = "f1"
+ctrl-o = "actions:edit"
