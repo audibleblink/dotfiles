@@ -1,6 +1,6 @@
 return {
 	"lewis6991/gitsigns.nvim",
-	event = "User FilePost",
+	event = "VeryLazy",
 	config = function()
 		require("gitsigns").setup({
 			signs = {
@@ -48,7 +48,8 @@ return {
 				map("n", "<leader>gS", gitsigns.stage_buffer, { desc = "[Git] Stage Buffer" })
 				map("n", "<leader>gR", gitsigns.reset_buffer, { desc = "[Git] Reset Buffer" })
 				map("n", "<leader>gp", gitsigns.preview_hunk, { desc = "[Git] Preview Hunk" })
-				map("n", "<leader>gi", gitsigns.preview_hunk_inline, { desc = "[Git] Preview Hunk Inline" })
+				map("n", "<leader>gi", gitsigns.preview_hunk_inline,
+					{ desc = "[Git] Preview Hunk Inline" })
 				map("n", "<leader>gd", gitsigns.diffthis, { desc = "[Git] Diff This" })
 
 				map("n", "<leader>gb", function()
@@ -65,7 +66,8 @@ return {
 				map("n", "<leader>gq", gitsigns.setqflist, { desc = "[Git] Send Hunk to QF" })
 
 				-- Toggles
-				map("n", "<leader>tb", gitsigns.toggle_current_line_blame, { desc = "[Git] Toggle Link Blame" })
+				map("n", "<leader>tb", gitsigns.toggle_current_line_blame,
+					{ desc = "[Git] Toggle Link Blame" })
 				map("n", "<leader>tw", gitsigns.toggle_word_diff, { desc = "[Git] Toggle Word Diff" })
 
 				-- Text object
