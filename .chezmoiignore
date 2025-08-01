@@ -21,6 +21,8 @@ tests/*
 {{- if (ne .chezmoi.os "darwin") }}
 .config/karabiner
 .config/borders
+.config/aerospace
+.config/sketchybar
 Library/Preferences/com.amethyst.Amethyst.plist
 {{- end }}
 
@@ -53,17 +55,17 @@ Library/Preferences/com.amethyst.Amethyst.plist
 {{- end }}
 
 {{- if (eq .chezmoi.os "darwin") }}
+.config/autorunner/
+.config/compton/
 .config/conky/
 .config/dunst/
-.config/termite/
-.config/i3/
-.config/autorunner/
 .config/gtk-3.0/
-.config/compton/
+.config/i3/
 .config/polybar/
 .config/qutebrowser/
+.config/termite/
 .urxvt/
 .Xresources
-.config/rofi/*
+.config/rofi/
 {{- end }}
 
