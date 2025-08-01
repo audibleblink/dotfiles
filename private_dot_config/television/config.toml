@@ -38,3 +38,4 @@ border_type = 'none'
 "snippets" = ["ccopy"]
 "hosts" = ["ssh"]
 "tmux" = ["tm", "tmux"]
+"projects" = ["opencode"]
