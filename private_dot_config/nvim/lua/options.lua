@@ -32,6 +32,7 @@ o.splitright = true
 o.timeoutlen = 500
 o.undofile = true
 o.mouse = "a"
+o.laststatus = 2
 
 o.clipboard = "unnamedplus"
 o.cursorline = true
