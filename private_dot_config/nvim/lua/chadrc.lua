@@ -70,13 +70,13 @@ M.ui = {
 
 				-- local path = vim.uv.cwd()
 				-- local last = path:match("([^/]+)$")
-				local last = ""
+				local last = " "
 
 				local modes = utils.modes
 				local m = vim.api.nvim_get_mode().mode
 				local current_mode = "%#St_" .. modes[m][2] .. "Mode#  "
-				local mode_sep1 = "%#St_" .. modes[m][2] .. "ModeSep#" .. sep_r
-				return current_mode .. mode_sep1 .. " " .. last .. "%#St_EmptySpace#" .. sep_r
+				local mode_sep1 = "%#St_" .. modes[m][2] .. "ModeSep#" .. sep_r .. "%#boop#"
+				return current_mode .. mode_sep1 .. last .. "%#St_EmptySpace#" .. sep_r
 			end,
 
 			_git = function()
@@ -91,12 +91,6 @@ M.ui = {
 				return "%#St_pos_sep#" .. sep_l .. "%#St_pos_icon#  %#St_pos_text# %l/%v "
 			end,
 		},
-	},
-
-	cmp = {
-		style = "flat_dark",
-		icons_left = true,
-		-- format_colors = { lsp = true, icon = "󱓻" },
 	},
 }
 

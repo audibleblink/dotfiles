@@ -4,8 +4,8 @@ return {
 		"hrsh7th/nvim-cmp",
 		-- event = "InsertEnter",
 		dependencies = { "L3MON4D3/LuaSnip" },
-		config = function()
-			require("cmp").setup({
+		opts = function()
+			return {
 				completion = { completeopt = "menu,menuone" },
 				snippet = {
 					expand = function(args)
@@ -32,7 +32,11 @@ return {
 					{ name = "luasnip" },
 					{ name = "path" },
 				},
-			})
+			}
+		end,
+		config = function(_, opts)
+			local options = vim.tbl_deep_extend("force", opts, require("nvchad.cmp"))
+			require("cmp").setup(options)
 		end,
 	},
 	{
