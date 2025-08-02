@@ -9,7 +9,7 @@ trap "rm -- ${in} ${out} 2>/dev/null" EXIT
 dirs -v > $in
 
 if [[ -v TMUX ]]; then
-  tmux popup -b none -E "tv --keybindings='quit=[\"ctrl-f\",\"esc\",\"ctrl-c\"]' --input-header 'Dir Stack' <$in >$out" 
+  tmux popup -b none -E "tv --keybindings='ctrl-f=\"quit\"' --input-header 'Dir Stack' <$in >$out" 
   local dirb=$(awk '{print $2}' $out)
 else
   local dirb=$(dirs -v | tv --keybindings='quit=[\"ctrl-f\",\"esc\",\"ctrl-c\"]' --input-header 'Dir Stack' | awk '{print $2}')
