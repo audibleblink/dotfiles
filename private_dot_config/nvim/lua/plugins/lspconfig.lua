@@ -40,13 +40,16 @@ return {
 		end
 
 		-- Configure diagnostics
+		local x = vim.diagnostic.severity
 		vim.diagnostic.config({
 			update_in_insert = false,
+			signs = { text = { [x.ERROR] = "󰅙", [x.WARN] = "", [x.INFO] = "󰋼", [x.HINT] = "󰌵" } },
 			virtual_text = {
-				severity = { min = vim.diagnostic.severity.WARN },
+				severity = { min = x.WARN },
 			},
 			severity_sort = true,
-			float = false,
+			underline = true,
+			float = { border = "single" },
 		})
 	end,
 }
