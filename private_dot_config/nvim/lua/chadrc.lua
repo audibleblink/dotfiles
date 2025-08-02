@@ -7,8 +7,15 @@ local sep_r = separators["right"]
 local M = {}
 
 M.base46 = {
+	-- transparency = true,
 	theme = "catppuccin-macchiato",
 	theme_toggle = { "catppuccin-macchiato", "catppuccin-light" },
+	-- hl_override = {
+	-- 	St_pos_sep = {
+	-- 		bg = "one_bg",
+	-- 		fg = "one_bg",
+	-- 	},
+	-- },
 }
 
 -- force color change
@@ -86,12 +93,15 @@ M.ui = {
 		},
 	},
 
-	signature = false,
-
 	cmp = {
 		style = "flat_dark",
 		icons_left = true,
+		-- format_colors = { lsp = true, icon = "󱓻" },
 	},
+}
+
+M.lsp = {
+	signature = false,
 }
 
 return M

@@ -133,7 +133,7 @@ bind -T copy-mode-vi 'y' send -X copy-pipe-and-cancel
 bind C-l send-keys 'C-l'
 # ]]]
 # Default Shell [[[
-set-option -g default-terminal "xterm-256color"
+set-option -g default-terminal "screen-256color"
 set -g -a terminal-overrides ',*256col*:Tc,*:Ss=\E[%p1%d q:Se=\E[2 q'
 {{ if (eq .chezmoi.os "darwin") }}
 set -s copy-command 'pbcopy'

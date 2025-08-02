@@ -1,26 +1,26 @@
+-- dofile(vim.g.base46_cache .. "cmp")
 return {
 	{
 		"hrsh7th/nvim-cmp",
-		event = "InsertEnter",
+		-- event = "InsertEnter",
 		dependencies = { "L3MON4D3/LuaSnip" },
 		config = function()
 			require("cmp").setup({
 				completion = { completeopt = "menu,menuone" },
-				preselect = require("cmp").PreselectMode.Item,
 				snippet = {
 					expand = function(args)
 						require("luasnip").lsp_expand(args.body)
 					end,
 				},
+				preselect = require("cmp").PreselectMode.Item,
 				mapping = {
+					["<C-Space>"] = require("cmp").mapping.complete(),
 					["<CR>"] = require("cmp").config.disable,
 					["<C-p>"] = require("cmp").mapping.select_prev_item(),
 					["<C-n>"] = require("cmp").mapping.select_next_item(),
 					["<C-d>"] = require("cmp").mapping.scroll_docs(-4),
 					["<C-f>"] = require("cmp").mapping.scroll_docs(4),
 					["<C-e>"] = require("cmp").mapping.close(),
-					["<C-Space>"] = require("cmp").mapping.complete(),
-
 					["<C-l>"] = require("cmp").mapping.confirm({ select = true }),
 				},
 
@@ -85,5 +85,3 @@ return {
 		"hrsh7th/cmp-path",
 	},
 }
---
--- return

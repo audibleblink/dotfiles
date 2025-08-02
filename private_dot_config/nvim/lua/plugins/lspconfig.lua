@@ -1,45 +1,20 @@
 return {
 	"neovim/nvim-lspconfig",
 	enabled = not vim.g.vscode,
-	event = "VeryLazy",
+	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
 	},
 
 	config = function()
-		local lspconfig = require("lspconfig")
-		local util = require("lspconfig.util")
-
-		-- Common LSP configuration
-		local common_config = {
-			capabilities = vim.lsp.protocol.make_client_capabilities(),
-		}
-
 		-- Server-specific configurations (only non-default settings)
 		local servers = {
-			rust_analyzer = {
-				root_dir = util.root_pattern("Cargo.toml"),
-				settings = {
-					["rust-analyzer"] = {
-						rustfmt = { extraArgs = { "+nightly" } },
-						imports = {
-							granularity = { group = "module" },
-							prefix = "self",
-						},
-						cargo = { buildScripts = { enable = true } },
-						procMacro = { enable = true },
-					},
-				},
-			},
-
 			ruff = {
-				init_options = {
-					settings = {
-						lineLength = 100,
-						lint = { preview = true },
-						format = { preview = true },
-					},
+				settings = {
+					lineLength = 100,
+					lint = { preview = true },
+					format = { preview = true },
 				},
 			},
 
@@ -55,15 +30,13 @@ return {
 					},
 				},
 			},
-
-			-- Servers with default configuration
-			yamlls = {},
-			zls = {},
+			gopls = {},
 		}
 
 		-- Setup each server
+		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 		for server, config in pairs(servers) do
-			lspconfig[server].setup(vim.tbl_deep_extend("force", common_config, config))
+			vim.lsp.config(server, { capabilities = capabilities, settings = config.settings })
 		end
 
 		-- Configure diagnostics
