@@ -7,7 +7,7 @@ return {
 			lua = { "stylua" },
 			python = { "ruff", "isort", "black" },
 			rust = { "rustfmt", lsp_format = "fallback" },
-			javascript = { "prettierd", "prettier", stop_after_first = true },
+			javascript = { "deno", stop_after_first = true },
 			go = { "gofumpt", "golines", "goimport-reviser" },
 		},
 		format_on_save = {
