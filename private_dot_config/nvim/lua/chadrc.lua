@@ -1,34 +1,23 @@
-local utils = require("nvchad.stl.utils")
-local sep_icons = utils.separators
-local separators = sep_icons["round"]
-local sep_l = separators["left"]
-local sep_r = separators["right"]
-
 local M = {}
 
 M.base46 = {
 	-- transparency = true,
 	theme = "catppuccin-macchiato",
 	theme_toggle = { "catppuccin-macchiato", "catppuccin-light" },
-	-- hl_override = {
-	-- 	St_pos_sep = {
-	-- 		bg = "one_bg",
-	-- 		fg = "one_bg",
-	-- 	},
-	-- },
+	hl_override = {
+		St_gitIcons = { fg = "white", bg = "grey", bold = false }, -- hijacked
+	},
 }
 
--- force color change
--- require("base46").compile()
--- require("base46").load_all_highlights()
---
 M.nvdash = {
 	load_on_startup = true,
 	header = {
-		"  ▀▄   ▄▀      ▄▄▄████▄▄▄ ",
-		" ▄█▀███▀█▄    ███▀▀██▀▀███",
-		"█▀███████▀█   ▀▀███▀▀███▀▀",
-		"▀ ▀▄▄ ▄▄▀ ▀    ▀█▄ ▀▀ ▄█▀ ",
+		"░▀█▀░▄▀▀▄░█▀▄▀█░▄▀▀▄░█▀▀▄░█▀▀▄░▄▀▀▄░█░░░█",
+		"░░█░░█░░█░█░▀░█░█░░█░█▄▄▀░█▄▄▀░█░░█░▀▄█▄▀",
+		"░░▀░░░▀▀░░▀░░▒▀░░▀▀░░▀░▀▀░▀░▀▀░░▀▀░░░▀░▀░",
+		"	░█▀▄░▄▀▀▄░█▀▄▀█░█▀▀░█▀▀",
+		"	░█░░░█░░█░█░▀░█░█▀▀░▀▀▄",
+		"	░▀▀▀░░▀▀░░▀░░▒▀░▀▀▀░▀▀▀",
 		"",
 	},
 	buttons = {
@@ -37,7 +26,7 @@ M.nvdash = {
 		{ txt = "󰈭  Find Word", keys = "fw", cmd = "Telescope live_grep" },
 		{ txt = "  Mappings", keys = "fm", cmd = "Telescope keymaps" },
 		{ txt = "  Dotifile", keys = "cm", cmd = "Telescope chezmoi find_files" },
-		{ txt = "Quit", keys = "q", cmd = "quit" },
+		{ txt = "  Quit", keys = "q", cmd = "quit" },
 		{ txt = "─", hl = "NvDashFooter", no_gap = true, rep = true },
 		{
 			txt = function()
@@ -52,6 +41,9 @@ M.nvdash = {
 	},
 }
 
+local utils = require("nvchad.stl.utils")
+local sep_l = utils.separators["round"]["left"]
+local sep_r = utils.separators["round"]["right"]
 M.ui = {
 	tabufline = {
 		lazyload = true,
@@ -68,19 +60,18 @@ M.ui = {
 					return ""
 				end
 
-				-- local path = vim.uv.cwd()
-				-- local last = path:match("([^/]+)$")
-				local last = " "
+				local path = vim.uv.cwd() or ""
+				local cwd = path:match("([^/]+)$")
+				cwd = "%#St_gitIcons# " .. cwd
 
 				local modes = utils.modes
 				local m = vim.api.nvim_get_mode().mode
 				local current_mode = "%#St_" .. modes[m][2] .. "Mode#  "
-				local mode_sep1 = "%#St_" .. modes[m][2] .. "ModeSep#" .. sep_r .. "%#boop#"
-				return current_mode .. mode_sep1 .. last .. "%#St_EmptySpace#" .. sep_r
+				local mode_sep1 = "%#St_" .. modes[m][2] .. "ModeSep#" .. sep_r
+				return current_mode .. mode_sep1 .. cwd .. "%#St_EmptySpace#" .. sep_r
 			end,
 
 			_git = function()
-				-- return (vim.o.columns > 85 and ("%#St_cwd_sep#" .. sep_l .. icon .. name)) or ""
 				return "%#St_file_sep#" .. sep_l .. "%#St_cwd_text#" .. utils.git() .. " "
 			end,
 
@@ -94,8 +85,6 @@ M.ui = {
 	},
 }
 
-M.lsp = {
-	signature = false,
-}
+M.lsp = { signature = false }
 
 return M
