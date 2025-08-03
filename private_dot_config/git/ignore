@@ -7,7 +7,9 @@ scratch
 # AI Stuff
 **/.claude/settings.local.json
 .serena/
+.crush/
 AGENTS.md
+CRUSH.md
 opencode.json
 
 # Python specific
