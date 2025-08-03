@@ -36,68 +36,21 @@ map(modes, "<leader>lsv", function()
 	end
 end, { desc = "Run user command in vertical split terminal" })
 
--- Register GitCommit to commit in current buffer
+
+-- Terminal mode escape
 --
-vim.api.nvim_create_user_command("GitCommit", function()
-	-- Get git directory
-	local git_dir = vim.fn.system("git rev-parse --git-dir"):gsub("\n", "")
-
-	-- Use 'true' as editor - it immediately exits with success
-	-- This causes git to create COMMIT_EDITMSG but not complete the commit
-	vim.fn.system("GIT_EDITOR=true git commit -v")
-
-	-- Replace current buffer with COMMIT_EDITMSG
-	vim.cmd("edit! " .. git_dir .. "/COMMIT_EDITMSG")
-
-	-- Set up autocmd to run actual commit on save and block quit commands
-	vim.api.nvim_create_autocmd("BufEnter", {
-		pattern = "COMMIT_EDITMSG",
-		once = true,
-		callback = function()
-			-- Block :q and :quit
-			vim.cmd([[
-				cabbrev <buffer> q echoerr "Use :w to commit or :bd! to abort"
-				cabbrev <buffer> quit echoerr "Use :w to commit or :bd! to abort"
-			]])
-		end,
-	})
-	vim.api.nvim_create_autocmd("BufWritePost", {
-		pattern = "COMMIT_EDITMSG",
-		once = true,
-		callback = function()
-			vim.fn.system("git commit -F " .. vim.fn.expand("%:p"))
-			require("mini.bufremove").delete()
-		end,
-	})
-end, {})
-map("n", "<leader>gc", vim.cmd.GitCommit, { desc = "Git Commit" })
+map("t", "<C-x>", "<C-\\><C-N>", { desc = "Terminal Escape terminal mode" })
 
 -- Terminal Navigation
 local function navigate_from_terminal(direction)
 	return "<C-\\><C-N><C-w>" .. direction
 end
 
-vim.keymap.set("t", "<C-h>", navigate_from_terminal("h"))
-vim.keymap.set("t", "<C-j>", navigate_from_terminal("j"))
-vim.keymap.set("t", "<C-k>", navigate_from_terminal("k"))
-vim.keymap.set("t", "<C-l>", navigate_from_terminal("l"))
+map("t", "<C-h>", navigate_from_terminal("h"))
+map("t", "<C-j>", navigate_from_terminal("j"))
+map("t", "<C-k>", navigate_from_terminal("k"))
+map("t", "<C-l>", navigate_from_terminal("l"))
 
--- Enter insert mode when focusing terminal
---
-vim.api.nvim_create_autocmd("WinEnter", {
-	pattern = "*",
-	group = vim.api.nvim_create_augroup("term_insert", { clear = true }),
-	callback = function()
-		if vim.bo.buftype == "terminal" then
-			vim.cmd("startinsert")
-		end
-	end,
-	desc = "Enter insert mode when focusing terminal",
-})
-
--- Terminal mode escape
---
-map("t", "<C-x>", "<C-\\><C-N>", { desc = "Terminal Escape terminal mode" })
 
 -- TODO: try this later as a replacement for nvchad's term:
 -- -- Terminal management module

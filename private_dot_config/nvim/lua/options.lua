@@ -61,53 +61,6 @@ opt.scrolloff = 5
 opt.colorcolumn = "120"
 opt.guifont = "CodeliaLigatures Nerd Font"
 
--- highlight yanked text for 300ms using the "Visual" highlight group
-vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
-	callback = function()
-		vim.hl.on_yank()
-	end,
-})
-
--- Reload files if changed externally
-vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
-	command = "if mode() != 'c' | checktime | endif",
-	pattern = { "*" },
-	desc = "Enter insert mode when focusing terminal",
-})
-
---  e.g. ~/.local/share/chezmoi/*
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-	desc = "Editing a chezmoi file",
-	pattern = { os.getenv("HOME") .. "/.local/share/chezmoi/*" },
-	group = vim.api.nvim_create_augroup("chezmoi", { clear = true }),
-	callback = function(ev)
-		local bufnr = ev.buf
-		local edit_watch = function()
-			require("chezmoi.commands.__edit").watch(bufnr)
-		end
-		vim.schedule(edit_watch)
-	end,
-})
-
--- show cursor line only in active window
-vim.api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
-	callback = function()
-		if vim.w.auto_cursorline then
-			vim.wo.cursorline = true
-			vim.w.auto_cursorline = nil
-		end
-	end,
-})
-vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
-	callback = function()
-		if vim.wo.cursorline then
-			vim.w.auto_cursorline = true
-			vim.wo.cursorline = false
-		end
-	end,
-})
 -- Create project-specific shada-files for things like marks
 opt.shadafile = (function()
 	local data = vim.fn.stdpath("state")
@@ -134,13 +87,3 @@ end
 
 vim.opt.findfunc = "v:lua.Fd"
 vim.keymap.set("n", "<C-p>", ":find ", { desc = "raw-dog: Project Files" })
-
-
-vim.api.nvim_create_autocmd('FileType', {
-	pattern = _G.treesitter,
-	callback = function()
-		vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-		vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-		vim.treesitter.start()
-	end,
-})

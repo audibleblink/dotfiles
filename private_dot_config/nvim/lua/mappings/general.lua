@@ -31,18 +31,3 @@ map("i", "<C-k>", "<Up>", { desc = "Move Up" })
 -- Custom navigation (commented out in original)
 map("n", "j", "v:count > 1 ? 'm`' . v:count . 'j' : 'gj'", { expr = true })
 map("n", "k", "v:count > 1 ? 'm`' . v:count . 'k' : 'gk'", { expr = true })
-
--- More specific autocmd that only triggers on window focus
-vim.api.nvim_create_autocmd("BufWinEnter", {
-	pattern = "*",
-	group = vim.api.nvim_create_augroup("qf", { clear = true }),
-	callback = function()
-		if vim.bo.buftype == "quickfix" then
-			map("n", "<c-q>", function()
-				vim.cmd("cclose")
-			end, { buffer = true })
-			map("n", "<cr>", "<cr>", { buffer = true })
-		end
-	end,
-	desc = "Binding qf",
-})
