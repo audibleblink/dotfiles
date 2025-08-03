@@ -53,7 +53,7 @@ M.ui = {
 	statusline = {
 		-- theme = "minimal",
 		separator_style = "round",
-		order = { "_mode", "file", "%=", "lsp_msg", "%=", "diagnostics", "lsp", "_git", "_cursor" },
+		order = { "_mode", "file", "_rec", "%=", "lsp_msg", "%=", "diagnostics", "lsp", "_rec", "_git", "_cursor" },
 		modules = {
 			_mode = function()
 				if not utils.is_activewin() then
@@ -80,6 +80,11 @@ M.ui = {
 					return ""
 				end
 				return "%#St_pos_sep#" .. sep_l .. "%#St_pos_icon#  %#St_pos_text# %l/%v "
+			end,
+
+			_rec = function()
+				local rec = vim.fn.reg_recording()
+				return rec ~= "" and "%#St_cwd_sep#" .. " 󰑋 " .. rec .. " " or ""
 			end,
 		},
 	},
