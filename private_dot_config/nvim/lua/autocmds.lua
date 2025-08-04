@@ -54,7 +54,6 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
 	end,
 })
 
-
 -- More specific autocmd that only triggers on window focus
 --
 vim.api.nvim_create_autocmd("BufWinEnter", {
@@ -71,7 +70,6 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 	end,
 })
 
-
 -- Enter insert mode when focusing terminal
 --
 vim.api.nvim_create_autocmd("WinEnter", {
@@ -84,7 +82,6 @@ vim.api.nvim_create_autocmd("WinEnter", {
 		end
 	end,
 })
-
 
 -- Register GitCommit to commit in current buffer
 --
@@ -118,15 +115,23 @@ vim.api.nvim_create_user_command("GitCommit", function()
 end, {})
 map("n", "<leader>gc", vim.cmd.GitCommit, { desc = "Git Commit" })
 
-
 -- Load tree-sitter if we have the type
 --
-vim.api.nvim_create_autocmd('FileType', {
+vim.api.nvim_create_autocmd("FileType", {
 	desc = "Load tree-sitter for supported file types",
 	pattern = _G.treesitter,
 	callback = function()
-		vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+		vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 		vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 		vim.treesitter.start()
+	end,
+})
+
+-- Highlight TODO, FIXME, etc. in comments
+--
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+	pattern = "*",
+	callback = function()
+		vim.fn.matchadd("Todo", "\\(TODO\\|FIXME\\|HACK\\|BUG\\|NOTE\\)")
 	end,
 })
