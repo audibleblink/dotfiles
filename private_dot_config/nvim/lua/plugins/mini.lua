@@ -6,7 +6,6 @@ return {
 		require("mini.align").setup()
 		require("mini.bracketed").setup()
 		require("mini.comment").setup()
-		require("mini.diff").setup()
 		require("mini.move").setup()
 		require("mini.surround").setup()
 		require("mini.indentscope").setup({

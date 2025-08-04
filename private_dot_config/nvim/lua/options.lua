@@ -26,7 +26,7 @@ o.laststatus = 3
 o.showmode = false
 o.ignorecase = true
 o.smartcase = true
-o.signcolumn = "yes"
+o.signcolumn = "auto:2"
 o.splitbelow = true
 o.splitright = true
 o.timeoutlen = 500
@@ -79,8 +79,8 @@ function Fd(file_pattern, _)
 		file_pattern = file_pattern:gsub(".", ".*%0") .. ".*"
 	end
 	local cmd = 'fd  --color=never --full-path --type file --hidden --exclude=".git" --exclude="deps" "'
-	    .. file_pattern
-	    .. '"'
+		.. file_pattern
+		.. '"'
 	local result = vim.fn.systemlist(cmd)
 	return result
 end
