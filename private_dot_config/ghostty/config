@@ -24,7 +24,7 @@ confirm-close-surface = false
 
 keybind = global:cmd+grave_accent=toggle_quick_terminal
 quick-terminal-position = left
-keybind = shift+enter=text:\n
+#keybind = shift+enter=text:\n
 
 #custom-shader = shaders/crt.glsl
 #custom-shader = shaders/curve.glsl
