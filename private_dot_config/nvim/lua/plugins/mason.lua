@@ -8,6 +8,7 @@ return {
 		require("mason-lspconfig").setup({
 			ensure_installed = {
 				"basedpyright",
+				"denols",
 				"gopls",
 				"lua_ls",
 				"markdown_oxide",

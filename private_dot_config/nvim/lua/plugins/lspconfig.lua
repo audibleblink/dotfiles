@@ -31,25 +31,30 @@ return {
 				},
 			},
 			gopls = {},
+			denols = { filetypes = { "json", "jsonc" } },
 		}
 
 		-- Setup each server
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 		for server, config in pairs(servers) do
-			vim.lsp.config(server, { capabilities = capabilities, settings = config.settings })
+			vim.lsp.config(server, {
+				capabilities = capabilities,
+				settings = config.settings or {},
+				filetypes = config.filetypes or {},
+			})
 		end
-
+		--
 		-- Configure diagnostics
 		local x = vim.diagnostic.severity
 		vim.diagnostic.config({
 			update_in_insert = false,
 			signs = { text = { [x.ERROR] = "󰅙", [x.WARN] = "", [x.INFO] = "󰋼", [x.HINT] = "󰌵" } },
-			virtual_text = {
-				severity = { min = x.WARN },
-			},
+			virtual_text = { current_line = true, severity = { min = x.WARN } },
 			severity_sort = true,
 			underline = true,
 			float = { border = "single" },
+			-- float = false,
+			-- virtual_lines = { current_line = true, severity = { min = "ERROR" } },
 		})
 	end,
 }
