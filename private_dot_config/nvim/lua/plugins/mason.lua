@@ -4,7 +4,11 @@ return {
 	dependencies = { "williamboman/mason-lspconfig.nvim" },
 
 	config = function()
-		require("mason").setup()
+		require("mason").setup({
+			ui = {
+				check_outdated_packages_on_open = false,
+			},
+		})
 		require("mason-lspconfig").setup({
 			ensure_installed = {
 				"basedpyright",
