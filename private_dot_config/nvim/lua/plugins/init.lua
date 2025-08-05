@@ -13,5 +13,17 @@ return {
 			require("base46").load_all_highlights()
 		end,
 	},
-	-- { "Darazaki/indent-o-matic" },
+
+	{
+		"nvzone/typr",
+		dependencies = "nvzone/volt",
+		opts = {},
+		cmd = { "Typr", "TyprStats" },
+	},
+	{
+		"nvzone/timerly",
+		dependencies = "nvzone/volt",
+		cmd = "TimerlyToggle",
+		opts = {}, -- optional
+	},
 }
