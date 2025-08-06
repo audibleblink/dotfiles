@@ -21,7 +21,7 @@ return {
 	opts = {
 		pickers = {
 			buffers = {
-				theme = "dropdown",
+				theme = "ivy",
 			},
 		},
 		defaults = {
