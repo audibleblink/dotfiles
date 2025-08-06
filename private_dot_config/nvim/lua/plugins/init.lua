@@ -26,4 +26,9 @@ return {
 		cmd = "TimerlyToggle",
 		opts = {}, -- optional
 	},
+	{
+		"chomosuke/typst-preview.nvim",
+		ft = "typst",
+		version = "1.*",
+	},
 }

@@ -17,6 +17,7 @@ _G.treesitter = {
 	"rust",
 	"glsl",
 	"ruby",
+	"typst",
 	"python",
 	"lua",
 	"hcl",

@@ -18,6 +18,7 @@ return {
 				"markdown_oxide",
 				"ruff",
 				"rust_analyzer",
+				"tinymist",
 				"yamlls",
 				"zls",
 			},
