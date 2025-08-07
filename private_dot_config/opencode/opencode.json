@@ -55,6 +55,11 @@
 	},
 	"permission": {
 		"edit": "ask",
-		"bash": "ask"
+		"bash": {
+			"cat *": "allow",
+			"find *": "allow",
+			"head *": "allow",
+			"*": "ask"
+		}
 	}
 }

@@ -7,29 +7,48 @@ global_history = false
 [ui]
 use_nerd_font_icons = true
 ui_scale = 90
-input_prompt = " "
-input_bar_position = "bottom"
 orientation = "landscape"
 theme = "catppuccin"
-preview_size = 60
 
 [ui.features]
 preview_panel = { enabled = true, visible = true }
 help_panel = { enabled = false, visible = false }
-status_bar = { enabled = false, visible = false }
 remote_control = { enabled = true, visible = false }
+
+[ui.status_bar]
+hidden = true
 
 [ui.preview_panel]
 size = 60
 scrollbar = true
+border_type = 'none'
+padding = { bottom = 1, right = 2}
 
 [ui.input_bar]
 # border_type = 'none'
 prompt = " "
 position = "bottom"
+border_type = 'none'
+padding = { left = 1, top = 1}
 
 [ui.results_panel]
 border_type = 'none'
+# padding = { top = 1}
+
+[ui.theme_overrides]
+# general
+background = '#181926'
+border_fg = '#181926'
+# input
+result_count_fg = '#6c7086'
+# results
+result_name_fg = '#cdd6f4'
+result_value_fg = '#b4befe'
+selection_fg = '#cdd6f4'
+selection_bg = '#24273a'
+match_fg = '#89b4fa'
+# preview
+preview_title_fg = 'magenta'
 
 [shell_integration.channel_triggers]
 "git-status" = ["git add", "ga"]
