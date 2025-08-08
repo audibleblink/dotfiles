@@ -38,14 +38,6 @@
 			"enabled": true
 		}
 	},
-	"mode": {
-		"build": {
-			"model": "anthropic/claude-sonnet-4-20250514"
-		},
-		"plan": {
-			"model": "anthropic/claude-sonnet-4-20250514"
-		}
-	},
 	"keybinds": {
 		"leader": "ctrl+b",
 		"input_newline": "<leader>enter,shift+enter,ctrl+j",
