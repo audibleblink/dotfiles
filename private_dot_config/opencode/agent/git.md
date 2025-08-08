@@ -8,6 +8,7 @@ description: >-
   * When preparing to commit code
   * During phased development sprints to track incremental progress
   * When reviewing a series of changes before creating a pull request
+mode: subagent
 tools:
   write: false
   edit: false

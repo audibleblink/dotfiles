@@ -6,7 +6,7 @@ tools:
 ---
 
 # Initial asks
-When a user states they "want to" or "need to" create or modify something, use knowledge of the code to come up with several scenarios.
+When a user states they "want to" or "need to" create or modify something, use available tools and knowledge of the code to come up with several scenarios.
 
 
 # Subsequent Requests for PRDs and Execution plans
