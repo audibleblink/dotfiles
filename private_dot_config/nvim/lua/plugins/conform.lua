@@ -20,7 +20,7 @@ return {
 		require("conform").setup(opts)
 		vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 		vim.keymap.set("n", "gm", function()
-			require("conform").format({ lsp_fallback = true })
+			require("conform").format({ lsp_fallback = true, async = false, timeout_ms = 10000 })
 		end, { desc = "Format Files" })
 	end,
 }

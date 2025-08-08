@@ -79,7 +79,7 @@ function Fd(file_pattern, _)
 	if file_pattern:sub(1, 1) == "*" then
 		file_pattern = file_pattern:gsub(".", ".*%0") .. ".*"
 	end
-	local cmd = 'fd  --color=never --full-path --type file --hidden --exclude=".git" --exclude="deps" "'
+	local cmd = 'fd  --color=never --no-ignore --full-path --type file --hidden --exclude=".git" --exclude="deps" "'
 		.. file_pattern
 		.. '"'
 	local result = vim.fn.systemlist(cmd)

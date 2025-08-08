@@ -30,7 +30,6 @@ return {
 					},
 				},
 			},
-			gopls = {},
 			denols = { filetypes = { "json", "jsonc" } },
 		}
 
