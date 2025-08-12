@@ -2,14 +2,14 @@ return {
 	"neovim/nvim-lspconfig",
 	enabled = not vim.g.vscode,
 	event = { "BufReadPre", "BufNewFile" },
-	dependencies = {
-		"williamboman/mason.nvim",
-		"williamboman/mason-lspconfig.nvim",
-	},
+	dependencies = { "mason-org/mason.nvim" },
 
 	config = function()
+		local lspconfig = require("lspconfig")
+		local installed = require("mason-lspconfig").get_installed_servers()
+
 		-- Server-specific configurations (only non-default settings)
-		local servers = {
+		local custom = {
 			ruff = {
 				settings = {
 					lineLength = 100,
@@ -35,13 +35,15 @@ return {
 
 		-- Setup each server
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
-		for server, config in pairs(servers) do
-			vim.lsp.config(server, {
-				capabilities = capabilities,
-				settings = config.settings or {},
-				filetypes = config.filetypes or {},
-			})
+		for _, server in ipairs(installed) do
+			local config = custom[server] or {}
+			local merged = vim.tbl_deep_extend("force", config, { capabilities = capabilities })
+
+			-- using lspconfig's setup over vim.lsp.config ensures passing empty tables
+			-- still uses the defaults provided by lspconfig
+			lspconfig[server].setup(merged)
 		end
+
 		--
 		-- Configure diagnostics
 		local x = vim.diagnostic.severity

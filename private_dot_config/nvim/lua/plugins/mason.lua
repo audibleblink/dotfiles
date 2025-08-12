@@ -1,27 +1,29 @@
 return {
-	"williamboman/mason.nvim",
+	"mason-org/mason-lspconfig.nvim",
 	event = "VeryLazy",
-	dependencies = { "williamboman/mason-lspconfig.nvim" },
+	dependencies = {
+		{ "mason-org/mason.nvim", opts = {} },
+		{ "neovim/nvim-lspconfig" },
+	},
 
-	config = function()
-		require("mason").setup({
-			ui = {
-				check_outdated_packages_on_open = false,
-			},
-		})
-		require("mason-lspconfig").setup({
-			ensure_installed = {
-				"basedpyright",
-				"denols",
-				"gopls",
-				"lua_ls",
-				"markdown_oxide",
-				"ruff",
-				"rust_analyzer",
-				"tinymist",
-				"yamlls",
-				"zls",
-			},
-		})
+	opts = {
+		automatic_enable = false,
+		ensure_installed = {
+			"basedpyright",
+			"denols",
+			"gopls",
+			"lua_ls",
+			"markdown_oxide",
+			"ruff",
+			"rust_analyzer",
+			"tinymist",
+			"yamlls",
+			"zls",
+		},
+	},
+
+	config = function(_, opts)
+		require("mason").setup({ ui = { check_outdated_packages_on_open = false } })
+		require("mason-lspconfig").setup(opts)
 	end,
 }
