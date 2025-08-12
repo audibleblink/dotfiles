@@ -54,7 +54,7 @@ o.ruler = false
 -- add binaries installed by mise and mason.nvim to path
 local is_windows = vim.fn.has("win32") ~= 0
 vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin" .. (is_windows and ";" or ":") .. vim.env.PATH
-vim.env.PATH = vim.env.XDG_DATA_HOME .. "/mise/shims:" .. vim.env.PATH
+vim.env.PATH = vim.env.PATH .. ":" .. vim.env.XDG_DATA_HOME .. "/mise/shims"
 
 -- Custom
 opt.swapfile = false
