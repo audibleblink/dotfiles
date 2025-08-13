@@ -6,9 +6,9 @@ requirements = ["zsh"]
 [ui.input_bar]
 header = "Bookmarks"
 prompt = " "
-position = "top"
+position = "bottom"
 border_type = 'none'
-padding = { left = 1, bottom = 1}
+padding = { left = 3, bottom = 0, top = 1, right = 3 }
 
 [source]
 command = "source ~/.zshrc_local ; hash -d"
@@ -19,14 +19,15 @@ output = "{split:=:2}"
 command = 'ls -larth {split:=:2}'
 
 [ui]
-ui_scale = 100
+ui_scale = 80
 input_header = "Bookmarks"
 input_prompt = "  "
 
+[ui.results_panel]
+padding = { left = 2, bottom = 0, top = 1, right = 2 }
+border_type = 'none'
+
 [ui.preview_panel]
-size = 60
-header = ''
-footer = 'Dirs'
 hidden = true
 
 [keybindings]
