@@ -1,12 +1,36 @@
+local servers = {
+	"basedpyright",
+	"denols",
+	"gopls",
+	"lua_ls",
+	"markdown_oxide",
+	"ruff",
+	"rust_analyzer",
+	"tinymist",
+	"yamlls",
+	"zls",
+}
+
 return {
 	"neovim/nvim-lspconfig",
 	enabled = not vim.g.vscode,
 	event = { "BufReadPre", "BufNewFile" },
-	dependencies = { "mason-org/mason.nvim" },
+	dependencies = {
+		{ "mason-org/mason.nvim", opts = {
+			ui = { check_outdated_packages_on_open = false },
+		} },
+		{ "mason-org/mason-lspconfig.nvim", opts = {
+			automatic_enable = false,
+			ensure_installed = servers,
+		} },
+	},
 
 	config = function()
-		local lspconfig = require("lspconfig")
-		local installed = require("mason-lspconfig").get_installed_servers()
+		vim.lsp.enable(servers)
+
+		vim.lsp.config("*", {
+			capabilities = require("cmp_nvim_lsp").default_capabilities(),
+		})
 
 		-- Server-specific configurations (only non-default settings)
 		local custom = {
@@ -30,19 +54,13 @@ return {
 					},
 				},
 			},
-			denols = { filetypes = { "json", "jsonc" } },
+
+			-- vim.lsp.config doesn't merge lists, so we do it here
+			denols = { filetypes = vim.tbl_extend("keep", { "json", "jsonc" }, vim.lsp.config.denols.filetypes) },
 		}
 
-		-- Setup each server
-		for _, server in ipairs(installed) do
-			local config = custom[server] or {}
-			local merged = vim.tbl_deep_extend("force", config, {
-				capabilities = require("cmp_nvim_lsp").default_capabilities(config.capabilities),
-			})
-
-			-- using lspconfig's setup over vim.lsp.config ensures passing empty tables
-			-- still uses the defaults provided by lspconfig
-			lspconfig[server].setup(merged)
+		for server, config in pairs(custom) do
+			vim.lsp.config(server, config)
 		end
 
 		-- Configure diagnostics

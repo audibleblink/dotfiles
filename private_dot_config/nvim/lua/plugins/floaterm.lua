@@ -22,7 +22,6 @@ return {
 
 		terminals = {
 			{ name = "Terminal" },
-			{ name = "Terminal", cmd = "btop" },
 		},
 	},
 }

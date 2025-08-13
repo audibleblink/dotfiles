@@ -9,13 +9,16 @@ return {
 			rust = { "rustfmt", lsp_format = "fallback" },
 			javascript = { "deno", stop_after_first = true },
 			go = { "gofumpt", "golines", "goimport-reviser" },
+			sh = { "shfmt" },
 		},
+
 		format_on_save = {
 			-- These options will be passed to conform.format()
 			timeout_ms = 500,
 			lsp_format = "fallback",
 		},
 	},
+
 	config = function(_, opts)
 		require("conform").setup(opts)
 		vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
