@@ -105,18 +105,6 @@ return {
 
 		-- Add new debuggers below here
 
-		-- ensure the DAP-compatible debuggers are installed
-		require("mason-nvim-dap").setup({
-			automatic_installation = true,
-			handlers = {},
-			ensure_installed = {
-				"delve", -- golang
-				"debugpy", -- python
-				-- "codelldb",	-- rust, c, cpp, zig
-				-- "js-debug-adapter", -- microsoft's javascript DA
-			},
-		})
-
 		-- Setup dependencies from below
 		require("dap-python").setup("uv")
 		require("dap-go").setup({
@@ -130,7 +118,6 @@ return {
 		"rcarriga/nvim-dap-ui",
 		"nvim-neotest/nvim-nio",
 		"mason-org/mason.nvim",
-		"jay-babu/mason-nvim-dap.nvim",
 		"theHamsta/nvim-dap-virtual-text",
 		-- Add new nvim/dap providers here
 		"leoluz/nvim-dap-go",
