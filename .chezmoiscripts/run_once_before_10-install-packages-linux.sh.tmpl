@@ -3,6 +3,26 @@
 
 set -eufo pipefail
 
+{{- if .arch }}
+pkgs=(
+		tree-sitter-cli
+		zen-broswer-bin
+		atuin
+		starship
+		sof-firmware
+		dust
+		inxi
+		acpi
+		uv
+		bc
+		tmux
+		dos2unix
+		zstd
+)
+yay -Sy ${pkgs[@]}
+exit 0
+{{- end }}
+
 pkgs=(
         apt-utils
         dos2unix
