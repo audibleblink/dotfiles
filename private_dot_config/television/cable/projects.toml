@@ -7,6 +7,13 @@ A channel to select from the code folder
 This channel uses `fd` to find directories that contain a `.git` subdirectory, and then allows you to preview the git log of the selected repository.
 """
 
+[ui.input_bar]
+header = "Projects"
+prompt = " "
+position = "bottom"
+border_type = 'none'
+padding = { left = 1, top = 1}
+
 [source]
 # this is a macos version of the command. While perfectly usable on linux, you may want to tweak it a bit.
 command = "fd .git\\| worktrees ~/code -HL -t d -d 4 --prune "
@@ -17,11 +24,9 @@ command = "cd {}; git log -n 20 --pretty=medium --all --graph --color"
 
 [ui]
 ui_scale = 100
-input_header = "Projects"
 
 [ui.preview_panel]
 size = 60
-header = ''
 footer = 'Git Log'
 
 [keybindings]

@@ -3,6 +3,13 @@ name = "bookmarks"
 description = "A channel to browse bookmarks"
 requirements = ["zsh"]
 
+[ui.input_bar]
+header = "Bookmarks"
+prompt = " "
+position = "top"
+border_type = 'none'
+padding = { left = 1, bottom = 1}
+
 [source]
 command = "source ~/.zshrc_local ; hash -d"
 display = "{split:=:0|pad:8}\t~/{split:/:-2..}"
@@ -20,6 +27,7 @@ input_prompt = "  "
 size = 60
 header = ''
 footer = 'Dirs'
+hidden = true
 
 [keybindings]
 esc = "quit"

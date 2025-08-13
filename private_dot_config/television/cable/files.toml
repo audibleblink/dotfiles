@@ -3,6 +3,13 @@ name = "files"
 description = "A channel to select files and directories"
 requirements = ["fd", "bat"]
 
+[ui.input_bar]
+header = "Files"
+prompt = " "
+position = "bottom"
+border_type = 'none'
+padding = { left = 1, top = 1}
+
 [source]
 command = ["fd -t f -HI"]
 

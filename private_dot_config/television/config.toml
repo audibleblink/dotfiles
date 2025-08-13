@@ -25,7 +25,6 @@ border_type = 'none'
 padding = { bottom = 1, right = 2}
 
 [ui.input_bar]
-# border_type = 'none'
 prompt = " "
 position = "bottom"
 border_type = 'none'
@@ -36,19 +35,15 @@ border_type = 'none'
 # padding = { top = 1}
 
 [ui.theme_overrides]
-# general
-background = '#181926'
-border_fg = '#181926'
-# input
+# # input
 result_count_fg = '#6c7086'
-# results
+# # results
 result_name_fg = '#cdd6f4'
-result_value_fg = '#b4befe'
-selection_fg = '#cdd6f4'
-selection_bg = '#24273a'
 match_fg = '#89b4fa'
-# preview
-preview_title_fg = 'magenta'
+# # preview
+channel_mode_bg = 'bright-red'
+# preview_title_fg = 'green'
+channel_mode_fg = 'bright-red'
 
 [shell_integration.channel_triggers]
 "git-status" = ["git add", "ga"]
