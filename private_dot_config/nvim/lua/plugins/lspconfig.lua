@@ -15,15 +15,7 @@ return {
 	"neovim/nvim-lspconfig",
 	enabled = not vim.g.vscode,
 	event = { "BufReadPre", "BufNewFile" },
-	dependencies = {
-		{ "mason-org/mason.nvim", opts = {
-			ui = { check_outdated_packages_on_open = false },
-		} },
-		{ "mason-org/mason-lspconfig.nvim", opts = {
-			automatic_enable = false,
-			ensure_installed = servers,
-		} },
-	},
+	dependencies = { "mason-org/mason.nvim", opts = { ui = { check_outdated_packages_on_open = false } } },
 
 	config = function()
 		vim.lsp.enable(servers)
