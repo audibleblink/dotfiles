@@ -50,6 +50,10 @@ return {
 					{ name = "nvim_lua" },
 					{ name = "path" },
 					{ name = "nvim_lsp_signature_help" },
+					{
+						name = "lazydev",
+						group_index = 0,
+					},
 				},
 			}
 		end,
@@ -61,6 +65,7 @@ return {
 	},
 	{
 		"windwp/nvim-autopairs",
+		event = "InsertEnter",
 		dependencies = { "hrsh7th/nvim-cmp" },
 		opts = {
 			fast_wrap = {},
@@ -74,6 +79,7 @@ return {
 	},
 	{
 		"hrsh7th/cmp-cmdline",
+		event = "InsertEnter",
 		dependencies = { "hrsh7th/nvim-cmp" },
 		config = function()
 			require("cmp").setup.cmdline(":", {
@@ -101,12 +107,10 @@ return {
 			})
 		end,
 	},
-	{
-		"saadparwaiz1/cmp_luasnip",
-		"hrsh7th/cmp-nvim-lua",
-		"hrsh7th/cmp-nvim-lsp",
-		"hrsh7th/cmp-buffer",
-		"hrsh7th/cmp-path",
-		"hrsh7th/cmp-nvim-lsp-signature-help",
-	},
+	{ "saadparwaiz1/cmp_luasnip", event = "InsertEnter" },
+	{ "hrsh7th/cmp-nvim-lua", event = "InsertEnter" },
+	{ "hrsh7th/cmp-nvim-lsp", event = "InsertEnter" },
+	{ "hrsh7th/cmp-buffer", event = "InsertEnter" },
+	{ "hrsh7th/cmp-path", event = "InsertEnter" },
+	{ "hrsh7th/cmp-nvim-lsp-signature-help", event = "InsertEnter" },
 }
