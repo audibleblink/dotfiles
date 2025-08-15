@@ -7,3 +7,13 @@ device_name = "AT Translated Set 2 keyboard"
 input = "KEY_CAPSLOCK"
 hold = ["KEY_LEFTCTRL"]
 tap = ["KEY_ESC"]
+
+[[dual_role]]
+input = "KEY_LEFTSHIFT"
+hold = ["KEY_LEFTSHIFT"]
+tap = ["KEY_KPLEFTPAREN"]
+
+[[dual_role]]
+input = "KEY_RIGHTSHIFT"
+hold = ["KEY_RIGHTSHIFT"]
+tap = ["KEY_KPRIGHTPAREN"]
