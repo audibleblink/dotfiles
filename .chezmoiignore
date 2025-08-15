@@ -67,5 +67,8 @@ Library/Preferences/com.amethyst.Amethyst.plist
 .urxvt/
 .Xresources
 .config/rofi/
+.config/hypr
+.config/evremap
+.config/television/cable/cliphist.toml
 {{- end }}
 
