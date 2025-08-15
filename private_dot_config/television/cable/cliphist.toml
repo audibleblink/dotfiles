@@ -1,0 +1,35 @@
+[metadata]
+name = "cliphist"
+description = "A channel to browse clipboard history"
+requirements = ["zsh", "cliphist", "wl-clipboard"]
+
+[ui.input_bar]
+header = "Clipboard"
+prompt = " "
+position = "bottom"
+border_type = 'none'
+padding = { left = 3, bottom = 0, top = 1, right = 3 }
+
+[source]
+command = "cliphist list"
+display = "{split:\t:1}"
+
+[ui]
+ui_scale = 80
+
+[ui.results_panel]
+padding = { left = 2, bottom = 0, top = 1, right = 2 }
+border_type = 'none'
+
+[ui.preview_panel]
+hidden = true
+
+[actions.edit]
+description = "copy"
+command = "echo {} | cliphist decode | wl-copy"
+mode = "execute"
+
+[keybindings]
+ctrl-o = "actions:edit"
+esc = "quit"
+ctrl-c = "quit"
