@@ -6,8 +6,8 @@ local copy_cmd
 
 if [[ $OSTYPE == darwin* ]]; then
   copy_cmd="pbcopy"
-elif [[ $XDG_SESSION_TYPE == "wayland" ]] && command -v cliphist &>/dev/null; then
-  copy_cmd="cliphist store"
+elif [[ $XDG_SESSION_TYPE == "wayland" ]] && command -v wl-copy &>/dev/null; then
+  copy_cmd="wl-copy"
 elif command -v xclip &>/dev/null; then
   copy_cmd="xclip -in -selection clipboard"
 elif command -v xsel &>/dev/null; then
