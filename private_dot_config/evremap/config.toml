@@ -18,6 +18,11 @@ input = "KEY_RIGHTSHIFT"
 hold = ["KEY_RIGHTSHIFT"]
 tap = ["KEY_KPRIGHTPAREN"]
 
+[[dual_role]]
+input = "KEY_TAB"
+tap = ["KEY_TAB"]
+hold = ["KEY_LEFTALT"]
+
 
 [[remap]]
 input = ["KEY_LEFTALT", "KEY_H"]
