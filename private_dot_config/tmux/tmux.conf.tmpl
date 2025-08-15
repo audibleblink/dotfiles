@@ -141,6 +141,9 @@ set -g default-shell /bin/zsh
 set -s copy-command 'xsel -i'
 set -g default-shell /usr/bin/zsh
 {{ end }}
+{{ if .arch }}
+set -s copy-command 'wl-copy'
+{{ end }}
 # ]]]
 
 # vim: ft=bash foldmarker=[[[,]]] foldlevelstart=0 foldmethod=marker spell:
