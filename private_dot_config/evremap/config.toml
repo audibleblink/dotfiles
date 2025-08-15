@@ -17,3 +17,17 @@ tap = ["KEY_KPLEFTPAREN"]
 input = "KEY_RIGHTSHIFT"
 hold = ["KEY_RIGHTSHIFT"]
 tap = ["KEY_KPRIGHTPAREN"]
+
+
+[[remap]]
+input = ["KEY_LEFTALT", "KEY_H"]
+output = ["KEY_LEFT"]
+[[remap]]
+input = ["KEY_LEFTALT", "KEY_J"]
+output = ["KEY_DOWN"]
+[[remap]]
+input = ["KEY_LEFTALT", "KEY_K"]
+output = ["KEY_UP"]
+[[remap]]
+input = ["KEY_LEFTALT", "KEY_L"]
+output = ["KEY_RIGHT"]
