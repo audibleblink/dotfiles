@@ -46,10 +46,7 @@ local utils = require("nvchad.stl.utils")
 local sep_l = utils.separators["round"]["left"]
 local sep_r = utils.separators["round"]["right"]
 M.ui = {
-	tabufline = {
-		lazyload = true,
-		order = { "buffers", "tabs", "btns" },
-	},
+	tabufline = { enabled = false },
 	telescope = { style = "borderless" }, -- borderless / bordered
 	statusline = {
 		-- theme = "minimal",

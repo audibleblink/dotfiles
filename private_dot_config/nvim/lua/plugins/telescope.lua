@@ -47,6 +47,7 @@ return {
 	config = function(_, opts)
 		-- config options
 		local tt = require("telescope")
+		local themes = require("telescope.themes")
 		tt.setup(opts)
 
 		require("telescope").load_extension("fzf")
@@ -58,8 +59,8 @@ return {
 			ts.find_files({ follow = true, no_ignore = true, hidden = true })
 		end, { desc = " Find All" })
 
-		map("n", "<leader>fb", function()
-			ts.buffers({ sort_mru = true })
+		map("n", "<leader>b", function()
+			ts.buffers(themes.get_dropdown({ sort_mru = true }))
 		end, { desc = " - Find buffers" })
 
 		map("n", "<leader>fs", function()
@@ -67,7 +68,6 @@ return {
 		end, { desc = " - Git Status" })
 
 		map("n", "<space>fo", function()
-			local themes = require("telescope.themes")
 			tt.extensions.file_browser.file_browser(themes.get_ivy())
 		end, { desc = " File Browser", noremap = true })
 
