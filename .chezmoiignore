@@ -69,6 +69,7 @@ Library/Preferences/com.amethyst.Amethyst.plist
 .config/rofi/
 .config/hypr
 .config/evremap
+.config/kmonad
 .config/television/cable/cliphist.toml
 {{- end }}
 
