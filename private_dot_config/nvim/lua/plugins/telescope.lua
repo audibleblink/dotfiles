@@ -60,20 +60,24 @@ return {
 		end, { desc = " Find All" })
 
 		map("n", "<leader>b", function()
-			ts.buffers(themes.get_dropdown({ sort_mru = true }))
+			ts.buffers(themes.get_ivy({ sort_mru = true }))
 		end, { desc = " - Find buffers" })
 
 		map("n", "<leader>fs", function()
 			ts.git_status({ sort_lastused = true })
 		end, { desc = " - Git Status" })
 
-		map("n", "<space>fo", function()
+		map("n", "<space>fb", function()
 			tt.extensions.file_browser.file_browser(themes.get_ivy())
-		end, { desc = " File Browser", noremap = true })
+		end, { desc = " - File Browser", noremap = true })
 
 		map("n", "<leader>fp", function()
 			ts.find_files({ cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy") })
 		end, { desc = " - Search Neovim Plugins" })
+
+		map("n", "<leader>fo", function()
+			tt.extensions.file_browser.file_browser({ cwd = "~/code" })
+		end, { desc = " - Open Code repo" })
 
 		map("n", "<leader>fc", ts.git_bcommits, { desc = " Git buffer history" })
 		map("n", "<leader>fC", ts.git_commits, { desc = " Git commits" })

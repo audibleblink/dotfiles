@@ -22,11 +22,12 @@ M.nvdash = {
 		"",
 	},
 	buttons = {
-		{ txt = "  Find File", keys = "ff", cmd = "Telescope find_files" },
-		{ txt = "  Recent Files", keys = "fo", cmd = "Telescope oldfiles" },
-		{ txt = "󰈭  Find Word", keys = "fw", cmd = "Telescope live_grep" },
+		{ txt = "  Find File", keys = "f", cmd = "Telescope find_files" },
+		{ txt = "  Recent Files", keys = "r", cmd = "Telescope oldfiles" },
+		{ txt = "󰅩  Open Code Repo", keys = "o", cmd = "Telescope file_brower cwd=~/code" },
 		{ txt = "  Lazy", keys = "l", cmd = "Lazy" },
-		{ txt = "  Dotifiles", keys = "cm", cmd = "Telescope chezmoi find_files" },
+		{ txt = "  Dotifiles", keys = "d", cmd = "Telescope chezmoi find_files" },
+		{ txt = "󱞁  Scratch Buffer", keys = "s", cmd = "enew | setlocal buftype=nofile bufhidden=hide noswapfile" },
 		{ txt = "  Quit", keys = "q", cmd = "quit" },
 		{ txt = "─", hl = "NvDashFooter", no_gap = true, rep = true },
 		{
