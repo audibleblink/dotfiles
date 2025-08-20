@@ -46,12 +46,10 @@
 		"messages_copy": "<leader>y"
 	},
 	"permission": {
-		"edit": "ask",
 		"bash": {
 			"cat *": "allow",
 			"find *": "allow",
 			"head *": "allow",
-			"*": "ask"
 		}
 	}
 }
