@@ -1,5 +1,5 @@
 # vim: ft=zsh foldmarker=[[[,]]] foldlevelstart=0 foldmethod=marker 
- zmodload zsh/zprof
+# zmodload zsh/zprof
 
 # Navigation [[[
 setopt auto_pushd
@@ -63,6 +63,11 @@ lazy substring-search
 # Load key bindings via zsh-defer for better startup performance
 zsh-defer bindings
 # ]]]
+# Compinit [[[
+
+autoload -U compinit  # Load the completion system
+compinit  # Initialize completion system and create cache
+# ]]]
 
 # starship is installed and hasn't been run
 (( $+functions[starship_zle-keymap-select] )) || {
@@ -70,9 +75,3 @@ zsh-defer bindings
 }
 
 [ -f ~/.zshrc_local ] && source ~/.zshrc_local
-
-# Compinit [[[
-
-autoload -U compinit  # Load the completion system
-compinit -C  # Initialize completion system and create cache
-# ]]]
