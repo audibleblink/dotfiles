@@ -24,7 +24,7 @@ M.nvdash = {
 	buttons = {
 		{ txt = "  Find File", keys = "f", cmd = "Telescope find_files" },
 		{ txt = "  Recent Files", keys = "r", cmd = "Telescope oldfiles" },
-		{ txt = "󰅩  Open Code Repo", keys = "o", cmd = "Telescope file_brower cwd=~/code" },
+		{ txt = "󰅩  Open Code Repo", keys = "o", cmd = "Telescope file_browser cwd=~/code" },
 		{ txt = "  Lazy", keys = "l", cmd = "Lazy" },
 		{ txt = "  Dotifiles", keys = "d", cmd = "Telescope chezmoi find_files" },
 		{ txt = "󱞁  Scratch Buffer", keys = "s", cmd = "enew | setlocal buftype=nofile bufhidden=hide noswapfile" },
