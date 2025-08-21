@@ -3,6 +3,27 @@
 
 set -eufo pipefail
 
+{{- if .arch }}
+pkgs=(
+		tree-sitter-cli
+		zen-broswer-bin
+		atuin
+		starship
+		sof-firmware
+		dust
+		inxi
+		acpi
+		uv
+		bc
+		tmux
+		dos2unix
+		zstd
+		kmonad-static
+)
+yay -Sy ${pkgs[@]}
+exit 0
+{{- end }}
+
 pkgs=(
         apt-utils
         dos2unix
@@ -35,7 +56,7 @@ pkgs+=(
 
 
 sudo apt update
-sudo nala install -y ${pkgs[@]}
+sudo apt install -t experimental -y ${pkgs[@]}
 
 # installs atuin and starship
 /bin/bash -c "$(curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh)"

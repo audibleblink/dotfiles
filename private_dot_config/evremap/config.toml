@@ -1,0 +1,38 @@
+device_name = "AT Translated Set 2 keyboard"
+# If you have multiple devices with the same name, you can optionally
+# specify the `phys` value that is printed by the `list-devices` subcommand
+# phys = "usb-0000:07:00.3-2.1.1/input0"
+
+[[dual_role]]
+input = "KEY_CAPSLOCK"
+hold = ["KEY_LEFTCTRL"]
+tap = ["KEY_ESC"]
+
+[[dual_role]]
+input = "KEY_LEFTSHIFT"
+hold = ["KEY_LEFTSHIFT"]
+tap = ["KEY_KPLEFTPAREN"]
+
+[[dual_role]]
+input = "KEY_RIGHTSHIFT"
+hold = ["KEY_RIGHTSHIFT"]
+tap = ["KEY_KPRIGHTPAREN"]
+
+[[dual_role]]
+input = "KEY_TAB"
+tap = ["KEY_TAB"]
+hold = ["KEY_LEFTALT"]
+
+
+[[remap]]
+input = ["KEY_LEFTALT", "KEY_H"]
+output = ["KEY_LEFT"]
+[[remap]]
+input = ["KEY_LEFTALT", "KEY_J"]
+output = ["KEY_DOWN"]
+[[remap]]
+input = ["KEY_LEFTALT", "KEY_K"]
+output = ["KEY_UP"]
+[[remap]]
+input = ["KEY_LEFTALT", "KEY_L"]
+output = ["KEY_RIGHT"]

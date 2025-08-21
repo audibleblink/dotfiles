@@ -1,0 +1,21 @@
+general.import = [ "~/.config/omarchy/current/theme/alacritty.toml" ]
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+normal = { family = "CodeliaLigatures Nerd Font" }
+bold = { family = "CodeliaLigatures Nerd Font" }
+italic = { family = "CodeliaLigatures Nerd Font" }
+size = 9
+
+[window]
+padding.x = 6
+padding.y = 9
+decorations = "None"
+opacity = 1
+
+[keyboard]
+bindings = [
+{ key = "F11", action = "ToggleFullscreen" }
+]
