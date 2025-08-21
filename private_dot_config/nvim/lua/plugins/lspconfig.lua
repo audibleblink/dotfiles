@@ -7,6 +7,7 @@ return {
 	dependencies = "mason-org/mason.nvim", -- not really, but nice to have in one file
 
 	config = function()
+		require("mason").setup()
 		vim.lsp.enable({
 			"basedpyright",
 			"denols",

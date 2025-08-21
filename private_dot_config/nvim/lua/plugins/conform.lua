@@ -10,6 +10,7 @@ return {
 			javascript = { "deno", stop_after_first = true },
 			go = { "gofumpt", "golines", "goimport-reviser" },
 			sh = { "shfmt" },
+			lisp = { "cljfmt" },
 		},
 
 		format_on_save = {

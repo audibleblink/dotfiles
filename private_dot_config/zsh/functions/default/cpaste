@@ -5,8 +5,8 @@ local paste_cmd
 
 if [[ $OSTYPE == darwin* ]]; then
   paste_cmd="pbpaste"
-elif [[ $XDG_SESSION_TYPE == "wayland" ]] && command -v cliphist &>/dev/null; then
-  paste_cmd="cliphist list | head -n1 | cliphist decode"
+elif [[ $XDG_SESSION_TYPE == "wayland" ]] && command -v wl-paste &>/dev/null; then
+  paste_cmd="wl-paste"
 elif command -v xclip &>/dev/null; then
   paste_cmd="xclip -out -selection clipboard"
 elif command -v xsel &>/dev/null; then
