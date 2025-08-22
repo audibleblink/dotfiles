@@ -89,20 +89,8 @@ vim.api.nvim_create_user_command("GitCommit", function()
 	-- This causes git to create COMMIT_EDITMSG but not complete the commit
 	vim.fn.system("GIT_EDITOR=true git commit -v")
 	local git_dir = vim.fn.system("git rev-parse --git-dir"):gsub("\n", "")
-	vim.cmd("edit! " .. git_dir .. "/COMMIT_EDITMSG")
+	vim.cmd("tabedit! " .. git_dir .. "/COMMIT_EDITMSG")
 
-	vim.api.nvim_create_autocmd("BufEnter", {
-		desc = "Set up commit buffer restrictions",
-		pattern = "COMMIT_EDITMSG",
-		once = true,
-		callback = function()
-			-- Block :q and :quit
-			vim.cmd([[
-				cabbrev <buffer> q echoerr "Use :w to commit or :bd! to abort"
-				cabbrev <buffer> quit echoerr "Use :w to commit or :bd! to abort"
-			]])
-		end,
-	})
 	vim.api.nvim_create_autocmd("BufWritePost", {
 		desc = "Execute git commit and close buffer",
 		pattern = "COMMIT_EDITMSG",
