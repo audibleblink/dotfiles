@@ -31,3 +31,51 @@ map("i", "<C-k>", "<Up>", { desc = "Move Up" })
 -- Custom navigation (commented out in original)
 map("n", "j", "v:count > 1 ? 'm`' . v:count . 'j' : 'gj'", { expr = true })
 map("n", "k", "v:count > 1 ? 'm`' . v:count . 'k' : 'gk'", { expr = true })
+
+-- CUSTOM TABLINE --
+vim.keymap.set("n", "<leader>tn", ":tabnew<CR>", { desc = "Toggle [t]abs" })
+
+vim.keymap.set("n", "<leader>tt", function()
+	if vim.o.showtabline == 2 then
+		vim.o.showtabline = 0
+	else
+		vim.o.showtabline = 2
+	end
+end, { desc = "Toggle [t]abs" })
+
+vim.keymap.set("n", "]t", ":tabnext<CR>", { desc = "Next tab", silent = true })
+vim.keymap.set("n", "[t", ":tabprevious<CR>", { desc = "Previous tab", silent = true })
+
+vim.api.nvim_set_hl(0, "TabLine", { bg = "NONE", fg = "#666666" }) -- fallback for non-pill content
+vim.api.nvim_set_hl(0, "TabLineFill", { bg = "NONE" }) --             background of unused space
+
+vim.api.nvim_set_hl(0, "TabLinePillActiveLeft", { fg = "#8aadf4", bg = "#1e1e2e" })
+vim.api.nvim_set_hl(0, "TabLinePillActiveText", { fg = "#1e1e2e", bg = "#8aadf4", bold = false })
+vim.api.nvim_set_hl(0, "TabLinePillActiveRight", { fg = "#8aadf4", bg = "#1e1e2e" })
+
+vim.api.nvim_set_hl(0, "TabLinePillInactiveLeft", { fg = "#737994", bg = "#1e1e2e" })
+vim.api.nvim_set_hl(0, "TabLinePillInactiveText", { fg = "#1e1e2e", bg = "#737994" })
+vim.api.nvim_set_hl(0, "TabLinePillInactiveRight", { fg = "#737994", bg = "#1e1e2e" })
+
+vim.o.tabline = "%!v:lua.PillTabline()"
+
+function _G.PillTabline()
+	local s = "%="
+	local tabs = vim.api.nvim_list_tabpages()
+	local current = vim.api.nvim_get_current_tabpage()
+
+	for i, tab in ipairs(tabs) do
+		local is_active = (tab == current)
+
+		local hl_left = is_active and "%#TabLinePillActiveLeft#" or "%#TabLinePillInactiveLeft#"
+		local hl_text = is_active and "%#TabLinePillActiveText#" or "%#TabLinePillInactiveText#"
+		local hl_right = is_active and "%#TabLinePillActiveRight#" or "%#TabLinePillInactiveRight#"
+
+		s = s .. hl_left .. ""
+		s = s .. hl_text .. i
+		s = s .. hl_right .. ""
+		s = s .. "%#None# "
+	end
+	-- s = s .. "%="
+	return s
+end
