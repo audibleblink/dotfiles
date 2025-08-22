@@ -9,6 +9,8 @@ M.base46 = {
 	},
 }
 
+-- require("base46").compile(); require("base46").load_all_highlights()
+
 M.nvdash = {
 	load_on_startup = true,
 	header = {
@@ -52,8 +54,22 @@ M.ui = {
 	statusline = {
 		-- theme = "minimal",
 		separator_style = "round",
-		order = { "_mode", "file", "_rec", "%=", "lsp_msg", "%=", "diagnostics", "lsp", "_rec", "_git", "_cursor" },
+		order = {
+			"_mode",
+			"file",
+			"_rec",
+			"%=",
+			"f",
+			"lsp_msg",
+			"%=",
+			"diagnostics",
+			"lsp",
+			"_rec",
+			"_git",
+			"_cursor",
+		},
 		modules = {
+			f = "%f",
 			_mode = function()
 				if not utils.is_activewin() then
 					return ""

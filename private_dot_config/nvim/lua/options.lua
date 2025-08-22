@@ -32,7 +32,6 @@ o.splitright = true
 o.timeoutlen = 500
 o.undofile = true
 o.mouse = "a"
-o.laststatus = 2
 o.wrap = false
 
 o.clipboard = "unnamedplus"

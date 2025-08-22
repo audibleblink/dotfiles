@@ -74,8 +74,8 @@ function _G.PillTabline()
 		s = s .. hl_left .. ""
 		s = s .. hl_text .. i
 		s = s .. hl_right .. ""
-		s = s .. "%#None# "
+		s = s .. "%#TabLineFill# "
 	end
-	-- s = s .. "%="
+	s = s .. "%="
 	return s
 end
