@@ -11,6 +11,7 @@ $golang\
 $kubernetes\
 $line_break\
 $python\
+$direnv\
 $character"""
 
 right_format = """
@@ -74,3 +75,11 @@ disabled = false
 success_symbol = "[❯❯](bold white)"
 vicmd_symbol = "[❮❮](bold white)"
 error_symbol = "[❯❯](bold red)"
+
+[direnv]
+disabled = false
+symbol = ""
+allowed_msg = " "
+not_allowed_msg = " "
+format = "[$symbol$allowed]($style) "
+style = "bold cyan"
