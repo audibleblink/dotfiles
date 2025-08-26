@@ -97,7 +97,6 @@ vim.api.nvim_create_user_command("GitCommit", function()
 		once = true,
 		callback = function()
 			vim.fn.system("git commit -F " .. vim.fn.expand("%:p"))
-			require("mini.bufremove").delete()
 		end,
 	})
 end, {})
