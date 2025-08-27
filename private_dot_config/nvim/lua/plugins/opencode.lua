@@ -40,14 +40,5 @@ return {
 			desc = "Select prompt",
 			mode = { "n", "v" },
 		},
-		-- Example: keymap for custom prompt
-		{
-			"<leader>oc",
-			function()
-				require("opencode").prompt("without extra info, only output a commitizen message based on @selection")
-			end,
-			desc = "Make a commit message",
-			mode = { "v" },
-		},
 	},
 }
