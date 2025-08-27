@@ -1,7 +1,34 @@
 return {
 	"NickvanDyke/opencode.nvim",
 	---@type opencode.Opts
-	opts = {},
+	opts = {
+		prompt = {
+			commit = {
+				description = "Create a commit message",
+				prompt = "@staged\n\nCreate a commit message for that. Only return the message as it should appear in COMMIT_EDITMSG",
+			},
+		},
+		contexts = {
+			["@staged"] = {
+				description = "Staged Hunks",
+				value = function()
+					local handle = io.popen("git --no-pager diff --cached")
+					if not handle then
+						return nil
+					end
+					local result = handle:read("*a")
+					handle:close()
+					if result and result ~= "" then
+						return result
+					end
+					return nil
+				end,
+			},
+		},
+		input = {
+			prompt = "OC",
+		},
+	},
 	keys = {
 		{
 			"<leader>oa",
