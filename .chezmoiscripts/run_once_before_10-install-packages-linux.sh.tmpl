@@ -5,21 +5,22 @@ set -eufo pipefail
 
 {{- if .arch }}
 pkgs=(
-		tree-sitter-cli
-		zen-broswer-bin
+		acpi
 		atuin
-		starship
-		sof-firmware
+		bc
+		dos2unix
 		dust
 		inxi
-		acpi
-		uv
-		lsof
-		bc
-		tmux
-		dos2unix
-		zstd
 		kmonad-static
+		lsof
+		sof-firmware
+		starship
+		tmux
+		tree-sitter-cli
+		uv
+		zstd
+	gvfs-nfs	
+	zen-broswer-bin
 )
 yay -Sy ${pkgs[@]}
 exit 0
