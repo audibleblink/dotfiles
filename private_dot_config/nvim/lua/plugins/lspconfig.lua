@@ -8,6 +8,7 @@ return {
 
 	config = function()
 		require("mason").setup()
+
 		vim.lsp.enable({
 			"basedpyright",
 			"denols",
@@ -21,6 +22,7 @@ return {
 			"zls",
 		})
 
+		-- Register completion capabilities universally
 		vim.lsp.config("*", {
 			capabilities = require("cmp_nvim_lsp").default_capabilities(),
 		})
@@ -39,7 +41,7 @@ return {
 				settings = {
 					basedpyright = {
 						analysis = {
-							disableOrganizeImports = true, -- address conflict ruff
+							disableOrganizeImports = true, -- address conflict w/ ruff
 							typeCheckingMode = "off", -- ditto
 							diagnosticMode = "workspace",
 							useLibraryCodeForTypes = true,
