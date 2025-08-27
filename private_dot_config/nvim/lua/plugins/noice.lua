@@ -20,10 +20,13 @@ return {
 			cmdline_popup = {
 				size = { min_width = 66 },
 				position = { row = "40%" },
-				border = {
-					style = "none",
-					padding = { 1, 2 },
-				},
+				border = { style = { "", " ", "", " ", "", " ", "", " " } },
+				win_options = { winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder" },
+			},
+
+			cmdline_input = {
+				view = "cmdline_popup",
+				border = { style = { "", " ", "", " ", "", " ", "", " " } },
 				win_options = { winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder" },
 			},
 		},
@@ -36,6 +39,10 @@ return {
 			},
 			{
 				filter = { find = "written" },
+				view = "mini",
+			},
+			{
+				filter = { find = "Successfully applied" },
 				view = "mini",
 			},
 			{

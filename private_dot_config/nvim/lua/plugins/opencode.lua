@@ -2,7 +2,8 @@ return {
 	"NickvanDyke/opencode.nvim",
 	---@type opencode.Opts
 	opts = {
-		prompt = {
+		input = { prompt = "OpenCode" },
+		prompts = {
 			commit = {
 				description = "Create a commit message",
 				prompt = "@staged\n\nCreate a commit message for that. Only return the message as it should appear in COMMIT_EDITMSG",
@@ -24,9 +25,6 @@ return {
 					return nil
 				end,
 			},
-		},
-		input = {
-			prompt = "OC",
 		},
 	},
 	keys = {

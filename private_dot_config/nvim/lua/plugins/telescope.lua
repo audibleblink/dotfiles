@@ -42,7 +42,25 @@ return {
 				i = { ["<esc>"] = require("telescope.actions").close },
 			},
 		},
-		extensions = { themes = {}, "terms", fzf = {}, "ui-select", "chezmoi", "frecency", "file-browser" },
+		extensions = {
+			themes = {},
+			fzf = {},
+			"terms",
+			"ui-select",
+			"chezmoi",
+			"frecency",
+			"file-browser",
+			["ui-select"] = {
+				require("telescope.themes").get_dropdown({
+					layout_config = {
+						anchor = "N",
+						prompt_position = "bottom",
+						width = 0.4,
+						height = 0.25,
+					},
+				}),
+			},
+		},
 	},
 	config = function(_, opts)
 		-- config options
@@ -50,6 +68,7 @@ return {
 		local themes = require("telescope.themes")
 		tt.setup(opts)
 
+		require("telescope").load_extension("ui-select")
 		require("telescope").load_extension("fzf")
 		local map = vim.keymap.set
 		local ts = require("telescope.builtin")
