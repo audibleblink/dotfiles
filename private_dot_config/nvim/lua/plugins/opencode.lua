@@ -42,11 +42,12 @@ return {
 		},
 		-- Example: keymap for custom prompt
 		{
-			"<leader>oe",
+			"<leader>oc",
 			function()
-				require("opencode").prompt("Explain @cursor and its context")
+				require("opencode").prompt("without extra info, only output a commitizen message based on @selection")
 			end,
-			desc = "Explain code near cursor",
+			desc = "Make a commit message",
+			mode = { "v" },
 		},
 	},
 }
