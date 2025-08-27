@@ -2,6 +2,7 @@ local M = {}
 
 M.base46 = {
 	-- transparency = true,
+	integrations = { "markview" },
 	theme = "catppuccin-macchiato",
 	theme_toggle = { "catppuccin-macchiato", "catppuccin-light" },
 	hl_override = {

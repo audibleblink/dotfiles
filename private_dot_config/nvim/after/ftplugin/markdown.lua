@@ -1,4 +1,4 @@
-vim.opt_local.foldlevel = 3
+vim.opt_local.foldlevel = 5
 vim.opt_local.foldmethod = "expr"
 vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
 -- vim.opt_local.linebreak = false
