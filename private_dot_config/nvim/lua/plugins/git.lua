@@ -67,8 +67,21 @@ return {
 					map("n", "<leader>gq", gitsigns.setqflist, { desc = "[Git] Send Hunk to QF" })
 
 					-- Toggles
-					map("n", "<leader>tb", gitsigns.toggle_current_line_blame, { desc = "[Git] Toggle Link Blame" })
-					map("n", "<leader>tw", gitsigns.toggle_word_diff, { desc = "[Git] Toggle Word Diff" })
+					map("n", "<leader>gtb", gitsigns.toggle_current_line_blame, { desc = "[Git] Toggle Link Blame" })
+					map("n", "<leader>gtw", gitsigns.toggle_word_diff, { desc = "[Git] Toggle Word Diff" })
+
+					-- Motion-based hunk staging
+					local function stage_hunk_operator()
+						local start_pos = vim.api.nvim_buf_get_mark(0, "[")
+						local end_pos = vim.api.nvim_buf_get_mark(0, "]")
+						gitsigns.stage_hunk({ start_pos[1], end_pos[1] })
+					end
+
+					map("n", "gs", function()
+						_G._stage_hunk_operator = stage_hunk_operator
+						vim.o.operatorfunc = "v:lua._stage_hunk_operator"
+						return "g@"
+					end, { expr = true, desc = "[Git] Stage hunk with motion" })
 
 					-- Text object
 					map({ "o", "x" }, "ih", gitsigns.select_hunk)
