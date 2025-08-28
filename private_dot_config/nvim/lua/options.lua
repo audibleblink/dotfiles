@@ -2,7 +2,8 @@ local opt = vim.opt
 local g = vim.g
 local o = vim.o
 
--------------------------------------- globals -----------------------------------------
+-------------------------------------- Globals -----------------------------------------
+g.mapleader = " "
 g.toggle_theme_icon = "   "
 g.tmux_navigator_save_on_switch = 2
 
@@ -12,16 +13,12 @@ g["loaded_python3_provider"] = 0
 g["loaded_perl_provider"] = 0
 g["loaded_ruby_provider"] = 0
 
--------------------------------------- options ------------------------------------------
--- disable nvim intro
+-------------------------------------- Options ------------------------------------------
 opt.shortmess:append("sI")
 opt.fillchars = { eob = " " }
 opt.autoread = true
--- go to previous/next line with h,l,left arrow and right arrow
--- when cursor reaches end/beginning of line
 opt.whichwrap:append("<>[]hl")
--- interval for writing swap file to disk, also used by gitsigns/CursorHold
-o.updatetime = 500
+o.updatetime = 500 -- used by gitsigns/CursorHold
 o.laststatus = 3
 o.showmode = false
 o.ignorecase = true
@@ -41,27 +38,23 @@ o.cursorlineopt = "both"
 -- Indenting
 o.smartindent = true
 o.tabstop = 4
--- o.expandtab = true
--- o.shiftwidth = 2
--- o.softtabstop = 2
 
 -- Numbers
 o.number = true
 o.numberwidth = 2
 o.ruler = false
 
--- add binaries installed by mise and mason.nvim to path
-local is_windows = vim.fn.has("win32") ~= 0
-vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin" .. (is_windows and ";" or ":") .. vim.env.PATH
+-- add binaries installed by mise and mason.nvim to PATH
+vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin" .. ":" .. vim.env.PATH
 vim.env.PATH = vim.env.PATH .. ":" .. vim.env.XDG_DATA_HOME .. "/mise/shims"
 
 -- Custom
 opt.swapfile = false
 opt.scrolloff = 5
-opt.colorcolumn = "120"
+opt.colorcolumn = "100"
 opt.guifont = "CodeliaLigatures Nerd Font"
 
--- Create project-specific shada-files for things like marks
+-- Create project-specific shada-files
 opt.shadafile = (function()
 	local data = vim.fn.stdpath("state")
 	local cwd = vim.fn.getcwd()
@@ -73,6 +66,7 @@ opt.shadafile = (function()
 	return file
 end)()
 
+-- Find function for raw-dogging file search
 function Fd(file_pattern, _)
 	-- if first char is * then fuzzy search
 	if file_pattern:sub(1, 1) == "*" then
@@ -81,9 +75,7 @@ function Fd(file_pattern, _)
 	local cmd = 'fd  --color=never --no-ignore --full-path --type file --hidden --exclude=".git" --exclude="deps" "'
 		.. file_pattern
 		.. '"'
-	local result = vim.fn.systemlist(cmd)
-	return result
+	return vim.fn.systemlist(cmd)
 end
-
 vim.opt.findfunc = "v:lua.Fd"
 vim.keymap.set("n", "<C-p>", ":find ", { desc = "raw-dog: Project Files" })
