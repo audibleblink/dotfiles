@@ -24,6 +24,7 @@ tests/*
 .config/aerospace
 .config/sketchybar
 Library/Preferences/com.amethyst.Amethyst.plist
+.config/nvim/lua/plugins/auto-dark.lua
 {{- end }}
 
 {{- if (.ephemeral) }}
