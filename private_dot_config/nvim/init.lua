@@ -15,13 +15,12 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({ import = "plugins" })
--------------------------------------------------------------------------------------
 
--- load theme
---
+-- load base46 theme caches
 dofile(vim.g.base46_cache .. "defaults")
 dofile(vim.g.base46_cache .. "statusline")
 
+-----------------------------------Auto-Commands-------------------------------------
 -- highlight yanked text for 300ms using the "Visual" highlight group
 --
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -102,36 +101,6 @@ vim.api.nvim_create_autocmd("WinEnter", {
 		if vim.bo.buftype == "terminal" then
 			vim.cmd("startinsert")
 		end
-	end,
-})
-
--- Register GitCommit to commit in current buffer
---
-vim.api.nvim_create_user_command("GitCommit", function()
-	-- This causes git to create COMMIT_EDITMSG but not complete the commit
-	vim.fn.system("GIT_EDITOR=true git commit -v")
-	local git_dir = vim.fn.system("git rev-parse --git-dir"):gsub("\n", "")
-	vim.cmd("tabedit! " .. git_dir .. "/COMMIT_EDITMSG")
-
-	vim.api.nvim_create_autocmd("BufWritePost", {
-		desc = "Execute git commit and close buffer",
-		pattern = "COMMIT_EDITMSG",
-		once = true,
-		callback = function()
-			vim.fn.system("git commit -F " .. vim.fn.expand("%:p"))
-		end,
-	})
-end, {})
-
--- Load tree-sitter if we have the type
---
-vim.api.nvim_create_autocmd("FileType", {
-	desc = "Load tree-sitter for supported file types",
-	pattern = _G.treesitter,
-	callback = function()
-		vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-		vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-		vim.treesitter.start()
 	end,
 })
 

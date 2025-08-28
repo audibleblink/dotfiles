@@ -4,19 +4,33 @@ return {
 		"lewis6991/gitsigns.nvim",
 		event = "VeryLazy",
 		config = function()
+			-- Register GitCommit command globally
+			vim.api.nvim_create_user_command("GitCommit", function()
+				-- This causes git to create COMMIT_EDITMSG but not complete the commit
+				vim.fn.system("GIT_EDITOR=true git commit -v")
+				local git_dir = vim.fn.system("git rev-parse --git-dir"):gsub("\n", "")
+				vim.cmd("tabedit! " .. git_dir .. "/COMMIT_EDITMSG")
+
+				vim.api.nvim_create_autocmd("BufWritePost", {
+					desc = "Execute git commit",
+					pattern = "COMMIT_EDITMSG",
+					once = true,
+					callback = function()
+						vim.fn.system("git commit -F " .. vim.fn.expand("%:p"))
+					end,
+				})
+			end, {})
+
 			require("gitsigns").setup({
-				signs = {
-					delete = { text = "󰍵" },
-					changedelete = { text = "󱕖" },
-				},
 				on_attach = function(bufnr)
 					local gitsigns = require("gitsigns")
-
 					local function map(mode, l, r, opts)
 						opts = opts or {}
 						opts.buffer = bufnr
 						vim.keymap.set(mode, l, r, opts)
 					end
+
+					map("n", "<leader>gc", vim.cmd.GitCommit, { desc = "[Git] Commit" })
 
 					-- Navigation
 					map("n", "]g", function()
@@ -36,7 +50,6 @@ return {
 					end, { desc = "[Git] Prev Hunk" })
 
 					-- Actions
-
 					map("v", "<leader>gs", function()
 						gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
 					end, { desc = "[Git] Stage Hunk" })
@@ -66,10 +79,6 @@ return {
 					end, { desc = "[Git] Send All Hunks to QF" })
 					map("n", "<leader>gq", gitsigns.setqflist, { desc = "[Git] Send Hunk to QF" })
 
-					-- Toggles
-					map("n", "<leader>gtb", gitsigns.toggle_current_line_blame, { desc = "[Git] Toggle Link Blame" })
-					map("n", "<leader>gtw", gitsigns.toggle_word_diff, { desc = "[Git] Toggle Word Diff" })
-
 					-- Motion-based hunk staging
 					local function stage_hunk_operator()
 						local start_pos = vim.api.nvim_buf_get_mark(0, "[")
@@ -82,6 +91,10 @@ return {
 						vim.o.operatorfunc = "v:lua._stage_hunk_operator"
 						return "g@"
 					end, { expr = true, desc = "[Git] Stage hunk with motion" })
+
+					-- Toggles
+					map("n", "<leader>gtb", gitsigns.toggle_current_line_blame, { desc = "[Git] Toggle Line Blame" })
+					map("n", "<leader>gtw", gitsigns.toggle_word_diff, { desc = "[Git] Toggle Word Diff" })
 
 					-- Text object
 					map({ "o", "x" }, "ih", gitsigns.select_hunk)

@@ -43,25 +43,11 @@ end, { desc = "Toggle [t]abs" })
 vim.keymap.set("n", "]t", ":tabnext<CR>", { desc = "Next tab", silent = true })
 vim.keymap.set("n", "[t", ":tabprevious<CR>", { desc = "Previous tab", silent = true })
 
--- TODO: use highlight groups
-vim.api.nvim_set_hl(0, "TabLine", { bg = "NONE", fg = "#666666" }) -- fallback for non-pill content
-vim.api.nvim_set_hl(0, "TabLineFill", { bg = "NONE" }) --             background of unused space
-
-vim.api.nvim_set_hl(0, "TabLinePillActiveLeft", { fg = "#8aadf4", bg = "#1e1e2e" })
-vim.api.nvim_set_hl(0, "TabLinePillActiveText", { fg = "#1e1e2e", bg = "#8aadf4", bold = false })
-vim.api.nvim_set_hl(0, "TabLinePillActiveRight", { fg = "#8aadf4", bg = "#1e1e2e" })
-
-vim.api.nvim_set_hl(0, "TabLinePillInactiveLeft", { fg = "#737994", bg = "#1e1e2e" })
-vim.api.nvim_set_hl(0, "TabLinePillInactiveText", { fg = "#1e1e2e", bg = "#737994" })
-vim.api.nvim_set_hl(0, "TabLinePillInactiveRight", { fg = "#737994", bg = "#1e1e2e" })
-
-vim.o.tabline = "%!v:lua.PillTabline()"
-
 function _G.PillTabline()
-	local s = "%="
 	local tabs = vim.api.nvim_list_tabpages()
 	local current = vim.api.nvim_get_current_tabpage()
 
+	local s = "%="
 	for i, tab in ipairs(tabs) do
 		local is_active = (tab == current)
 
@@ -69,14 +55,29 @@ function _G.PillTabline()
 		local hl_text = is_active and "%#TabLinePillActiveText#" or "%#TabLinePillInactiveText#"
 		local hl_right = is_active and "%#TabLinePillActiveRight#" or "%#TabLinePillInactiveRight#"
 
-		s = s .. hl_left .. ""
-		s = s .. hl_text .. i
-		s = s .. hl_right .. ""
+		s = s .. hl_left .. ""
+		s = s .. hl_text .. " " .. i .. " "
+		s = s .. hl_right .. ""
 		s = s .. "%#TabLineFill# "
 	end
 	s = s .. "%="
 	return s
 end
+
+vim.o.tabline = "%!v:lua.PillTabline()"
+
+-- Apply custom tab highlights using base46 colors
+vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
+	callback = function()
+		local colors = require("base46").get_theme_tb("base_30")
+		vim.api.nvim_set_hl(0, "TabLinePillActiveLeft", { fg = colors.blue })
+		vim.api.nvim_set_hl(0, "TabLinePillActiveText", { fg = colors.black, bg = colors.blue, bold = false })
+		vim.api.nvim_set_hl(0, "TabLinePillActiveRight", { fg = colors.blue })
+		vim.api.nvim_set_hl(0, "TabLinePillInactiveLeft", { fg = colors.grey })
+		vim.api.nvim_set_hl(0, "TabLinePillInactiveText", { fg = colors.black, bg = colors.grey })
+		vim.api.nvim_set_hl(0, "TabLinePillInactiveRight", { fg = colors.grey })
+	end,
+})
 
 -------------------------------------- Terminal -----------------------------------------
 -- Terminal mode escape
@@ -101,8 +102,10 @@ local function run_in_terminal(cmd, opts)
 		vim.cmd("vsplit")
 	elseif direction == "hsplit" then
 		vim.cmd("split")
+	elseif direction == "tab" then
+		vim.cmd("tabnew")
 	elseif direction == "float" then
-		-- Implement floating window logic if desired
+		-- TODO floating window logic
 	end
 	local term_buf = vim.api.nvim_create_buf(false, true)
 	vim.api.nvim_win_set_buf(0, term_buf)
@@ -111,15 +114,15 @@ local function run_in_terminal(cmd, opts)
 end
 
 local last_cmd = ""
-map(modes, "<leader>lr", function()
+map(modes, "<leader>tr", function()
 	local cmd = vim.fn.input("Command to run: ", last_cmd)
 	if cmd and cmd ~= "" then
 		last_cmd = cmd
-		run_in_terminal(cmd, { direction = "normal" })
+		run_in_terminal(cmd, { direction = "tab" })
 	end
 end, { desc = "Run user command in terminal" })
 
-map(modes, "<leader>lsv", function()
+map(modes, "<leader>ts", function()
 	local cmd = vim.fn.input("Command to run (vs): ", last_cmd)
 	if cmd and cmd ~= "" then
 		last_cmd = cmd

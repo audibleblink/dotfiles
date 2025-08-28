@@ -1,36 +1,3 @@
--- Global because I use this to enable TS for these types
--- in an autocmd in init.lua
-_G.treesitter = {
-	-- web dev
-	"html",
-	"css",
-	"javascript",
-	"typescript",
-	"tsx",
-	"json",
-	"vue",
-	"svelte",
-
-	-- other
-	"c",
-	"go",
-	"rust",
-	"glsl",
-	"ruby",
-	"typst",
-	"python",
-	"lua",
-	"hcl",
-	"terraform",
-	"markdown",
-	"markdown_inline",
-	"luadoc",
-	"printf",
-	"vim",
-	"vimdoc",
-	"yaml",
-}
-
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -49,14 +16,53 @@ return {
 			},
 		},
 		lazy = false,
-		event = { "BufReadPost", "BufNewFile" },
-		cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
 		branch = "main",
 		build = ":TSUpdate",
-		config = function()
-			local ts = require("nvim-treesitter")
-			ts.setup()
-			ts.install(_G.treesitter)
+		opts = {
+			-- web dev
+			"html",
+			"css",
+			"javascript",
+			"typescript",
+			"tsx",
+			"json",
+			"vue",
+			"svelte",
+
+			-- other
+			"c",
+			"go",
+			"rust",
+			"glsl",
+			"ruby",
+			"typst",
+			"python",
+			"lua",
+			"hcl",
+			"terraform",
+			"markdown",
+			"markdown_inline",
+			"luadoc",
+			"printf",
+			"vim",
+			"vimdoc",
+			"yaml",
+		},
+
+		config = function(_, opts)
+			require("nvim-treesitter").install(opts)
+			require("nvim-treesitter").setup()
+
+			-- Auto load tree-sitter if we have parser
+			vim.api.nvim_create_autocmd("FileType", {
+				desc = "Load tree-sitter for supported file types",
+				pattern = opts,
+				callback = function()
+					vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+					vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+					vim.treesitter.start()
+				end,
+			})
 		end,
 	},
 }
