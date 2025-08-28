@@ -1,10 +1,10 @@
--- General mappings
-
 local map = vim.keymap.set
 
+-------------------------------------- General -----------------------------------------
 map("n", "<leader>gc", vim.cmd.GitCommit, { desc = "Git Commit" })
+map("i", "jk", "<ESC>", { desc = "Escape insert mode" })
 
--- Basic operations
+-- QoL
 map("n", "<CR>", ":", { desc = "CMD enter command mode" })
 map("n", "<leader><Tab>", "<cmd> b# <CR>", { desc = "Previous Buffer" })
 map("n", "<Esc>", "<cmd>noh<CR>", { desc = "General Clear highlights" })
@@ -18,24 +18,19 @@ map("n", "<leader>rn", "<cmd>set rnu!<CR>", { desc = "Toggle Relative number" })
 map("n", "<leader>zi", "<cmd> wincmd | <CR>:wincmd _ <CR>", { desc = "Zoom Pane" })
 map("n", "<leader>zo", "<cmd> wincmd = <CR>", { desc = "Reset Zoom" })
 
--- Text editing
+-- Highlight Searching
 map("n", "c*", "*Ncgn", { desc = "Search and Replace 1x1" })
-map("v", "<C-r>", 'y:%s/<C-r>"//gc<left><left><left>', { desc = "Inster highlight as search string" })
+map("v", "<C-r>", 'y:%s/<C-r>"//gc<left><left><left>', { desc = "Insert highlight as search string" })
 
--- Insert mode navigation
-map("i", "jk", "<ESC>", { desc = "Escape insert mode" })
-map("i", "<C-b>", "<ESC>^i", { desc = "Move Beginning of line" })
-map("i", "<C-e>", "<End>", { desc = "Move End of line" })
-map("i", "<C-h>", "<Left>", { desc = "Move Left" })
-map("i", "<C-l>", "<Right>", { desc = "Move Right" })
-map("i", "<C-j>", "<Down>", { desc = "Move Down" })
-map("i", "<C-k>", "<Up>", { desc = "Move Up" })
+------------------------------------ Brace Match ---------------------------------------
+-- NOTE custom objects config'd in mini.ai plugin
+vim.keymap.set("n", "mm", "%")
+-- Selects until matching pair, ex: `vm`
+vim.keymap.set("x", "m", "%")
+-- Use with operators, ex: `dm` - delete until matching pair
+vim.keymap.set("o", "m", "%")
 
--- Custom navigation (commented out in original)
-map("n", "j", "v:count > 1 ? 'm`' . v:count . 'j' : 'gj'", { expr = true })
-map("n", "k", "v:count > 1 ? 'm`' . v:count . 'k' : 'gk'", { expr = true })
-
--- Custom Tabline --
+-------------------------------------- Tabline -----------------------------------------
 vim.keymap.set("n", "<leader>tn", ":tabnew<CR>", { desc = "Toggle [t]abs" })
 vim.keymap.set("n", "<leader>tt", function()
 	if vim.o.showtabline == 2 then
@@ -48,6 +43,7 @@ end, { desc = "Toggle [t]abs" })
 vim.keymap.set("n", "]t", ":tabnext<CR>", { desc = "Next tab", silent = true })
 vim.keymap.set("n", "[t", ":tabprevious<CR>", { desc = "Previous tab", silent = true })
 
+-- TODO: use highlight groups
 vim.api.nvim_set_hl(0, "TabLine", { bg = "NONE", fg = "#666666" }) -- fallback for non-pill content
 vim.api.nvim_set_hl(0, "TabLineFill", { bg = "NONE" }) --             background of unused space
 
@@ -82,9 +78,22 @@ function _G.PillTabline()
 	return s
 end
 
--- Terminal related mappings
-local modes = { "n", "t" }
+-------------------------------------- Terminal -----------------------------------------
+-- Terminal mode escape
+--
+map("t", "<C-g>", "<C-\\><C-N>", { desc = "Terminal Escape terminal mode" })
 
+-- Terminal Navigation
+local function navigate_from_terminal(direction)
+	return "<C-\\><C-N><C-w>" .. direction
+end
+
+map("t", "<C-h>", navigate_from_terminal("h"))
+map("t", "<C-j>", navigate_from_terminal("j"))
+map("t", "<C-k>", navigate_from_terminal("k"))
+map("t", "<C-l>", navigate_from_terminal("l"))
+
+local modes = { "n", "t" }
 local function run_in_terminal(cmd, opts)
 	opts = opts or {}
 	local direction = opts.direction or "normal"
@@ -117,17 +126,3 @@ map(modes, "<leader>lsv", function()
 		run_in_terminal(cmd, { direction = "vsplit" })
 	end
 end, { desc = "Run user command in vertical split terminal" })
-
--- Terminal mode escape
---
-map("t", "<C-x>", "<C-\\><C-N>", { desc = "Terminal Escape terminal mode" })
-
--- Terminal Navigation
-local function navigate_from_terminal(direction)
-	return "<C-\\><C-N><C-w>" .. direction
-end
-
-map("t", "<C-h>", navigate_from_terminal("h"))
-map("t", "<C-j>", navigate_from_terminal("j"))
-map("t", "<C-k>", navigate_from_terminal("k"))
-map("t", "<C-l>", navigate_from_terminal("l"))

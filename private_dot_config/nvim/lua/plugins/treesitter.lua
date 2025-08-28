@@ -42,7 +42,7 @@ return {
 					dofile(vim.g.base46_cache .. "markview")
 					require("markview").setup({
 						markdown = {
-							headings = presets.arrowed,
+							headings = presets.marker,
 						},
 					})
 				end,

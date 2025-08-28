@@ -2,12 +2,22 @@ return {
 	"echasnovski/mini.nvim",
 	config = function()
 		-- Better Around/Inside textobjects
-		require("mini.ai").setup({ n_lines = 500 })
 		require("mini.align").setup()
 		require("mini.bracketed").setup()
 		require("mini.comment").setup()
 		require("mini.move").setup()
 		require("mini.surround").setup()
+
+		require("mini.ai").setup({
+			n_lines = 500,
+			custom_textobjects = {
+				m = {
+					{ "%b()", "%b[]", "%b{}" },
+					"^.().*().$",
+				},
+			},
+		})
+
 		require("mini.indentscope").setup({
 			symbol = "┃",
 
