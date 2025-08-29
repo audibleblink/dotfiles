@@ -75,14 +75,13 @@
 [rerere]
 	enabled = true
 
-{{ if (eq .chezmoi.os "darwin") }}
 [gpg "ssh"]
-	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
-
-[commit]
 	gpgsign = true
+{{- if (eq .chezmoi.os "darwin") }}
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
 {{ else  }}
 {{ end }}
+[commit]
     verbose = true  # add more context to commit messages
     cleanup = strip
 [filter "lfs"]
