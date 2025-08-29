@@ -31,4 +31,11 @@ return {
 		ft = "typst",
 		version = "1.*",
 	},
+
+	{
+		"i3tab",
+		dir = vim.fn.expand("~/Code/pill-tabline.nvim"), -- with expansion
+		dev = true, -- optional: marks as development plugin
+		opts = {},
+	},
 }

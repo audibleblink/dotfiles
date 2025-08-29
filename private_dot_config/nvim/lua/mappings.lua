@@ -31,52 +31,12 @@ map("x", "m", "%")
 map("o", "m", "%")
 
 -------------------------------------- Tabline -----------------------------------------
-map("n", "<leader>tn", ":tabnew<CR>", { desc = "Toggle [t]abs" })
+map("n", "<leader>tn", ":tabnew<CR>", { desc = "New Tab" })
 map("n", "<leader>tt", function()
-	if vim.o.showtabline == 2 then
-		vim.o.showtabline = 0
-	else
-		vim.o.showtabline = 2
-	end
+	require("i3tab").toggle_tabline()
 end, { desc = "Toggle [t]abs" })
-
 map("n", "]t", ":tabnext<CR>", { desc = "Next tab", silent = true })
 map("n", "[t", ":tabprevious<CR>", { desc = "Previous tab", silent = true })
-
-function _G.PillTabline()
-	local tabs = vim.api.nvim_list_tabpages()
-	local current = vim.api.nvim_get_current_tabpage()
-
-	local s = "%#Normal#%="
-	for i, tab in ipairs(tabs) do
-		local is_active = (tab == current)
-
-		local hl_left = is_active and "%#TabLinePillActiveLeft#" or "%#TabLinePillInactiveLeft#"
-		local hl_text = is_active and "%#TabLinePillActiveText#" or "%#TabLinePillInactiveText#"
-		local hl_right = is_active and "%#TabLinePillActiveRight#" or "%#TabLinePillInactiveRight#"
-
-		s = s .. hl_left .. ""
-		s = s .. hl_text .. "  " .. i .. "  "
-		s = s .. hl_right .. ""
-		s = s .. "%#Normal#"
-	end
-	return s
-end
-
-vim.o.tabline = "%!v:lua.PillTabline()"
-
--- Apply custom tab highlights using nvui.base46 colors
-vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
-	callback = function()
-		local colors = require("base46").get_theme_tb("base_30")
-		vim.api.nvim_set_hl(0, "TabLinePillActiveLeft", { fg = colors.blue })
-		vim.api.nvim_set_hl(0, "TabLinePillActiveText", { fg = colors.black, bg = colors.blue, bold = false })
-		vim.api.nvim_set_hl(0, "TabLinePillActiveRight", { fg = colors.blue })
-		vim.api.nvim_set_hl(0, "TabLinePillInactiveLeft", { fg = colors.grey })
-		vim.api.nvim_set_hl(0, "TabLinePillInactiveText", { fg = colors.black, bg = colors.grey })
-		vim.api.nvim_set_hl(0, "TabLinePillInactiveRight", { fg = colors.grey })
-	end,
-})
 
 -------------------------------------- Terminal -----------------------------------------
 -- Terminal mode escape
