@@ -19,7 +19,7 @@ return {
 		views = {
 			cmdline_popup = {
 				size = { min_width = 66 },
-				position = { row = "40%" },
+				position = { row = "90%" },
 				border = { style = { "", " ", "", " ", "", " ", "", " " } },
 				win_options = { winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder" },
 			},
