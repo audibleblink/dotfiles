@@ -5,13 +5,14 @@ permission:
   bash:
     "git status": "allow"
     "git branch": "allow"
-    "git commit": "allow"
+    "git commit *": "allow"
+    "git diff *": "allow"
     "git diff": "allow"
-    "git log": "allow"
-    "git add": "deny"
-    "git stage": "deny"
-    "git reset": "deny"
-    "git restore": "deny"
+    "git log *": "allow"
+    "git add *": "deny"
+    "git stage *": "deny"
+    "git reset *": "deny"
+    "git restore *": "deny"
 ---
 
 # Creating a git commit
