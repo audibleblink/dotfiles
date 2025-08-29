@@ -24,15 +24,15 @@ map("v", "<C-r>", 'y:%s/<C-r>"//gc<left><left><left>', { desc = "Insert highligh
 
 ------------------------------------ Brace Match ---------------------------------------
 -- NOTE custom objects config'd in mini.ai plugin
-vim.keymap.set("n", "mm", "%")
+map("n", "mm", "%")
 -- Selects until matching pair, ex: `vm`
-vim.keymap.set("x", "m", "%")
+map("x", "m", "%")
 -- Use with operators, ex: `dm` - delete until matching pair
-vim.keymap.set("o", "m", "%")
+map("o", "m", "%")
 
 -------------------------------------- Tabline -----------------------------------------
-vim.keymap.set("n", "<leader>tn", ":tabnew<CR>", { desc = "Toggle [t]abs" })
-vim.keymap.set("n", "<leader>tt", function()
+map("n", "<leader>tn", ":tabnew<CR>", { desc = "Toggle [t]abs" })
+map("n", "<leader>tt", function()
 	if vim.o.showtabline == 2 then
 		vim.o.showtabline = 0
 	else
@@ -40,8 +40,8 @@ vim.keymap.set("n", "<leader>tt", function()
 	end
 end, { desc = "Toggle [t]abs" })
 
-vim.keymap.set("n", "]t", ":tabnext<CR>", { desc = "Next tab", silent = true })
-vim.keymap.set("n", "[t", ":tabprevious<CR>", { desc = "Previous tab", silent = true })
+map("n", "]t", ":tabnext<CR>", { desc = "Next tab", silent = true })
+map("n", "[t", ":tabprevious<CR>", { desc = "Previous tab", silent = true })
 
 function _G.PillTabline()
 	local tabs = vim.api.nvim_list_tabpages()
