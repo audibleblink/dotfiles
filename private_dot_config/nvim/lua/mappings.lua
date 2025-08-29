@@ -47,7 +47,7 @@ function _G.PillTabline()
 	local tabs = vim.api.nvim_list_tabpages()
 	local current = vim.api.nvim_get_current_tabpage()
 
-	local s = "%="
+	local s = "%#Normal#%="
 	for i, tab in ipairs(tabs) do
 		local is_active = (tab == current)
 
@@ -56,17 +56,16 @@ function _G.PillTabline()
 		local hl_right = is_active and "%#TabLinePillActiveRight#" or "%#TabLinePillInactiveRight#"
 
 		s = s .. hl_left .. ""
-		s = s .. hl_text .. " " .. i .. " "
-		s = s .. hl_right .. ""
-		s = s .. "%#TabLineFill# "
+		s = s .. hl_text .. "  " .. i .. "  "
+		s = s .. hl_right .. ""
+		s = s .. "%#Normal#"
 	end
-	s = s .. "%="
 	return s
 end
 
 vim.o.tabline = "%!v:lua.PillTabline()"
 
--- Apply custom tab highlights using base46 colors
+-- Apply custom tab highlights using nvui.base46 colors
 vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
 	callback = function()
 		local colors = require("base46").get_theme_tb("base_30")
