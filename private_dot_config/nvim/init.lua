@@ -17,8 +17,9 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({ import = "plugins" })
 
 -- load base46 theme caches
-dofile(vim.g.base46_cache .. "defaults")
-dofile(vim.g.base46_cache .. "statusline")
+for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
+	dofile(vim.g.base46_cache .. v)
+end
 
 -----------------------------------Auto-Commands-------------------------------------
 -- highlight yanked text for 300ms using the "Visual" highlight group

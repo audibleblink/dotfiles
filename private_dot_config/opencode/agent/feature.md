@@ -1,8 +1,10 @@
 ---
 description: Use this agent for planning bugfixes or feature requests. Outputs multiple options for implmentation.
 model: anthropic/claude-sonnet-4-20250514
+mode: subagent
 tools:
   edit: false
+  serena-*: false
 ---
 
 # Initial asks

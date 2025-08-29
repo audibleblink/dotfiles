@@ -1,5 +1,6 @@
 ---
 name: code-simplifier
+mode: subagent
 description: |
     Use this agent when you need to refactor code to improve readability, reduce complexity, or enhance 
     maintainability without altering functionality. This includes simplifying complex logic, removing 

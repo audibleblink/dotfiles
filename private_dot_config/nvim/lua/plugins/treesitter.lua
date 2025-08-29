@@ -30,6 +30,7 @@ return {
 			"svelte",
 
 			-- other
+			"base",
 			"c",
 			"go",
 			"rust",
@@ -44,6 +45,7 @@ return {
 			"markdown_inline",
 			"luadoc",
 			"printf",
+			"regex",
 			"vim",
 			"vimdoc",
 			"yaml",
