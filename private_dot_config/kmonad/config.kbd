@@ -34,7 +34,6 @@
 
 (defalias
   num (layer-toggle numbers)	;; enable numpad layer
-  ntab (tap-next tab @num)	;; dual-role layer switch
 
   nav (layer-toggle nav)		;; enable arrow layer
   fn  (tap-hold-next-release 200 f @nav)	;; dual-role layer switch
@@ -43,15 +42,17 @@
   spr (tap-hold-next-release 200 \) rsft) ;; spacecadet
 
   ctx (tap-next esc lctrl)	;; dual-role ctrl-esc
+
+  meh (tap-next tab M-@num)	;; dual-role layer switch
   )
 
 (deflayer base
   _    _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _     _   _    _    _    _    _    _    _    _    _    _    _    _
-  @ntab _   _    _    _    _    _    _    _    _    _    _    _    _
+  @meh _   _    _    _    _    _    _    _    _    _    _    _    _
   @ctx  _   _    _   @fn    _    _    _    _    _    _    _         _
   @spl  _   _    _    _    _    _    _    _    _    _            @spr
-  _    _    _    _              _              _    _    _    _    _
+  @num  _   _    _              _              _    _    _    _    _
   _)
 
 (deflayer nav
