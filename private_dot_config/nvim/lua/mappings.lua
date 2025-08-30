@@ -85,3 +85,4 @@ map(modes, "<leader>ts", function()
 		run_in_terminal(cmd, { direction = "vsplit" })
 	end
 end, { desc = "Run user command in vertical split terminal" })
+

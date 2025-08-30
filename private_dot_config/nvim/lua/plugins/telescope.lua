@@ -1,7 +1,6 @@
 return {
 	"nvim-telescope/telescope.nvim",
-	event = "VeryLazy",
-	keys = "<Leader>",
+	cmd = "Telescope",
 	dependencies = {
 		{ "nvim-lua/plenary.nvim" },
 		{ "nvim-telescope/telescope-file-browser.nvim" },
@@ -18,51 +17,52 @@ return {
 			end,
 		},
 	},
-	cmd = "Telescope",
-	opts = {
-		pickers = {
-			buffers = {
-				theme = "ivy",
-			},
-		},
-		defaults = {
-			prompt_prefix = "   ",
-			selection_caret = " ",
-			entry_prefix = " ",
-			sorting_strategy = "ascending",
-			layout_config = {
-				horizontal = {
-					prompt_position = "bottom",
-					preview_width = 0.5,
+	opts = function()
+		return {
+			pickers = {
+				buffers = {
+					theme = "ivy",
 				},
-				width = 0.8,
-				height = 0.7,
 			},
-			mappings = {
-				n = { ["q"] = require("telescope.actions").close },
-				i = { ["<esc>"] = require("telescope.actions").close },
-			},
-		},
-		extensions = {
-			themes = {},
-			fzf = {},
-			"terms",
-			"ui-select",
-			"chezmoi",
-			"frecency",
-			"file-browser",
-			["ui-select"] = {
-				require("telescope.themes").get_dropdown({
-					layout_config = {
-						anchor = "N",
+			defaults = {
+				prompt_prefix = "   ",
+				selection_caret = " ",
+				entry_prefix = " ",
+				sorting_strategy = "ascending",
+				layout_config = {
+					horizontal = {
 						prompt_position = "bottom",
-						width = 0.4,
-						height = 0.25,
+						preview_width = 0.5,
 					},
-				}),
+					width = 0.8,
+					height = 0.7,
+				},
+				mappings = {
+					n = { ["q"] = require("telescope.actions").close },
+					i = { ["<esc>"] = require("telescope.actions").close },
+				},
 			},
-		},
-	},
+			extensions = {
+				themes = {},
+				fzf = {},
+				"terms",
+				"ui-select",
+				"chezmoi",
+				"frecency",
+				"file-browser",
+				["ui-select"] = {
+					require("telescope.themes").get_dropdown({
+						layout_config = {
+							anchor = "N",
+							prompt_position = "bottom",
+							width = 0.4,
+							height = 0.25,
+						},
+					}),
+				},
+			},
+		}
+	end,
 	config = function(_, opts)
 		-- config options
 		local tt = require("telescope")
