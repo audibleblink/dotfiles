@@ -9,7 +9,7 @@ return {
 					dofile(vim.g.base46_cache .. "markview")
 					require("markview").setup({
 						markdown = {
-							headings = presets.marker,
+							headings = presets.simple,
 						},
 					})
 				end,

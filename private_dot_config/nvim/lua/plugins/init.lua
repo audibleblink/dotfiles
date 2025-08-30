@@ -33,9 +33,11 @@ return {
 	},
 
 	{
-		"i3tab",
-		dir = vim.fn.expand("~/Code/pill-tabline.nvim"), -- with expansion
-		dev = true, -- optional: marks as development plugin
-		opts = {},
+		"audibleblink/i3tab.nvim",
+		opts = {
+			separator_style = "dot",
+			theme_integration = { base46 = true },
+			show_numbers = false,
+		},
 	},
 }
