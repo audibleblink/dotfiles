@@ -1,20 +1,19 @@
 return {
 	{
+		"OXY2DEV/markview.nvim",
+		priority = 49,
+		config = function()
+			local presets = require("markview.presets").headings
+			dofile(vim.g.base46_cache .. "markview")
+			require("markview").setup({
+				markdown = {
+					headings = presets.simple,
+				},
+			})
+		end,
+	},
+	{
 		"nvim-treesitter/nvim-treesitter",
-		dependencies = {
-			{ -- not really a dep, but resolves load order issues
-				"OXY2DEV/markview.nvim",
-				config = function()
-					local presets = require("markview.presets").headings
-					dofile(vim.g.base46_cache .. "markview")
-					require("markview").setup({
-						markdown = {
-							headings = presets.simple,
-						},
-					})
-				end,
-			},
-		},
 		lazy = false,
 		branch = "main",
 		build = ":TSUpdate",

@@ -38,6 +38,12 @@ return {
 			separator_style = "dot",
 			theme_integration = { base46 = true },
 			show_numbers = false,
+			-- separators = { blah = { left = "", right = "" } },
+			-- position = "center",
+			-- padding = "",
+			-- spacing = " ",
 		},
+		-- dir = vim.fn.expand("~/code/i3tab.nvim"), -- with expansion
+		-- dev = true, -- optional: marks as development plugin
 	},
 }

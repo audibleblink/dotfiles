@@ -73,6 +73,7 @@ return {
 			["gx"] = "actions.open_external",
 			["g."] = "actions.toggle_hidden",
 			["g\\"] = "actions.toggle_trash",
+			["q"] = "actions.close",
 		},
 		-- Configuration for the floating keymaps help window
 		keymaps_help = {
@@ -107,7 +108,7 @@ return {
 			padding = 2,
 			max_width = 0,
 			max_height = 0,
-			border = "rounded",
+			border = "single",
 			win_options = {
 				winblend = 0,
 			},
