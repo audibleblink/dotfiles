@@ -6,19 +6,19 @@ return {
 	},
 	opts = {
 		window = {
-			backdrop = 0.95, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
+			backdrop = 0.99, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
 			-- height and width can be:
 			-- * an absolute number of cells when > 1
 			-- * a percentage of the width / height of the editor when <= 1
 			-- * a function that returns the width or the height
 			width = function()
-				return math.min(80, vim.o.columns * 0.75)
+				return math.min(100, vim.o.columns * 0.75)
 			end,
 			height = 0.9, -- height of the Zen window
 			-- by default, no options are changed for the Zen window
 			-- uncomment any of the options below, or add other vim.wo options you want to apply
 			options = {
-				signcolumn = "no", -- disable signcolumn
+				signcolumn = "auto:2", -- disable signcolumn
 				number = false, -- disable number column
 				relativenumber = false, -- disable relative numbers
 				cursorline = false, -- disable cursorline
@@ -40,8 +40,8 @@ return {
 				laststatus = 1, -- turn off the statusline in zen mode
 			},
 			twilight = { enabled = true }, -- enable to start Twilight when zen mode opens
-			gitsigns = { enabled = true }, -- disables git signs
-			tmux = { enabled = true }, -- disables the tmux statusline
+			gitsigns = { enabled = false }, -- disables git signs
+			tmux = { enabled = false }, -- disables the tmux statusline
 			-- this will change the font size on kitty when in zen mode
 			-- to make this work, you need to set the following kitty options:
 			-- - allow_remote_control socket-only
@@ -66,9 +66,7 @@ return {
 			},
 		},
 		-- callback where you can add custom code when the Zen window opens
-		on_open = function(win)
-			vim.o.colorcolumn = "0"
-		end,
+		on_open = function() end,
 		-- callback where you can add custom code when the Zen window closes
 		on_close = function() end,
 	},
