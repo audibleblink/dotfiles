@@ -7,7 +7,7 @@ return {
 			dofile(vim.g.base46_cache .. "markview")
 			require("markview").setup({
 				markdown = {
-					headings = presets.simple,
+					headings = presets.slanted,
 				},
 			})
 		end,

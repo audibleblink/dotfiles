@@ -2,15 +2,9 @@ local path = vim.fn.expand("~") .. "/Vaults"
 
 return {
 	"obsidian-nvim/obsidian.nvim",
-	-- enabled = false,
 	lazy = true,
 	version = "*",
-	-- ui = { enable = false },
 	cmd = { "Obsidian" },
-	keys = {
-		-- { "<leader>oo", "<cmd>ObsidianWorkspace<CR>", desc = "Open Obsidian Workspace Picker" },
-		-- { "<leader>on", "<cmd>ObsidianNew<CR>", desc = "New Note (Obsidian)" },
-	},
 	event = {
 		"BufNewFile " .. path .. "/**.md",
 		"BufReadPre " .. path .. "/**.md",
@@ -20,7 +14,11 @@ return {
 	---@type obsidian.config
 	opts = {
 		legacy_commands = false,
-		open_app_foreground = false,
+		open = {
+			func = function(uri)
+				vim.ui.open(uri, { cmd = { "open", "-a", "/Applications/Obsidian.app" } })
+			end,
+		},
 		workspaces = {
 
 			{
@@ -78,46 +76,6 @@ return {
 					},
 				},
 			},
-		},
-
-		mappings = {
-			["<C-c>"] = {
-				action = function()
-					return require("obsidian").util.toggle_checkbox()
-				end,
-				opts = { buffer = true },
-			},
-			["gd"] = {
-				action = "<cmd>ObsidianToday<CR>",
-				opts = { buffer = true },
-			},
-			["gi"] = {
-				action = "<cmd>ObsidianTemplate<CR>",
-				opts = { buffer = true },
-			},
-			["go"] = {
-				action = "<cmd>ObsidianOpen<CR>",
-				opts = { buffer = true },
-			},
-			["<cr>"] = {
-				action = function()
-					return require("obsidian").util.smart_action()
-				end,
-				opts = { buffer = true, expr = true },
-			},
-			["gf"] = {
-				action = function()
-					return require("obsidian").util.gf_passthrough()
-				end,
-				opts = { noremap = false, expr = true, buffer = true },
-			},
-		},
-
-		callbacks = {
-			post_set_workspace = function(client, workspace)
-				client.log.info("Changing directory to %s", workspace.path)
-				vim.cmd.cd(tostring(workspace.path))
-			end,
 		},
 
 		disable_frontmatter = true,
