@@ -7,7 +7,10 @@ return {
 		opts = function()
 			local cmp = require("cmp")
 			return {
-				completion = { completeopt = "menuone,noselect,fuzzy,nosort" },
+				completion = {
+					keyword_length = 3,
+					completeopt = "menuone,noselect,fuzzy,nosort",
+				},
 				snippet = {
 					expand = function(args)
 						require("luasnip").lsp_expand(args.body)
