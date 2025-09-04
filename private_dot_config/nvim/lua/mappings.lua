@@ -9,6 +9,8 @@ map("n", "<CR>", ":", { desc = "CMD enter command mode" })
 map("n", "<leader><Tab>", "<cmd> b# <CR>", { desc = "Previous Buffer" })
 map("n", "<Esc>", "<cmd>noh<CR>", { desc = "General Clear highlights" })
 map("n", "<C-q>", "<cmd>copen<CR>", { desc = "Open QuickFix" })
+map("n", "gh", "0", { desc = "Jump: Start of line" })
+map("n", "gl", "$", { desc = "Jump: End of line" })
 
 -- Line numbers
 map("n", "<leader>n", "<cmd>set nu!<CR>", { desc = "Toggle Line number" })

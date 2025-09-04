@@ -11,7 +11,7 @@ return {
 		},
 		lsp = {
 			signature = { enabled = false },
-			hover = { enabled = false },
+			hover = { enabled = true },
 			message = { enabled = false },
 		},
 		views = {

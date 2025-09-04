@@ -7,8 +7,12 @@ return {
 		opts = function()
 			local cmp = require("cmp")
 			return {
+				experimental = { ghost_text = true },
+				performance = {
+					debounce = 500,
+					max_view_entries = 9,
+				},
 				completion = {
-					keyword_length = 3,
 					completeopt = "menuone,noselect,fuzzy,nosort",
 				},
 				snippet = {
@@ -46,17 +50,14 @@ return {
 				},
 
 				sources = {
-					{ name = "luasnip" },
-					{ name = "nvim_lsp" },
-					{ name = "copilot" },
-					{ name = "buffer" },
-					{ name = "nvim_lua" },
-					{ name = "path" },
+					{ name = "copilot", group_index = 1, priority = 1 },
+					{ name = "nvim_lsp", group_index = 1 },
+					{ name = "nvim_lua", group_index = 1 },
+					{ name = "path", group_index = 1 },
+					{ name = "luasnip", group_index = 1, keyword_length = 2 },
 					{ name = "nvim_lsp_signature_help" },
-					{
-						name = "lazydev",
-						group_index = 0,
-					},
+					-- { name = "lazydev", group_index = 0 },
+					{ name = "buffer", group_index = 2 },
 				},
 			}
 		end,
