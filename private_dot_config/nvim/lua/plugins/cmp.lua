@@ -7,22 +7,22 @@ return {
 		opts = function()
 			local cmp = require("cmp")
 			return {
-				completion = { completeopt = "menu,menuone" },
+				completion = { completeopt = "menuone,noselect,fuzzy,nosort" },
 				snippet = {
 					expand = function(args)
 						require("luasnip").lsp_expand(args.body)
 					end,
 				},
-				preselect = require("cmp").PreselectMode.None,
+				preselect = cmp.PreselectMode.None,
 				mapping = {
-					["<C-Space>"] = require("cmp").mapping.complete(),
-					["<CR>"] = require("cmp").config.disable,
-					["<C-p>"] = require("cmp").mapping.select_prev_item(),
-					["<C-n>"] = require("cmp").mapping.select_next_item(),
-					["<C-d>"] = require("cmp").mapping.scroll_docs(-4),
-					["<C-f>"] = require("cmp").mapping.scroll_docs(4),
-					["<C-e>"] = require("cmp").mapping.close(),
-					["<C-l>"] = require("cmp").mapping.confirm({ select = true }),
+					["<C-Space>"] = cmp.mapping.complete(),
+					["<CR>"] = cmp.config.disable,
+					["<C-p>"] = cmp.mapping.select_prev_item(),
+					["<C-n>"] = cmp.mapping.select_next_item(),
+					["<C-d>"] = cmp.mapping.scroll_docs(-4),
+					["<C-f>"] = cmp.mapping.scroll_docs(4),
+					["<C-e>"] = cmp.mapping.close(),
+					["<C-l>"] = cmp.mapping.confirm({ select = true }),
 
 					["<Tab>"] = cmp.mapping(function(fallback)
 						local status_ok, luasnip = pcall(require, "luasnip")

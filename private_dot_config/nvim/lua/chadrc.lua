@@ -52,6 +52,10 @@ local sep_r = utils.separators["round"]["right"]
 M.ui = {
 	tabufline = { enabled = false },
 	telescope = { style = "borderless" }, -- borderless / bordered
+	cmp = {
+		icons_left = true, -- only for non-atom styles!
+		style = "flat_dark", -- default/flat_light/flat_dark/atom/atom_colored
+	},
 	statusline = {
 		-- theme = "minimal",
 		separator_style = "round",

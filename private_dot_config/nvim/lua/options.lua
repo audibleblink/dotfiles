@@ -50,7 +50,7 @@ vim.env.PATH = vim.env.PATH .. ":" .. vim.env.XDG_DATA_HOME .. "/mise/shims"
 
 -- Custom
 opt.swapfile = false
-opt.scrolloff = 5
+opt.scrolloff = 4
 opt.colorcolumn = "100"
 opt.guifont = "CodeliaLigatures Nerd Font"
 
