@@ -5,9 +5,6 @@ M.base46 = {
 	integrations = { "markview" },
 	theme = "catppuccin-macchiato",
 	theme_toggle = { "catppuccin-macchiato", "catppuccin-light" },
-	hl_override = {
-		St_gitIcons = { fg = "white", bg = "grey", bold = false }, -- hijacked
-	},
 }
 
 -- require("base46").compile(); require("base46").load_all_highlights()
@@ -29,7 +26,7 @@ M.nvdash = {
 		{ txt = "  Recent Files", keys = "r", cmd = "Telescope oldfiles" },
 		{ txt = "󰅩  Open Code Repo", keys = "o", cmd = "Telescope file_browser cwd=~/code" },
 		{ txt = "  Lazy", keys = "l", cmd = "Lazy" },
-		{ txt = "  Dotifiles", keys = "d", cmd = "Telescope chezmoi find_files" },
+		{ txt = "  Dotfiles", keys = "d", cmd = "Telescope chezmoi find_files" },
 		{ txt = "󱞁  Scratch Buffer", keys = "s", cmd = "enew | setlocal buftype=nofile bufhidden=hide noswapfile" },
 		{ txt = "  Quit", keys = "q", cmd = "quit" },
 		{ txt = "─", hl = "NvDashFooter", no_gap = true, rep = true },
@@ -84,8 +81,8 @@ M.ui = {
 				local mode_hi = "%#St_" .. utils.modes[m][2] .. "Mode#"
 				local mode_sep_hi = "%#St_" .. utils.modes[m][2] .. "ModeSep#"
 				local path = vim.uv.cwd() or ""
-				local cwd = mode_sep_hi .. " " .. path:match("([^/]+)$") .. "%#St_EmptySpace#"
-				return mode_hi .. "  " .. mode_sep_hi .. sep_r .. cwd .. sep_r
+				local cwd = "%#MatchWord#" .. " " .. path:match("([^/]+)$") .. "%#St_EmptySpace#"
+				return mode_hi .. " 󰞷 " .. mode_sep_hi .. sep_r .. cwd .. sep_r
 			end,
 
 			_git = function()
