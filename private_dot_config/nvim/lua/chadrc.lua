@@ -80,15 +80,12 @@ M.ui = {
 					return ""
 				end
 
-				local path = vim.uv.cwd() or ""
-				local cwd = path:match("([^/]+)$")
-				cwd = "%#St_gitIcons# " .. cwd
-
-				local modes = utils.modes
 				local m = vim.api.nvim_get_mode().mode
-				local current_mode = "%#St_" .. modes[m][2] .. "Mode#  "
-				local mode_sep1 = "%#St_" .. modes[m][2] .. "ModeSep#" .. sep_r
-				return current_mode .. mode_sep1 .. cwd .. "%#St_EmptySpace#" .. sep_r
+				local mode_hi = "%#St_" .. utils.modes[m][2] .. "Mode#"
+				local mode_sep_hi = "%#St_" .. utils.modes[m][2] .. "ModeSep#"
+				local path = vim.uv.cwd() or ""
+				local cwd = mode_sep_hi .. " " .. path:match("([^/]+)$") .. "%#St_EmptySpace#"
+				return mode_hi .. "  " .. mode_sep_hi .. sep_r .. cwd .. sep_r
 			end,
 
 			_git = function()
