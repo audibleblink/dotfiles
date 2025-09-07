@@ -90,6 +90,12 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 			vim.keymap.set("n", "2", "2G<cr>:ccl<cr>", { buffer = true })
 			vim.keymap.set("n", "3", "3G<cr>:ccl<cr>", { buffer = true })
 			vim.keymap.set("n", "4", "4G<cr>:ccl<cr>", { buffer = true })
+
+			vim.keymap.set("n", "dd", function()
+				local qflist = vim.fn.getqflist()
+				table.remove(qflist, vim.fn.line("."))
+				vim.fn.setqflist(qflist, "r")
+			end, { buffer = true })
 		end
 	end,
 })
