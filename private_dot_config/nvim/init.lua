@@ -84,10 +84,12 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 	group = vim.api.nvim_create_augroup("qf", { clear = true }),
 	callback = function()
 		if vim.bo.buftype == "quickfix" then
-			vim.keymap.set("n", "<c-q>", function()
-				vim.cmd("cclose")
-			end, { buffer = true })
-			vim.keymap.set("n", "<cr>", "<cr>", { buffer = true })
+			vim.keymap.set("n", "<c-q>", ":ccl<cr>", { buffer = true })
+
+			vim.keymap.set("n", "1", "1G<cr>:ccl<cr>", { buffer = true })
+			vim.keymap.set("n", "2", "2G<cr>:ccl<cr>", { buffer = true })
+			vim.keymap.set("n", "3", "3G<cr>:ccl<cr>", { buffer = true })
+			vim.keymap.set("n", "4", "4G<cr>:ccl<cr>", { buffer = true })
 		end
 	end,
 })

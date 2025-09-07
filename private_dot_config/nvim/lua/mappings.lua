@@ -11,7 +11,14 @@ map("n", "<Esc>", "<cmd>noh<CR>", { desc = "General Clear highlights" })
 map("n", "<C-q>", "<cmd>copen<CR>", { desc = "Open QuickFix" })
 map("n", "gh", "0", { desc = "Jump: Start of line" })
 map("n", "gl", "$", { desc = "Jump: End of line" })
-
+map("n", "gca", function()
+	vim.fn.setqflist({ {
+		filename = vim.fn.expand("%"),
+		lnum = 1,
+		col = 1,
+		text = vim.fn.expand("%"),
+	} }, "a")
+end, { desc = "Add current file to QuickFix" })
 -- Line numbers
 map("n", "<leader>n", "<cmd>set nu!<CR>", { desc = "Toggle Line number" })
 map("n", "<leader>rn", "<cmd>set rnu!<CR>", { desc = "Toggle Relative number" })
