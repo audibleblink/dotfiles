@@ -4,6 +4,26 @@
 	"model": "anthropic/claude-sonnet-4-20250514",
 	"autoshare": false,
 	"autoupdate": true,
+	"provider": {
+		"ollama": {
+			"npm": "@ai-sdk/openai-compatible",
+			"name": "Ollama (local)",
+			"options": {
+				"baseURL": "http://localhost:11434/v1"
+			},
+			"models": {
+				"gpt-oss:latest": {
+					"name": "GPT-OSS"
+				},
+				"qwen3:latest": {
+					"name": "Qwen3"
+				},
+				"gemma3n:e4b-it-q8_0": {
+					"name": "Gemma3n"
+				}
+			}
+		}
+	},
 	"mcp": {
 		"context7": {
 			"type": "local",
