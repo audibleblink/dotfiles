@@ -4,12 +4,19 @@ prompt: |
   Use only the available tools; excluded tools must not be used. 
   Prioritize serena's tools for tasks. Avoid reading entire source files unless absolutely necessary—use overview and symbolic search tools first. 
   Only use full file reads as a last resort, after targeted exploration with symbol or pattern search tools.
+
+included_optional_tools:
+  - switch_modes
+  - restart_language_server
+  - get_current_config
+
 excluded_tools:
   - create_text_file
-  - read_file
   - delete_lines
-  - replace_lines
-  - insert_at_line
   - execute_shell_command
   - initial_instructions
+  - insert_at_line
+  - prepare_for_new_conversation
+  - read_file
   - remove_project
+  - replace_lines
