@@ -105,14 +105,11 @@ set-hook -g pane-focus-out 'select-pane -T "#{pane_current_command}"'
 
 # Kill and send panes to another window
 bind x kill-pane
+bind X kill-server
 bind b break-pane -d
 bind a last-window
 
-
-# tmux > 2.1
 set -g mouse on
-bind -n WheelUpPane if-shell -F -t = "#{mouse_any_flag}" "send-keys -M" "if -Ft= '#{pane_in_mode}' 'send-keys -M' 'select-pane -t=; copy-mode -e; send-keys -M'"
-bind -n WheelDownPane select-pane -t= \; send-keys -M
 
 # Use readline key-bindings in the tmux command prompt
 set -g status-keys "emacs"
@@ -132,8 +129,12 @@ bind -T copy-mode-vi 'y' send -X copy-pipe-and-cancel
 bind C-l send-keys 'C-l'
 # ]]]
 # Default Shell [[[
-set-option -g default-terminal "xterm-256color"
-set -g -a terminal-overrides ',*256col*:Tc,*:Ss=\E[%p1%d q:Se=\E[2 q'
+set -g allow-passthrough on
+set -g default-terminal "xterm-ghostty"
+set -g terminal-overrides "*256col*:RGB,*wezterm*:RGB,*ghostty*:RGB"
+set -as terminal-features '*:extkeys'
+set -as terminal-features "*:hyperlinks"
+
 {{ if (eq .chezmoi.os "darwin") }}
 set -s copy-command 'pbcopy'
 set -g default-shell /bin/zsh
@@ -142,6 +143,7 @@ set -s copy-command 'xsel -i'
 set -g default-shell /usr/bin/zsh
 {{ end }}
 {{ if .arch }}
+set -g default-terminal "wezterm"
 set -s copy-command 'wl-copy'
 {{ end }}
 # ]]]
