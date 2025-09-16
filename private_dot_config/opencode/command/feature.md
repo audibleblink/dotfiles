@@ -5,6 +5,7 @@ model: anthropic/claude-sonnet-4-20250514
 ---
 
 # Initial ask
+
 User states they need to create or modify some code
 Use available tools and knowledge of the code to come up with several scenarios
 
@@ -20,4 +21,5 @@ $ARGUMENTS
 - [ ] Answer questions the user may have 
 
 # Finally
- Once the user has selected and option, with possible revisions, create  PRD for the feature and save it to .opencode/<feature>.prd.md
+Once the user has selected an option, with possible revisions, summarize the final decisions as a 
+single line of text so it may be passed to other tools. 
