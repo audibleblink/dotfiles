@@ -1,4 +1,4 @@
-theme = dark:catppuccin-macchiato,light:catppuccin-latte
+theme = dark:catppuccin-macchiato.conf,light:catppuccin-latte.conf
 
 font-size = 16
 font-family             = CodeliaLigatures Nerd Font
