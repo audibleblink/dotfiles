@@ -46,7 +46,9 @@ map("x", "m", "%")
 map("o", "m", "%")
 
 -------------------------------------- Tabline -----------------------------------------
-map("n", "<leader>tt", require("i3tab").toggle_tabline, { desc = "Toggle [t]abs" })
+map("n", "<leader>tt", function()
+	require("i3tab").toggle_tabline()
+end, { desc = "Toggle [t]abs" })
 map("n", "]t", ":tabnext<CR>", { desc = "Next tab", silent = true })
 map("n", "[t", ":tabprevious<CR>", { desc = "Previous tab", silent = true })
 

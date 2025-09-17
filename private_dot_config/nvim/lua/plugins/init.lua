@@ -34,6 +34,7 @@ return {
 
 	{
 		"audibleblink/i3tab.nvim",
+		event = "TabNew",
 		opts = {
 			separator_style = "dot",
 			theme_integration = { base46 = true },

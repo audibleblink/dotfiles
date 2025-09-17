@@ -5,6 +5,13 @@ M.base46 = {
 	integrations = { "markview" },
 	theme = "catppuccin-macchiato",
 	theme_toggle = { "catppuccin-macchiato", "catppuccin-light" },
+	hl_add = {
+		i3tabActiveSym = { fg = "blue", bg = "black" },
+		i3tabActiveText = { fg = "black", bg = "blue" },
+		i3tabInactiveSym = { fg = "grey", bg = "black" },
+		i3tabInactiveText = { fg = "black", bg = "grey" },
+		i3tabPad = { bg = "black" },
+	},
 }
 
 -- require("base46").compile(); require("base46").load_all_highlights()
