@@ -1,6 +1,6 @@
 return {
 	"rcarriga/nvim-notify",
-	event = "VeryLazy",
+	lazy = true,
 	opts = {
 		timeout = 1800,
 		background_colour = "#000000",
