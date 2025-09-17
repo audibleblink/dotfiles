@@ -31,6 +31,12 @@ map("n", "<leader>zo", "<cmd> wincmd = <CR>", { desc = "Reset Zoom" })
 map("n", "c*", "*Ncgn", { desc = "Search and Replace 1x1" })
 map("v", "<C-r>", 'y:%s/<C-r>"//gc<left><left><left>', { desc = "Insert highlight as search string" })
 
+-- Shift + Arrow Keys
+vim.keymap.set("n", "<S-Up>", "<cmd>resize +2<CR>") -- Increase height
+vim.keymap.set("n", "<S-Down>", "<cmd>resize -2<CR>") -- Decrease height
+vim.keymap.set("n", "<S-Right>", "<cmd>vertical resize +5<CR>") -- Increase width
+vim.keymap.set("n", "<S-Left>", "<cmd>vertical resize -5<CR>") -- Decrease width
+
 ------------------------------------ Brace Match ---------------------------------------
 -- NOTE custom objects config'd in mini.ai plugin
 map("n", "mm", "%")
