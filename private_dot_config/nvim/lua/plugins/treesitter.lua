@@ -59,7 +59,6 @@ return {
 				desc = "Load tree-sitter for supported file types",
 				pattern = opts,
 				callback = function()
-					vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 					vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 					vim.treesitter.start()
 				end,

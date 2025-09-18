@@ -18,6 +18,9 @@ opt.shortmess:append("sI")
 opt.fillchars = { eob = " " }
 opt.autoread = true
 opt.whichwrap:append("<>[]hl")
+
+o.foldlevelstart = 99
+o.foldlevel = 99
 o.updatetime = 500 -- used by gitsigns/CursorHold
 o.laststatus = 3
 o.showmode = false
@@ -71,5 +74,5 @@ function Fd(file_pattern, _)
 		.. '"'
 	return vim.fn.systemlist(cmd)
 end
-vim.opt.findfunc = "v:lua.Fd"
+opt.findfunc = "v:lua.Fd"
 vim.keymap.set("n", "<C-p>", ":find ", { desc = "raw-dog: Project Files" })
