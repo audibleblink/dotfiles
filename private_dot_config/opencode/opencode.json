@@ -49,18 +49,29 @@
 			"enabled": false
 		}
 	},
+	"tools": {
+		"serena*": false,
+		"context7*": false
+	},
 	"keybinds": {
 		"leader": "ctrl+b",
-		"input_newline": "<leader>enter,shift+enter,ctrl+j",
+		"input_newline": "<leader>enter,shift+enter",
 		"messages_half_page_down": "ctrl+d",
 		"messages_half_page_up": "ctrl+u",
 		"messages_copy": "<leader>y"
 	},
 	"permission": {
 		"bash": {
-			"cat": "allow",
-			"find": "allow",
-			"head": "allow"
+			"git *": "ask",
+			"*": "allow"
+		}
+	},
+	"lsp": {
+		"pyright": {
+			"command": ["basedpyright"]
+		},
+		"typescript": {
+			"command": ["deno"]
 		}
 	}
 }
