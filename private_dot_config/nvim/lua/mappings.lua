@@ -7,7 +7,6 @@ map("i", "jk", "<ESC>", { desc = "Escape insert mode" })
 -- QoL
 map("n", "<CR>", ":", { desc = "CMD enter command mode" })
 map("n", "<leader><Tab>", "<cmd> b# <CR>", { desc = "Previous Buffer" })
-map("n", "<Esc>", "<cmd>noh<CR>", { desc = "General Clear highlights" })
 map("n", "<C-q>", "<cmd>copen<CR>", { desc = "Open QuickFix" })
 map("n", "gh", "0", { desc = "Jump: Start of line" })
 map("n", "gl", "$", { desc = "Jump: End of line" })
@@ -19,6 +18,8 @@ map("n", "gca", function()
 		text = vim.fn.expand("%"),
 	} }, "a")
 end, { desc = "Add current file to QuickFix" })
+map("n", "J", "mzJ`z", { desc = "Join w/o cursor moving" })
+
 -- Line numbers
 map("n", "<leader>n", "<cmd>set nu!<CR>", { desc = "Toggle Line number" })
 map("n", "<leader>rn", "<cmd>set rnu!<CR>", { desc = "Toggle Relative number" })
@@ -102,3 +103,16 @@ map(modes, "<leader>ts", function()
 		run_in_terminal(cmd, { direction = "vsplit" })
 	end
 end, { desc = "Run user command in vertical split terminal" })
+
+vim.keymap.set("n", "n", "nzzzv:set cursorcolumn hlsearch<CR>")
+vim.keymap.set("n", "N", "Nzzzv:set cursorcolumn hlsearch<CR>")
+
+vim.on_key(function(char)
+	if vim.fn.mode() == "n" then
+		local new_hlsearch = vim.tbl_contains({ "<CR>", "*", "#", "?", "/" }, vim.fn.keytrans(char))
+		if vim.opt.hlsearch ~= new_hlsearch then
+			vim.opt.hlsearch = new_hlsearch
+			vim.opt.cursorcolumn = false
+		end
+	end
+end, vim.api.nvim_create_namespace("auto_hlsearch"))

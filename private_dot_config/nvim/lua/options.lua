@@ -35,14 +35,9 @@ o.clipboard = "unnamedplus"
 o.cursorline = true
 o.cursorlineopt = "both"
 
--- Indenting
-o.smartindent = true
-o.tabstop = 4
-
 -- Numbers
 o.number = true
 o.numberwidth = 2
-o.ruler = false
 
 -- add binaries installed by mise and mason.nvim to PATH
 vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin" .. ":" .. vim.env.PATH
@@ -56,14 +51,13 @@ opt.guifont = "CodeliaLigatures Nerd Font"
 
 -- Create project-specific shada-files
 opt.shadafile = (function()
-	local data = vim.fn.stdpath("state")
-	local cwd = vim.fn.getcwd()
-	cwd = vim.fs.root(0, ".git") or cwd
-
-	local cwd_b64 = vim.base64.encode(cwd)
-	local file = vim.fs.joinpath(data, "_shada", cwd_b64)
-	vim.fn.mkdir(vim.fs.dirname(file), "p")
-	return file
+	local git_root = vim.fs.root(0, ".git")
+	if not git_root then
+		return
+	end
+	local shadafile = vim.fs.joinpath(vim.fn.stdpath("state"), "_shada", vim.base64.encode(git_root))
+	vim.fn.mkdir(vim.fs.dirname(shadafile), "p")
+	return shadafile
 end)()
 
 -- Find function for raw-dogging file search
