@@ -1,3 +1,5 @@
+local map = vim.keymap.set
+
 return {
 	"nvim-telescope/telescope.nvim",
 	cmd = "Telescope",
@@ -38,11 +40,20 @@ return {
 				},
 			},
 			extensions = {
-				themes = {},
-				fzf = {},
+				"themes",
 				"chezmoi",
-				"frecency",
 				"file-browser",
+				"fzf",
+
+				---@module 'frecency'
+				---@type FrecencyOpts
+				frecency = {
+					hide_current_buffer = true,
+					matcher = "fuzzy",
+					show_unindexed = false,
+					default_workspace = "CWD",
+					-- path_display = { "shorten" },
+				},
 				["ui-select"] = {
 					require("telescope.themes").get_dropdown({
 						layout_config = {
@@ -58,12 +69,10 @@ return {
 	end,
 	config = function(_, opts)
 		-- config options
-		local tt = require("telescope")
 		local themes = require("telescope.themes")
-		tt.setup(opts)
-
-		local map = vim.keymap.set
 		local ts = require("telescope.builtin")
+		local tt = require("telescope")
+		tt.setup(opts)
 
 		-- File navigation
 		map("n", "<leader>fa", function()

@@ -49,6 +49,7 @@ map("o", "m", "%")
 -------------------------------------- Tabline -----------------------------------------
 map("n", "<leader>tt", function()
 	require("i3tab").toggle_tabline()
+	require("base46").load_all_highlights()
 end, { desc = "Toggle [t]abs" })
 map("n", "]t", ":tabnext<CR>", { desc = "Next tab", silent = true })
 map("n", "[t", ":tabprevious<CR>", { desc = "Previous tab", silent = true })
