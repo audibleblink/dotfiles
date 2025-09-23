@@ -32,12 +32,25 @@ map("n", "<leader>zo", "<cmd> wincmd = <CR>", { desc = "Reset Zoom" })
 map("n", "c*", "*Ncgn", { desc = "Search and Replace 1x1" })
 map("v", "<C-r>", 'y:%s/<C-r>"//gc<left><left><left>', { desc = "Insert highlight as search string" })
 
--- Shift + Arrow Keys
-vim.keymap.set("n", "<S-Up>", "<cmd>resize +2<CR>") -- Increase height
-vim.keymap.set("n", "<S-Down>", "<cmd>resize -2<CR>") -- Decrease height
-vim.keymap.set("n", "<S-Right>", "<cmd>vertical resize +5<CR>") -- Increase width
-vim.keymap.set("n", "<S-Left>", "<cmd>vertical resize -5<CR>") -- Decrease width
+-- Resize w/ Shift + Arrow Keys
+map("n", "<S-Up>", "<cmd>resize +2<CR>") -- Increase height
+map("n", "<S-Down>", "<cmd>resize -2<CR>") -- Decrease height
+map("n", "<S-Right>", "<cmd>vertical resize +5<CR>") -- Increase width
+map("n", "<S-Left>", "<cmd>vertical resize -5<CR>") -- Decrease width
 
+-- Smart highlight cancelling
+map("n", "n", "nzzzv:set cursorcolumn hlsearch<CR>")
+map("n", "N", "Nzzzv:set cursorcolumn hlsearch<CR>")
+
+vim.on_key(function(char)
+	if vim.fn.mode() == "n" then
+		local new_hlsearch = vim.tbl_contains({ "<CR>", "*", "#", "?", "/" }, vim.fn.keytrans(char))
+		if vim.opt.hlsearch ~= new_hlsearch then
+			vim.opt.hlsearch = new_hlsearch
+			vim.opt.cursorcolumn = false
+		end
+	end
+end, vim.api.nvim_create_namespace("auto_hlsearch"))
 ------------------------------------ Brace Match ---------------------------------------
 -- NOTE custom objects config'd in mini.ai plugin
 map("n", "mm", "%")
@@ -47,12 +60,12 @@ map("x", "m", "%")
 map("o", "m", "%")
 
 -------------------------------------- Tabline -----------------------------------------
-map("n", "<leader>tt", function()
-	require("i3tab").toggle_tabline()
-	require("base46").load_all_highlights()
-end, { desc = "Toggle [t]abs" })
 map("n", "]t", ":tabnext<CR>", { desc = "Next tab", silent = true })
 map("n", "[t", ":tabprevious<CR>", { desc = "Previous tab", silent = true })
+
+map("n", "<leader>tt", function()
+	require("i3tab").toggle_tabline()
+end, { desc = "Toggle [t]abs" })
 
 -------------------------------------- Terminal -----------------------------------------
 -- Terminal mode escape
@@ -104,16 +117,3 @@ map(modes, "<leader>ts", function()
 		run_in_terminal(cmd, { direction = "vsplit" })
 	end
 end, { desc = "Run user command in vertical split terminal" })
-
-vim.keymap.set("n", "n", "nzzzv:set cursorcolumn hlsearch<CR>")
-vim.keymap.set("n", "N", "Nzzzv:set cursorcolumn hlsearch<CR>")
-
-vim.on_key(function(char)
-	if vim.fn.mode() == "n" then
-		local new_hlsearch = vim.tbl_contains({ "<CR>", "*", "#", "?", "/" }, vim.fn.keytrans(char))
-		if vim.opt.hlsearch ~= new_hlsearch then
-			vim.opt.hlsearch = new_hlsearch
-			vim.opt.cursorcolumn = false
-		end
-	end
-end, vim.api.nvim_create_namespace("auto_hlsearch"))
