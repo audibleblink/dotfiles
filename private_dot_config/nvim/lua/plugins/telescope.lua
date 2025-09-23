@@ -6,7 +6,6 @@ return {
 		{ "nvim-lua/plenary.nvim" },
 		{ "nvim-telescope/telescope-file-browser.nvim" },
 		{ "nvim-telescope/telescope-frecency.nvim" },
-		{ "nvim-treesitter/nvim-treesitter" },
 		{ "nvim-telescope/telescope-ui-select.nvim" },
 		{ "nvim-tree/nvim-web-devicons" },
 		{ "xvzc/chezmoi.nvim", cmd = { "ChezmoiEdit", "ChezmoiList" } },
@@ -20,11 +19,6 @@ return {
 	},
 	opts = function()
 		return {
-			pickers = {
-				buffers = {
-					theme = "ivy",
-				},
-			},
 			defaults = {
 				prompt_prefix = "   ",
 				selection_caret = " ",
@@ -46,8 +40,6 @@ return {
 			extensions = {
 				themes = {},
 				fzf = {},
-				"terms",
-				"ui-select",
 				"chezmoi",
 				"frecency",
 				"file-browser",
@@ -70,8 +62,6 @@ return {
 		local themes = require("telescope.themes")
 		tt.setup(opts)
 
-		require("telescope").load_extension("ui-select")
-		require("telescope").load_extension("fzf")
 		local map = vim.keymap.set
 		local ts = require("telescope.builtin")
 
