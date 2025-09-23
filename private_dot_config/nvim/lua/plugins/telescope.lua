@@ -51,7 +51,8 @@ return {
 					hide_current_buffer = true,
 					matcher = "fuzzy",
 					show_unindexed = false,
-					default_workspace = "CWD",
+					default_workspace = "LSP",
+					enable_prompt_mappings = true,
 					-- path_display = { "shorten" },
 				},
 				["ui-select"] = {
