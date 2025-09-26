@@ -13,7 +13,7 @@ return {
 					max_view_entries = 9,
 				},
 				completion = {
-					completeopt = "menuone,noselect,fuzzy,nosort",
+					completeopt = "menuone,fuzzy,nosort",
 				},
 				snippet = {
 					expand = function(args)
