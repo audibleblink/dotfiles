@@ -1,7 +1,7 @@
 return {
 	"olimorris/codecompanion.nvim",
 	keys = {
-		{ "<Leader>a", ":CodeCompanionChat Toggle<CR>", desc = "Toggle CopilotChat" },
+		{ "<Leader>a", ":CodeCompanionChat Toggle<CR>", desc = "Toggle CodeCompanion" },
 	},
 	dependencies = {
 		"nvim-lua/plenary.nvim",
@@ -20,11 +20,17 @@ return {
 					})
 				end,
 			},
+
 			http = {
+				anthropic = "anthropic",
+				azure_openai = "azure_openai",
+				copilot = "copilot",
 				opts = {
-					-- allow_insecure = true,
-					-- show_defaults = false,
-					-- proxy = "socks5://127.0.0.1:9999",
+					allow_insecure = false,
+					show_defaults = false,
+					show_model_choices = true,
+					proxy = nil,
+					-- proto://host:port
 				},
 			},
 		},
@@ -32,10 +38,15 @@ return {
 		strategies = {
 			chat = {
 				adapter = "claude_code",
-				opts = { completion_provider = "cmp" },
-				-- model = "claude-sonnet-4-20250514",
+				model = "claude-sonnet-4-5-20250929",
+				roles = {
+					llm = function(adapter)
+						return "Agent (" .. adapter.formatted_name .. ")"
+					end,
+					user = vim.loop.os_get_passwd().username,
+				},
 			},
-		}, -- NOTE: The log_level is in `opts.opts`
+		},
 
 		opts = {
 			log_level = "DEBUG", -- or "TRACE"
