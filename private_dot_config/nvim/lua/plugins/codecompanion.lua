@@ -1,5 +1,8 @@
 return {
 	"olimorris/codecompanion.nvim",
+	keys = {
+		{ "<Leader>a", ":CodeCompanionChat Toggle<CR>", desc = "Toggle CopilotChat" },
+	},
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"nvim-treesitter/nvim-treesitter",
