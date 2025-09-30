@@ -10,7 +10,7 @@ return {
 				experimental = { ghost_text = true },
 				performance = {
 					debounce = 500,
-					max_view_entries = 9,
+					max_view_entries = 12,
 				},
 				completion = {
 					completeopt = "menuone,fuzzy,nosort",
