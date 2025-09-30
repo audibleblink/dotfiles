@@ -108,6 +108,36 @@ return {
 		opts = {
 			log_level = "DEBUG", -- or "TRACE"
 		},
+
+		prompt_library = {
+			["commit"] = {
+				strategy = "chat",
+				description = "Create a detailed commit",
+				opts = {
+					index = 11,
+					is_slash_cmd = true,
+					auto_submit = true,
+					short_name = "commit",
+				},
+				context = {
+					{
+						type = "file",
+						path = { ".git/COMMIT_EDITMSG" },
+					},
+				},
+				prompts = {
+					{
+						role = "user",
+						content = [[ 
+						  Write a commit message for these changes. 
+						  Keep the title under 72 characters. 
+						  -- Bullet points should be indented by 2 spaces and wrapped at 80 characters.
+						  -- Append 2 newlines at the end of the commit message
+						]],
+					},
+				},
+			},
+		},
 	},
 
 	config = function(_, opts)
