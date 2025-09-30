@@ -59,6 +59,7 @@ return {
 					require("telescope.themes").get_dropdown({
 						layout_config = {
 							anchor = "N",
+							anchor_padding = 5,
 							prompt_position = "bottom",
 							width = 0.4,
 							height = 0.25,
@@ -68,12 +69,16 @@ return {
 			},
 		}
 	end,
+
 	config = function(_, opts)
 		-- config options
 		local themes = require("telescope.themes")
 		local ts = require("telescope.builtin")
 		local tt = require("telescope")
 		tt.setup(opts)
+
+		tt.load_extension("ui-select")
+		tt.load_extension("fzf")
 
 		-- File navigation
 		map("n", "<leader>fa", function()
