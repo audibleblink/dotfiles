@@ -7,7 +7,10 @@ return {
 			dofile(vim.g.base46_cache .. "markview")
 			require("markview").setup({
 				markdown = {
-					headings = presets.slanted,
+					headings = presets.simple,
+				},
+				preview = {
+					filetypes = { "codecompanion", "typst", "markdown" },
 				},
 			})
 		end,
