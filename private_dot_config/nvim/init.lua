@@ -122,14 +122,4 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 	end,
 })
 
--- Load i3tab when new tab is created
---
-vim.api.nvim_create_autocmd({ "TabNewEntered" }, {
-	once = true,
-	callback = function()
-		require("i3tab")
-		require("base46").load_all_highlights()
-	end,
-})
-
 require("mappings")

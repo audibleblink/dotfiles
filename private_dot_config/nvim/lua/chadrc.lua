@@ -75,6 +75,7 @@ M.ui = {
 			"lsp",
 			"_rec",
 			"_git",
+			"_cc",
 			"_cursor",
 		},
 		modules = {
@@ -106,6 +107,19 @@ M.ui = {
 			_rec = function()
 				local rec = vim.fn.reg_recording()
 				return rec ~= "" and "%#St_cwd_sep#" .. " 󰑋 " .. rec .. " " or ""
+			end,
+
+			_cc = function()
+				if not utils.is_activewin() then
+					return ""
+				end
+
+				local bufnr = vim.api.nvim_get_current_buf()
+				if vim.bo[bufnr].filetype == "codecompanion" then
+					return "%#St_cwd_text#" .. "codecompanion "
+				else
+					return ""
+				end
 			end,
 		},
 	},
