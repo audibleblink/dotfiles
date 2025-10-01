@@ -15,3 +15,5 @@ Create well-formatted commits with the conventional commits style.
 **Current branch** !`git branch --show-current`
 
 **Recent commit format** !`git log --oneline -10`
+
+COMMIT_EDITMSG location: ${ARGUMENTS}
