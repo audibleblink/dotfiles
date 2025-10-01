@@ -33,8 +33,9 @@ return {
 					allow_insecure = false,
 					show_defaults = false,
 					show_model_choices = true,
-					proxy = nil,
+					cache_models_for = 3600,
 					-- proto://host:port
+					proxy = nil,
 				},
 			},
 		},
@@ -110,24 +111,22 @@ return {
 		},
 
 		prompt_library = {
-			["commit"] = {
-				strategy = "chat",
+			["myCommit"] = {
+				strategy = "inline",
 				adapter = "copilot",
-				-- model = "claude-sonnet-4-5-20250929",
+				model = "claude-sonnet-4",
 				description = "Create a detailed commit",
 				opts = {
-					index = 11,
+					placement = "replace",
 					is_slash_cmd = true,
-					is_default = true,
-					auto_submit = false,
-					short_name = "commit",
+					auto_submit = true,
+					short_name = "myCommit",
+					lines = vim.api.nvim_buf_get_lines(0, 0, -1, false),
+					-- pre_hook = function()
+					-- 	vim.api.nvim_feedkeys("ggVG", "n", false)
+					-- 	return vim.api.nvim_get_current_buf()
+					-- end,
 				},
-				-- context = {
-				-- 	{
-				-- 		type = "file",
-				-- 		path = { ".git/COMMIT_EDITMSG" },
-				-- 	},
-				-- },
 				prompts = {
 					{
 						role = "system",
@@ -135,17 +134,19 @@ return {
 					},
 					{
 						role = "user",
-						content = [[ 
-Insert a commit message for these changes. 
+						content = function(context)
+							return [[ 
+<prompt>
+#{buffer}
+#buffer
+
+Replace the buffer/file with a commit message for these changes. 
 Keep the title under 72 characters. 
 - Bullet points should be indented by 2 spaces and wrapped at 80 characters.
 - Append 2 newlines at the end of the commit message
-
-
-Find neovim data about the current state below:
-#{buffer:COMMIT_EDITMSG}
-@{files}
-						]],
+</prompt>
+]]
+						end,
 					},
 				},
 			},
