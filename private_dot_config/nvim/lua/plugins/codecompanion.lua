@@ -1,7 +1,8 @@
 return {
 	"olimorris/codecompanion.nvim",
 	keys = {
-		{ "<Leader>a", ":CodeCompanionChat Toggle<CR>", desc = "Toggle CodeCompanion" },
+		{ "<Leader>ai", ":CodeCompanionChat Toggle<CR>", desc = "Toggle CodeCompanion" },
+		{ "<Leader>ax", ":CodeCompanionActions<CR>", desc = "CodeCompanion Actions" },
 	},
 	dependencies = {
 		"nvim-lua/plenary.nvim",
