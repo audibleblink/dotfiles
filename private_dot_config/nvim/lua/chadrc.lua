@@ -119,10 +119,13 @@ M.ui = {
 				if not utils.is_activewin() then
 					return ""
 				end
-
 				local bufnr = vim.api.nvim_get_current_buf()
 				if vim.bo[bufnr].filetype == "codecompanion" then
-					return "%#St_cwd_text#" .. "codecompanion "
+					local info = _G.codecompanion_chat_metadata[bufnr].adapter.name
+						.. "/"
+						.. _G.codecompanion_chat_metadata[bufnr].adapter.model
+
+					return "%#St_cwd_text#" .. info .. " "
 				else
 					return ""
 				end
