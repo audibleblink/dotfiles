@@ -1,12 +1,17 @@
 return {
 	"NickvanDyke/opencode.nvim",
+
+	config = function(_, opts)
+		vim.g.opencode_opts = opts
+	end,
+
 	---@type opencode.Opts
 	opts = {
 		input = { prompt = "OpenCode" },
 		prompts = {
 			commit = {
 				description = "Create a commit message",
-				prompt = "@staged\n\nCreate a commit message for that. Only return the message as it should appear in COMMIT_EDITMSG",
+				prompt = "/commit\n\nChange it here: @buffer",
 			},
 		},
 		contexts = {
@@ -60,7 +65,7 @@ return {
 		{
 			"<leader>op",
 			function()
-				require("opencode").select_prompt()
+				require("opencode").select()
 			end,
 			desc = "Select prompt",
 			mode = { "n", "v" },
