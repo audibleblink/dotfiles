@@ -57,11 +57,13 @@ return {
 				},
 				["ui-select"] = {
 					require("telescope.themes").get_dropdown({
+						layout_strategy = "vertical",
 						layout_config = {
 							anchor = "N",
+							anchor_padding = 5,
 							prompt_position = "bottom",
 							width = 0.4,
-							height = 0.25,
+							height = 0.3,
 						},
 					}),
 				},
