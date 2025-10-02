@@ -43,8 +43,8 @@ o.number = true
 o.numberwidth = 2
 
 -- add binaries installed by mise and mason.nvim to PATH
-vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin" .. ":" .. vim.env.PATH
 vim.env.PATH = vim.env.PATH .. ":" .. vim.env.XDG_DATA_HOME .. "/mise/shims"
+vim.env.PATH = vim.env.PATH .. ":" .. vim.fn.stdpath("data") .. "/mason/bin"
 
 -- Custom
 opt.swapfile = false

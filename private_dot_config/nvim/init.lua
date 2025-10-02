@@ -14,7 +14,15 @@ if not vim.loop.fs_stat(lazypath) then
 	})
 end
 vim.opt.rtp:prepend(lazypath)
-require("lazy").setup({ import = "plugins" })
+require("lazy").setup({
+	import = "plugins",
+	-- Disable LuaRocks support
+	pkg = { enabled = false },
+	rocks = {
+		hererocks = false,
+		enabled = false,
+	},
+})
 
 -- load base46 theme caches
 for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
