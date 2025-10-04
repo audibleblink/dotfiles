@@ -8,6 +8,7 @@ $git_state\
 $git_status\
 $fill\
 $golang\
+${custom.htb}\
 $kubernetes\
 $line_break\
 $python\
@@ -79,7 +80,12 @@ error_symbol = "[❯❯](bold red)"
 [direnv]
 disabled = false
 symbol = ""
-allowed_msg = " "
+allowed_msg = "󱞞 "
 not_allowed_msg = " "
-format = "[$symbol$allowed]($style) "
+format = "[$symbol$allowed]($style)"
 style = "bold cyan"
+
+[custom.htb]
+symbol = "[󰆧](bold blue) "
+when = '[[ -v BOX ]]'
+command = 'echo $BOXHOST $BOX'
