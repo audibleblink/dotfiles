@@ -5,6 +5,12 @@ M.base46 = {
 	theme = "catppuccin-macchiato",
 	theme_toggle = { "catppuccin-macchiato", "catppuccin-light" },
 	hl_add = {
+		RenderMarkdownH1Bg = { fg = "blue" },
+		RenderMarkdownH2Bg = { fg = "cyan" },
+		RenderMarkdownH3Bg = { fg = "green" },
+		RenderMarkdownH4Bg = { fg = "yellow" },
+		RenderMarkdownH5Bg = { fg = "orange" },
+		RenderMarkdownH6Bg = { fg = "red" },
 		i3tabActiveSym = { fg = "blue", bg = "black" },
 		i3tabActiveText = { fg = "black", bg = "blue" },
 		i3tabInactiveSym = { fg = "grey", bg = "black" },
