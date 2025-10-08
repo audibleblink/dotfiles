@@ -11,7 +11,7 @@ return {
 		prompts = {
 			commit = {
 				description = "Create a commit message",
-				prompt = "/commit Change it here: @buffer",
+				prompt = "/commit @buffer",
 			},
 		},
 		contexts = {
