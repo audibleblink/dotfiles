@@ -121,6 +121,6 @@ return {
 		"theHamsta/nvim-dap-virtual-text",
 		-- Add new nvim/dap providers here
 		"leoluz/nvim-dap-go",
-		"mfussenegger/nvim-dap-python",
+		{ "mfussenegger/nvim-dap-python", lazy = true },
 	},
 }
