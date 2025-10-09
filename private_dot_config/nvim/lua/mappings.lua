@@ -5,12 +5,16 @@ map("n", "<leader>gc", vim.cmd.GitCommit, { desc = "Git Commit" })
 map("i", "jk", "<ESC>", { desc = "Escape insert mode" })
 
 -- QoL
+map("n", "J", "mzJ`z", { desc = "Join w/o cursor moving" })
 map("n", "<CR>", ":", { desc = "CMD enter command mode" })
 map("n", "<leader><Tab>", "<cmd> b# <CR>", { desc = "Previous Buffer" })
-map("n", "<C-q>", "<cmd>copen<CR>", { desc = "Open QuickFix" })
 map("n", "gh", "0", { desc = "Jump: Start of line" })
 map("n", "gl", "$", { desc = "Jump: End of line" })
-map("n", "gca", function()
+
+map("n", "q", "", { desc = "Unassing q key" })
+map("n", "\\", "q", { desc = "Macros" })
+map("n", "qo", "<cmd>copen<CR>", { desc = "Open QuickFix" })
+map("n", "qa", function()
 	vim.fn.setqflist({ {
 		filename = vim.fn.expand("%"),
 		lnum = 1,
@@ -18,7 +22,6 @@ map("n", "gca", function()
 		text = vim.fn.expand("%"),
 	} }, "a")
 end, { desc = "Add current file to QuickFix" })
-map("n", "J", "mzJ`z", { desc = "Join w/o cursor moving" })
 
 -- Line numbers
 map("n", "<leader>n", "<cmd>set nu!<CR>", { desc = "Toggle Line number" })
