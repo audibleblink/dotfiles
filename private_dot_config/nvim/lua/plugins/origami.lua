@@ -1,6 +1,6 @@
 return {
 	"chrisgrieser/nvim-origami",
-	event = "VeryLazy",
+	keys = { "zc" },
 	opts = {
 		useLspFoldsWithTreesitterFallback = true,
 		pauseFoldsOnSearch = true,
@@ -8,7 +8,7 @@ return {
 			enabled = true,
 			padding = 3,
 			lineCount = {
-				template = "%d lines", -- `%d` is replaced with the number of folded lines
+				template = "-- %d lines", -- `%d` is replaced with the number of folded lines
 				hlgroup = "Comment",
 			},
 			diagnosticsCount = true, -- uses hlgroups and icons from `vim.diagnostic.config().signs`
