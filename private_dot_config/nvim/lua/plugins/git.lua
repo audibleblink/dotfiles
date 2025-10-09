@@ -96,7 +96,8 @@ return {
 				map("n", "<leader>gtw", gitsigns.toggle_word_diff, { desc = "[Git] Toggle Word Diff" })
 
 				-- Text object
-				map({ "o", "x" }, "ih", gitsigns.select_hunk)
+				map({ "o", "x" }, "ih", gitsigns.select_hunk, { desc = "[Git] Hunk" })
+				map("n", "gss", "gsih", { desc = "[Git] Stage Hunk", remap = true })
 			end,
 		})
 	end,
