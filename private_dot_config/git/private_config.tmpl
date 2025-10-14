@@ -7,18 +7,18 @@
 [advice]
 	pushNonFastForward = false
 	statusHints = false
-    addEmptyPathspec = false
+	addEmptyPathspec = false
 
 [blame]
-    coloring = highlightRecent
-    date = relative
+	coloring = highlightRecent
+	date = relative
 
 [core]
 	excludesfile = ~/.config/git/ignore
 	whitespace = trailing-space,space-before-tab
-    compression = 9  # trade cpu for network
-    fsync = none
-    preloadindex = true  # preload index for faster status
+	compression = 9  # trade cpu for network
+	fsync = none
+	preloadindex = true  # preload index for faster status
 
 [merge]
 	conflictStyle = zdiff3
@@ -33,7 +33,7 @@
 	algorithm = histogram
 	renamelimit = 8192
 	renames = copies
-    context = 2  # less context in diffs
+	context = 2  # less context in diffs
 
 [github]
 	user = audibleblink
@@ -41,18 +41,14 @@
 [http]
 	postBuffer = 52428800
 
-[gpg]
-	program = /usr/local/bin/gpg2
-	format = ssh
-
 [push]
-    autoSetupRemote = true  # easier to push new branches
-    default = current  # push only current branch by default
-    followTags = true  # push also tags
+	autoSetupRemote = true  # easier to push new branches
+	default = current  # push only current branch by default
+	followTags = true  # push also tags
 
 [pull]
-    rebase = true
-    default = current
+	rebase = true
+	default = current
 
 [rebase]
 	autostash = true
@@ -62,9 +58,9 @@
 
 [status]
 	submoduleSummary = true
-    short = true
-    showStash = true
-    showUntrackedFiles = all  # show individual untracked files
+	short = true
+	showStash = true
+	showUntrackedFiles = all  # show individual untracked files
 
 [include]
 	path = ~/.config/git/instead
@@ -75,15 +71,19 @@
 [rerere]
 	enabled = true
 
+[gpg]
+	format = ssh
+
 [gpg "ssh"]
 	gpgsign = true
+	allowedSignersFile = ~/.config/git/allowedSigners
 {{- if (eq .chezmoi.os "darwin") }}
 	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
 {{ else  }}
 {{ end }}
 [commit]
-    verbose = true  # add more context to commit messages
-    cleanup = strip
+	verbose = true  # add more context to commit messages
+	cleanup = strip
 [filter "lfs"]
 	process = git-lfs filter-process
 	required = true
