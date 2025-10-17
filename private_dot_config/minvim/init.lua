@@ -22,6 +22,7 @@ vim.pack.add({
 	{ src = "https://github.com/folke/snacks.nvim" },
 	{ src = "https://github.com/folke/sidekick.nvim" },
 	{ src = "https://github.com/folke/trouble.nvim" },
+	{ src = "https://github.com/jiaoshijie/undotree" },
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 	{ src = "https://github.com/linrongbin16/lsp-progress.nvim" },
 	{ src = "https://github.com/mason-org/mason-lspconfig.nvim" },
@@ -657,6 +658,11 @@ require("snacks").setup({
 					desc = "Neovim Configs",
 					action = ":ChezmoiEdit ~/.config/minvim/init.lua",
 				},
+				{
+					icon = " ",
+					key = "d",
+					desc = "Dotfiles",
+					action = ":lua Snacks.dashboard.pick('files', {cwd = '~/.local/share/chezmoi'})",
 				},
 				{
 					icon = " ",
@@ -983,6 +989,7 @@ vim.cmd.colorscheme("catppuccin-macchiato")
 --- }}} End Options
 
 --- KeyMaps {{{
+---
 vim.keymap.set("i", "<C-s>", "<cmd>w<cr>", { desc = "Join w/o cursor moving" })
 vim.keymap.set("i", "jk", "<ESC>", { desc = "Escape insert mode" })
 vim.keymap.set("n", "<leader>rr", ":update<CR> :source<CR>", { desc = "Source current file" })
@@ -1006,6 +1013,9 @@ vim.keymap.set("n", "qa", function()
 		text = vim.fn.expand("%"),
 	} }, "a")
 end, { desc = "Add current file to QuickFix" })
+vim.keymap.set("n", "<leader>cm", function()
+	Snacks.dashboard.pick("files", { cwd = "~/.local/share/chezmoi" })
+end, { desc = "Source current file" })
 
 --- Line numbers
 vim.keymap.set("n", "<leader>n", "<cmd>set nu!<CR>", { desc = "Toggle Line number" })
@@ -1284,7 +1294,7 @@ vim.api.nvim_create_user_command("Commit", function()
 	vim.api.nvim_create_autocmd("BufWritePost", {
 		desc = "Execute git commit",
 		pattern = "COMMIT_EDITMSG",
-		group = vim.api.nvim_create_augroup("gitcommit", nil),
+		group = vim.api.nvim_create_augroup("gitcommit", { clear = true }),
 		once = true,
 		callback = function()
 			vim.fn.system("git commit -F " .. vim.fn.expand("%:p"))
