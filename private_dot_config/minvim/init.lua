@@ -10,6 +10,7 @@ vim.pack.add({
 	-- Deps and Extensions
 	{ src = "https://github.com/MunifTanjim/nui.nvim" },
 	{ src = "https://github.com/nvzone/volt" },
+	{ src = "https://github.com/nvim-lua/plenary.nvim" },
 	-- Core
 	{ src = "https://github.com/audibleblink/i3tab.nvim" },
 	{ src = "https://github.com/audibleblink/floaterm" },
@@ -35,7 +36,7 @@ vim.pack.add({
 	{ src = "https://github.com/stevearc/conform.nvim" },
 	{ src = "https://github.com/stevearc/oil.nvim" },
 	{ src = "https://github.com/nvim-lualine/lualine.nvim" },
-	{ src = "https://github.com/jiaoshijie/undotree" },
+	{ src = "https://github.com/xvzc/chezmoi.nvim" },
 }, { load = true, confirm = false })
 
 --- }}} End: Plugin Declaration
@@ -130,6 +131,10 @@ require("blink.cmp").setup({
 		preset = "mini_snippets",
 	},
 })
+--- }}}
+
+--- chezmoi.nvim {{{
+require("chezmoi").setup({ edit = { watch = true } })
 --- }}}
 
 --- conform.nvim {{{
@@ -649,8 +654,9 @@ require("snacks").setup({
 				{
 					icon = " ",
 					key = "c",
-					desc = "Config",
-					action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
+					desc = "Neovim Configs",
+					action = ":ChezmoiEdit ~/.config/minvim/init.lua",
+				},
 				},
 				{
 					icon = " ",
@@ -1053,6 +1059,19 @@ vim.keymap.set("t", "<C-l>", navigate_from_terminal("l"))
 --- }}}
 
 --- AutoCommands {{{
+--  e.g. ~/.local/share/chezmoi/*
+--
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = { os.getenv("HOME") .. "/.local/share/chezmoi/*" },
+	callback = function(ev)
+		local bufnr = ev.buf
+		local edit_watch = function()
+			require("chezmoi.commands.__edit").watch(bufnr)
+		end
+		vim.schedule(edit_watch)
+	end,
+})
+
 -- listen lsp-progress event and refresh lualine
 --
 vim.api.nvim_create_autocmd("User", {
