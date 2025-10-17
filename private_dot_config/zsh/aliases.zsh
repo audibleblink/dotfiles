@@ -13,6 +13,7 @@ alias ll='ls -lh'
 alias ls='ls -FGh'
 alias lsa='ls -lah'
 alias cd='unset stacklevel; cd'
+alias clear='clear -x'
 
 # ]]]
 # Kubernetes [[[
