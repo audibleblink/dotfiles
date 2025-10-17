@@ -9,6 +9,7 @@
       "src": "https://github.com/saghen/blink.cmp",
       "version": "1.7.0 - 1.8.0"
     },
+    "chezmoi.nvim": [],
     "conform.nvim": {
       "rev": "fbcb4fa",
       "src": "https://github.com/stevearc/conform.nvim"
@@ -86,6 +87,10 @@
     "oil.nvim": {
       "rev": "7194872",
       "src": "https://github.com/stevearc/oil.nvim"
+    },
+    "plenary.nvim": {
+      "rev": "b9fd522",
+      "src": "https://github.com/nvim-lua/plenary.nvim"
     },
     "render-markdown.nvim": {
       "rev": "475d3ad",
