@@ -678,7 +678,6 @@ require("snacks").setup({
   ░▀▀▀▀░░▀▀░░▀░░▒▀░▀▀▀░▀▀▀]],
 			keys = {
 				{ icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-				{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
 				{ icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
 				{ icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
 				{
@@ -694,11 +693,12 @@ require("snacks").setup({
 					action = ":lua Snacks.dashboard.pick('files', {cwd = '~/.local/share/chezmoi'})",
 				},
 				{
-					icon = " ",
+					icon = " ",
 					key = "s",
 					desc = "Scratch Buffer",
 					action = ":enew | setlocal buftype=nofile bufhidden=hide noswapfile",
 				},
+				{ icon = "󰚰 ", key = "u", desc = "Update Plugins", action = ":lua vim.pack.update()" },
 				{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
 			},
 			-- Used by the `header` section
