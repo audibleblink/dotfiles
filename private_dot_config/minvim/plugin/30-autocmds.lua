@@ -76,6 +76,7 @@ vim.api.nvim_create_autocmd("FileType", {
 --
 vim.api.nvim_create_autocmd("LspAttach", {
 	desc = "Run after LSP attaches",
+	once = true,
 	group = vim.api.nvim_create_augroup("myLSP", { clear = true }),
 	callback = function()
 		vim.highlight.priorities.semantic_tokens = 95 -- just below Treesitter
@@ -212,18 +213,8 @@ vim.api.nvim_create_autocmd({ "TermOpen", "BufEnter" }, {
 --
 vim.api.nvim_create_user_command("Commit", function()
 	-- This causes git to create COMMIT_EDITMSG but not complete the commit
-	local result = vim.fn.system("GIT_EDITOR=true git commit -v")
-	if vim.v.shell_error ~= 0 then
-		vim.notify("Git commit failed: " .. result, vim.log.levels.ERROR)
-		return
-	end
-
+	vim.fn.system("GIT_EDITOR=true git commit -v")
 	local git_dir = vim.fn.system("git rev-parse --git-dir"):gsub("\n", "")
-	if vim.v.shell_error ~= 0 then
-		vim.notify("Not in a git repository", vim.log.levels.ERROR)
-		return
-	end
-
 	vim.cmd("tabedit! " .. git_dir .. "/COMMIT_EDITMSG")
 
 	--- Autocmd to complete the git commit when the message file is saved
@@ -234,12 +225,7 @@ vim.api.nvim_create_user_command("Commit", function()
 		group = vim.api.nvim_create_augroup("gitcommit", { clear = true }),
 		once = true,
 		callback = function()
-			local commit_result = vim.fn.system("git commit -F " .. vim.fn.expand("%:p"))
-			if vim.v.shell_error ~= 0 then
-				vim.notify("Git commit failed: " .. commit_result, vim.log.levels.ERROR)
-			else
-				vim.notify("Commit successful", vim.log.levels.INFO)
-			end
+			vim.fn.system("git commit -F " .. vim.fn.expand("%:p"))
 		end,
 	})
 end, {})
