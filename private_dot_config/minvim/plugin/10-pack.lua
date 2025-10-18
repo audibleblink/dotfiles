@@ -257,7 +257,7 @@ require("gitsigns").setup({
 			gitsigns.blame_line({ full = true })
 		end, { desc = "[Git] Blame Hunk" })
 
-		map("n", "<leader>ghD", function()
+		map("n", "ghD", function()
 			gitsigns.diffthis("~")
 		end, { desc = "[Git] Diff This" })
 
@@ -274,8 +274,8 @@ require("gitsigns").setup({
 		end
 
 		-- Toggles
-		map("n", "<leader>ghtb", gitsigns.toggle_current_line_blame, { desc = "[Git] Toggle Line Blame" })
-		map("n", "<leader>ghtw", gitsigns.toggle_word_diff, { desc = "[Git] Toggle Word Diff" })
+		map("n", "ghtb", gitsigns.toggle_current_line_blame, { desc = "[Git] Toggle Line Blame" })
+		map("n", "ghtw", gitsigns.toggle_word_diff, { desc = "[Git] Toggle Word Diff" })
 
 		map("n", "gs", function()
 			_G._stage_hunk_operator = stage_hunk_operator
