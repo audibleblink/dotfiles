@@ -69,9 +69,22 @@ autoload -U compinit  # Load the completion system
 compinit  # Initialize completion system and create cache
 # ]]]
 
-# starship is installed and hasn't been run
-(( $+functions[starship_zle-keymap-select] )) || {
-  (( $+commands[starship] )) && eval "$(starship init zsh)"
-}
+# tool:func_to_check:'command_to_eval'
+local -a tools=(
+  starship:starship_zle-keymap-select:'starship init zsh'
+  mise:_mise:'mise activate'
+  tv:_tv:'tv init zsh'
+  direnv:_direnv_hook:'direnv hook zsh'
+)
+
+# check tool install but has not been eval'd
+# eval if so
+for tool in $tools; do
+  local cmd=${tool%%:*}
+  local func=${${tool#*:}%%:*}
+  local init=${tool##*:}
+  (( $+commands[$cmd] && ! $+functions[$func] )) && eval "$($=init)"
+done
+
 
 [ -f ~/.zshrc_local ] && source ~/.zshrc_local
