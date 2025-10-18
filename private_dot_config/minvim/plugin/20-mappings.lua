@@ -12,6 +12,15 @@ vim.keymap.set("n", "<leader><Tab>", "<cmd> b# <CR>", { desc = "Previous Buffer"
 vim.keymap.set("n", "<left>", "0", { desc = "Jump: Start of line" })
 vim.keymap.set("n", "<right>", "$", { desc = "Jump: End of line" })
 
+vim.keymap.set("n", "gp", 'o<esc>"+p', { desc = "Paste below" })
+vim.keymap.set("n", "gP", 'O<esc>"+p', { desc = "Paste above" })
+vim.keymap.set("x", "gp", '"+p', { desc = "Paste overwrite" })
+vim.keymap.set("x", "p", "pgvy", { desc = "Paste without clobber" })
+
+vim.keymap.set("n", "gy", '"+Y', { desc = "Paste below" })
+vim.keymap.set("n", "gY", '"+yy', { desc = "Paste below" })
+vim.keymap.set("x", "gy", '"+y', { desc = "Paste overwrite" })
+
 vim.keymap.set("n", "q", "", { desc = "Unassing q key" })
 vim.keymap.set("n", "\\", "q", { desc = "Macros" })
 vim.keymap.set("n", "qo", "<cmd>copen<CR>", { desc = "Open QuickFix" })
