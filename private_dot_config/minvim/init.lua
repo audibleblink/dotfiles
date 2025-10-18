@@ -455,6 +455,19 @@ vim.keymap.set("n", "-", function()
 	require("mini.files").open(vim.api.nvim_buf_get_name(0), false)
 end, { desc = "MiniFiles: Open" })
 
+vim.api.nvim_create_autocmd("User", {
+	desc = "TCD into dir",
+	pattern = "MiniFilesBufferCreate",
+	callback = function(event)
+		local buf_id = event.data.buf_id
+		vim.keymap.set("n", "<C-d>", function()
+			local cur_directory = vim.fs.dirname(MiniFiles.get_fs_entry().path)
+			vim.cmd.tcd(cur_directory)
+			vim.notify("TCD: " .. cur_directory, vim.log.levels.INFO)
+		end, { buffer = buf_id })
+	end,
+})
+
 require("mini.hipatterns").setup({
 	highlighters = {
 		fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
@@ -724,6 +737,9 @@ end, { desc = "Snacks: Plugins" })
 vim.keymap.set("n", "<leader>fpa", function()
 	Snacks.picker.grep({ dirs = { vim.fn.stdpath("data") .. "/site/pack/core/opt" } })
 end, { desc = "Snacks: Grep Plugins" })
+vim.keymap.set("n", "<C-c>", function()
+	Snacks.picker.cliphist()
+end, { desc = "Snacks: Clipboard History" })
 vim.keymap.set("n", "<leader><Space>", Snacks.picker.resume, { desc = "Snacks: Resume" })
 vim.keymap.set("n", "<leader>fh", Snacks.picker.help, { desc = "Snacks: Help" })
 vim.keymap.set({ "n", "x" }, "ghx", require("snacks").gitbrowse.open, { desc = "[Git] Open in web" })
