@@ -69,7 +69,7 @@ require("blink.cmp").setup({
 		},
 		menu = {
 			border = "solid",
-			scrollbar = false,
+			scrollbar = true,
 			auto_show = true,
 			draw = {
 				treesitter = { "lsp" },
@@ -660,6 +660,24 @@ end, { desc = "Sidekick: Next Edit", expr = true })
 ---- snacks.setup {{{
 require("snacks").setup({
 	picker = {
+		layout = {
+			layout = {
+				box = "horizontal",
+				backdrop = 30,
+				width = 0.8,
+				height = 0.6,
+				border = "solid",
+				title = "{title} {live} {flags}",
+				title_pos = "center",
+
+				{
+					box = "vertical",
+					{ win = "list", border = "solid" },
+					{ win = "input", height = 1, border = "hpad" },
+				},
+				{ win = "preview", title = "{preview}", width = 0.6, border = "solid" },
+			},
+		},
 		sources = {
 			explorer = {
 				jump = { close = true },
@@ -667,6 +685,7 @@ require("snacks").setup({
 			},
 		},
 	},
+
 	dashboard = {
 		preset = {
 			header = [[
@@ -701,30 +720,32 @@ require("snacks").setup({
 				{ icon = "󰚰 ", key = "u", desc = "Update Plugins", action = ":lua vim.pack.update()" },
 				{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
 			},
-			-- Used by the `header` section
 		},
 		sections = {
 			{ section = "header" },
 			{ section = "keys", gap = 1, padding = 1 },
-			-- { section = "startup" },
 		},
 	},
-	explorer = { enabled = true },
+
 	input = { enabled = true },
+
 	notifier = { enabled = true },
+
 	quickfile = { enabled = true },
+
 	scroll = {
 		animate = {
 			-- duration = { step = 50, total = 500 },
 			easing = "outSine",
 		},
 	},
+
 	statuscolumn = {
 		left = { "sign" },
 		right = { "git", "mark" },
 	},
+
 	zen = { enabled = true },
-	-- bufdelete = { enabled = true },
 })
 ---}}}
 
