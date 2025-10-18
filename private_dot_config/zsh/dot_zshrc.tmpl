@@ -1,4 +1,4 @@
-# vim: ft=zsh foldmarker=[[[,]]] foldlevelstart=0 foldmethod=marker 
+# vim: ft=zsh foldmarker=[[[,]]] foldlevelstart=1 foldmethod=marker 
 # zmodload zsh/zprof
 
 # Navigation [[[
@@ -20,6 +20,7 @@ zstyle ':completion:*:complete:(cd|pushd):*' tag-order 'local-directories named-
 export cdpath=( . ${XDG_CONFIG_HOME} ${HOME}/.local ${HOME} )
 
 # ]]]
+
 # History [[[
 export HISTFILE="${XDG_STATE_HOME}/zsh_history"
 setopt append_history
@@ -33,6 +34,7 @@ setopt share_history # share command history data
 HISTSIZE=100000
 SAVEHIST=100000
 # ]]]
+
 # Functions and Aliases [[[
 {{- if (eq .chezmoi.os "darwin")}}
 eval "$(brew shellenv)"
@@ -49,6 +51,7 @@ fpath=($ZDOTDIR/{completions,functions/**(N/)} $fpath)
 # (N.:t) - nullglob, basename only, return nothing if no match
 autoload -Uz $ZDOTDIR/functions/**(N.:t)
 # ]]]
+
 # Plugins [[[
 {{- if (.personal) }}
 lazy no-op
@@ -58,15 +61,20 @@ lazy atuin
 # plugins added to stack are loaded in reverse order
 lazy zsh-syntax-highlighting
 lazy autopair 
-plug zsh-vi-mode
+lazy zsh-vi-mode
 lazy substring-search
 # Load key bindings via zsh-defer for better startup performance
 zsh-defer bindings
 # ]]]
-# Compinit [[[
 
-autoload -U compinit  # Load the completion system
-compinit  # Initialize completion system and create cache
+# Compinit [[[
+# Rebuild cache every 2 hours
+autoload -U compinit
+if [[ -n ~/.config/zsh/.zcompdump(#qNmh+2) ]]; then
+		compinit                                                            
+else
+		compinit -C                                                         
+fi
 # ]]]
 
 # tool:func_to_check:'command_to_eval'
@@ -74,17 +82,15 @@ local -a tools=(
   starship:starship_zle-keymap-select:'starship init zsh'
   mise:_mise:'mise activate'
   tv:_tv:'tv init zsh'
-  direnv:_direnv_hook:'direnv hook zsh'
+  # direnv:_direnv_hook:'direnv hook zsh'
 )
 
-# check tool install but has not been eval'd
-# eval if so
+# init tool if installed unless init'd
 for tool in $tools; do
   local cmd=${tool%%:*}
   local func=${${tool#*:}%%:*}
   local init=${tool##*:}
   (( $+commands[$cmd] && ! $+functions[$func] )) && eval "$($=init)"
 done
-
 
 [ -f ~/.zshrc_local ] && source ~/.zshrc_local
