@@ -4,7 +4,6 @@
 vim.keymap.set("i", "<C-s>", "<cmd>w<cr>", { desc = "Join w/o cursor moving" })
 vim.keymap.set("i", "jk", "<ESC>", { desc = "Escape insert mode" })
 vim.keymap.set("n", "<leader>rr", ":update<CR> :source<CR>", { desc = "Source current file" })
-vim.keymap.set("n", "<cr>", ":")
 
 --- QoL
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Join w/o cursor moving" })

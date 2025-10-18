@@ -4,8 +4,6 @@
 -- Plugin Init and Config {{{
 
 --- Plugin Declaration {{{
-vim.g.mapleader = " " -- ensure leader is set so subsequent mappings use it
-vim.cmd.packadd("nohlsearch")
 vim.pack.add({
 	-- Deps and Extensions
 	{ src = "https://github.com/MunifTanjim/nui.nvim" },
@@ -35,12 +33,10 @@ vim.pack.add({
 	{ src = "https://github.com/rafamadriz/friendly-snippets" },
 	{ src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.7") },
 	{ src = "https://github.com/stevearc/conform.nvim" },
-	{ src = "https://github.com/stevearc/oil.nvim" },
 	{ src = "https://github.com/nvim-lualine/lualine.nvim" },
 	{ src = "https://github.com/xvzc/chezmoi.nvim" },
 }, { load = true, confirm = false })
 
-vim.cmd.colorscheme("catppuccin-macchiato")
 --- }}} End: Plugin Declaration
 
 --- auto-dark-mode {{{
@@ -152,7 +148,7 @@ require("conform").setup({
 	},
 	format_on_save = {
 		-- These options will be passed to conform.format()
-		timeout_ms = 500,
+		timeout_ms = 2000,
 		lsp_format = "fallback",
 	},
 })
@@ -181,6 +177,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 		})
 	end,
 })
+vim.cmd.colorscheme("catppuccin-macchiato")
 --- }}}
 
 --- floaterm {{{
@@ -260,9 +257,9 @@ require("gitsigns").setup({
 			gitsigns.blame_line({ full = true })
 		end, { desc = "[Git] Blame Hunk" })
 
-		-- map("n", "<leader>gD", function()
-		-- 	gitsigns.diffthis("~")
-		-- end, { desc = "[Git] Diff This" })
+		map("n", "<leader>ghD", function()
+			gitsigns.diffthis("~")
+		end, { desc = "[Git] Diff This" })
 
 		map("n", "ghQ", function()
 			gitsigns.setqflist("all")
@@ -325,7 +322,7 @@ require("lualine").setup({
 		globalstatus = true,
 
 		refresh = {
-			statusline = 33,
+			statusline = 100,
 			refresh_time = 33, -- ~60fps
 		},
 	},
@@ -375,7 +372,7 @@ require("lualine").setup({
 	tabline = {},
 	winbar = {},
 	inactive_winbar = {},
-	extensions = { "quickfix", "mason", "oil", "trouble" },
+	extensions = { "quickfix", "mason", "trouble" },
 })
 --- }}}
 
@@ -508,12 +505,9 @@ require("mini.indentscope").setup({
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = "*",
+	pattern = { "help", "terminal" },
 	callback = function()
-		local disabled = { "help", "terminal" }
-		if disabled[vim.bo.filetype] ~= nil or vim.bo.buftype ~= "" then
-			vim.b.miniindentscope_disable = true
-		end
+		vim.b.miniindentscope_disable = true
 	end,
 })
 
@@ -703,7 +697,7 @@ require("snacks").setup({
 					icon = " ",
 					key = "c",
 					desc = "Neovim Configs",
-					action = ":ChezmoiEdit ~/.config/minvim/init.lua",
+					action = ":ChezmoiEdit " .. vim.fn.stdpath("config") .. "/init.lua",
 				},
 				{
 					icon = " ",
@@ -822,7 +816,53 @@ local ts_lang = {
 	"yaml",
 }
 require("nvim-treesitter").install(ts_lang)
-require("nvim-treesitter").setup()
+-- require("nvim-treesitter").setup()
+require("nvim-treesitter-textobjects").setup()
+-- require("nvim-treesitter.configs").setup({
+-- 	textobjects = {
+-- 		select = {
+-- 			enable = true,
+--
+-- 			-- Automatically jump forward to textobj, similar to targets.vim
+-- 			lookahead = true,
+--
+-- 			keymaps = {
+-- 				-- You can use the capture groups defined in textobjects.scm
+-- 				["af"] = "@function.outer",
+-- 				["if"] = "@function.inner",
+-- 				["ac"] = "@class.outer",
+-- 				-- You can optionally set descriptions to the mappings (used in the desc parameter of
+-- 				-- nvim_buf_set_keymap) which plugins like which-key display
+-- 				["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+-- 				-- You can also use captures from other query groups like `locals.scm`
+-- 				["as"] = { query = "@local.scope", query_group = "locals", desc = "Select language scope" },
+-- 			},
+-- 			-- You can choose the select mode (default is charwise 'v')
+-- 			--
+-- 			-- Can also be a function which gets passed a table with the keys
+-- 			-- * query_string: eg '@function.inner'
+-- 			-- * method: eg 'v' or 'o'
+-- 			-- and should return the mode ('v', 'V', or '<c-v>') or a table
+-- 			-- mapping query_strings to modes.
+-- 			selection_modes = {
+-- 				["@parameter.outer"] = "v", -- charwise
+-- 				["@function.outer"] = "V", -- linewise
+-- 				["@class.outer"] = "<c-v>", -- blockwise
+-- 			},
+-- 			-- If you set this to `true` (default is `false`) then any textobject is
+-- 			-- extended to include preceding or succeeding whitespace. Succeeding
+-- 			-- whitespace has priority in order to act similarly to eg the built-in
+-- 			-- `ap`.
+-- 			--
+-- 			-- Can also be a function which gets passed a table with the keys
+-- 			-- * query_string: eg '@function.inner'
+-- 			-- * selection_mode: eg 'v'
+-- 			-- and should return true or false
+-- 			include_surrounding_whitespace = true,
+-- 		},
+-- 	},
+-- })
+--
 vim.api.nvim_create_autocmd("FileType", {
 	desc = "Load tree-sitter for supported file types",
 	pattern = ts_lang,
@@ -911,25 +951,6 @@ vim.keymap.set("n", "<leader>u", require("undotree").toggle, { noremap = true, s
 --- }}}
 
 --- LSP Servers and Configs {{{
-_G.debuggers = {
-	"delve",
-	"debugpy",
-}
-
-_G.lang_servers = {
-	"basedpyright",
-	"copilot",
-	"denols",
-	"gopls",
-	"lua_ls",
-	"markdown_oxide",
-	"ruff",
-	"rust_analyzer",
-	"tinymist",
-	"yamlls",
-	"zls",
-}
-
 require("mason").setup({ max_concurrent_installers = 8 })
 require("mason-lspconfig").setup({ ensure_installed = _G.lang_servers })
 

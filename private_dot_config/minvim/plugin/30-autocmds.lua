@@ -27,22 +27,23 @@ vim.api.nvim_create_autocmd("User", {
 --- Add fold navigation mappings for init.lua
 --- Maps arrow keys to navigate between folds (zj/zk)
 --
-vim.api.nvim_create_autocmd("BufWinEnter", {
+vim.api.nvim_create_autocmd("FileType", {
 	desc = "Mapping for init.lua",
 	group = vim.api.nvim_create_augroup("my_init", { clear = true }),
-	pattern = "init.lua",
+	pattern = "lua",
 	callback = function()
-		vim.keymap.set("n", "<down>", "zj")
-		vim.keymap.set("n", "<up>", "zk")
+		if vim.fn.expand("%:t") == "init.lua" then
+			vim.keymap.set("n", "<down>", "zj", { buffer = true })
+			vim.keymap.set("n", "<up>", "zk", { buffer = true })
+		end
 	end,
-	once = true,
 })
 
 --- Configure markdown files with spell check, wrapping, folding, and link surround
 --
-vim.api.nvim_create_autocmd("BufWinEnter", {
+vim.api.nvim_create_autocmd("FileType", {
 	desc = "Markdown",
-	pattern = "*.md",
+	pattern = "markdown",
 	group = vim.api.nvim_create_augroup("markdown", { clear = true }),
 	callback = function()
 		-- Enable spelling and wrap for window
@@ -68,7 +69,6 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 			},
 		}
 	end,
-	once = true,
 })
 
 --- Configure LSP settings when LSP attaches to buffer
@@ -76,7 +76,6 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 --
 vim.api.nvim_create_autocmd("LspAttach", {
 	desc = "Run after LSP attaches",
-	once = true,
 	group = vim.api.nvim_create_augroup("myLSP", { clear = true }),
 	callback = function()
 		vim.highlight.priorities.semantic_tokens = 95 -- just below Treesitter
@@ -146,7 +145,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 --- Reload files if changed externally
 --
-vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
+vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "FocusGained" }, {
 	desc = "Reload files if changed externally",
 	command = "if mode() != 'c' | checktime | endif",
 	pattern = { "*" },
@@ -178,36 +177,32 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
 --
 vim.api.nvim_create_autocmd("BufWinEnter", {
 	desc = "Set up quickfix window keybindings",
-	pattern = "*",
+	pattern = "quickfix",
 	group = vim.api.nvim_create_augroup("qf", { clear = true }),
 	callback = function()
-		if vim.bo.buftype == "quickfix" then
-			vim.keymap.set("n", "qc", ":ccl<cr>", { buffer = true })
-			vim.keymap.set("n", "<cr>", "<cr>", { buffer = true })
+		vim.keymap.set("n", "qc", ":ccl<cr>", { buffer = true })
+		vim.keymap.set("n", "<cr>", "<cr>", { buffer = true })
 
-			vim.keymap.set("n", "1", "1G<cr>:ccl<cr>", { buffer = true })
-			vim.keymap.set("n", "2", "2G<cr>:ccl<cr>", { buffer = true })
-			vim.keymap.set("n", "3", "3G<cr>:ccl<cr>", { buffer = true })
-			vim.keymap.set("n", "4", "4G<cr>:ccl<cr>", { buffer = true })
+		vim.keymap.set("n", "1", "1G<cr>:ccl<cr>", { buffer = true })
+		vim.keymap.set("n", "2", "2G<cr>:ccl<cr>", { buffer = true })
+		vim.keymap.set("n", "3", "3G<cr>:ccl<cr>", { buffer = true })
+		vim.keymap.set("n", "4", "4G<cr>:ccl<cr>", { buffer = true })
 
-			vim.keymap.set("n", "dd", function()
-				local qflist = vim.fn.getqflist()
-				table.remove(qflist, vim.fn.line("."))
-				vim.fn.setqflist(qflist, "r")
-			end, { buffer = true })
-		end
+		vim.keymap.set("n", "dd", function()
+			local qflist = vim.fn.getqflist()
+			table.remove(qflist, vim.fn.line("."))
+			vim.fn.setqflist(qflist, "r")
+		end, { buffer = true })
 	end,
 })
 
 --- Enter insert mode when focusing terminal
 --
-vim.api.nvim_create_autocmd("WinEnter", {
-	desc = "Enter insert mode when focusing terminal",
-	pattern = "*",
-	group = vim.api.nvim_create_augroup("term_insert", { clear = true }),
+vim.api.nvim_create_autocmd({ "TermOpen", "BufEnter" }, {
+	pattern = { "*" },
 	callback = function()
-		if vim.bo.buftype == "terminal" then
-			vim.cmd("startinsert")
+		if vim.opt.buftype:get() == "terminal" then
+			vim.cmd(":startinsert")
 		end
 	end,
 })
@@ -217,8 +212,18 @@ vim.api.nvim_create_autocmd("WinEnter", {
 --
 vim.api.nvim_create_user_command("Commit", function()
 	-- This causes git to create COMMIT_EDITMSG but not complete the commit
-	vim.fn.system("GIT_EDITOR=true git commit -v")
+	local result = vim.fn.system("GIT_EDITOR=true git commit -v")
+	if vim.v.shell_error ~= 0 then
+		vim.notify("Git commit failed: " .. result, vim.log.levels.ERROR)
+		return
+	end
+
 	local git_dir = vim.fn.system("git rev-parse --git-dir"):gsub("\n", "")
+	if vim.v.shell_error ~= 0 then
+		vim.notify("Not in a git repository", vim.log.levels.ERROR)
+		return
+	end
+
 	vim.cmd("tabedit! " .. git_dir .. "/COMMIT_EDITMSG")
 
 	--- Autocmd to complete the git commit when the message file is saved
@@ -229,7 +234,12 @@ vim.api.nvim_create_user_command("Commit", function()
 		group = vim.api.nvim_create_augroup("gitcommit", { clear = true }),
 		once = true,
 		callback = function()
-			vim.fn.system("git commit -F " .. vim.fn.expand("%:p"))
+			local commit_result = vim.fn.system("git commit -F " .. vim.fn.expand("%:p"))
+			if vim.v.shell_error ~= 0 then
+				vim.notify("Git commit failed: " .. commit_result, vim.log.levels.ERROR)
+			else
+				vim.notify("Commit successful", vim.log.levels.INFO)
+			end
 		end,
 	})
 end, {})
