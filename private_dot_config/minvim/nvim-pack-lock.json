@@ -9,7 +9,10 @@
       "src": "https://github.com/saghen/blink.cmp",
       "version": "1.7.0 - 1.8.0"
     },
-    "chezmoi.nvim": [],
+    "chezmoi.nvim": {
+      "rev": "8b42628",
+      "src": "https://github.com/xvzc/chezmoi.nvim"
+    },
     "conform.nvim": {
       "rev": "fbcb4fa",
       "src": "https://github.com/stevearc/conform.nvim"
