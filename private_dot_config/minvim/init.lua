@@ -389,6 +389,7 @@ require("mini.surround").setup()
 require("mini.bufremove").setup()
 vim.keymap.set("n", "<leader>q", require("mini.bufremove").delete, { desc = "Close buffer, keep split" })
 
+---- mini.ai {{{
 require("mini.ai").setup({
 	n_lines = 500,
 	custom_textobjects = {
@@ -398,7 +399,9 @@ require("mini.ai").setup({
 		},
 	},
 })
+---}}}
 
+---- mini.clue {{{
 require("mini.clue").setup({
 	triggers = {
 		{ mode = "n", keys = "<Leader>" },
@@ -440,7 +443,9 @@ require("mini.clue").setup({
 		config = { anchor = "NE", row = "auto", col = "auto" },
 	},
 })
+---}}}
 
+---- mini.files {{{
 require("mini.files").setup()
 --- Add bookmarks to every explorer.
 vim.api.nvim_create_autocmd("User", {
@@ -467,7 +472,9 @@ vim.api.nvim_create_autocmd("User", {
 		end, { buffer = buf_id })
 	end,
 })
+---}}}
 
+---- mini.hipatterns {{{
 require("mini.hipatterns").setup({
 	highlighters = {
 		fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
@@ -476,12 +483,15 @@ require("mini.hipatterns").setup({
 		note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
 		fold1 = { pattern = "%-%-().*(){{%{", group = "Function" },
 		fold2 = { pattern = "%-%-%-().*(){{%{", group = "NeogitBranch" },
+		fold3 = { pattern = "%-%-%-%-().*(){{%{", group = "Error" },
 
 		-- Highlight hex color strings (`#xxxxxx`) using that color
 		hex_color = require("mini.hipatterns").gen_highlighter.hex_color(),
 	},
 })
+---}}}
 
+---- mini.indentscope {{{
 require("mini.indentscope").setup({
 	symbol = "┃",
 
@@ -507,12 +517,15 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.cmd([[highlight! link MiniIndentscopeSymbol Identifier]])
+---}}}
 
+---- mini.snippets {{{
 require("mini.snippets").setup({
 	snippets = {
 		require("mini.snippets").gen_loader.from_lang(),
 	},
 })
+---}}}
 
 --- }}}
 
@@ -642,6 +655,8 @@ end, { desc = "Sidekick: Next Edit", expr = true })
 --- }}}
 
 --- snacks.nvim {{{
+
+---- snacks.setup {{{
 require("snacks").setup({
 	picker = {
 		sources = {
@@ -710,6 +725,9 @@ require("snacks").setup({
 	zen = { enabled = true },
 	-- bufdelete = { enabled = true },
 })
+---}}}
+
+---- snacks.keymaps {{{
 vim.keymap.set("n", "<C-b>", function()
 	Snacks.picker.buffers({ layout = "vscode" })
 end, { desc = "Snacks: Buffers" })
@@ -743,6 +761,7 @@ end, { desc = "Snacks: Clipboard History" })
 vim.keymap.set("n", "<leader><Space>", Snacks.picker.resume, { desc = "Snacks: Resume" })
 vim.keymap.set("n", "<leader>fh", Snacks.picker.help, { desc = "Snacks: Help" })
 vim.keymap.set({ "n", "x" }, "ghx", require("snacks").gitbrowse.open, { desc = "[Git] Open in web" })
+---}}}
 
 --- }}}
 
