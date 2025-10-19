@@ -56,17 +56,15 @@ vim.o.whichwrap = "<>[]hl,b,s"
 vim.env.PATH = vim.env.PATH .. ":" .. vim.env.XDG_DATA_HOME .. "/mise/shims"
 
 --- Create project-specific shada-files
-vim.api.nvim_create_autocmd("VimEnter", {
-	callback = function()
-		local git_root = vim.fs.root(0, ".git")
-		if not git_root then
-			return
-		end
-		local shadafile = vim.fs.joinpath(vim.fn.stdpath("state"), "_shada", vim.base64.encode(git_root))
-		vim.fn.mkdir(vim.fs.dirname(shadafile), "p")
-		vim.o.shadafile = shadafile
-	end,
-})
+vim.o.shadafile = (function()
+	local git_root = vim.fs.root(0, ".git")
+	if not git_root then
+		return
+	end
+	local shadafile = vim.fs.joinpath(vim.fn.stdpath("state"), "_shada", vim.base64.encode(git_root))
+	vim.fn.mkdir(vim.fs.dirname(shadafile), "p")
+	return shadafile
+end)()
 
 --- Globals
 ---

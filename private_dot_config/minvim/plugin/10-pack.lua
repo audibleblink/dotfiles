@@ -29,7 +29,6 @@ vim.pack.add({
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
 	{ src = "https://github.com/nvim-mini/mini.nvim" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", version = "main" },
 	{ src = "https://github.com/rafamadriz/friendly-snippets" },
 	{ src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.7") },
 	{ src = "https://github.com/stevearc/conform.nvim" },
@@ -388,9 +387,11 @@ require("mini.bufremove").setup()
 vim.keymap.set("n", "<leader>q", require("mini.bufremove").delete, { desc = "Close buffer, keep split" })
 
 ---- mini.ai {{{
+local spec_treesitter = require("mini.ai").gen_spec.treesitter
 require("mini.ai").setup({
 	n_lines = 500,
 	custom_textobjects = {
+		f = spec_treesitter({ a = "@function.outer", i = "@function.inner" }),
 		m = {
 			{ "%b()", "%b[]", "%b{}" },
 			"^.().*().$",
@@ -527,6 +528,7 @@ require("mini.snippets").setup({
 --- noice.nvim {{{
 
 require("noice").setup({
+	popupmenu = { enabled = false },
 	lsp = {
 		signature = { enabled = false },
 		hover = { enabled = false },
@@ -539,14 +541,9 @@ require("noice").setup({
 			border = { style = { "", " ", "", " ", "", " ", "", " " } },
 			win_options = { winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder" },
 		},
-		cmdline_input = {
-			view = "cmdline_popup",
-			border = { style = { "", " ", "", " ", "", " ", "", " " } },
-			win_options = { winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder" },
-		},
 	},
 	timeout = 1000,
-	fps = 60,
+	fps = 30,
 	routes = {
 		{
 			filter = { find = "No information available" },
@@ -777,6 +774,9 @@ end, { desc = "Snacks: Clipboard History" })
 vim.keymap.set("n", "<leader>cm", function()
 	Snacks.dashboard.pick("files", { cwd = "~/.local/share/chezmoi" })
 end, { desc = "Source current file" })
+vim.keymap.set("n", "<M-r>", function()
+	Snacks.picker.registers()
+end, { desc = "Registers" })
 vim.keymap.set("n", "<leader><Space>", Snacks.picker.resume, { desc = "Snacks: Resume" })
 vim.keymap.set("n", "<leader>fh", Snacks.picker.help, { desc = "Snacks: Help" })
 vim.keymap.set({ "n", "x" }, "ghx", require("snacks").gitbrowse.open, { desc = "[Git] Open in web" })
@@ -816,53 +816,7 @@ local ts_lang = {
 	"yaml",
 }
 require("nvim-treesitter").install(ts_lang)
--- require("nvim-treesitter").setup()
-require("nvim-treesitter-textobjects").setup()
--- require("nvim-treesitter.configs").setup({
--- 	textobjects = {
--- 		select = {
--- 			enable = true,
---
--- 			-- Automatically jump forward to textobj, similar to targets.vim
--- 			lookahead = true,
---
--- 			keymaps = {
--- 				-- You can use the capture groups defined in textobjects.scm
--- 				["af"] = "@function.outer",
--- 				["if"] = "@function.inner",
--- 				["ac"] = "@class.outer",
--- 				-- You can optionally set descriptions to the mappings (used in the desc parameter of
--- 				-- nvim_buf_set_keymap) which plugins like which-key display
--- 				["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
--- 				-- You can also use captures from other query groups like `locals.scm`
--- 				["as"] = { query = "@local.scope", query_group = "locals", desc = "Select language scope" },
--- 			},
--- 			-- You can choose the select mode (default is charwise 'v')
--- 			--
--- 			-- Can also be a function which gets passed a table with the keys
--- 			-- * query_string: eg '@function.inner'
--- 			-- * method: eg 'v' or 'o'
--- 			-- and should return the mode ('v', 'V', or '<c-v>') or a table
--- 			-- mapping query_strings to modes.
--- 			selection_modes = {
--- 				["@parameter.outer"] = "v", -- charwise
--- 				["@function.outer"] = "V", -- linewise
--- 				["@class.outer"] = "<c-v>", -- blockwise
--- 			},
--- 			-- If you set this to `true` (default is `false`) then any textobject is
--- 			-- extended to include preceding or succeeding whitespace. Succeeding
--- 			-- whitespace has priority in order to act similarly to eg the built-in
--- 			-- `ap`.
--- 			--
--- 			-- Can also be a function which gets passed a table with the keys
--- 			-- * query_string: eg '@function.inner'
--- 			-- * selection_mode: eg 'v'
--- 			-- and should return true or false
--- 			include_surrounding_whitespace = true,
--- 		},
--- 	},
--- })
---
+
 vim.api.nvim_create_autocmd("FileType", {
 	desc = "Load tree-sitter for supported file types",
 	pattern = ts_lang,

@@ -32,10 +32,8 @@ vim.api.nvim_create_autocmd("FileType", {
 	group = vim.api.nvim_create_augroup("my_init", { clear = true }),
 	pattern = "lua",
 	callback = function()
-		if vim.fn.expand("%:t") == "init.lua" then
-			vim.keymap.set("n", "<down>", "zj", { buffer = true })
-			vim.keymap.set("n", "<up>", "zk", { buffer = true })
-		end
+		vim.keymap.set("n", "<down>", "zj", { buffer = true })
+		vim.keymap.set("n", "<up>", "zk", { buffer = true })
 	end,
 })
 
@@ -231,3 +229,10 @@ vim.api.nvim_create_user_command("Commit", function()
 end, {})
 vim.keymap.set("n", "ghc", vim.cmd.Commit, { desc = "Git Commit" })
 --- }}}
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "*",
+	callback = function()
+		vim.o.formatoptions = "rqnl1j"
+	end,
+})
