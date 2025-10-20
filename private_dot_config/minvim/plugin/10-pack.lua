@@ -373,6 +373,17 @@ require("lualine").setup({
 	inactive_winbar = {},
 	extensions = { "quickfix", "mason", "trouble" },
 })
+-- listen lsp-progress event and refresh lualine
+--
+vim.api.nvim_create_autocmd("User", {
+	desc = "ReDraw the lsp_progress in lualine",
+	group = vim.api.nvim_create_augroup("lualine_augroup", { clear = true }),
+	pattern = "LspProgressStatusUpdated",
+	callback = function()
+		require("lualine").refresh()
+	end,
+})
+
 --- }}}
 
 --- mini.nvim {{{
