@@ -3,12 +3,12 @@
 -- AutoCommands {{{
 
 --- UI Related {{{
-
+local ui_helpers = vim.api.nvim_create_augroup("x_ui_helpers", { clear = true })
 --- Highlight yanked text for 300ms using the "Visual" highlight group
 --
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
+	group = ui_helpers,
 	callback = function()
 		vim.hl.on_yank()
 	end,
@@ -18,6 +18,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 --
 vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "FocusGained" }, {
 	desc = "Reload files if changed externally",
+	group = ui_helpers,
 	command = "if mode() != 'c' | checktime | endif",
 	pattern = { "*" },
 })
@@ -26,6 +27,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "FocusGained" }, {
 --
 vim.api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
 	desc = "Show cursor line only in active window",
+	group = ui_helpers,
 	callback = function()
 		if vim.w.auto_cursorline then
 			vim.wo.cursorline = true
@@ -35,6 +37,7 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
 })
 vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
 	desc = "Hide cursor line when leaving insert mode or window",
+	group = ui_helpers,
 	callback = function()
 		if vim.wo.cursorline then
 			vim.w.auto_cursorline = true
@@ -46,12 +49,14 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
 --- }}}
 
 --- FileType {{{
+local x_filetypes = vim.api.nvim_create_augroup("x_filetypes", { clear = true })
+
 --- Configure markdown files with spell check, wrapping, folding, and link surround
 --
 vim.api.nvim_create_autocmd("FileType", {
 	desc = "Markdown",
 	pattern = "markdown",
-	group = vim.api.nvim_create_augroup("markdown", { clear = true }),
+	group = x_filetypes,
 	callback = function()
 		-- Enable spelling and wrap for window
 		vim.cmd("setlocal spell wrap")
@@ -78,16 +83,28 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+--- disable buggy animations in completion windows
+--
+vim.api.nvim_create_autocmd("User", {
+	desc = "BUG: Blink <> Snacks.animate incompatibility workaround",
+	group = ui_helpers,
+	pattern = { "BlinkCmpMenuOpen", "BlinkCmpMenuClose" },
+	callback = function(e)
+		vim.g.snacks_animate = not require("snacks").animate.enabled()
+	end,
+})
 --- }}}
 
 --- Usability {{{
+
+local x_usability = vim.api.nvim_create_augroup("x_usability", { clear = true })
 
 --- Add fold navigation mappings for init.lua
 --- Maps arrow keys to navigate between folds (zj/zk)
 --
 vim.api.nvim_create_autocmd("FileType", {
 	desc = "Mapping for init.lua",
-	group = vim.api.nvim_create_augroup("my_init", { clear = true }),
+	group = x_usability,
 	pattern = "lua",
 	callback = function()
 		vim.keymap.set("n", "<down>", "zj", { buffer = true })
@@ -99,6 +116,7 @@ vim.api.nvim_create_autocmd("FileType", {
 --
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	desc = "Chezmoi: Apply on Save",
+	group = x_usability,
 	pattern = { os.getenv("HOME") .. "/.local/share/chezmoi/*" },
 	callback = function(ev)
 		local bufnr = ev.buf
@@ -114,8 +132,8 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 --
 vim.api.nvim_create_autocmd("BufWinEnter", {
 	desc = "Set up quickfix window keybindings",
+	group = x_usability,
 	pattern = "quickfix",
-	group = vim.api.nvim_create_augroup("qf", { clear = true }),
 	callback = function()
 		vim.keymap.set("n", "qc", ":ccl<cr>", { buffer = true })
 		vim.keymap.set("n", "<cr>", "<cr>", { buffer = true })
@@ -136,6 +154,7 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 -- TODO: Find out who unsets this, making this necessary
 vim.api.nvim_create_autocmd("FileType", {
 	desc = "Re-set formatoptions",
+	group = x_usability,
 	pattern = "*",
 	callback = function()
 		vim.o.formatoptions = "rqnl1j"
@@ -145,6 +164,8 @@ vim.api.nvim_create_autocmd("FileType", {
 --- Enter insert mode when focusing terminal
 --
 vim.api.nvim_create_autocmd({ "TermOpen", "BufEnter" }, {
+	desc = "Inset mode on TermEnter",
+	group = x_usability,
 	pattern = { "*" },
 	callback = function()
 		if vim.opt.buftype:get() == "terminal" then
@@ -162,7 +183,7 @@ vim.api.nvim_create_autocmd({ "TermOpen", "BufEnter" }, {
 vim.api.nvim_create_autocmd("LspAttach", {
 	desc = "Run after LSP attaches",
 	once = true,
-	group = vim.api.nvim_create_augroup("myLSP", { clear = true }),
+	group = vim.api.nvim_create_augroup("x_lsp", { clear = true }),
 	callback = function()
 		vim.highlight.priorities.semantic_tokens = 95 -- just below Treesitter
 		vim.lsp.inlay_hint.enable()
