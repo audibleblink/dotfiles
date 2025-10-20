@@ -1,42 +1,51 @@
 -- vim: foldmarker={{{,}}} foldlevel=1 foldmethod=marker
 
---- AutoCommands {{{
---  e.g. ~/.local/share/chezmoi/*
+-- AutoCommands {{{
+
+--- UI Related {{{
+
+--- Highlight yanked text for 300ms using the "Visual" highlight group
 --
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-	pattern = { os.getenv("HOME") .. "/.local/share/chezmoi/*" },
-	callback = function(ev)
-		local bufnr = ev.buf
-		local edit_watch = function()
-			require("chezmoi.commands.__edit").watch(bufnr)
+vim.api.nvim_create_autocmd("TextYankPost", {
+	desc = "Highlight when yanking (copying) text",
+	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
+	callback = function()
+		vim.hl.on_yank()
+	end,
+})
+
+--- Reload files if changed externally
+--
+vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "FocusGained" }, {
+	desc = "Reload files if changed externally",
+	command = "if mode() != 'c' | checktime | endif",
+	pattern = { "*" },
+})
+
+--- Show cursor line only in active window
+--
+vim.api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
+	desc = "Show cursor line only in active window",
+	callback = function()
+		if vim.w.auto_cursorline then
+			vim.wo.cursorline = true
+			vim.w.auto_cursorline = nil
 		end
-		vim.schedule(edit_watch)
 	end,
 })
-
--- listen lsp-progress event and refresh lualine
---
-vim.api.nvim_create_autocmd("User", {
-	group = vim.api.nvim_create_augroup("lualine_augroup", { clear = true }),
-	pattern = "LspProgressStatusUpdated",
+vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
+	desc = "Hide cursor line when leaving insert mode or window",
 	callback = function()
-		require("lualine").refresh()
+		if vim.wo.cursorline then
+			vim.w.auto_cursorline = true
+			vim.wo.cursorline = false
+		end
 	end,
 })
 
---- Add fold navigation mappings for init.lua
---- Maps arrow keys to navigate between folds (zj/zk)
---
-vim.api.nvim_create_autocmd("FileType", {
-	desc = "Mapping for init.lua",
-	group = vim.api.nvim_create_augroup("my_init", { clear = true }),
-	pattern = "lua",
-	callback = function()
-		vim.keymap.set("n", "<down>", "zj", { buffer = true })
-		vim.keymap.set("n", "<up>", "zk", { buffer = true })
-	end,
-})
+--- }}}
 
+--- FileType {{{
 --- Configure markdown files with spell check, wrapping, folding, and link surround
 --
 vim.api.nvim_create_autocmd("FileType", {
@@ -68,6 +77,84 @@ vim.api.nvim_create_autocmd("FileType", {
 		}
 	end,
 })
+
+--- }}}
+
+--- Usability {{{
+
+--- Add fold navigation mappings for init.lua
+--- Maps arrow keys to navigate between folds (zj/zk)
+--
+vim.api.nvim_create_autocmd("FileType", {
+	desc = "Mapping for init.lua",
+	group = vim.api.nvim_create_augroup("my_init", { clear = true }),
+	pattern = "lua",
+	callback = function()
+		vim.keymap.set("n", "<down>", "zj", { buffer = true })
+		vim.keymap.set("n", "<up>", "zk", { buffer = true })
+	end,
+})
+
+--  Chezmoi: Watch and Save
+--
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	desc = "Chezmoi: Apply on Save",
+	pattern = { os.getenv("HOME") .. "/.local/share/chezmoi/*" },
+	callback = function(ev)
+		local bufnr = ev.buf
+		local edit_watch = function()
+			require("chezmoi.commands.__edit").watch(bufnr)
+		end
+		vim.schedule(edit_watch)
+	end,
+})
+
+--- Mimic harpoon, but with the quickfix window
+--- Maps: qc to close, 1-4 to jump to item and close, dd to delete item from list
+--
+vim.api.nvim_create_autocmd("BufWinEnter", {
+	desc = "Set up quickfix window keybindings",
+	pattern = "quickfix",
+	group = vim.api.nvim_create_augroup("qf", { clear = true }),
+	callback = function()
+		vim.keymap.set("n", "qc", ":ccl<cr>", { buffer = true })
+		vim.keymap.set("n", "<cr>", "<cr>", { buffer = true })
+
+		vim.keymap.set("n", "1", "1G<cr>:ccl<cr>", { buffer = true })
+		vim.keymap.set("n", "2", "2G<cr>:ccl<cr>", { buffer = true })
+		vim.keymap.set("n", "3", "3G<cr>:ccl<cr>", { buffer = true })
+		vim.keymap.set("n", "4", "4G<cr>:ccl<cr>", { buffer = true })
+
+		vim.keymap.set("n", "dd", function()
+			local qflist = vim.fn.getqflist()
+			table.remove(qflist, vim.fn.line("."))
+			vim.fn.setqflist(qflist, "r")
+		end, { buffer = true })
+	end,
+})
+
+-- TODO: Find out who unsets this, making this necessary
+vim.api.nvim_create_autocmd("FileType", {
+	desc = "Re-set formatoptions",
+	pattern = "*",
+	callback = function()
+		vim.o.formatoptions = "rqnl1j"
+	end,
+})
+
+--- Enter insert mode when focusing terminal
+--
+vim.api.nvim_create_autocmd({ "TermOpen", "BufEnter" }, {
+	pattern = { "*" },
+	callback = function()
+		if vim.opt.buftype:get() == "terminal" then
+			vim.cmd(":startinsert")
+		end
+	end,
+})
+--- }}}
+
+--- Delayed Config {{{
 
 --- Configure LSP settings when LSP attaches to buffer
 --- Sets semantic token priority, enables inlay hints, configures diagnostics display
@@ -108,6 +195,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
+--- }}}
+
+--- Custom Commnands {{{
 --- Creates User command to install all Mason packages
 --
 vim.api.nvim_create_user_command("MasonInstallAll", function()
@@ -132,80 +222,6 @@ vim.api.nvim_create_user_command("MasonInstallAll", function()
 	end)
 end, {})
 
---- highlight yanked text for 300ms using the "Visual" highlight group
---
-vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
-	callback = function()
-		vim.hl.on_yank()
-	end,
-})
-
---- Reload files if changed externally
---
-vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "FocusGained" }, {
-	desc = "Reload files if changed externally",
-	command = "if mode() != 'c' | checktime | endif",
-	pattern = { "*" },
-})
-
---- show cursor line only in active window
---
-vim.api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
-	desc = "Show cursor line only in active window",
-	callback = function()
-		if vim.w.auto_cursorline then
-			vim.wo.cursorline = true
-			vim.w.auto_cursorline = nil
-		end
-	end,
-})
-vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
-	desc = "Hide cursor line when leaving insert mode or window",
-	callback = function()
-		if vim.wo.cursorline then
-			vim.w.auto_cursorline = true
-			vim.wo.cursorline = false
-		end
-	end,
-})
-
---- Mimic harpoon, but with the quickfix window
---- Maps: qc to close, 1-4 to jump to item and close, dd to delete item from list
---
-vim.api.nvim_create_autocmd("BufWinEnter", {
-	desc = "Set up quickfix window keybindings",
-	pattern = "quickfix",
-	group = vim.api.nvim_create_augroup("qf", { clear = true }),
-	callback = function()
-		vim.keymap.set("n", "qc", ":ccl<cr>", { buffer = true })
-		vim.keymap.set("n", "<cr>", "<cr>", { buffer = true })
-
-		vim.keymap.set("n", "1", "1G<cr>:ccl<cr>", { buffer = true })
-		vim.keymap.set("n", "2", "2G<cr>:ccl<cr>", { buffer = true })
-		vim.keymap.set("n", "3", "3G<cr>:ccl<cr>", { buffer = true })
-		vim.keymap.set("n", "4", "4G<cr>:ccl<cr>", { buffer = true })
-
-		vim.keymap.set("n", "dd", function()
-			local qflist = vim.fn.getqflist()
-			table.remove(qflist, vim.fn.line("."))
-			vim.fn.setqflist(qflist, "r")
-		end, { buffer = true })
-	end,
-})
-
---- Enter insert mode when focusing terminal
---
-vim.api.nvim_create_autocmd({ "TermOpen", "BufEnter" }, {
-	pattern = { "*" },
-	callback = function()
-		if vim.opt.buftype:get() == "terminal" then
-			vim.cmd(":startinsert")
-		end
-	end,
-})
-
 --- Git commit within current session
 --- Opens COMMIT_EDITMSG in a new tab and commits on save
 --
@@ -228,11 +244,7 @@ vim.api.nvim_create_user_command("Commit", function()
 	})
 end, {})
 vim.keymap.set("n", "ghc", vim.cmd.Commit, { desc = "Git Commit" })
---- }}}
 
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "*",
-	callback = function()
-		vim.o.formatoptions = "rqnl1j"
-	end,
-})
+-- }}}
+
+-- }}}
