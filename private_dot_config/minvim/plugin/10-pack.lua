@@ -615,15 +615,16 @@ require("sidekick").setup({
 	nes = { enabled = false },
 	cli = {
 		mux = {
-			enabled = false,
+			enabled = true,
 			backend = "tmux",
 		},
 
 		prompts = {
 			-- relies on opencode custom command config
 			commit = function(ctx)
-				local filename = vim.api.nvim_buf_get_name(ctx.buf)
-				return "/commit " .. ctx.cwd .. filename
+				local git_dir = vim.fn.system("git rev-parse --git-dir"):gsub("\n", "")
+				git_dir = vim.fs.normalize(git_dir)
+				return "/commit " .. git_dir .. "/COMMIT_EDITMSG"
 			end,
 		},
 	},
