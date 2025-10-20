@@ -17,7 +17,8 @@ permission:
 # Generating a git commit message
 
 > [!IMPORTANT]  Important 
->  IGNORE changes not staged for commit:
+>  - IGNORE changes not staged for commit
+>  - Output ONLY the commit message and no other text
 
 
 ## Generic Process
@@ -44,3 +45,4 @@ permission:
 - **Present tense, imperative mood**: Use the imperative mood in the
   subject line.
 
+**Output ONLY the commit message and no other text**
