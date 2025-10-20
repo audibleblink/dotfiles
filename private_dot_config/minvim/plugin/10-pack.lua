@@ -669,6 +669,21 @@ end, { desc = "Sidekick: Next Edit", expr = true })
 ---- snacks.setup {{{
 require("snacks").setup({
 	picker = {
+		actions = {
+			sidekick_send = function(...)
+				return require("sidekick.cli.snacks").send(...)
+			end,
+		},
+		win = {
+			input = {
+				keys = {
+					["<a-a>"] = {
+						"sidekick_send",
+						mode = { "n", "i" },
+					},
+				},
+			},
+		},
 		layout = {
 			layout = {
 				box = "horizontal",
