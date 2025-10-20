@@ -615,14 +615,15 @@ require("sidekick").setup({
 	nes = { enabled = false },
 	cli = {
 		mux = {
-			enabled = true,
+			enabled = false,
 			backend = "tmux",
 		},
 
 		prompts = {
-			commit = "/commit {file}",
-			custom = function(ctx)
-				return "Current file: " .. ctx.buf .. " at line " .. ctx.row
+			-- relies on opencode custom command config
+			commit = function(ctx)
+				local filename = vim.api.nvim_buf_get_name(ctx.buf)
+				return "/commit " .. ctx.cwd .. filename
 			end,
 		},
 	},
