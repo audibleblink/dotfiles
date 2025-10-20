@@ -601,13 +601,18 @@ require("render-markdown").setup({
 
 --- sidekick.nvim {{{
 require("sidekick").setup({
-	nes = {
-		enabled = false,
-	},
+	nes = { enabled = false },
 	cli = {
 		mux = {
-			backend = "tmux",
 			enabled = true,
+			backend = "tmux",
+		},
+
+		prompts = {
+			commit = "/commit {file}",
+			custom = function(ctx)
+				return "Current file: " .. ctx.buf .. " at line " .. ctx.row
+			end,
 		},
 	},
 })
