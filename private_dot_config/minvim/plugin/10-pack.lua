@@ -28,9 +28,10 @@ vim.pack.add({
 	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
 	{ src = "https://github.com/nvim-mini/mini.nvim" },
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter",          version = "main" },
 	{ src = "https://github.com/rafamadriz/friendly-snippets" },
-	{ src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.7") },
+	{ src = "https://github.com/saghen/blink.cmp",                         version = vim.version.range("1.7") },
+	{ src = "https://github.com/sindrets/diffview.nvim" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
 	{ src = "https://github.com/nvim-lualine/lualine.nvim" },
 	{ src = "https://github.com/xvzc/chezmoi.nvim" },
@@ -70,7 +71,7 @@ require("blink.cmp").setup({
 				treesitter = { "lsp" },
 				columns = {
 					{ "kind_icon" },
-					{ "label", "label_description", gap = 1 },
+					{ "label",      "label_description", gap = 1 },
 					{ "source_name" },
 				},
 				components = {
@@ -157,6 +158,17 @@ vim.keymap.set("n", "gm", function()
 end, { desc = "Format Files" })
 --- }}}
 
+--- diffview.nvim {{{
+require("diffview").setup({
+	view = {
+		merge_tool = {
+			layout = "diff3_mixed",
+			disable_diagnostics = false,
+		},
+	}
+})
+--- }}}
+
 --- i3tab {{{
 vim.api.nvim_create_autocmd("ColorScheme", {
 	callback = function()
@@ -201,7 +213,8 @@ end, { desc = "[Git] Floaterm: Push" })
 vim.keymap.set("n", "ghl", function()
 	require("floaterm.api").open_and_run({
 		name = "Git",
-		cmd = [[git log --graph --decorate --all --pretty=format:"%C(cyan)%h%Creset %C()%s%Creset%n%C(dim italic white)      └─ %ar by %an %C(auto)  %D%n"]],
+		cmd =
+		[[git log --graph --decorate --all --pretty=format:"%C(cyan)%h%Creset %C()%s%Creset%n%C(dim italic white)      └─ %ar by %an %C(auto)  %D%n"]],
 	})
 end, { desc = "[Git] Floaterm: Log" })
 
@@ -623,7 +636,8 @@ require("sidekick").setup({
 			commit = function() -- relies on opencode custom command config
 				local git_dir = vim.fn.system("git rev-parse --git-dir"):gsub("\n", "")
 				git_dir = vim.fs.normalize(git_dir)
-				return "/commit @" .. git_dir .. "/COMMIT_EDITMSG\nEdit that file with the generated commit message"
+				return "/commit @" ..
+				    git_dir .. "/COMMIT_EDITMSG\nEdit that file with the generated commit message"
 			end,
 		},
 	},
@@ -699,8 +713,8 @@ require("snacks").setup({
 
 				{
 					box = "vertical",
-					{ win = "list", border = "solid" },
-					{ win = "input", height = 1, border = "hpad" },
+					{ win = "list",  border = "solid" },
+					{ win = "input", height = 1,      border = "hpad" },
 				},
 				{ win = "preview", title = "{preview}", width = 0.6, border = "solid" },
 			},
@@ -750,7 +764,7 @@ require("snacks").setup({
 		},
 		sections = {
 			{ section = "header" },
-			{ section = "keys", gap = 1, padding = 1 },
+			{ section = "keys",  gap = 1, padding = 1 },
 		},
 	},
 
