@@ -623,7 +623,7 @@ require("sidekick").setup({
 			commit = function() -- relies on opencode custom command config
 				local git_dir = vim.fn.system("git rev-parse --git-dir"):gsub("\n", "")
 				git_dir = vim.fs.normalize(git_dir)
-				return "/commit " .. git_dir .. "/COMMIT_EDITMSG\nEdit that file with the generated commit message"
+				return "/commit @" .. git_dir .. "/COMMIT_EDITMSG\nEdit that file with the generated commit message"
 			end,
 		},
 	},
