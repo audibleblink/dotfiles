@@ -450,7 +450,7 @@ require("mini.clue").setup({
 	},
 	window = {
 		delay = 400,
-		config = { anchor = "NE", row = "auto", col = "auto" },
+		config = { anchor = "SE", row = "auto", col = "auto" },
 	},
 })
 ---}}}
@@ -620,8 +620,7 @@ require("sidekick").setup({
 		},
 
 		prompts = {
-			-- relies on opencode custom command config
-			commit = function(ctx)
+			commit = function(ctx) -- relies on opencode custom command config
 				local git_dir = vim.fn.system("git rev-parse --git-dir"):gsub("\n", "")
 				git_dir = vim.fs.normalize(git_dir)
 				return "/commit " .. git_dir .. "/COMMIT_EDITMSG"
