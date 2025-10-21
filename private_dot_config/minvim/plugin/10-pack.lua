@@ -676,6 +676,10 @@ require("snacks").setup({
 		win = {
 			input = {
 				keys = {
+					["kj"] = {
+						"close",
+						mode = { "n", "i" },
+					},
 					["<a-a>"] = {
 						"sidekick_send",
 						mode = { "n", "i" },
