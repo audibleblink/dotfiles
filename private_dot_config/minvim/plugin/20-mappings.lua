@@ -12,14 +12,14 @@ vim.keymap.set("n", "<leader><Tab>", "<cmd> b# <CR>", { desc = "Previous Buffer"
 vim.keymap.set("n", "<left>", "0", { desc = "Jump: Start of line" })
 vim.keymap.set("n", "<right>", "$", { desc = "Jump: End of line" })
 
-vim.keymap.set("n", "gp", 'o<esc>"+p', { desc = "Paste below" })
-vim.keymap.set("n", "gP", 'O<esc>"+p', { desc = "Paste above" })
-vim.keymap.set("x", "gp", '"+p', { desc = "Paste overwrite" })
-vim.keymap.set("x", "p", "pgvy", { desc = "Paste without clobber" })
+vim.keymap.set("n", "gp", '"+p', { desc = "Paste" })
+vim.keymap.set("n", "gP", 'o<esc>"+p', { desc = "Paste below" })
+vim.keymap.set("x", "gp", '"+P', { desc = "Paste overwrite" })
+vim.keymap.set("x", "gP", "pgvy", { desc = "Paste without clobber" })
 
-vim.keymap.set("n", "gy", '"+Y', { desc = "Paste below" })
-vim.keymap.set("n", "gY", '"+yy', { desc = "Paste below" })
-vim.keymap.set("x", "gy", '"+y', { desc = "Paste overwrite" })
+vim.keymap.set({ "n", "x" }, "gy", '"+y', { desc = "Yank" })
+vim.keymap.set("n", "gyy", '"+yy', { desc = "Yank Line" })
+vim.keymap.set("n", "gY", '"+y$', { desc = "Yank to end" })
 
 vim.keymap.set("n", "q", "", { desc = "Unassing q key" })
 vim.keymap.set("n", "\\", "q", { desc = "Macros" })
