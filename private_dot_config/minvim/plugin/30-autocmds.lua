@@ -58,6 +58,28 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = "markdown",
 	group = x_filetypes,
 	callback = function()
+		vim.cmd.packadd("render-markdown.nvim")
+		require("render-markdown").setup({
+			completions = { lsp = { enabled = true } },
+			render_modes = true, -- Render in ALL modes
+
+			heading = {
+				backgrounds = {
+					"RenderMarkdownH5Bg",
+					"RenderMarkdownH4Bg",
+					"RenderMarkdownH3Bg",
+					"RenderMarkdownH2Bg",
+					"RenderMarkdownH1Bg",
+					"RenderMarkdownH6Bg",
+				},
+				border = true,
+			},
+			sign = {
+				enabled = false, -- Turn off in the status column },
+			},
+			latex = { enabled = false },
+		})
+
 		-- Enable spelling and wrap for window
 		vim.cmd("setlocal spell wrap")
 
@@ -80,6 +102,20 @@ vim.api.nvim_create_autocmd("FileType", {
 				},
 			},
 		}
+	end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	desc = "Lua",
+	pattern = "lua",
+	group = x_filetypes,
+	callback = function()
+		vim.cmd.packadd("render-markdown.nvim")
+		require("lazydev").setup({
+			library = {
+				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+			},
+		})
 	end,
 })
 
