@@ -9,6 +9,13 @@ vim.pack.add({
 	{ src = "https://github.com/MunifTanjim/nui.nvim" },
 	{ src = "https://github.com/nvzone/volt" },
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
+	{ src = "https://github.com/neovim/nvim-lspconfig" },
+
+	{ src = "https://github.com/sindrets/diffview.nvim" },
+	{ src = "https://github.com/jiaoshijie/undotree" },
+}, { load = false, confirm = false })
+
+vim.pack.add({
 	-- Core
 	{ src = "https://github.com/audibleblink/i3tab.nvim" },
 	{ src = "https://github.com/audibleblink/floaterm" },
@@ -20,18 +27,15 @@ vim.pack.add({
 	{ src = "https://github.com/folke/snacks.nvim" },
 	{ src = "https://github.com/folke/sidekick.nvim" },
 	{ src = "https://github.com/folke/trouble.nvim" },
-	{ src = "https://github.com/jiaoshijie/undotree" },
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 	{ src = "https://github.com/linrongbin16/lsp-progress.nvim" },
 	{ src = "https://github.com/mason-org/mason-lspconfig.nvim" },
 	{ src = "https://github.com/mason-org/mason.nvim" },
 	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
-	{ src = "https://github.com/neovim/nvim-lspconfig" },
 	{ src = "https://github.com/nvim-mini/mini.nvim" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter",          version = "main" },
 	{ src = "https://github.com/rafamadriz/friendly-snippets" },
 	{ src = "https://github.com/saghen/blink.cmp",                         version = vim.version.range("1.7") },
-	{ src = "https://github.com/sindrets/diffview.nvim" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
 	{ src = "https://github.com/nvim-lualine/lualine.nvim" },
 	{ src = "https://github.com/xvzc/chezmoi.nvim" },
@@ -165,7 +169,7 @@ require("diffview").setup({
 			layout = "diff3_mixed",
 			disable_diagnostics = false,
 		},
-	}
+	},
 })
 --- }}}
 
@@ -301,14 +305,6 @@ require("gitsigns").setup({
 	end,
 })
 --- }}}
-
---- lazydev.nvim {{{
-require("lazydev").setup({
-	library = {
-		{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
-	},
-})
---}}}
 
 --- lualine.nvim {{{
 --
@@ -950,8 +946,10 @@ end, { desc = "Location List (Trouble)" })
 --- }}}
 
 --- undotree {{{
-require("undotree").setup()
-vim.keymap.set("n", "<leader>u", require("undotree").toggle, { noremap = true, silent = true, desc = "UndoTree" })
+vim.keymap.set("n", "<leader>u", function()
+	vim.cmd.packadd("undotree")
+	require("undotree").toggle()
+end, { noremap = true, silent = true, desc = "UndoTree" })
 --- }}}
 
 --- LSP Servers and Configs {{{
