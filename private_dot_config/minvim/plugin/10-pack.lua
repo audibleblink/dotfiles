@@ -59,7 +59,7 @@ require("auto-dark-mode").setup({
 --- }}}
 
 --- blink.cmp {{{
-vim.api.nvim_create_autocmd("InsertEnter", {
+vim.api.nvim_create_autocmd({ "InsertEnter", "CmdlineChanged" }, {
 	pattern = "*",
 	once = true,
 	callback = function()
@@ -753,7 +753,7 @@ require("snacks").setup({
 	scroll = {
 		animate = {
 			-- duration = { step = 50, total = 500 },
-			easing = "outSine",
+			easing = "inOutSine",
 		},
 	},
 
