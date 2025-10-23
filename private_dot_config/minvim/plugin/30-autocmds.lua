@@ -58,7 +58,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = "markdown",
 	group = x_filetypes,
 	callback = function()
-		vim.cmd.packadd("render-markdown.nvim")
 		require("render-markdown").setup({
 			completions = { lsp = { enabled = true } },
 			render_modes = true, -- Render in ALL modes
@@ -221,6 +220,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	once = true,
 	group = vim.api.nvim_create_augroup("x_lsp", { clear = true }),
 	callback = function()
+		vim.lsp.config("*", {
+			capabilities = require("blink.cmp").get_lsp_capabilities(),
+		})
 		vim.highlight.priorities.semantic_tokens = 95 -- just below Treesitter
 		vim.lsp.inlay_hint.enable()
 
@@ -228,7 +230,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set("n", "<leader>ac", function()
 			vim.lsp.inline_completion.enable(not vim.lsp.inline_completion.is_enabled())
 			vim.notify(
-				"LSP inline completions " .. (vim.lsp.inline_completion.is_enabled() and "enabled" or "disabled"),
+				"LSP inline completions " ..
+				(vim.lsp.inline_completion.is_enabled() and "enabled" or "disabled"),
 				vim.log.levels.INFO
 			)
 		end, { desc = "LSP: Toggle AI Completions" })
