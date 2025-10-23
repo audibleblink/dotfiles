@@ -4,42 +4,36 @@
 -- Plugin Init and Config {{{
 
 --- Plugin Declaration {{{
-
 vim.pack.add({
 	-- Deps and Extensions
-	{ src = "https://github.com/MunifTanjim/nui.nvim" }, -- Noice
-	{ src = "https://github.com/nvim-lua/plenary.nvim" }, -- ChezMoi
-	{ src = "https://github.com/nvzone/volt" }, -- Floaterm
-
-	-- Misbehaving or not needed at start time;
-	-- Load later in autocmd or with packadd
-	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
-	{ src = "https://github.com/folke/lazydev.nvim" },
-	{ src = "https://github.com/jiaoshijie/undotree" },
-	{ src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.7") },
-	{ src = "https://github.com/sindrets/diffview.nvim" },
-}, { load = false, confirm = false })
-
-vim.pack.add({
-	{ src = "https://github.com/alexghergh/nvim-tmux-navigation" },
-	{ src = "https://github.com/audibleblink/floaterm" },
+	{ src = "https://github.com/MunifTanjim/nui.nvim" },
+	{ src = "https://github.com/nvzone/volt" },
+	{ src = "https://github.com/nvim-lua/plenary.nvim" },
+	-- Core
 	{ src = "https://github.com/audibleblink/i3tab.nvim" },
+	{ src = "https://github.com/audibleblink/floaterm" },
+	{ src = "https://github.com/alexghergh/nvim-tmux-navigation" },
 	{ src = "https://github.com/catppuccin/nvim" },
 	{ src = "https://github.com/f-person/auto-dark-mode.nvim" },
+	{ src = "https://github.com/folke/lazydev.nvim" },
 	{ src = "https://github.com/folke/noice.nvim" },
-	{ src = "https://github.com/folke/sidekick.nvim" },
 	{ src = "https://github.com/folke/snacks.nvim" },
+	{ src = "https://github.com/folke/sidekick.nvim" },
 	{ src = "https://github.com/folke/trouble.nvim" },
+	{ src = "https://github.com/jiaoshijie/undotree" },
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 	{ src = "https://github.com/linrongbin16/lsp-progress.nvim" },
 	{ src = "https://github.com/mason-org/mason-lspconfig.nvim" },
 	{ src = "https://github.com/mason-org/mason.nvim" },
+	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
-	{ src = "https://github.com/nvim-lualine/lualine.nvim" },
 	{ src = "https://github.com/nvim-mini/mini.nvim" },
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter",          version = "main" },
 	{ src = "https://github.com/rafamadriz/friendly-snippets" },
+	{ src = "https://github.com/saghen/blink.cmp",                         version = vim.version.range("1.7") },
+	{ src = "https://github.com/sindrets/diffview.nvim" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
+	{ src = "https://github.com/nvim-lualine/lualine.nvim" },
 	{ src = "https://github.com/xvzc/chezmoi.nvim" },
 }, { load = true, confirm = false })
 
@@ -59,87 +53,81 @@ require("auto-dark-mode").setup({
 --- }}}
 
 --- blink.cmp {{{
-vim.api.nvim_create_autocmd({ "InsertEnter", "CmdlineChanged" }, {
-	pattern = "*",
-	once = true,
-	callback = function()
-		require("blink.cmp").setup({
-			cmdline = {
-				keymap = { preset = "inherit" },
-				completion = { menu = { auto_show = true } },
-			},
-			completion = {
-				documentation = {
-					auto_show = true,
-					auto_show_delay_ms = 600,
+require("blink.cmp").setup({
+	cmdline = {
+		keymap = { preset = "inherit" },
+		completion = { menu = { auto_show = true } },
+	},
+	completion = {
+		documentation = {
+			auto_show = true,
+			auto_show_delay_ms = 600,
+		},
+		menu = {
+			border = "solid",
+			scrollbar = true,
+			auto_show = true,
+			draw = {
+				treesitter = { "lsp" },
+				columns = {
+					{ "kind_icon" },
+					{ "label",      "label_description", gap = 1 },
+					{ "source_name" },
 				},
-				menu = {
-					border = "solid",
-					scrollbar = true,
-					auto_show = true,
-					draw = {
-						treesitter = { "lsp" },
-						columns = {
-							{ "kind_icon" },
-							{ "label", "label_description", gap = 1 },
-							{ "source_name" },
-						},
-						components = {
-							source_name = {
-								text = function(ctx)
-									--- you can do this with a map.
-									if ctx.source_name == "LSP" then
-										return " "
-									elseif ctx.source_name == "Snippets" then
-										return "󰞘 "
-									elseif ctx.source_name == "Buffer" then
-										return " "
-									end
-									return ctx.source_name
-								end,
-							},
-						},
+				components = {
+					source_name = {
+						text = function(ctx)
+							--- you can do this with a map.
+							if ctx.source_name == "LSP" then
+								return " "
+							elseif ctx.source_name == "Snippets" then
+								return "󰞘 "
+							elseif ctx.source_name == "Buffer" then
+								return " "
+							end
+							return ctx.source_name
+						end,
 					},
 				},
-				list = {
-					selection = {
-						preselect = true,
-						auto_insert = false,
-					},
-				},
-				ghost_text = { enabled = false },
 			},
-			keymap = {
-				-- these are insert mode mappings
-				preset = "default",
-				["<C-l>"] = { "accept" },
-				["<Tab>"] = {
-					"snippet_forward",
-					function() -- sidekick next edit suggestion
-						return require("sidekick").nes_jump_or_apply()
-					end,
-					function() -- if you are using Neovim's native inline completions
-						return vim.lsp.inline_completion.get()
-					end,
-					"fallback",
-				},
-				["<C-right>"] = {
-					function()
-						return vim.lsp.inline_completion.select()
-					end,
-				},
+		},
+		list = {
+			selection = {
+				preselect = true,
+				auto_insert = false,
 			},
-			signature = {
-				enabled = true,
-				window = {
-					border = "none",
-				},
-			},
-			snippets = {
-				preset = "mini_snippets",
-			},
-		})
-	end,
+		},
+		ghost_text = { enabled = false },
+	},
+	keymap = {
+		-- these are insert mode mappings
+		preset = "default",
+		["<C-l>"] = { "accept" },
+		["<Tab>"] = {
+			"snippet_forward",
+			function() -- sidekick next edit suggestion
+				return require("sidekick").nes_jump_or_apply()
+			end,
+			function() -- if you are using Neovim's native inline completions
+				return vim.lsp.inline_completion.get()
+			end,
+			"fallback",
+		},
+		["<C-right>"] = {
+			function()
+				return vim.lsp.inline_completion.select()
+			end,
+		},
+	},
+	signature = {
+		enabled = true,
+		window = {
+			border = "none",
+		},
+	},
+	snippets = {
+		preset = "mini_snippets",
+	},
 })
 --- }}}
 
@@ -177,7 +165,7 @@ require("diffview").setup({
 			layout = "diff3_mixed",
 			disable_diagnostics = false,
 		},
-	},
+	}
 })
 --- }}}
 
@@ -225,7 +213,8 @@ end, { desc = "[Git] Floaterm: Push" })
 vim.keymap.set("n", "ghl", function()
 	require("floaterm.api").open_and_run({
 		name = "Git",
-		cmd = [[git log --graph --decorate --all --pretty=format:"%C(cyan)%h%Creset %C()%s%Creset%n%C(dim italic white)      └─ %ar by %an %C(auto)  %D%n"]],
+		cmd =
+		[[git log --graph --decorate --all --pretty=format:"%C(cyan)%h%Creset %C()%s%Creset%n%C(dim italic white)      └─ %ar by %an %C(auto)  %D%n"]],
 	})
 end, { desc = "[Git] Floaterm: Log" })
 
@@ -313,7 +302,16 @@ require("gitsigns").setup({
 })
 --- }}}
 
+--- lazydev.nvim {{{
+require("lazydev").setup({
+	library = {
+		{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+	},
+})
+--}}}
+
 --- lualine.nvim {{{
+--
 
 require("lsp-progress").setup({
 	client_format = function(_, _, series_messages)
@@ -596,7 +594,32 @@ require("nvim-tmux-navigation").setup({
 		down = "<C-j>",
 		up = "<C-k>",
 		right = "<C-l>",
+		last_active = "<C-\\>",
+		next = "<C-Space>",
 	},
+})
+--- }}}
+
+--- render-markdown.nvim {{{
+require("render-markdown").setup({
+	completions = { lsp = { enabled = true } },
+	render_modes = true, -- Render in ALL modes
+
+	heading = {
+		backgrounds = {
+			"RenderMarkdownH5Bg",
+			"RenderMarkdownH4Bg",
+			"RenderMarkdownH3Bg",
+			"RenderMarkdownH2Bg",
+			"RenderMarkdownH1Bg",
+			"RenderMarkdownH6Bg",
+		},
+		border = true,
+	},
+	sign = {
+		enabled = false, -- Turn off in the status column },
+	},
+	latex = { enabled = false },
 })
 --- }}}
 
@@ -613,7 +636,8 @@ require("sidekick").setup({
 			commit = function() -- relies on opencode custom command config
 				local git_dir = vim.fn.system("git rev-parse --git-dir"):gsub("\n", "")
 				git_dir = vim.fs.normalize(git_dir)
-				return "/commit @" .. git_dir .. "/COMMIT_EDITMSG\nEdit that file with the generated commit message"
+				return "/commit @" ..
+				    git_dir .. "/COMMIT_EDITMSG\nEdit that file with the generated commit message"
 			end,
 		},
 	},
@@ -689,8 +713,8 @@ require("snacks").setup({
 
 				{
 					box = "vertical",
-					{ win = "list", border = "solid" },
-					{ win = "input", height = 1, border = "hpad" },
+					{ win = "list",  border = "solid" },
+					{ win = "input", height = 1,      border = "hpad" },
 				},
 				{ win = "preview", title = "{preview}", width = 0.6, border = "solid" },
 			},
@@ -740,7 +764,7 @@ require("snacks").setup({
 		},
 		sections = {
 			{ section = "header" },
-			{ section = "keys", gap = 1, padding = 1 },
+			{ section = "keys",  gap = 1, padding = 1 },
 		},
 	},
 
@@ -753,7 +777,7 @@ require("snacks").setup({
 	scroll = {
 		animate = {
 			-- duration = { step = 50, total = 500 },
-			easing = "inOutSine",
+			easing = "outSine",
 		},
 	},
 
@@ -926,10 +950,8 @@ end, { desc = "Location List (Trouble)" })
 --- }}}
 
 --- undotree {{{
-vim.keymap.set("n", "<leader>u", function()
-	vim.cmd.packadd("undotree")
-	require("undotree").toggle()
-end, { noremap = true, silent = true, desc = "UndoTree" })
+require("undotree").setup()
+vim.keymap.set("n", "<leader>u", require("undotree").toggle, { noremap = true, silent = true, desc = "UndoTree" })
 --- }}}
 
 --- LSP Servers and Configs {{{
