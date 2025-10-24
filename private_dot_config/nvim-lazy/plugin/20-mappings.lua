@@ -1,12 +1,7 @@
 -- vim: foldmarker={{{,}}} foldlevel=1 foldmethod=marker
 --- KeyMaps {{{
 ---
-vim.keymap.set("n", "<leader>q", function(e)
-	vim.notify("its " .. vim.bo.buftype)
-end)
-vim.keymap.set("i", "<C-s>", "<cmd>w<cr>", { desc = "Join w/o cursor moving" })
 vim.keymap.set("i", "jk", "<ESC>", { desc = "Escape insert mode" })
-vim.keymap.set("n", "<leader>rr", ":update<CR> :source<CR>", { desc = "Source current file" })
 
 --- QoL
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Join w/o cursor moving" })

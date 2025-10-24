@@ -89,7 +89,7 @@ vim.api.nvim_create_autocmd("User", {
 	desc = "BUG: Blink <> Snacks.animate incompatibility workaround",
 	group = ui_helpers,
 	pattern = { "BlinkCmpMenuOpen", "BlinkCmpMenuClose" },
-	callback = function(e)
+	callback = function()
 		vim.g.snacks_animate = not require("snacks").animate.enabled()
 	end,
 })
