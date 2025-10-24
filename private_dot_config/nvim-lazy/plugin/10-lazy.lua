@@ -46,6 +46,7 @@ local plugins = {
 				menu = {
 					border = "solid",
 					scrollbar = true,
+					auto_show_delay_ms = 1000,
 					auto_show = true,
 					draw = {
 						treesitter = { "lsp" },
