@@ -689,6 +689,11 @@ local plugins = {
 		opts = {
 			nes = { enabled = false },
 			cli = {
+				win = {
+					keys = {
+						hide_n = { "kj", "hide", mode = "t" },
+					},
+				},
 				mux = {
 					enabled = true,
 					backend = "tmux",
