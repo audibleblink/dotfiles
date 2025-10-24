@@ -1,3 +1,4 @@
+---@diagnostic disable: param-type-mismatch, undefined-field,  missing-fields
 -- vim: foldmarker={{{,}}} foldlevel=0 foldmethod=marker
 
 -- Plugin Specs {{{
@@ -168,15 +169,27 @@ local plugins = {
 	--- Floaterm {{{
 	{
 		"audibleblink/floaterm",
+		opts = {
+			mappings = {
+				term = function(buf)
+					vim.keymap.set({ "n", "t" }, "``", function()
+						require("floaterm").toggle()
+					end, { buffer = buf })
+
+					vim.keymap.set({ "n", "t" }, "kj", function()
+						require("floaterm").toggle()
+					end, { buffer = buf })
+				end,
+			},
+		},
 		keys = {
 			{
 				"``",
 				function()
 					require("floaterm").toggle()
 				end,
-				{ desc = "Floaterm: Toggle" },
+				{ desc = "Floaterm: Toggle", mode = { "n", "t" } },
 			},
-
 			{
 				"ghP",
 				function()
@@ -592,7 +605,7 @@ local plugins = {
 			})
 
 			vim.api.nvim_create_autocmd("BufEnter", {
-				callback = function(e)
+				callback = function()
 					if vim.tbl_contains({ "terminal", "help", "nofile" }, vim.bo.buftype) then
 						vim.b.miniindentscope_disable = true
 						vim.cmd.let("miniindentscope_disable = v:true")
