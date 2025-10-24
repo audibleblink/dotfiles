@@ -108,7 +108,6 @@ vim.pack.add({
 	{ src = "https://github.com/jiaoshijie/undotree" },
 	{ src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.7") },
 	{ src = "https://github.com/catppuccin/nvim" },
-	{ src = "https://github.com/sindrets/diffview.nvim" },
 }, { load = false, confirm = false })
 vim.cmd.colorscheme("catppuccin-macchiato")
 
@@ -126,6 +125,7 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-mini/mini.nvim" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
 	{ src = "https://github.com/rafamadriz/friendly-snippets" },
+	{ src = "https://github.com/sindrets/diffview.nvim" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
 }, { load = true, confirm = false })
 
@@ -136,6 +136,7 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "CmdlineEnter" }, {
 	pattern = "*",
 	once = true,
 	callback = function()
+		vim.cmd.packadd("blink.cmp")
 		require("blink.cmp").setup({
 			cmdline = {
 				keymap = { preset = "inherit" },
@@ -240,47 +241,41 @@ end, { desc = "Format Files" })
 --- }}}
 
 --- diffview.nvim {{{
-vim.keymap.set("n", "<leader>d", function()
-	vim.cmd.packadd("diffview.nvim")
-	require("diffview").setup({
-		view = {
-			merge_tool = {
-				layout = "diff3_mixed",
-				disable_diagnostics = false,
-			},
+require("diffview").setup({
+	view = {
+		merge_tool = {
+			layout = "diff3_mixed",
+			disable_diagnostics = false,
 		},
-	})
-	vim.notify("Diffview activated")
-end, { noremap = true, silent = true, desc = "UndoTree" })
+	},
+})
 --- }}}
 
 --- floaterm {{{
-vim.keymap.set("n", "``", function()
-	require("floaterm").setup({
-		size = { h = 70, w = 80 },
-		mappings = {
-			sidebar = nil,
-			term = function(buf)
-				vim.keymap.set({ "n", "t" }, "``", function()
-					require("floaterm").toggle()
-				end, { buffer = buf })
-			end,
-		},
+require("floaterm").setup({
+	size = { h = 70, w = 80 },
+	mappings = {
+		sidebar = nil,
+		term = function(buf)
+			vim.keymap.set({ "n", "t" }, "``", function()
+				require("floaterm").toggle()
+			end, { buffer = buf })
+		end,
+	},
+})
+
+vim.keymap.set({ "n", "t" }, "``", require("floaterm").toggle, { desc = "Floaterm: Toggle" })
+
+vim.keymap.set("n", "ghP", function()
+	require("floaterm.api").open_and_run({ name = "Git", cmd = "git push" })
+end, { desc = "[Git] Floaterm: Push" })
+
+vim.keymap.set("n", "ghl", function()
+	require("floaterm.api").open_and_run({
+		name = "Git",
+		cmd = [[git log --graph --decorate --all --pretty=format:"%C(cyan)%h%Creset %C()%s%Creset%n%C(dim italic white)      └─ %ar by %an %C(auto)  %D%n"]],
 	})
-
-	vim.keymap.set({ "n", "t" }, "``", require("floaterm").toggle, { desc = "Floaterm: Toggle" })
-
-	vim.keymap.set("n", "ghP", function()
-		require("floaterm.api").open_and_run({ name = "Git", cmd = "git push" })
-	end, { desc = "[Git] Floaterm: Push" })
-
-	vim.keymap.set("n", "ghl", function()
-		require("floaterm.api").open_and_run({
-			name = "Git",
-			cmd = [[git log --graph --decorate --all --pretty=format:"%C(cyan)%h%Creset %C()%s%Creset%n%C(dim italic white)      └─ %ar by %an %C(auto)  %D%n"]],
-		})
-	end, { desc = "[Git] Floaterm: Log" })
-end, { desc = "Floaterm" })
+end, { desc = "[Git] Floaterm: Log" })
 --- }}}
 
 --- gitsigns.nvim {{{
@@ -883,7 +878,6 @@ end
 
 -- KeyMaps {{{
 ---
-vim.keymap.set("i", "<C-s>", "<cmd>w<cr>", { desc = "Join w/o cursor moving" })
 vim.keymap.set("i", "jk", "<ESC>", { desc = "Escape insert mode" })
 vim.keymap.set("n", "<leader>rr", ":update<CR> :source<CR>", { desc = "Source current file" })
 
