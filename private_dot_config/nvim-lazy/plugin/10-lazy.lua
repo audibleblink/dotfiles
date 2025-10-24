@@ -590,32 +590,30 @@ local plugins = {
 							},
 						},
 					})
-
-					-- mini.indentscope
-					require("mini.indentscope").setup({
-						symbol = "┃",
-						draw = {
-							delay = 40,
-							priority = 2,
-							animation = require("mini.indentscope").gen_animation.exponential({
-								easing = "in-out",
-								duration = 80,
-								unit = "total",
-							}),
-						},
-					})
-					vim.api.nvim_create_autocmd("BufEnter", {
-						callback = function()
-							if vim.tbl_contains({ "terminal", "help", "nofile" }, vim.bo.buftype) then
-								vim.b.miniindentscope_disable = true
-								vim.cmd.let("miniindentscope_disable = v:true")
-							end
-						end,
-					})
-					vim.cmd([[highlight! link MiniIndentscopeSymbol Identifier]])
 				end,
 			})
 
+			-- mini.indentscope
+			require("mini.indentscope").setup({
+				symbol = "┃",
+				draw = {
+					delay = 40,
+					priority = 2,
+					animation = require("mini.indentscope").gen_animation.exponential({
+						easing = "in-out",
+						duration = 80,
+						unit = "total",
+					}),
+				},
+			})
+			vim.api.nvim_create_autocmd("BufEnter", {
+				callback = function()
+					if vim.tbl_contains({ "terminal", "help", "nofile" }, vim.bo.buftype) then
+						vim.b.miniindentscope_disable = true
+					end
+				end,
+			})
+			vim.cmd([[highlight! link MiniIndentscopeSymbol Identifier]])
 			-- mini.hipatterns
 			require("mini.hipatterns").setup({
 				highlighters = {
