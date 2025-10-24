@@ -4,9 +4,9 @@
 
 local plugins = {
 	--- Dependencies (Libs) {{{
-	{ "MunifTanjim/nui.nvim",         lazy = true },
-	{ "nvim-lua/plenary.nvim",        lazy = true },
-	{ "nvzone/volt",                  lazy = true },
+	{ "MunifTanjim/nui.nvim", lazy = true },
+	{ "nvim-lua/plenary.nvim", lazy = true },
+	{ "nvzone/volt", lazy = true },
 	{ "rafamadriz/friendly-snippets", lazy = true },
 	-- }}}
 
@@ -50,7 +50,7 @@ local plugins = {
 						treesitter = { "lsp" },
 						columns = {
 							{ "kind_icon" },
-							{ "label",      "label_description", gap = 1 },
+							{ "label", "label_description", gap = 1 },
 							{ "source_name" },
 						},
 						components = {
@@ -110,7 +110,7 @@ local plugins = {
 	-- }}}
 
 	--- Chezmoi {{{
-	{ "xvzc/chezmoi.nvim",                         opts = { edit = { watch = true } } },
+	{ "xvzc/chezmoi.nvim", opts = { edit = { watch = true } } },
 	-- }}}
 
 	--- Colorscheme {{{
@@ -189,8 +189,7 @@ local plugins = {
 				function()
 					require("floaterm.api").open_and_run({
 						name = "Git",
-						cmd =
-						[[git log --graph --decorate --all --pretty=format:"%C(cyan)%h%Creset %C()%s%Creset%n%C(dim italic white)      └─ %ar by %an %C(auto)  %D%n"]],
+						cmd = [[git log --graph --decorate --all --pretty=format:"%C(cyan)%h%Creset %C()%s%Creset%n%C(dim italic white)      └─ %ar by %an %C(auto)  %D%n"]],
 					})
 				end,
 				{ desc = "Floaterm: Git Log" },
@@ -245,8 +244,7 @@ local plugins = {
 					map("n", "ghS", gitsigns.stage_buffer, { desc = "[Git] Stage Buffer" })
 					map("n", "ghR", gitsigns.reset_buffer, { desc = "[Git] Reset Buffer" })
 					map("n", "ghp", gitsigns.preview_hunk, { desc = "[Git] Preview Hunk" })
-					map("n", "ghi", gitsigns.preview_hunk_inline,
-						{ desc = "[Git] Preview Hunk Inline" })
+					map("n", "ghi", gitsigns.preview_hunk_inline, { desc = "[Git] Preview Hunk Inline" })
 					map("n", "ghd", gitsigns.diffthis, { desc = "[Git] Diff This" })
 
 					map("n", "ghb", function()
@@ -270,8 +268,7 @@ local plugins = {
 					end
 
 					-- Toggles
-					map("n", "ghtb", gitsigns.toggle_current_line_blame,
-						{ desc = "[Git] Toggle Line Blame" })
+					map("n", "ghtb", gitsigns.toggle_current_line_blame, { desc = "[Git] Toggle Line Blame" })
 					map("n", "ghtw", gitsigns.toggle_word_diff, { desc = "[Git] Toggle Word Diff" })
 
 					map("n", "gs", function()
@@ -332,8 +329,7 @@ local plugins = {
 				"linrongbin16/lsp-progress.nvim",
 				opts = {
 					client_format = function(_, _, series_messages)
-						return #series_messages > 0 and (table.concat(series_messages, ", ")) or
-						    nil
+						return #series_messages > 0 and (table.concat(series_messages, ", ")) or nil
 					end,
 					format = function(client_messages)
 						if #client_messages > 0 then
@@ -457,8 +453,7 @@ local plugins = {
 					},
 				},
 				denols = {
-					filetypes = vim.tbl_extend("keep", { "json", "jsonc" },
-						vim.lsp.config.denols.filetypes),
+					filetypes = vim.tbl_extend("keep", { "json", "jsonc" }, vim.lsp.config.denols.filetypes),
 				},
 			}
 			for server, config in pairs(custom) do
@@ -481,8 +476,7 @@ local plugins = {
 			require("mini.pairs").setup()
 			require("mini.surround").setup()
 			require("mini.bufremove").setup()
-			vim.keymap.set("n", "<leader>q", require("mini.bufremove").delete,
-				{ desc = "Close buffer, keep split" })
+			vim.keymap.set("n", "<leader>q", require("mini.bufremove").delete, { desc = "Close buffer, keep split" })
 
 			-- mini.ai
 			local spec_treesitter = require("mini.ai").gen_spec.treesitter
@@ -554,6 +548,13 @@ local plugins = {
 				pattern = "MiniFilesBufferCreate",
 				callback = function(event)
 					local buf_id = event.data.buf_id
+
+					vim.keymap.set("n", "<cr>", function()
+						require("mini.files").go_in({ close_on_file = true })
+					end, { buffer = buf_id })
+					vim.keymap.set("n", "l", function()
+						require("mini.files").go_in({ close_on_file = true })
+					end, { buffer = buf_id })
 					vim.keymap.set("n", "<C-d>", function()
 						local cur_directory = vim.fs.dirname(MiniFiles.get_fs_entry().path)
 						vim.cmd.tcd(cur_directory)
@@ -671,8 +672,8 @@ local plugins = {
 						local git_dir = vim.fn.system("git rev-parse --git-dir"):gsub("\n", "")
 						git_dir = vim.fs.normalize(git_dir)
 						return "/commit @"
-						    .. git_dir
-						    .. "/COMMIT_EDITMSG\nEdit that file with the generated commit message"
+							.. git_dir
+							.. "/COMMIT_EDITMSG\nEdit that file with the generated commit message"
 					end,
 				},
 			},
@@ -704,8 +705,7 @@ local plugins = {
 			vim.keymap.set("n", "<leader>an", function()
 				local nes = require("sidekick.nes")
 				nes.toggle()
-				vim.notify("NES is " .. (nes.enabled and "on" or "off"), vim.log.levels.INFO,
-					{ title = "Sidekick" })
+				vim.notify("NES is " .. (nes.enabled and "on" or "off"), vim.log.levels.INFO, { title = "Sidekick" })
 			end, { desc = "Sidekick: Toggle NES" })
 
 			vim.keymap.set({ "n", "x" }, "<tab>", function()
@@ -754,8 +754,8 @@ local plugins = {
 
 						{
 							box = "vertical",
-							{ win = "list",  border = "solid" },
-							{ win = "input", height = 1,      border = "hpad" },
+							{ win = "list", border = "solid" },
+							{ win = "input", height = 1, border = "hpad" },
 						},
 						{ win = "preview", title = "{preview}", width = 0.6, border = "solid" },
 					},
@@ -806,8 +806,7 @@ local plugins = {
 							icon = " ",
 							key = "d",
 							desc = "Dotfiles",
-							action =
-							":lua Snacks.dashboard.pick('files', {cwd = '~/.local/share/chezmoi'})",
+							action = ":lua Snacks.dashboard.pick('files', {cwd = '~/.local/share/chezmoi'})",
 						},
 						{
 							icon = "󰒲 ",
@@ -819,8 +818,7 @@ local plugins = {
 							icon = " ",
 							key = "s",
 							desc = "Scratch Buffer",
-							action =
-							":enew | setlocal buftype=nofile bufhidden=hide noswapfile",
+							action = ":enew | setlocal buftype=nofile bufhidden=hide noswapfile",
 						},
 						{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
 					},
@@ -883,8 +881,7 @@ local plugins = {
 			end, { desc = "Registers" })
 			vim.keymap.set("n", "<leader><Space>", Snacks.picker.resume, { desc = "Snacks: Resume" })
 			vim.keymap.set("n", "<leader>fh", Snacks.picker.help, { desc = "Snacks: Help" })
-			vim.keymap.set({ "n", "x" }, "ghx", require("snacks").gitbrowse.open,
-				{ desc = "[Git] Open in web" })
+			vim.keymap.set({ "n", "x" }, "ghx", require("snacks").gitbrowse.open, { desc = "[Git] Open in web" })
 		end,
 	},
 	-- }}}
@@ -1061,7 +1058,7 @@ local plugins = {
 
 -- }}}
 
--- Bootstrap lazy.nvim
+-- Bootstrap lazy.nvim {{{
 local lazypath = vim.fn.stdpath("data") .. "/site/pack/core/opt/lazy-nvim"
 vim.pack.add({ "https://github.com/folke/lazy.nvim" }, { load = true, confirm = false })
 vim.opt.rtp:prepend(lazypath)
@@ -1088,3 +1085,5 @@ require("lazy").setup(plugins, {
 		},
 	},
 })
+
+-- }}}

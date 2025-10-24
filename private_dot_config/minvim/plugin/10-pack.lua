@@ -9,7 +9,7 @@ vim.pack.add({
 	-- Deps and Extensions
 	{ src = "https://github.com/MunifTanjim/nui.nvim" }, -- Noice
 	{ src = "https://github.com/nvim-lua/plenary.nvim" }, -- ChezMoi
-	{ src = "https://github.com/nvzone/volt" },    -- Floaterm
+	{ src = "https://github.com/nvzone/volt" }, -- Floaterm
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
 
 	-- Misbehaving or not needed at start time;
@@ -17,7 +17,7 @@ vim.pack.add({
 	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 	{ src = "https://github.com/folke/lazydev.nvim" },
 	{ src = "https://github.com/jiaoshijie/undotree" },
-	{ src = "https://github.com/saghen/blink.cmp",                         version = vim.version.range("1.7") },
+	{ src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.7") },
 	{ src = "https://github.com/sindrets/diffview.nvim" },
 }, { load = false, confirm = false })
 
@@ -81,7 +81,7 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "CmdlineEnter" }, {
 						treesitter = { "lsp" },
 						columns = {
 							{ "kind_icon" },
-							{ "label",      "label_description", gap = 1 },
+							{ "label", "label_description", gap = 1 },
 							{ "source_name" },
 						},
 						components = {
@@ -230,8 +230,7 @@ vim.keymap.set("n", "``", function()
 	vim.keymap.set("n", "ghl", function()
 		require("floaterm.api").open_and_run({
 			name = "Git",
-			cmd =
-			[[git log --graph --decorate --all --pretty=format:"%C(cyan)%h%Creset %C()%s%Creset%n%C(dim italic white)      └─ %ar by %an %C(auto)  %D%n"]],
+			cmd = [[git log --graph --decorate --all --pretty=format:"%C(cyan)%h%Creset %C()%s%Creset%n%C(dim italic white)      └─ %ar by %an %C(auto)  %D%n"]],
 		})
 	end, { desc = "[Git] Floaterm: Log" })
 end, { desc = "Floaterm" })
@@ -619,8 +618,7 @@ require("sidekick").setup({
 			commit = function() -- relies on opencode custom command config
 				local git_dir = vim.fn.system("git rev-parse --git-dir"):gsub("\n", "")
 				git_dir = vim.fs.normalize(git_dir)
-				return "/commit @" ..
-				    git_dir .. "/COMMIT_EDITMSG\nEdit that file with the generated commit message"
+				return "/commit @" .. git_dir .. "/COMMIT_EDITMSG\nEdit that file with the generated commit message"
 			end,
 		},
 	},
@@ -696,8 +694,8 @@ require("snacks").setup({
 
 				{
 					box = "vertical",
-					{ win = "list",  border = "solid" },
-					{ win = "input", height = 1,      border = "hpad" },
+					{ win = "list", border = "solid" },
+					{ win = "input", height = 1, border = "hpad" },
 				},
 				{ win = "preview", title = "{preview}", width = 0.6, border = "solid" },
 			},
@@ -747,7 +745,7 @@ require("snacks").setup({
 		},
 		sections = {
 			{ section = "header" },
-			{ section = "keys",  gap = 1, padding = 1 },
+			{ section = "keys", gap = 1, padding = 1 },
 		},
 	},
 
