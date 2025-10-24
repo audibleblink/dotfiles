@@ -1090,28 +1090,29 @@ local plugins = {
 vim.pack.add({ "https://github.com/folke/lazy.nvim" }, { load = true, confirm = false })
 vim.opt.rtp:prepend(vim.fn.stdpath("data") .. "/site/pack/core/opt/lazy-nvim")
 
-require("lazy").setup(plugins, {
-	install = { colorscheme = { "catppuccin" } },
-	pkg = { enabled = false },
-	rocks = { hererocks = false, enabled = false },
-	performance = {
-		rtp = {
-			disabled_plugins = {
-				"gzip",
-				"matchit",
-				"net",
-				"editorconfig",
-				"osc52",
-				"rplugin",
-				"matchparen",
-				"netrwPlugin",
-				"tarPlugin",
-				"tohtml",
-				"tutor",
-				"zipPlugin",
+if not vim.g.lazy_did_setup then
+	require("lazy").setup(plugins, {
+		install = { colorscheme = { "catppuccin" } },
+		pkg = { enabled = false },
+		rocks = { hererocks = false, enabled = false },
+		performance = {
+			rtp = {
+				disabled_plugins = {
+					"gzip",
+					"matchit",
+					"net",
+					"editorconfig",
+					"osc52",
+					"rplugin",
+					"matchparen",
+					"netrwPlugin",
+					"tarPlugin",
+					"tohtml",
+					"tutor",
+					"zipPlugin",
+				},
 			},
 		},
-	},
-})
-
+	})
+end
 -- }}}
