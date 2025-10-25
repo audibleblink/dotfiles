@@ -1077,27 +1077,7 @@ vim.opt.rtp:prepend(vim.fn.stdpath("data") .. "/site/pack/core/opt/lazy-nvim")
 
 if not vim.g.lazy_did_setup then
 	require("lazy").setup(plugins, {
-		install = { colorscheme = { "catppuccin" } },
-		pkg = { enabled = false },
-		rocks = { hererocks = false, enabled = false },
-		performance = {
-			rtp = {
-				disabled_plugins = {
-					"gzip",
-					"matchit",
-					"net",
-					"editorconfig",
-					"osc52",
-					"rplugin",
-					"matchparen",
-					"netrwPlugin",
-					"tarPlugin",
-					"tohtml",
-					"tutor",
-					"zipPlugin",
-				},
-			},
-		},
+		lockfile = "~/.local/share/chezmoi/private_dot_config/nvim/lazy.lock",
 	})
 end
 -- }}}

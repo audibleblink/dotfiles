@@ -25,6 +25,7 @@ tests/*
 .config/sketchybar
 Library/Preferences/com.amethyst.Amethyst.plist
 .config/nvim/lua/plugins/auto-dark.lua
+.config/nvim/lazy.lock
 .config/opencode/plugin/notify.js
 {{- end }}
 
