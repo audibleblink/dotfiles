@@ -10,12 +10,19 @@ local plugins = {
 	{ "nvzone/volt", lazy = true },
 	{ "rafamadriz/friendly-snippets", lazy = true },
 	{ "xStormyy/bearded-theme.nvim", lazy = true },
-	{ "catppuccin/nvim", lazy = true, name = "catppuccin-macchiato" },
+
+	{
+		"catppuccin/nvim",
+		name = "catppuccin-macchiato",
+		priority = 1000,
+		config = function()
+			vim.cmd.colorscheme("catppuccin-macchiato")
+		end,
+	},
 	-- }}}
 
 	--- Auto Dark Mode {{{
 	{
-		priority = 999,
 		"f-person/auto-dark-mode.nvim",
 		opts = {
 			set_dark_mode = function()
@@ -297,32 +304,29 @@ local plugins = {
 	--- i3tab {{{
 	{
 		"audibleblink/i3tab.nvim",
-		-- event = "TabEnter",
+		lazy = false,
 		priority = 1000,
-		opts = {
-			separator_style = "tab",
-			position = "left",
-			padding = " ",
-			show_numbers = true,
-			colors = {
-				active = {
-					fg = vim.api.nvim_get_hl(0, { name = "Normal" }).bg,
-					bg = vim.api.nvim_get_hl(0, { name = "TabLineSel" }).bg,
-				},
-				inactive = {
-					fg = vim.api.nvim_get_hl(0, { name = "Normal" }).fg,
-					bg = vim.api.nvim_get_hl(0, { name = "TabLineSel" }).fg,
-				},
-			},
-		},
-		config = function(_, opts)
-			vim.api.nvim_create_autocmd("ColorschemePre", {
-				callback = function(e)
-					require("i3tab").setup(opts)
-					vim.cmd.colorscheme(e.match)
-				end,
-			})
-			require("i3tab").setup(opts)
+		config = function()
+			local function setup_i3tab()
+				require("i3tab").setup({
+					separator_style = "tab",
+					position = "right",
+					padding = " ",
+					show_numbers = true,
+					colors = {
+						active = {
+							fg = vim.api.nvim_get_hl(0, { name = "Normal" }).bg,
+							bg = vim.api.nvim_get_hl(0, { name = "TabLineSel" }).bg, -- tab color
+						},
+						inactive = {
+							bg = vim.api.nvim_get_hl(0, { name = "TabLineSel" }).fg, -- greyed out tab
+						},
+					},
+				})
+			end
+
+			vim.api.nvim_create_autocmd("ColorScheme", { callback = setup_i3tab })
+			setup_i3tab()
 		end,
 	},
 	-- }}}
