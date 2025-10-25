@@ -122,7 +122,11 @@ local plugins = {
 	-- }}}
 
 	--- Chezmoi {{{
-	{ "xvzc/chezmoi.nvim", opts = { edit = { watch = true } } },
+	{
+		"xvzc/chezmoi.nvim",
+		cmd = { "ChezmoiEdit" },
+		opts = { edit = { watch = true } },
+	},
 	-- }}}
 
 	--- Conform {{{
