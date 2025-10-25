@@ -128,23 +128,24 @@ local plugins = {
 	--- Conform {{{
 	{
 		"stevearc/conform.nvim",
-		event = "BufWritePre",
-		config = function()
-			require("conform").setup({
-				formatters_by_ft = {
-					lua = { "stylua" },
-					python = { "ruff", "isort", "black" },
-					rust = { "rustfmt", lsp_format = "fallback" },
-					javascript = { "deno", stop_after_first = true },
-					go = { "gofumpt", "golines", "goimports-reviser" },
-					sh = { "shfmt" },
-					lisp = { "cljfmt" },
-				},
-				format_on_save = {
-					timeout_ms = 2000,
-					lsp_format = "fallback",
-				},
-			})
+		event = "BufReadPost",
+		opts = {
+			formatters_by_ft = {
+				lua = { "stylua" },
+				python = { "ruff", "isort", "black" },
+				rust = { "rustfmt", lsp_format = "fallback" },
+				javascript = { "deno", stop_after_first = true },
+				go = { "gofumpt", "golines", "goimports-reviser" },
+				sh = { "shfmt" },
+				lisp = { "cljfmt" },
+			},
+			format_on_save = {
+				timeout_ms = 2000,
+				lsp_format = "fallback",
+			},
+		},
+		config = function(_, opts)
+			require("conform").setup(opts)
 			vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 			vim.keymap.set("n", "gm", function()
 				require("conform").format({ lsp_fallback = true, async = false, timeout_ms = 10000 })
@@ -627,40 +628,38 @@ local plugins = {
 	{
 		"folke/noice.nvim",
 		event = "CmdlineEnter",
-		config = function()
-			require("noice").setup({
-				popupmenu = { enabled = false },
-				lsp = {
-					signature = { enabled = false },
-					hover = { enabled = false },
-					progress = { enabled = false },
+		opts = {
+			popupmenu = { enabled = false },
+			lsp = {
+				signature = { enabled = false },
+				hover = { enabled = false },
+				progress = { enabled = false },
+			},
+			views = {
+				cmdline_popup = {
+					size = { min_width = 66 },
+					position = { row = "90%" },
+					border = { style = { "", " ", "", " ", "", " ", "", " " } },
+					win_options = { winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder" },
 				},
-				views = {
-					cmdline_popup = {
-						size = { min_width = 66 },
-						position = { row = "90%" },
-						border = { style = { "", " ", "", " ", "", " ", "", " " } },
-						win_options = { winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder" },
-					},
+			},
+			timeout = 1000,
+			fps = 30,
+			routes = {
+				{
+					filter = { find = "No information available" },
+					view = "mini",
 				},
-				timeout = 1000,
-				fps = 30,
-				routes = {
-					{
-						filter = { find = "No information available" },
-						view = "mini",
-					},
-					{
-						filter = { find = "written" },
-						view = "mini",
-					},
-					{
-						filter = { find = "Successfully applied" },
-						view = "mini",
-					},
+				{
+					filter = { find = "written" },
+					view = "mini",
 				},
-			})
-		end,
+				{
+					filter = { find = "Successfully applied" },
+					view = "mini",
+				},
+			},
+		},
 	},
 	-- }}}
 
@@ -907,17 +906,14 @@ local plugins = {
 	{
 		"alexghergh/nvim-tmux-navigation",
 		keys = { "<C-h>", "<C-j>", "<C-k>", "<C-l>" },
-		config = function()
-			require("nvim-tmux-navigation").setup({
-				disable_when_zoomed = false,
-				keybindings = {
-					left = "<C-h>",
-					down = "<C-j>",
-					up = "<C-k>",
-					right = "<C-l>",
-				},
-			})
-		end,
+		opts = {
+			keybindings = {
+				left = "<C-h>",
+				down = "<C-j>",
+				up = "<C-k>",
+				right = "<C-l>",
+			},
+		},
 	},
 	-- }}}
 
