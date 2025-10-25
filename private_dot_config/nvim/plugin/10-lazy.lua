@@ -302,33 +302,7 @@ local plugins = {
 	-- }}}
 
 	--- i3tab {{{
-	{
-		"audibleblink/i3tab.nvim",
-		lazy = false,
-		priority = 1000,
-		config = function()
-			local function setup_i3tab()
-				require("i3tab").setup({
-					separator_style = "tab",
-					position = "right",
-					padding = " ",
-					show_numbers = true,
-					colors = {
-						active = {
-							fg = vim.api.nvim_get_hl(0, { name = "Normal" }).bg,
-							bg = vim.api.nvim_get_hl(0, { name = "TabLineSel" }).bg, -- tab color
-						},
-						inactive = {
-							bg = vim.api.nvim_get_hl(0, { name = "TabLineSel" }).fg, -- greyed out tab
-						},
-					},
-				})
-			end
-
-			vim.api.nvim_create_autocmd("ColorScheme", { callback = setup_i3tab })
-			setup_i3tab()
-		end,
-	},
+	{ "audibleblink/i3tab.nvim", opts = { separator_style = "dot" } },
 	-- }}}
 
 	--- Lazydev  {{{
@@ -490,7 +464,6 @@ local plugins = {
 	--- Mini.nvim Suite {{{
 	{
 		"nvim-mini/mini.nvim",
-		event = "VeryLazy",
 		config = function()
 			require("mini.bracketed").setup()
 			require("mini.icons").setup()
