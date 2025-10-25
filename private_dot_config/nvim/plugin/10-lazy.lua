@@ -9,11 +9,13 @@ local plugins = {
 	{ "nvim-lua/plenary.nvim", lazy = true },
 	{ "nvzone/volt", lazy = true },
 	{ "rafamadriz/friendly-snippets", lazy = true },
+	{ "xStormyy/bearded-theme.nvim", lazy = true },
+	{ "catppuccin/nvim", lazy = true, name = "catppuccin-macchiato" },
 	-- }}}
 
 	--- Auto Dark Mode {{{
 	{
-		priority = 1000,
+		priority = 999,
 		"f-person/auto-dark-mode.nvim",
 		opts = {
 			set_dark_mode = function()
@@ -22,7 +24,7 @@ local plugins = {
 			set_light_mode = function()
 				vim.cmd.colorscheme("catppuccin-latte")
 			end,
-			update_interval = 2000,
+			update_interval = 200,
 			fallback = "dark",
 		},
 	},
@@ -113,14 +115,6 @@ local plugins = {
 
 	--- Chezmoi {{{
 	{ "xvzc/chezmoi.nvim", opts = { edit = { watch = true } } },
-	-- }}}
-
-	--- Colorscheme {{{
-	{
-		"catppuccin/nvim",
-		lazy = true,
-		name = "catppuccin-macchiato",
-	},
 	-- }}}
 
 	--- Conform {{{
@@ -303,7 +297,8 @@ local plugins = {
 	--- i3tab {{{
 	{
 		"audibleblink/i3tab.nvim",
-		event = "TabEnter",
+		-- event = "TabEnter",
+		priority = 1000,
 		opts = {
 			separator_style = "tab",
 			position = "left",
@@ -320,6 +315,15 @@ local plugins = {
 				},
 			},
 		},
+		config = function(_, opts)
+			vim.api.nvim_create_autocmd("ColorschemePre", {
+				callback = function(e)
+					require("i3tab").setup(opts)
+					vim.cmd.colorscheme(e.match)
+				end,
+			})
+			require("i3tab").setup(opts)
+		end,
 	},
 	-- }}}
 
@@ -583,7 +587,10 @@ local plugins = {
 					require("mini.ai").setup({
 						n_lines = 500,
 						custom_textobjects = {
-							f = spec_treesitter({ a = "@function.outer", i = "@function.inner" }),
+							f = spec_treesitter({
+								a = "@function.outer",
+								i = "@function.inner",
+							}),
 							m = {
 								{ "%b()", "%b[]", "%b{}" },
 								"^.().*().$",
@@ -1058,14 +1065,14 @@ local plugins = {
 			}
 			require("nvim-treesitter").install(ts_lang)
 
-			-- vim.api.nvim_create_autocmd("FileType", {
-			-- 	desc = "Load tree-sitter for supported file types",
-			-- 	pattern = ts_lang,
-			-- 	callback = function()
-			-- 		vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-			-- 		vim.treesitter.start()
-			-- 	end,
-			-- })
+			vim.api.nvim_create_autocmd("FileType", {
+				desc = "Load tree-sitter for supported file types",
+				pattern = ts_lang,
+				callback = function()
+					vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+					vim.treesitter.start()
+				end,
+			})
 		end,
 	},
 	-- }}}
