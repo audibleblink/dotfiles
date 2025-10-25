@@ -24,6 +24,7 @@ local plugins = {
 	--- Auto Dark Mode {{{
 	{
 		"f-person/auto-dark-mode.nvim",
+		event = "BufReadPost",
 		opts = {
 			set_dark_mode = function()
 				vim.cmd.colorscheme("catppuccin-macchiato")
@@ -216,7 +217,7 @@ local plugins = {
 	--- Gitsigns {{{
 	{
 		"lewis6991/gitsigns.nvim",
-		event = "VeryLazy",
+		event = "BufReadPost",
 		config = function()
 			require("gitsigns").setup({
 				on_attach = function(bufnr)
@@ -302,7 +303,7 @@ local plugins = {
 	-- }}}
 
 	--- i3tab {{{
-	{ "audibleblink/i3tab.nvim", opts = { separator_style = "dot" } },
+	{ "audibleblink/i3tab.nvim", event = "TabNew", opts = { separator_style = "dot" } },
 	-- }}}
 
 	--- Lazydev  {{{
@@ -670,6 +671,8 @@ local plugins = {
 	--- Sidekick {{{
 	{
 		"folke/sidekick.nvim",
+		event = "BufReadPost",
+		keys = { "<leader>ai" },
 		opts = {
 			nes = { enabled = false },
 			cli = {
@@ -735,7 +738,6 @@ local plugins = {
 	--- Snacks {{{
 	{
 		"folke/snacks.nvim",
-		event = "VeryLazy",
 		opts = {
 			picker = {
 				actions = {
@@ -904,7 +906,7 @@ local plugins = {
 	--- Tmux Navigation {{{
 	{
 		"alexghergh/nvim-tmux-navigation",
-		event = "VeryLazy",
+		keys = { "<C-h>", "<C-j>", "<C-k>", "<C-l>" },
 		config = function()
 			require("nvim-tmux-navigation").setup({
 				disable_when_zoomed = false,
