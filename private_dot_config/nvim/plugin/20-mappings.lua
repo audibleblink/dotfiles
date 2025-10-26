@@ -88,8 +88,8 @@ vim.keymap.set("t", "<C-l>", navigate_from_terminal("l"))
 --- Breadcrumbs {{{
 
 local BREADCRUMB_CONFIG = {
-	separator = "  ",
-	file_separator = " / ",
+	separator = "  ",
+	file_separator = "  ",
 }
 
 --- LSP SymbolKind to TreeSitter highlight group mapping
@@ -121,6 +121,19 @@ local SYMBOL_KIND_TO_TS_GROUP = {
 	[24] = "@variable", -- Event
 	[25] = "@variable", -- Operator
 	[26] = "@type.definition", -- TypeParameter
+}
+
+--- Icons for common symbol types (requires Nerd Fonts)
+--- Only most frequently navigated symbols get icons
+local SYMBOL_KIND_TO_ICON = {
+	[5] = "󰠱 ", -- Class
+	[6] = "󰊕 ", -- Method
+	[9] = "󰡱 ", -- Constructor
+	[12] = "󰊕 ", -- Function
+	[13] = "󰀫 ", -- Variable
+	[14] = "󰏿 ", -- Constant
+	[7] = "󰜢 ", -- Property
+	[11] = "󰜰 ", -- Interface
 }
 
 --- Get colors from active colorscheme with fallbacks
@@ -219,7 +232,8 @@ local function lsp_callback(err, symbols, ctx, config)
 		end
 		-- Get TreeSitter highlight group for this symbol kind
 		local ts_group = SYMBOL_KIND_TO_TS_GROUP[symbol.kind] or "@text"
-		table.insert(breadcrumbs, "%#" .. ts_group .. "#" .. symbol.name .. "%*")
+		local icon = SYMBOL_KIND_TO_ICON[symbol.kind] or ""
+		table.insert(breadcrumbs, "%#" .. ts_group .. "#" .. icon .. symbol.name .. "%*")
 	end
 
 	vim.api.nvim_set_option_value("winbar", #breadcrumbs > 0 and table.concat(breadcrumbs, "") or " ", { win = win })
