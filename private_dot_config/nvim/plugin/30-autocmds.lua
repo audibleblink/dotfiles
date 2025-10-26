@@ -58,12 +58,9 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = "gitcommit",
 	callback = function()
 		vim.b.breadcrumbs_enabled = false
-
+		vim.lsp.inline_completion.enable(true, { bufnr = 0 })
 		vim.opt_local.textwidth = 72
 		vim.opt_local.colorcolumn = "51,73"
-
-		-- Enable spell checking
-		vim.opt_local.spell = true
 	end,
 })
 
