@@ -1,5 +1,6 @@
 -- vim: foldmarker={{{,}}} foldlevel=1 foldmethod=marker
---- KeyMaps {{{
+
+-- KeyMaps {{{
 ---
 vim.keymap.set("i", "jk", "<ESC>", { desc = "Escape insert mode" })
 
@@ -79,5 +80,136 @@ vim.keymap.set("t", "<C-h>", navigate_from_terminal("h"))
 vim.keymap.set("t", "<C-j>", navigate_from_terminal("j"))
 vim.keymap.set("t", "<C-k>", navigate_from_terminal("k"))
 vim.keymap.set("t", "<C-l>", navigate_from_terminal("l"))
+
+--- }}}
+
+-- Manual Stuff {{{
+
+--- Breadcrumbs {{{
+
+local BREADCRUMB_CONFIG = {
+	separator = "  ",
+	file_separator = "  ",
+}
+
+--- Get colors from active colorscheme with fallbacks
+local function get_theme_colors()
+	-- Try to extract from existing highlight groups
+	local normal = vim.api.nvim_get_hl(0, { name = "Function" })
+	local identifier = vim.api.nvim_get_hl(0, { name = "Constant" })
+	local comment = vim.api.nvim_get_hl(0, { name = "Comment" })
+
+	return {
+		file = identifier.fg and string.format("#%06x", identifier.fg) or "#89b4fa",
+		separator = comment.fg and string.format("#%06x", comment.fg) or "#6c7086",
+		symbol = normal.fg and string.format("#%06x", normal.fg) or "#cdd6f4",
+	}
+end
+
+local function setup_breadcrumb_highlights()
+	local colors = get_theme_colors()
+	vim.api.nvim_set_hl(0, "BreadcrumbFile", { fg = colors.file, bold = true })
+	vim.api.nvim_set_hl(0, "BreadcrumbSeparator", { fg = colors.separator })
+	vim.api.nvim_set_hl(0, "BreadcrumbSymbol", { fg = colors.symbol })
+end
+
+-- Setup highlights on load and colorscheme change
+setup_breadcrumb_highlights()
+vim.api.nvim_create_autocmd("ColorScheme", {
+	group = vim.api.nvim_create_augroup("BreadcrumbHighlights", { clear = true }),
+	callback = setup_breadcrumb_highlights,
+	desc = "Update breadcrumb highlights on colorscheme change",
+})
+
+local function range_contains_pos(range, line, char)
+	local start_line, start_char = range.start.line, range.start.character
+	local end_line, end_char = range["end"].line, range["end"].character
+
+	return not (
+		line < start_line
+		or line > end_line
+		or (line == start_line and char < start_char)
+		or (line == end_line and char > end_char)
+	)
+end
+
+local function find_symbol_path(symbol_list, line, char, path)
+	if not symbol_list then
+		return false
+	end
+
+	for _, symbol in ipairs(symbol_list) do
+		if range_contains_pos(symbol.range, line, char) then
+			table.insert(path, symbol.name)
+			find_symbol_path(symbol.children, line, char, path)
+			return true
+		end
+	end
+	return false
+end
+
+---@diagnostic disable-next-line: unused-local
+local function lsp_callback(err, symbols, ctx, config)
+	if err or not symbols then
+		vim.o.winbar = ""
+		return
+	end
+
+	local file_path = vim.fn.bufname(ctx.bufnr)
+	if file_path == "" then
+		vim.o.winbar = "[No Name]"
+		return
+	end
+
+	local pos = vim.api.nvim_win_get_cursor(0)
+	local breadcrumbs = {}
+
+	-- Get relative path from LSP root
+	local clients = vim.lsp.get_clients({ bufnr = ctx.bufnr })
+	if #clients > 0 and clients[1].root_dir then
+		local file = vim.fn.fnamemodify(file_path, ":~:."):gsub("/", BREADCRUMB_CONFIG.separator)
+		breadcrumbs[1] = "%#BreadcrumbFile#" .. file .. "%*"
+	end
+
+	-- Add symbol path
+	local symbols_path = {}
+	find_symbol_path(symbols, pos[1] - 1, pos[2], symbols_path)
+
+	for i, symbol in ipairs(symbols_path) do
+		if i > 1 or #breadcrumbs > 0 then
+			table.insert(breadcrumbs, "%#BreadcrumbSeparator#" .. BREADCRUMB_CONFIG.separator .. "%*")
+		end
+		table.insert(breadcrumbs, "%#BreadcrumbSymbol#" .. symbol .. "%*")
+	end
+
+	vim.o.winbar = #breadcrumbs > 0 and table.concat(breadcrumbs, "") or " "
+end
+
+-- Debounce timer to avoid excessive LSP requests
+local breadcrumb_timer = nil
+local function breadcrumbs_set()
+	if breadcrumb_timer then
+		breadcrumb_timer:stop()
+	end
+
+	breadcrumb_timer = vim.defer_fn(function()
+		local bufnr = vim.api.nvim_get_current_buf()
+		local params = vim.lsp.util.make_text_document_params(bufnr)
+
+		if params.uri then
+			vim.lsp.buf_request(bufnr, "textDocument/documentSymbol", { textDocument = params }, lsp_callback)
+		end
+	end, 200)
+end
+
+local breadcrumbs_augroup = vim.api.nvim_create_augroup("Breadcrumbs", { clear = true })
+
+vim.api.nvim_create_autocmd("CursorMoved", {
+	group = breadcrumbs_augroup,
+	callback = breadcrumbs_set,
+	desc = "Set breadcrumbs",
+})
+
+--- }}}
 
 --- }}}
