@@ -1,24 +1,14 @@
 ---@diagnostic disable: param-type-mismatch, undefined-field,  missing-fields
--- vim: foldmarker={{{,}}} foldlevel=0 foldmethod=marker
+-- vim: foldmarker={{{,}}} foldlevel=1 foldmethod=marker
 
 -- Plugin Specs {{{
 
 local plugins = {
-	--- Dependencies (Libs) {{{
+
+	--- Dependencies & Libraries {{{
 	{ "MunifTanjim/nui.nvim", lazy = true },
 	{ "nvim-lua/plenary.nvim", lazy = true },
 	{ "nvzone/volt", lazy = true },
-	{ "rafamadriz/friendly-snippets", lazy = true },
-	{ "xStormyy/bearded-theme.nvim", lazy = true },
-
-	{
-		"catppuccin/nvim",
-		name = "catppuccin-macchiato",
-		priority = 1000,
-		config = function()
-			vim.cmd.colorscheme("catppuccin-macchiato")
-		end,
-	},
 	-- }}}
 
 	--- Auto Dark Mode {{{
@@ -56,7 +46,7 @@ local plugins = {
 				menu = {
 					border = "solid",
 					scrollbar = true,
-					auto_show_delay_ms = 1000,
+					auto_show_delay_ms = 600,
 					auto_show = true,
 					draw = {
 						treesitter = { "lsp" },
@@ -69,11 +59,11 @@ local plugins = {
 							source_name = {
 								text = function(ctx)
 									if ctx.source_name == "LSP" then
-										return " "
+										return " "
 									elseif ctx.source_name == "Snippets" then
 										return "󰞘 "
 									elseif ctx.source_name == "Buffer" then
-										return " "
+										return " "
 									end
 									return ctx.source_name
 								end,
@@ -118,6 +108,17 @@ local plugins = {
 				preset = "mini_snippets",
 			},
 		},
+	},
+	-- }}}
+
+	--- Catppuccin {{{
+	{
+		"catppuccin/nvim",
+		name = "catppuccin-macchiato",
+		priority = 1000,
+		config = function()
+			vim.cmd.colorscheme("catppuccin-macchiato")
+		end,
 	},
 	-- }}}
 
@@ -470,6 +471,7 @@ local plugins = {
 	--- Mini.nvim Suite {{{
 	{
 		"nvim-mini/mini.nvim",
+		dependencies = { "rafamadriz/friendly-snippets" },
 		config = function()
 			require("mini.align").setup()
 			require("mini.bracketed").setup()
@@ -952,37 +954,39 @@ local plugins = {
 					top = "│ ",
 					middle = "├╴",
 					last = "└╴",
-					fold_open = " ",
-					fold_closed = " ",
+					-- last          = "-╴",
+					-- last       = "╰╴", -- rounded
+					fold_open = " ",
+					fold_closed = " ",
 				},
-				folder_closed = "",
-				folder_open = "",
+				folder_closed = "",
+				folder_open = "",
 				kinds = {
-					Array = "",
+					Array = "",
 					Boolean = "󰨙",
-					Class = "",
+					Class = "",
 					Constant = "󰏿",
-					Constructor = "",
-					Enum = "",
-					EnumMember = "",
-					Event = "",
-					Field = "",
-					File = "",
+					Constructor = "",
+					Enum = "",
+					EnumMember = "",
+					Event = "",
+					Field = "",
+					File = "",
 					Function = "󰊕",
-					Interface = "",
-					Key = "",
+					Interface = "",
+					Key = "",
 					Method = "󰊕",
-					Module = "",
+					Module = "",
 					Namespace = "󰦮",
-					Null = "",
+					Null = "",
 					Number = "󰎠",
-					Object = "",
-					Operator = "",
-					Package = "",
-					Property = "",
-					String = "",
+					Object = "",
+					Operator = "",
+					Package = "",
+					Property = "",
+					String = "",
 					Struct = "󰆼",
-					TypeParameter = "",
+					TypeParameter = "",
 					Variable = "󰀫",
 				},
 			},
@@ -1002,8 +1006,6 @@ local plugins = {
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
-
-		branch = "main",
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -1072,7 +1074,7 @@ local plugins = {
 
 -- }}}
 
--- Bootstrap lazy.nvim {{{
+-- Bootstrap lazy.nvim
 vim.pack.add({ "https://github.com/folke/lazy.nvim" }, { load = true, confirm = false })
 vim.opt.rtp:prepend(vim.fn.stdpath("data") .. "/site/pack/core/opt/lazy-nvim")
 
@@ -1081,4 +1083,3 @@ if not vim.g.lazy_did_setup then
 		lockfile = "~/.local/share/chezmoi/private_dot_config/nvim/lazy.lock",
 	})
 end
--- }}}
