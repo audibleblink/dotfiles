@@ -150,24 +150,31 @@ end
 
 ---@diagnostic disable-next-line: unused-local
 local function lsp_callback(err, symbols, ctx, config)
+	-- Ensure we're setting the winbar for the correct window
+	local win = vim.fn.bufwinid(ctx.bufnr)
+	if win == -1 or not vim.api.nvim_win_is_valid(win) then
+		return
+	end
+
 	if err or not symbols then
-		vim.o.winbar = ""
+		vim.api.nvim_set_option_value("winbar", "", { win = win })
 		return
 	end
 
 	local file_path = vim.fn.bufname(ctx.bufnr)
 	if file_path == "" then
-		vim.o.winbar = "[No Name]"
+		vim.api.nvim_set_option_value("winbar", "[No Name]", { win = win })
 		return
 	end
 
-	local pos = vim.api.nvim_win_get_cursor(0)
+	-- Get cursor position for this specific window
+	local pos = vim.api.nvim_win_get_cursor(win)
 	local breadcrumbs = {}
 
 	-- Get relative path from LSP root
 	local clients = vim.lsp.get_clients({ bufnr = ctx.bufnr })
 	if #clients > 0 and clients[1].root_dir then
-		local file = vim.fn.fnamemodify(file_path, ":~:."):gsub("/", BREADCRUMB_CONFIG.separator)
+		local file = vim.fn.fnamemodify(file_path, ":~:."):gsub("/", BREADCRUMB_CONFIG.file_separator)
 		breadcrumbs[1] = "%#BreadcrumbFile#" .. file .. "%*"
 	end
 
@@ -182,7 +189,7 @@ local function lsp_callback(err, symbols, ctx, config)
 		table.insert(breadcrumbs, "%#BreadcrumbSymbol#" .. symbol .. "%*")
 	end
 
-	vim.o.winbar = #breadcrumbs > 0 and table.concat(breadcrumbs, "") or " "
+	vim.api.nvim_set_option_value("winbar", #breadcrumbs > 0 and table.concat(breadcrumbs, "") or " ", { win = win })
 end
 
 -- Debounce timer to avoid excessive LSP requests
