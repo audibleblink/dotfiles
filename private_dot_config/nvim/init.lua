@@ -48,6 +48,7 @@ vim.o.tabstop = 4
 vim.o.termguicolors = true
 vim.o.timeoutlen = 500
 vim.o.undofile = true
+vim.o.updatetime = 2000
 vim.o.virtualedit = "block"
 vim.o.winborder = "solid"
 vim.o.wrap = false

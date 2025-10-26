@@ -846,8 +846,9 @@ local plugins = {
 				},
 			},
 			statuscolumn = {
-				left = { "sign" },
-				right = { "git", "mark" },
+				left = { "sign", "mark" },
+				right = { "fold", "git" },
+				folds = { open = false, git_hl = true },
 			},
 			zen = { enabled = true },
 		},
