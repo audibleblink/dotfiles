@@ -126,14 +126,32 @@ local SYMBOL_KIND_TO_TS_GROUP = {
 --- Icons for common symbol types (requires Nerd Fonts)
 --- Only most frequently navigated symbols get icons
 local SYMBOL_KIND_TO_ICON = {
-	[5] = "󰠱 ", -- Class
+	[1] = " ", -- File
+	[2] = " ", -- Module
+	[3] = "󰦮 ", -- Namespace
+	[4] = " ", -- Package
+	[5] = " ", -- Class
 	[6] = "󰊕 ", -- Method
-	[9] = "󰡱 ", -- Constructor
+	[7] = " ", -- Property
+	[8] = " ", -- Field
+	[9] = " ", -- Constructor
+	[10] = " ", -- Enum
+	[11] = " ", -- Interface
 	[12] = "󰊕 ", -- Function
 	[13] = "󰀫 ", -- Variable
 	[14] = "󰏿 ", -- Constant
-	[7] = "󰜢 ", -- Property
-	[11] = "󰜰 ", -- Interface
+	[15] = " ", -- String
+	[16] = "󰎠 ", -- Number
+	[17] = "󰨙 ", -- Boolean
+	[18] = " ", -- Array
+	[19] = " ", -- Object
+	[20] = " ", -- Key
+	[21] = " ", -- Null
+	[22] = " ", -- EnumMember
+	[23] = "󰆼 ", -- Struct
+	[24] = " ", -- Event
+	[25] = " ", -- Operator
+	[26] = " ", -- TypeParameter
 }
 
 --- Get colors from active colorscheme with fallbacks
@@ -232,7 +250,7 @@ local function lsp_callback(err, symbols, ctx, config)
 		end
 		-- Get TreeSitter highlight group for this symbol kind
 		local ts_group = SYMBOL_KIND_TO_TS_GROUP[symbol.kind] or "@text"
-		local icon = SYMBOL_KIND_TO_ICON[symbol.kind] or ""
+		local icon = SYMBOL_KIND_TO_ICON[symbol.kind] or ""
 		table.insert(breadcrumbs, "%#" .. ts_group .. "#" .. icon .. symbol.name .. "%*")
 	end
 
