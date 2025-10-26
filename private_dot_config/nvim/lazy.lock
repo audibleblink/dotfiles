@@ -1,6 +1,5 @@
 {
   "auto-dark-mode.nvim": { "branch": "master", "commit": "e300259ec777a40b4b9e3c8e6ade203e78d15881" },
-  "bearded-theme.nvim": { "branch": "main", "commit": "d9b6b12053317786447316b0b7a710dbe91f4ea8" },
   "blink.cmp": { "branch": "main", "commit": "327fff91fe6af358e990be7be1ec8b78037d2138" },
   "catppuccin-macchiato": { "branch": "main", "commit": "8c4125e3c746976ba025dc5d908fa22c6aa09486" },
   "chezmoi.nvim": { "branch": "main", "commit": "8b426285c2b0acb9b0dd46789193fa97f6480b99" },
