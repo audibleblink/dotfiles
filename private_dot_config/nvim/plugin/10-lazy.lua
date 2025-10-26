@@ -471,115 +471,102 @@ local plugins = {
 	{
 		"nvim-mini/mini.nvim",
 		config = function()
+			require("mini.align").setup()
 			require("mini.bracketed").setup()
+			require("mini.comment").setup()
 			require("mini.icons").setup()
+			require("mini.move").setup()
+			require("mini.pairs").setup()
+			require("mini.surround").setup()
+			require("mini.bufremove").setup()
+			vim.keymap.set("n", "<leader>q", require("mini.bufremove").delete, { desc = "Close buffer, keep split" })
 
-			vim.api.nvim_create_autocmd("InsertEnter", {
+			-- mini.ai
+			local spec_treesitter = require("mini.ai").gen_spec.treesitter
+			require("mini.ai").setup({
+				n_lines = 500,
+				custom_textobjects = {
+					f = spec_treesitter({
+						a = "@function.outer",
+						i = "@function.inner",
+					}),
+					m = {
+						{ "%b()", "%b[]", "%b{}" },
+						"^.().*().$",
+					},
+				},
+			})
+
+			-- mini.clue
+			require("mini.clue").setup({
+				triggers = {
+					{ mode = "n", keys = "<Leader>" },
+					{ mode = "x", keys = "<Leader>" },
+					{ mode = "i", keys = "<C-x>" },
+					{ mode = "n", keys = "g" },
+					{ mode = "x", keys = "g" },
+					{ mode = "n", keys = "]" },
+					{ mode = "n", keys = "[" },
+					{ mode = "x", keys = "]" },
+					{ mode = "x", keys = "[" },
+					{ mode = "n", keys = "'" },
+					{ mode = "n", keys = "`" },
+					{ mode = "x", keys = "'" },
+					{ mode = "x", keys = "`" },
+					{ mode = "n", keys = '"' },
+					{ mode = "x", keys = '"' },
+					{ mode = "i", keys = "<C-r>" },
+					{ mode = "c", keys = "<C-r>" },
+					{ mode = "n", keys = "<C-w>" },
+					{ mode = "n", keys = "z" },
+					{ mode = "x", keys = "z" },
+				},
+				clues = {
+					require("mini.clue").gen_clues.builtin_completion(),
+					require("mini.clue").gen_clues.g(),
+					require("mini.clue").gen_clues.marks(),
+					require("mini.clue").gen_clues.registers(),
+					require("mini.clue").gen_clues.windows(),
+					require("mini.clue").gen_clues.z(),
+				},
+				window = {
+					delay = 400,
+					config = { anchor = "SE", row = "auto", col = "auto" },
+				},
+			})
+
+			-- mini.files
+			require("mini.files").setup()
+			vim.api.nvim_create_autocmd("User", {
+				desc = "Add MiniFiles Bookmarks",
+				pattern = "MiniFilesExplorerOpen",
 				callback = function()
-					require("mini.pairs").setup()
-					require("mini.align").setup()
-					require("mini.surround").setup()
-					require("mini.move").setup()
-					require("mini.bufremove").setup()
-					vim.keymap.set(
-						"n",
-						"<leader>q",
-						require("mini.bufremove").delete,
-						{ desc = "Close buffer, keep split" }
-					)
+					MiniFiles.set_bookmark("w", vim.fn.getcwd, { desc = "Working directory" })
+					MiniFiles.set_bookmark("c", vim.fn.stdpath("config"), { desc = "Config" })
 				end,
 			})
 
-			vim.api.nvim_create_autocmd("CursorMoved", {
-				callback = function()
-					require("mini.comment").setup()
+			vim.keymap.set("n", "-", function()
+				require("mini.files").open(vim.api.nvim_buf_get_name(0), false)
+			end, { desc = "MiniFiles: Open" })
 
-					-- mini.clue
-					require("mini.clue").setup({
-						triggers = {
-							{ mode = "n", keys = "<Leader>" },
-							{ mode = "x", keys = "<Leader>" },
-							{ mode = "i", keys = "<C-x>" },
-							{ mode = "n", keys = "g" },
-							{ mode = "x", keys = "g" },
-							{ mode = "n", keys = "]" },
-							{ mode = "n", keys = "[" },
-							{ mode = "x", keys = "]" },
-							{ mode = "x", keys = "[" },
-							{ mode = "n", keys = "'" },
-							{ mode = "n", keys = "`" },
-							{ mode = "x", keys = "'" },
-							{ mode = "x", keys = "`" },
-							{ mode = "n", keys = '"' },
-							{ mode = "x", keys = '"' },
-							{ mode = "i", keys = "<C-r>" },
-							{ mode = "c", keys = "<C-r>" },
-							{ mode = "n", keys = "<C-w>" },
-							{ mode = "n", keys = "z" },
-							{ mode = "x", keys = "z" },
-						},
-						clues = {
-							require("mini.clue").gen_clues.builtin_completion(),
-							require("mini.clue").gen_clues.g(),
-							require("mini.clue").gen_clues.marks(),
-							require("mini.clue").gen_clues.registers(),
-							require("mini.clue").gen_clues.windows(),
-							require("mini.clue").gen_clues.z(),
-						},
-						window = {
-							delay = 400,
-							config = { anchor = "SE", row = "auto", col = "auto" },
-						},
-					})
+			vim.api.nvim_create_autocmd("User", {
+				desc = "TCD into dir",
+				pattern = "MiniFilesBufferCreate",
+				callback = function(event)
+					local buf_id = event.data.buf_id
 
-					-- mini.files
-					require("mini.files").setup()
-					vim.api.nvim_create_autocmd("User", {
-						desc = "Add MiniFiles Bookmarks",
-						pattern = "MiniFilesExplorerOpen",
-						callback = function()
-							MiniFiles.set_bookmark("w", vim.fn.getcwd, { desc = "Working directory" })
-							MiniFiles.set_bookmark("c", vim.fn.stdpath("config"), { desc = "Config" })
-						end,
-					})
-					vim.keymap.set("n", "-", function()
-						require("mini.files").open(vim.api.nvim_buf_get_name(0), false)
-					end, { desc = "MiniFiles: Open" })
-					vim.api.nvim_create_autocmd("User", {
-						desc = "TCD into dir",
-						pattern = "MiniFilesBufferCreate",
-						callback = function(event)
-							local buf_id = event.data.buf_id
-
-							vim.keymap.set("n", "<cr>", function()
-								require("mini.files").go_in({ close_on_file = true })
-							end, { buffer = buf_id })
-							vim.keymap.set("n", "l", function()
-								require("mini.files").go_in({ close_on_file = true })
-							end, { buffer = buf_id })
-							vim.keymap.set("n", "<C-d>", function()
-								local cur_directory = vim.fs.dirname(MiniFiles.get_fs_entry().path)
-								vim.cmd.tcd(cur_directory)
-								vim.notify("TCD: " .. cur_directory, vim.log.levels.INFO)
-							end, { buffer = buf_id })
-						end,
-					})
-
-					-- mini.ai
-					local spec_treesitter = require("mini.ai").gen_spec.treesitter
-					require("mini.ai").setup({
-						n_lines = 500,
-						custom_textobjects = {
-							f = spec_treesitter({
-								a = "@function.outer",
-								i = "@function.inner",
-							}),
-							m = {
-								{ "%b()", "%b[]", "%b{}" },
-								"^.().*().$",
-							},
-						},
-					})
+					vim.keymap.set("n", "<cr>", function()
+						require("mini.files").go_in({ close_on_file = true })
+					end, { buffer = buf_id })
+					vim.keymap.set("n", "l", function()
+						require("mini.files").go_in({ close_on_file = true })
+					end, { buffer = buf_id })
+					vim.keymap.set("n", "<C-d>", function()
+						local cur_directory = vim.fs.dirname(MiniFiles.get_fs_entry().path)
+						vim.cmd.tcd(cur_directory)
+						vim.notify("TCD: " .. cur_directory, vim.log.levels.INFO)
+					end, { buffer = buf_id })
 				end,
 			})
 
@@ -596,6 +583,7 @@ local plugins = {
 					}),
 				},
 			})
+
 			vim.api.nvim_create_autocmd("BufEnter", {
 				callback = function()
 					if vim.tbl_contains({ "terminal", "help", "nofile" }, vim.bo.buftype) then
@@ -603,7 +591,9 @@ local plugins = {
 					end
 				end,
 			})
+
 			vim.cmd([[highlight! link MiniIndentscopeSymbol Identifier]])
+
 			-- mini.hipatterns
 			require("mini.hipatterns").setup({
 				highlighters = {
@@ -1008,6 +998,13 @@ local plugins = {
 	-- }}}
 
 	--- Treesitter {{{
+
+	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+
+		branch = "main",
+	},
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
