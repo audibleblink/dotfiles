@@ -87,6 +87,9 @@ vim.keymap.set("t", "<C-l>", navigate_from_terminal("l"))
 
 --- Breadcrumbs {{{
 
+--- Global state for breadcrumbs
+_G.breadcrumbs_enabled = true
+
 local BREADCRUMB_CONFIG = {
 	separator = "  ",
 	file_separator = "  ",
@@ -260,6 +263,10 @@ end
 -- Debounce timer to avoid excessive LSP requests
 local breadcrumb_timer = nil
 local function breadcrumbs_set()
+	if not _G.breadcrumbs_enabled then
+		return
+	end
+
 	if breadcrumb_timer then
 		breadcrumb_timer:stop()
 	end
@@ -281,6 +288,21 @@ vim.api.nvim_create_autocmd("CursorMoved", {
 	callback = breadcrumbs_set,
 	desc = "Set breadcrumbs",
 })
+
+--- Toggle breadcrumbs
+local function toggle_breadcrumbs()
+	_G.breadcrumbs_enabled = not _G.breadcrumbs_enabled
+	if _G.breadcrumbs_enabled then
+		breadcrumbs_set()
+		vim.notify("Breadcrumbs enabled", vim.log.levels.INFO)
+	else
+		-- Clear winbar in current window
+		vim.api.nvim_set_option_value("winbar", "", { win = vim.api.nvim_get_current_win() })
+		vim.notify("Breadcrumbs disabled", vim.log.levels.INFO)
+	end
+end
+
+vim.keymap.set("n", "<leader>tb", toggle_breadcrumbs, { desc = "Toggle Breadcrumbs" })
 
 --- }}}
 
