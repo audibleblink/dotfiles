@@ -88,14 +88,44 @@ vim.keymap.set("t", "<C-l>", navigate_from_terminal("l"))
 --- Breadcrumbs {{{
 
 local BREADCRUMB_CONFIG = {
-	separator = "  ",
+	separator = "  ",
 	file_separator = " / ",
+}
+
+--- LSP SymbolKind to TreeSitter highlight group mapping
+--- Based on LSP specification: https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#symbolKind
+local SYMBOL_KIND_TO_TS_GROUP = {
+	[1] = "@variable", -- File
+	[2] = "@module", -- Module
+	[3] = "@namespace", -- Namespace
+	[4] = "@module", -- Package
+	[5] = "@type", -- Class
+	[6] = "@function.method", -- Method
+	[7] = "@property", -- Property
+	[8] = "@variable.member", -- Field
+	[9] = "@constructor", -- Constructor
+	[10] = "@type", -- Enum
+	[11] = "@type", -- Interface
+	[12] = "@function", -- Function
+	[13] = "@variable", -- Variable
+	[14] = "@constant", -- Constant
+	[15] = "@string", -- String
+	[16] = "@number", -- Number
+	[17] = "@boolean", -- Boolean
+	[18] = "@variable", -- Array
+	[19] = "@variable", -- Object
+	[20] = "@variable", -- Key
+	[21] = "@variable", -- Null
+	[22] = "@constant", -- EnumMember
+	[23] = "@type", -- Struct
+	[24] = "@variable", -- Event
+	[25] = "@variable", -- Operator
+	[26] = "@type.definition", -- TypeParameter
 }
 
 --- Get colors from active colorscheme with fallbacks
 local function get_theme_colors()
 	-- Try to extract from existing highlight groups
-	local hl_symbol = vim.api.nvim_get_hl(0, { name = "Function" })
 	local hl_filepath = vim.api.nvim_get_hl(0, { name = "Comment" })
 	local hl_sep = vim.api.nvim_get_hl(0, { name = "Comment" })
 	local hl_winbar_bg = vim.api.nvim_get_hl(0, { name = "StatusLine" })
@@ -103,7 +133,6 @@ local function get_theme_colors()
 	return {
 		file = hl_filepath.fg and string.format("#%06x", hl_filepath.fg),
 		separator = hl_sep.fg and string.format("#%06x", hl_sep.fg),
-		symbol = hl_symbol.fg and string.format("#%06x", hl_symbol.fg),
 		background = hl_winbar_bg.bg and string.format("#%06x", hl_winbar_bg.bg),
 	}
 end
@@ -113,7 +142,6 @@ local function setup_breadcrumb_highlights()
 	vim.api.nvim_set_hl(0, "WinBar", { bg = colors.background })
 	vim.api.nvim_set_hl(0, "BreadcrumbFile", { fg = colors.file, bg = colors.background, italic = true })
 	vim.api.nvim_set_hl(0, "BreadcrumbSeparator", { fg = colors.separator, bg = colors.background })
-	vim.api.nvim_set_hl(0, "BreadcrumbSymbol", { fg = colors.symbol, bg = colors.background })
 end
 
 -- Setup highlights on load and colorscheme change
@@ -143,7 +171,7 @@ local function find_symbol_path(symbol_list, line, char, path)
 
 	for _, symbol in ipairs(symbol_list) do
 		if range_contains_pos(symbol.range, line, char) then
-			table.insert(path, symbol.name)
+			table.insert(path, { name = symbol.name, kind = symbol.kind })
 			find_symbol_path(symbol.children, line, char, path)
 			return true
 		end
@@ -187,9 +215,11 @@ local function lsp_callback(err, symbols, ctx, config)
 
 	for i, symbol in ipairs(symbols_path) do
 		if i > 1 or #breadcrumbs > 0 then
-			table.insert(breadcrumbs, "%#BreadcrumbSeparator#" .. BREADCRUMB_CONFIG.separator .. "%*")
+			table.insert(breadcrumbs, " %#BreadcrumbSeparator#" .. BREADCRUMB_CONFIG.separator .. " %*")
 		end
-		table.insert(breadcrumbs, "%#BreadcrumbSymbol#" .. symbol .. "%*")
+		-- Get TreeSitter highlight group for this symbol kind
+		local ts_group = SYMBOL_KIND_TO_TS_GROUP[symbol.kind] or "@text"
+		table.insert(breadcrumbs, "%#" .. ts_group .. "#" .. symbol.name .. "%*")
 	end
 
 	vim.api.nvim_set_option_value("winbar", #breadcrumbs > 0 and table.concat(breadcrumbs, "") or " ", { win = win })
