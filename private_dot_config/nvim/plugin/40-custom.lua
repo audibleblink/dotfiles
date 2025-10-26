@@ -178,6 +178,11 @@ end
 -- Debounce timer to avoid excessive LSP requests
 local breadcrumb_timer = nil
 local function breadcrumbs_set()
+	-- Check buffer-local variable first, then fall back to global
+	if not vim.b.breadcrumbs_enabled then
+		return
+	end
+
 	if not _G.breadcrumbs_enabled then
 		return
 	end

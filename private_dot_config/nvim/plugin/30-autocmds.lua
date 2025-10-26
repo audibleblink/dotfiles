@@ -54,6 +54,20 @@ local x_filetypes = vim.api.nvim_create_augroup("x_filetypes", { clear = true })
 --- Configure markdown files with spell check, wrapping, folding, and link surround
 --
 vim.api.nvim_create_autocmd("FileType", {
+	desc = "Commit Messages",
+	pattern = "gitcommit",
+	callback = function()
+		vim.b.breadcrumbs_enabled = false
+
+		vim.opt_local.textwidth = 72
+		vim.opt_local.colorcolumn = "51,73"
+
+		-- Enable spell checking
+		vim.opt_local.spell = true
+	end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
 	desc = "Markdown",
 	pattern = "markdown",
 	group = x_filetypes,
