@@ -89,28 +89,31 @@ vim.keymap.set("t", "<C-l>", navigate_from_terminal("l"))
 
 local BREADCRUMB_CONFIG = {
 	separator = "  ",
-	file_separator = "  ",
+	file_separator = " / ",
 }
 
 --- Get colors from active colorscheme with fallbacks
 local function get_theme_colors()
 	-- Try to extract from existing highlight groups
-	local normal = vim.api.nvim_get_hl(0, { name = "Function" })
-	local identifier = vim.api.nvim_get_hl(0, { name = "Constant" })
-	local comment = vim.api.nvim_get_hl(0, { name = "Comment" })
+	local hl_symbol = vim.api.nvim_get_hl(0, { name = "Function" })
+	local hl_filepath = vim.api.nvim_get_hl(0, { name = "Comment" })
+	local hl_sep = vim.api.nvim_get_hl(0, { name = "Comment" })
+	local hl_winbar_bg = vim.api.nvim_get_hl(0, { name = "StatusLine" })
 
 	return {
-		file = identifier.fg and string.format("#%06x", identifier.fg) or "#89b4fa",
-		separator = comment.fg and string.format("#%06x", comment.fg) or "#6c7086",
-		symbol = normal.fg and string.format("#%06x", normal.fg) or "#cdd6f4",
+		file = hl_filepath.fg and string.format("#%06x", hl_filepath.fg),
+		separator = hl_sep.fg and string.format("#%06x", hl_sep.fg),
+		symbol = hl_symbol.fg and string.format("#%06x", hl_symbol.fg),
+		background = hl_winbar_bg.bg and string.format("#%06x", hl_winbar_bg.bg),
 	}
 end
 
 local function setup_breadcrumb_highlights()
 	local colors = get_theme_colors()
-	vim.api.nvim_set_hl(0, "BreadcrumbFile", { fg = colors.file, bold = true })
-	vim.api.nvim_set_hl(0, "BreadcrumbSeparator", { fg = colors.separator })
-	vim.api.nvim_set_hl(0, "BreadcrumbSymbol", { fg = colors.symbol })
+	vim.api.nvim_set_hl(0, "WinBar", { bg = colors.background })
+	vim.api.nvim_set_hl(0, "BreadcrumbFile", { fg = colors.file, bg = colors.background, italic = true })
+	vim.api.nvim_set_hl(0, "BreadcrumbSeparator", { fg = colors.separator, bg = colors.background })
+	vim.api.nvim_set_hl(0, "BreadcrumbSymbol", { fg = colors.symbol, bg = colors.background })
 end
 
 -- Setup highlights on load and colorscheme change
@@ -175,7 +178,7 @@ local function lsp_callback(err, symbols, ctx, config)
 	local clients = vim.lsp.get_clients({ bufnr = ctx.bufnr })
 	if #clients > 0 and clients[1].root_dir then
 		local file = vim.fn.fnamemodify(file_path, ":~:."):gsub("/", BREADCRUMB_CONFIG.file_separator)
-		breadcrumbs[1] = "%#BreadcrumbFile#" .. file .. "%*"
+		breadcrumbs[1] = "  %#BreadcrumbFile#" .. file .. "%*"
 	end
 
 	-- Add symbol path
