@@ -31,6 +31,7 @@ local plugins = {
 	--- Blink.cmp {{{
 	{
 		"saghen/blink.cmp",
+		dependencies = { "rafamadriz/friendly-snippets" },
 		version = "1.7.*",
 		event = { "InsertEnter", "CmdlineEnter" },
 		opts = {
@@ -328,23 +329,6 @@ local plugins = {
 	{
 		"nvim-lualine/lualine.nvim",
 		event = "InsertEnter",
-		dependencies = {
-			-- { "folke/noice.nvim" },
-			{
-				"linrongbin16/lsp-progress.nvim",
-				opts = {
-					client_format = function(_, _, series_messages)
-						return #series_messages > 0 and (table.concat(series_messages, ", ")) or nil
-					end,
-					format = function(client_messages)
-						if #client_messages > 0 then
-							return table.concat(client_messages, " ")
-						end
-						return ""
-					end,
-				},
-			},
-		},
 
 		opts = function()
 			return {
@@ -388,9 +372,6 @@ local plugins = {
 							icon = " ",
 							ignore_lsp = { "copilot", "stylua" },
 						},
-						function()
-							return require("lsp-progress").progress()
-						end,
 					},
 					lualine_y = { "branch" },
 					lualine_z = { { "location", separator = { right = "" }, left_padding = 2 } },
@@ -471,7 +452,6 @@ local plugins = {
 	--- Mini.nvim Suite {{{
 	{
 		"nvim-mini/mini.nvim",
-		dependencies = { "rafamadriz/friendly-snippets" },
 		config = function()
 			require("mini.align").setup()
 			require("mini.bracketed").setup()
@@ -625,7 +605,8 @@ local plugins = {
 		"folke/noice.nvim",
 		event = "CmdlineEnter",
 		opts = {
-			popupmenu = { enabled = false },
+			popupmenu = { enabled = true },
+			notify = { enabled = true },
 			lsp = {
 				signature = { enabled = false },
 				hover = { enabled = false },
@@ -639,7 +620,7 @@ local plugins = {
 					win_options = { winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder" },
 				},
 			},
-			timeout = 1000,
+			timeout = 2000,
 			fps = 30,
 			routes = {
 				{
@@ -649,6 +630,10 @@ local plugins = {
 				{
 					filter = { find = "written" },
 					view = "mini",
+				},
+				{
+					filter = { find = "Diagnosing" },
+					opts = { skip = true },
 				},
 				{
 					filter = { find = "Successfully applied" },
@@ -733,6 +718,7 @@ local plugins = {
 	--- Snacks {{{
 	{
 		"folke/snacks.nvim",
+		priority = 1000,
 		opts = {
 			picker = {
 				actions = {
@@ -836,9 +822,11 @@ local plugins = {
 					},
 				},
 			},
-
+			notifier = {
+				style = "fancy",
+				timeout = 2000,
+			},
 			input = { enabled = true },
-			notifier = { enabled = true },
 			quickfile = { enabled = true },
 			scroll = {
 				animate = {
