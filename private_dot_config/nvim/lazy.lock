@@ -26,6 +26,7 @@
   "sidekick.nvim": { "branch": "main", "commit": "6c53e5fb5430821634062e034e3004a9cbea24e6" },
   "snacks.nvim": { "branch": "main", "commit": "8ad80de67b68db773cd50599f93dfada85e00eae" },
   "trouble.nvim": { "branch": "main", "commit": "d7494d8bc563f8ae8b3f35d78c7478cf842b0ab9" },
+  "typst-preview.nvim": { "branch": "master", "commit": "e544812bba84b4f7976590f2b6c0dfbd099e1893" },
   "undotree": { "branch": "main", "commit": "1c3e7531fad0a9c27942c5438be5adbd26260470" },
   "volt": { "branch": "main", "commit": "620de1321f275ec9d80028c68d1b88b409c0c8b1" }
 }

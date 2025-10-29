@@ -928,6 +928,16 @@ local plugins = {
 	},
 	-- }}}
 
+	--- Tinymist {{{
+	{
+		"chomosuke/typst-preview.nvim",
+		ft = "typst",
+		version = "1.*",
+		opts = {
+			open_cmd = "qutebrowser %s",
+		},
+	},
+	--- }}}
 	--- Trouble {{{
 	{
 		"folke/trouble.nvim",
