@@ -1023,7 +1023,6 @@ local plugins = {
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		branch = "main",
-		lazy = true,
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -1065,7 +1064,6 @@ local plugins = {
 				desc = "Load tree-sitter for supported file types",
 				pattern = ts_lang,
 				callback = function()
-					vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 					vim.treesitter.start()
 				end,
 			})
