@@ -453,7 +453,6 @@ local plugins = {
 	{
 		"audibleblink/mdeval.nvim",
 		ft = "markdown",
-		-- dir = "~/Code/mdeval.nvim",
 		opts = { require_confirmation = false },
 		keys = {
 			{
