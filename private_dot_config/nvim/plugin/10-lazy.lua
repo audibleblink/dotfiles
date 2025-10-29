@@ -903,7 +903,7 @@ local plugins = {
 			end, { desc = "Snacks: Clipboard History" })
 			vim.keymap.set("n", "<leader>cm", function()
 				Snacks.dashboard.pick("files", { cwd = "~/.local/share/chezmoi" })
-			end, { desc = "Source current file" })
+			end, { desc = "Snacks: Chezmoi-Managed Files" })
 			vim.keymap.set("n", "<M-r>", function()
 				Snacks.picker.registers()
 			end, { desc = "Registers" })
