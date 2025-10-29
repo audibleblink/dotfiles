@@ -449,6 +449,31 @@ local plugins = {
 	},
 	-- }}}
 
+	--- MDEval.nvim {{{
+	{
+		"audibleblink/mdeval.nvim",
+		ft = "markdown",
+		-- dir = "~/Code/mdeval.nvim",
+		opts = { require_confirmation = false },
+		keys = {
+			{
+				"<leader>e",
+				function()
+					require("mdeval").eval_code_block()
+				end,
+				{ desc = "MDEval" },
+			},
+			{
+				"<leader>E",
+				function()
+					require("mdeval").clean()
+				end,
+				{ desc = "MDEvalClean" },
+			},
+		},
+	},
+	--- }}}
+
 	--- Mini.nvim Suite {{{
 	{
 		"nvim-mini/mini.nvim",
@@ -659,6 +684,8 @@ local plugins = {
 				win = {
 					keys = {
 						hide_n = { "kj", "hide", mode = "t" },
+						buffers = { "<leader>b", "buffers", mode = "n", desc = "open buffer picker" },
+						prompt = { "<leader>p", "prompt", mode = "n", desc = "insert prompt or context" },
 					},
 				},
 				mux = {
@@ -996,6 +1023,7 @@ local plugins = {
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		branch = "main",
+		lazy = true,
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
