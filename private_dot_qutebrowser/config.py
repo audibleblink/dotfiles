@@ -46,3 +46,5 @@ c.tabs.wrap = True
 ## }}}
 
 config.load_autoconfig(False)
+
+## TODO review https://github.com/biohackerellie/.dotfiles/blob/7aaa1de7ec500db092eb9f7105467f111bed7219/config/.config/qutebrowser/config.py
