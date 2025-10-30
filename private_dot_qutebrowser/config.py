@@ -1,4 +1,15 @@
+# vim: foldmarker={{{,}}} foldlevel=0 foldmethod=marker
+
+# Boilerplate / Imports {{{
 import catppuccin
+from qutebrowser.config.config import ConfigContainer  # noqa: F401
+from qutebrowser.config.configfiles import ConfigAPI  # noqa: F401
+
+config: ConfigAPI = config  # noqa: F821 pylint: disable=E0602,C0103
+c: ConfigContainer = c  # noqa: F821 pylint: disable=E0602,C0103
+# }}}
+
+# UX / UI {{{
 
 catppuccin.setup(c, "mocha")
 
@@ -20,6 +31,7 @@ c.scrolling.smooth = True
 c.confirm_quit = ["multiple-tabs"]
 c.auto_save.session = True
 c.zoom.default = "125%"
+# }}}
 
 ## Bindings {{{
 config.bind("K", "tab-prev")
