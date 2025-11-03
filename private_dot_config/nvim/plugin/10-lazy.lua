@@ -549,7 +549,7 @@ local plugins = {
 				pattern = "MiniFilesExplorerOpen",
 				callback = function()
 					MiniFiles.set_bookmark("w", vim.fn.getcwd, { desc = "Working directory" })
-					MiniFiles.set_bookmark("c", vim.fn.stdpath("config"), { desc = "Config" })
+					MiniFiles.set_bookmark("c", "~/.local/share/chezmoi/private_dot_config/nvim", { desc = "Config" })
 				end,
 			})
 
