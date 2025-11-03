@@ -144,6 +144,7 @@ local plugins = {
 				go = { "gofumpt", "golines", "goimports-reviser" },
 				sh = { "shfmt" },
 				lisp = { "cljfmt" },
+				typst = { "typstyle" },
 			},
 			format_on_save = {
 				timeout_ms = 2000,
@@ -152,7 +153,7 @@ local plugins = {
 		},
 		config = function(_, opts)
 			require("conform").setup(opts)
-			vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+			-- vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 			vim.keymap.set("n", "gm", function()
 				require("conform").format({ lsp_fallback = true, async = false, timeout_ms = 10000 })
 			end, { desc = "Format Files" })
