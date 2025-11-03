@@ -936,9 +936,11 @@ local plugins = {
 		version = "1.*",
 		opts = {
 			open_cmd = "qutebrowser %s",
+			invert_colors = '{"rest": "auto","image": "never"}',
 		},
 	},
 	--- }}}
+
 	--- Trouble {{{
 	{
 		"folke/trouble.nvim",
