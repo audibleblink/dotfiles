@@ -135,6 +135,15 @@ local plugins = {
 	{
 		"stevearc/conform.nvim",
 		event = "BufReadPost",
+		keys = {
+			{
+				"gm",
+				function()
+					require("conform").format({ lsp_fallback = true, async = false, timeout_ms = 10000 })
+				end,
+				{ desc = "Format Files" },
+			},
+		},
 		opts = {
 			formatters_by_ft = {
 				lua = { "stylua" },
@@ -151,13 +160,6 @@ local plugins = {
 				lsp_format = "fallback",
 			},
 		},
-		config = function(_, opts)
-			require("conform").setup(opts)
-			-- vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-			vim.keymap.set("n", "gm", function()
-				require("conform").format({ lsp_fallback = true, async = false, timeout_ms = 10000 })
-			end, { desc = "Format Files" })
-		end,
 	},
 	-- }}}
 
