@@ -65,7 +65,6 @@ Library/Preferences/com.amethyst.Amethyst.plist
 .config/gtk-3.0/
 .config/i3/
 .config/polybar/
-.config/qutebrowser/
 .config/termite/
 .urxvt/
 .Xresources
