@@ -46,8 +46,8 @@ local plugins = {
 				},
 				menu = {
 					border = "solid",
-					scrollbar = true,
-					auto_show_delay_ms = 600,
+					scrollbar = false,
+					auto_show_delay_ms = 500,
 					auto_show = true,
 					draw = {
 						treesitter = { "lsp" },
@@ -59,14 +59,10 @@ local plugins = {
 						components = {
 							source_name = {
 								text = function(ctx)
-									if ctx.source_name == "LSP" then
-										return " "
-									elseif ctx.source_name == "Snippets" then
-										return "󰞘 "
-									elseif ctx.source_name == "Buffer" then
-										return " "
-									end
-									return ctx.source_name
+									return ctx.kind
+								end,
+								highlight = function(ctx)
+									return ctx.kind_hl
 								end,
 							},
 						},
@@ -1087,17 +1083,15 @@ local plugins = {
 
 	--- Undotree {{{
 	{
-		"jiaoshijie/undotree",
-		cmd = "UndotreeToggle",
+		"XXiaoA/atone.nvim",
 		keys = {
 			{
 				"<leader>u",
-				function()
-					require("undotree").toggle()
-				end,
+				"<cmd>Atone toggle<cr>",
 				desc = "UndoTree",
 			},
 		},
+		opts = {}, -- your configuration here
 	},
 	-- }}}
 }
