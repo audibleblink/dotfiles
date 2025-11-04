@@ -1083,7 +1083,7 @@ local plugins = {
 
 	--- Undotree {{{
 	{
-		"XXiaoA/atone.nvim",
+		"audibleblink/atone.nvim",
 		keys = {
 			{
 				"<leader>u",

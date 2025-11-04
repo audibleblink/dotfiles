@@ -1,5 +1,5 @@
 {
-  "atone.nvim": { "branch": "main", "commit": "7a5ef04a0a1934a397096efbcab74fae79065ccd" },
+  "atone.nvim": { "branch": "main", "commit": "faffd08dc1e6755ab7d7335ff905ac65dbb29bbc" },
   "auto-dark-mode.nvim": { "branch": "master", "commit": "e300259ec777a40b4b9e3c8e6ade203e78d15881" },
   "blink.cmp": { "branch": "main", "commit": "327fff91fe6af358e990be7be1ec8b78037d2138" },
   "catppuccin-macchiato": { "branch": "main", "commit": "234fc048de931a0e42ebcad675bf6559d75e23df" },
