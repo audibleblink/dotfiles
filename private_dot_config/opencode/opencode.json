@@ -1,6 +1,6 @@
 {
 	"$schema": "https://opencode.ai/config.json",
-	"theme": "system",
+	"theme": "catppuccin",
 	"model": "anthropic/claude-sonnet-4-5-20250929",
 	"autoshare": false,
 	"autoupdate": true,
