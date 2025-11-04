@@ -1,10 +1,9 @@
 # vim: foldmarker={{{,}}} foldlevel=0 foldmethod=marker
 
 # Boilerplate / Imports {{{
+import catppuccin
 from qutebrowser.config.config import ConfigContainer  # noqa: F401
 from qutebrowser.config.configfiles import ConfigAPI  # noqa: F401
-
-import catppuccin
 
 config: ConfigAPI = config  # noqa: F821 pylint: disable=E0602,C0103
 c: ConfigContainer = c  # noqa: F821 pylint: disable=E0602,C0103
@@ -45,10 +44,9 @@ c.input.insert_mode.auto_load = True
 c.completion.height = "33%"
 c.content.pdfjs = True
 c.content.autoplay = False
-# Allow websites to read canvas data (needed for some web apps but potential fingerprinting vector)
 c.content.canvas_reading = True
-# Enable WebGL (required for 3D graphics, may be disabled for privacy/security)
 c.content.webgl = True
+c.content.cookies.accept = "no-3rdparty"
 # }}}
 
 # UX / UI {{{
@@ -59,7 +57,7 @@ c.fonts.default_size = "14pt"
 c.fonts.default_family = "Codelia Ligatures"
 
 # Dark mode settings - prefer dark color scheme when supported by websites
-config.set("colors.webpage.darkmode.enabled", True)
+config.set("colors.webpage.darkmode.enabled", False)
 config.set("colors.webpage.preferred_color_scheme", "auto")
 
 ## Tabs {{{
@@ -75,7 +73,7 @@ c.tabs.indicator.width = 0
 c.tabs.indicator.padding = {"top": 1, "bottom": 1, "left": 0, "right": 10}
 c.tabs.wrap = True
 c.tabs.background = False  # open new tabs in background by default
-
+c.tabs.favicons.scale = 0.8
 ## }}}
 # }}}
 
