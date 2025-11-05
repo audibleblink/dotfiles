@@ -1,0 +1,7 @@
+emulate -L zsh
+
+git status -bs
+echo
+git diff --stat
+
+# vim: ft=zsh

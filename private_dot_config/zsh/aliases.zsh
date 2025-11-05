@@ -53,7 +53,6 @@ alias gl='git log --graph --decorate --all --pretty=format:"%C(cyan)%h%Creset %C
 alias gp="git push"
 alias gpo="git push origin"
 alias gr='git remote -v'
-alias gst='git status'
 alias gt='git tag'
 alias gri='git rebase -i'                                                  
 alias grc='git rebase --continue'                                          
