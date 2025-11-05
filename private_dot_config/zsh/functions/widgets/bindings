@@ -9,10 +9,6 @@ bindkey '^[[B' history-substring-search-down
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
-# Creates a new tmux window with a floating terminal
-zle -N floats
-bindkey '^[i' floats
-
 # Prepend sudo to the current command
 zle -N prepend-sudo
 bindkey -M vicmd ! prepend-sudo

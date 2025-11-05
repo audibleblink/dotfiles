@@ -1,21 +1,12 @@
 # interactively search dirstack, prefering tmux popup when possible
 
 emulate -L zsh
-local umask=117
-local in=$(mktemp -t bookmarks.XXX -p $XDG_RUNTIME_DIR)
-local out=$(mktemp -t bookmarks.XXX -p $XDG_RUNTIME_DIR)
-trap "rm -- ${in} ${out} 2>/dev/null" EXIT
 
-if [[ -v TMUX ]]; then
-  tmux popup -w 40% -h 40% -b none -E "tv bookmarks >$out" 
-  local dirb=$(cat $out)
-else
-  local dirb=$(tv bookmarks)
-fi
+local dirb=$(hash -d | column -s= -t | fzf-tmux -p 40%  | awk '{print $2}')
 
 if ! [[ -z $dirb ]]; then
   BUFFER="cd ${dirb}"
   zle accept-line
 fi
 
-# vim: ft=zsh
+# # vim: ft=zsh

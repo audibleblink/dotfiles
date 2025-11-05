@@ -1,22 +1,15 @@
 # interactively search ~/Code/, prefering tmux popup when possible
 
 emulate -L zsh
-local umask=117
-local in=$(mktemp -t projects.XXX -p $XDG_RUNTIME_DIR)
-local out=$(mktemp -t projects.XXX -p $XDG_RUNTIME_DIR)
-trap "rm -- ${in} ${out} 2>/dev/null" EXIT
- 
-if [[ -v TMUX ]]; then
-  tmux popup -w 66% -h 66% -b none -E "tv projects >$out" 
-  local dirb=$(cat $out)
-else
-  local dirb=$(tv projects)
-fi
+
+cd ~/code
+
+local dirb=$(basename $(fd -IH -td -s \\.git\$ -x dirname) | fzf-tmux -p 70% --preview-window 'right,70%' --preview 'cd {};git log --graph --decorate --all --pretty=format:"%C(cyan)%h%Creset %C()%s%Creset%n%C(dim italic white)      └─ %ar by %an %C(auto)  %D%n";cd -')
 
 if ! [[ -z $dirb ]]; then
   BUFFER="cd ${dirb}"
   zle accept-line
 fi
-
+ 
 # vim: ft=zsh
 
