@@ -1,0 +1,8 @@
+emulate -L zsh
+
+git status --short \
+		| fzf -m --preview 'git diff --color=always {2}' \
+		| awk   '{print $2}' \
+		| xargs git add                                                
+
+# vim: ft=zsh

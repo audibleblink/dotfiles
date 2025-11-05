@@ -1,0 +1,6 @@
+emulate -L zsh
+
+hash -d "${1:-$(basename $PWD)}"="$PWD"                                    
+echo "hash -d ${1:-$(basename $PWD)}=\"$PWD\"" >> "$HOME/.zshrc_local"
+
+# vim: ft=zsh

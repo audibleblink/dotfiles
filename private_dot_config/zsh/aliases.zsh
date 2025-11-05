@@ -1,8 +1,5 @@
 # Directories [[[
 alias d='dirs -v'
-alias 1='cd -'
-for index ({2..9}) alias "$index"="cd -${index}"; unset index
-alias -- -='cd -'
 alias ..='cd ..'
 alias -g ...='cd ../..'
 alias -g ....='cd ../../..'
@@ -29,7 +26,6 @@ alias kgap='kga pods'
 alias kgas='kga svc'
 alias kgp='kg pod'
 alias kgs='kg svc'
-alias kns='k config set-context --current --namespace'
 # ]]]
 # Chezmoi [[[
 alias -g cm="chezmoi"
@@ -59,6 +55,9 @@ alias gpo="git push origin"
 alias gr='git remote -v'
 alias gst='git status'
 alias gt='git tag'
+alias gri='git rebase -i'                                                  
+alias grc='git rebase --continue'                                          
+alias gra='git rebase --abort'                                             
 alias fml='e -O $( git diff --name-only | uniq )' # Open all merge conflicts
 # ]]]
 
@@ -76,5 +75,8 @@ alias -g e="${EDITOR}"
 alias reload="source ${ZDOTDIR}/.zshrc"
 alias view='nvim -R'
 alias zl="e ~/.zshrc_local"
+
+alias cat='bat --paging=never'                                     
+alias less='bat --paging=always'                                       
 
 # vim: ft=zsh foldmarker=[[[,]]] foldlevelstart=0 foldmethod=marker spell:

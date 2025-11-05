@@ -1,0 +1,5 @@
+emulate -L zsh
+
+du -h -d 1 | sort -hr | fzf --preview 'ls -lah {2}'                    
+
+# vim: ft=zsh
