@@ -29,4 +29,8 @@ bindkey '^B' bookmarks
 zle -N projects
 bindkey '^G' projects
 
+# Smart fzf picker based on context
+zle -N smart-fzf
+bindkey '^T' smart-fzf
+
 # vim: ft=zsh

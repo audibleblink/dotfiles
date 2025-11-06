@@ -1,0 +1,269 @@
+# Smart fzf widget that adapts based on command line context
+# Bound to Ctrl+T - provides file selection, directory navigation, history, process kill, etc.
+
+emulate -L zsh
+setopt localoptions pipefail no_aliases 2> /dev/null
+
+local -a tokens
+local cmd prefix result mode resolved_cmd
+
+# Parse current buffer into tokens
+tokens=(${(z)LBUFFER})
+
+# Determine the command (first token)
+cmd="${tokens[1]:-}"
+
+# Get the current word (last token or empty)
+# Only treat it as a prefix if the buffer doesn't end with whitespace
+if [[ "$LBUFFER" =~ [[:space:]]$ ]]; then
+  prefix=""
+else
+  prefix="${tokens[-1]:-}"
+fi
+
+# Resolve aliases - check if cmd is an alias and get its expansion
+resolved_cmd="$cmd"
+if alias "$cmd" &>/dev/null; then
+  # Get the alias expansion and extract just the command part
+  resolved_cmd=$(alias "$cmd" | sed "s/^[^=]*='//;s/'$//;s/ .*//")
+fi
+
+# Helper function to insert result into buffer
+_insert_result() {
+  local selected="$1"
+  if [[ -n "$selected" ]]; then
+    # Remove the prefix from LBUFFER if it exists and is a partial word
+    if [[ -n "$prefix" ]]; then
+      LBUFFER="${LBUFFER:0:-${#prefix}}"
+    fi
+    LBUFFER="${LBUFFER}${selected}"
+  fi
+  zle reset-prompt
+}
+
+# Determine mode based on context
+# Check both the original command and resolved command (in case of aliases)
+case "$cmd" in
+  # Directory navigation commands
+  cd|pushd|rmdir|mkdir)
+    mode="dir"
+    ;;
+  
+  # Process management
+  kill|pkill|killall)
+    mode="process"
+    ;;
+  
+  # SSH/telnet - show hosts
+  ssh|scp|sftp|telnet|ping|host|dig|nslookup)
+    mode="host"
+    ;;
+  
+  # Environment variables
+  export|printenv)
+    mode="env"
+    ;;
+  
+  unset)
+    mode="unset"
+    ;;
+  
+  unalias)
+    mode="alias"
+    ;;
+  
+  # Git commands
+  git)
+    case "${tokens[2]:-}" in
+      checkout|co|switch|branch|merge|rebase|diff|log|show)
+        mode="git-branch"
+        ;;
+      add)
+        mode="git-add"
+        ;;
+      *)
+        mode="file"
+        ;;
+    esac
+    ;;
+  
+  # Text editors - show text files only
+  nvim|vim|vi|emacs|nano|code|subl|atom|hx|helix|e)
+    mode="text-file"
+    ;;
+  
+  # Git add aliases (ga, etc.)
+  ga)
+    mode="git-add"
+    ;;
+  
+  # Default behavior based on buffer state
+  *)
+    # Check resolved command to handle aliases
+    case "$resolved_cmd" in
+      nvim|vim|vi|emacs|nano|code|subl|atom|hx|helix)
+        mode="text-file"
+        ;;
+      git)
+        # For git aliases, check if it's an add command
+        if alias "$cmd" 2>/dev/null | grep -q 'git add'; then
+          mode="git-add"
+        else
+          mode="file"
+        fi
+        ;;
+      *)
+        # Empty buffer or just whitespace -> show history
+        if [[ -z "$LBUFFER" || "$LBUFFER" =~ ^[[:space:]]*$ ]]; then
+          mode="history"
+        # Check if we're in a directory context (ending with /)
+        elif [[ "$prefix" == */ ]]; then
+          mode="file"
+        else
+          mode="file"
+        fi
+        ;;
+    esac
+    ;;
+esac
+
+# Execute the appropriate picker
+case "$mode" in
+  dir)
+    # Use fd or find to list directories
+    if command -v fd &>/dev/null; then
+      result=$(fd --type d --hidden --exclude .git --exclude node_modules | \
+        fzf-tmux -p 80%,60% --prompt "Dir> ")
+    else
+      result=$(find . -type d ! -path '*/\.git/*' ! -path '*/node_modules/*' 2>/dev/null | \
+        sed 's|^\./||' | \
+        fzf-tmux -p 80%,60% --prompt "Dir> ")
+    fi
+    [[ -n "$result" ]] && _insert_result "${(q)result}"
+    ;;
+  
+  file)
+    # Use fd or find to list files and directories
+    if command -v fd &>/dev/null; then
+      result=$(fd --hidden --exclude .git --exclude node_modules | \
+        fzf-tmux -p 80%,60% -m --prompt "File> " | paste -sd " " -)
+    else
+      result=$(find . ! -path '*/\.git/*' ! -path '*/node_modules/*' 2>/dev/null | \
+        sed 's|^\./||' | \
+        fzf-tmux -p 80%,60% -m --prompt "File> " | paste -sd " " -)
+    fi
+    [[ -n "$result" ]] && _insert_result "$result"
+    ;;
+  
+  process)
+    result=$(ps -eo user,pid,ppid,%cpu,%mem,stat,start,time,command 2>/dev/null | \
+      fzf-tmux -p 80%,60% -m --header-lines=1 --prompt "Kill> " --preview-window=hidden | \
+      awk '{print $2}' | paste -sd " " -)
+    [[ -n "$result" ]] && _insert_result "$result"
+    ;;
+  
+  host)
+    result=$(
+      {
+        setopt localoptions nonomatch nullglob
+        local config_files
+        config_files=(~/.ssh/config ~/.ssh/config.d/*(N))
+        [[ ${#config_files} -gt 0 ]] && \
+          awk '/^Host / {for(i=2;i<=NF;i++) if($i!~"*") print $i}' "${config_files[@]}" 2>/dev/null
+        [[ -f ~/.ssh/known_hosts ]] && \
+          awk -F'[, ]' '{print $1}' ~/.ssh/known_hosts 2>/dev/null | \
+          sed 's/\[//g;s/\].*//g;s/:.*//g'
+        [[ -f /etc/hosts ]] && \
+          awk '{for(i=2;i<=NF;i++) if($i!="localhost") print $i}' /etc/hosts 2>/dev/null
+      } | sort -u | fzf-tmux -p 50%,40% --prompt "Host> "
+    )
+    [[ -n "$result" ]] && _insert_result "$result"
+    ;;
+  
+  env)
+    result=$(printenv | cut -d= -f1 | sort | \
+      fzf-tmux -p 50%,40% -m --prompt "Env> " | paste -sd " " -)
+    [[ -n "$result" ]] && _insert_result "$result"
+    ;;
+  
+  unset)
+    result=$(printenv | cut -d= -f1 | sort | \
+      fzf-tmux -p 50%,40% -m --prompt "Unset> " | paste -sd " " -)
+    [[ -n "$result" ]] && _insert_result "$result"
+    ;;
+  
+  alias)
+    result=$(alias | sed 's/=.*//' | \
+      fzf-tmux -p 50%,40% --prompt "Alias> ")
+    [[ -n "$result" ]] && _insert_result "$result"
+    ;;
+  
+  git-branch)
+    result=$(git branch -a 2>/dev/null | sed 's/^[* ]*//' | sed 's#^remotes/origin/##' | \
+      sort -u | fzf-tmux -p 50%,40% --prompt "Branch> ")
+    [[ -n "$result" ]] && _insert_result "$result"
+    ;;
+  
+  git-add)
+    # Show files with unstaged changes (modified, untracked, deleted)
+    result=$(git status --short 2>/dev/null | \
+      awk '{print $2}' | \
+      fzf-tmux -p 80%,60% -m --prompt "Git Add> " \
+        --preview 'git diff --color=always {} 2>/dev/null || git diff --color=always --cached {} 2>/dev/null || bat --color=always {}' | \
+      paste -sd " " -)
+    [[ -n "$result" ]] && _insert_result "$result"
+    ;;
+  
+  text-file)
+    # Show only text files, excluding common binary/non-editable files
+    # Use fd if available for better performance, otherwise fall back to find
+    if command -v fd &>/dev/null; then
+      result=$(fd --type f \
+        --exclude '*.{png,jpg,jpeg,gif,bmp,ico,svg,webp}' \
+        --exclude '*.{mp3,mp4,avi,mkv,mov,flv,wav,ogg}' \
+        --exclude '*.{zip,tar,gz,bz2,xz,7z,rar}' \
+        --exclude '*.{pdf,doc,docx,xls,xlsx,ppt,pptx}' \
+        --exclude '*.{exe,dll,so,dylib,a,o}' \
+        --exclude '.git' \
+        --exclude 'node_modules' \
+        --hidden | \
+        fzf-tmux -p 80%,60% -m --prompt "Edit> " \
+          --preview 'bat --color=always --style=numbers --line-range=:500 {} 2>/dev/null || cat {}' | \
+        paste -sd " " -)
+    else
+      # Fallback to find with basic filtering
+      result=$(find . -type f \
+        ! -path '*/\.git/*' \
+        ! -path '*/node_modules/*' \
+        ! -name '*.png' ! -name '*.jpg' ! -name '*.jpeg' ! -name '*.gif' \
+        ! -name '*.mp3' ! -name '*.mp4' ! -name '*.zip' ! -name '*.tar' \
+        ! -name '*.pdf' ! -name '*.exe' ! -name '*.so' ! -name '*.dylib' \
+        2>/dev/null | sed 's|^\./||' | \
+        fzf-tmux -p 80%,60% -m --prompt "Edit> " \
+          --preview 'bat --color=always --style=numbers --line-range=:500 {} 2>/dev/null || cat {}' | \
+        paste -sd " " -)
+    fi
+    # Quote each file individually for proper escaping
+    if [[ -n "$result" ]]; then
+      local quoted_result=""
+      local file
+      for file in ${(f)result}; do
+        quoted_result+="${(q)file} "
+      done
+      _insert_result "${quoted_result% }"
+    fi
+    ;;
+  
+  history)
+    # Use zsh history with deduplication
+    result=$(fc -rl 1 | awk '{cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, "", cmd); if (!seen[cmd]++) print $0}' | \
+      fzf-tmux -p 80%,60% --scheme=history --tac --prompt "History> " --query="$LBUFFER" | \
+      sed 's/^[ \t]*[0-9]*\**[ \t]*//')
+    if [[ -n "$result" ]]; then
+      LBUFFER="$result"
+      zle reset-prompt
+    fi
+    ;;
+esac
+
+# vim: ft=zsh
