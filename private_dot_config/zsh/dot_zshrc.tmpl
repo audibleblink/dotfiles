@@ -80,6 +80,5 @@ fi
 
 (( $+commands[starship] && ! $+functions[starship_zle-keymap-select] )) && eval "$(starship init zsh)"
 (( $+commands[mise] && ! $+functions[_mise_hook] )) && zsh-defer -c 'eval "$(mise activate)"'
-(( $+commands[tv] && ! $+functions[_tv__init_commands] )) && zsh-defer -c 'eval "$(tv init zsh)"'
 
 [ -f ~/.zshrc_local ] && source ~/.zshrc_local
