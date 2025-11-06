@@ -1,5 +1,5 @@
 # Smart fzf widget that adapts based on command line context
-# Bound to Ctrl+T - provides file selection, directory navigation, history, process kill, etc.
+# Bound to Ctrl+T - provides file selection, directory navigation, process kill, etc.
 
 emulate -L zsh
 setopt localoptions pipefail no_aliases 2> /dev/null
@@ -106,7 +106,7 @@ _list_files() {
 # Insert result into buffer with optional quoting
 _insert_result() {
   local selected="$1"
-  local quote_mode="${2:-none}"  # none, single, multi, replace
+  local quote_mode="${2:-none}"  # none, single, multi
   
   if [[ -z "$selected" ]]; then
     zle reset-prompt
@@ -114,7 +114,7 @@ _insert_result() {
   fi
   
   # Remove prefix if it exists and is a partial word
-  if [[ -n "$prefix" && "$quote_mode" != "replace" ]]; then
+  if [[ -n "$prefix" ]]; then
     LBUFFER="${LBUFFER:0:-${#prefix}}"
   fi
   
@@ -130,10 +130,6 @@ _insert_result() {
         quoted+="${(q)file} "
       done
       LBUFFER="${LBUFFER}${quoted% }"
-      ;;
-    replace)
-      # Replace entire buffer (for history mode)
-      LBUFFER="$selected"
       ;;
     *)
       LBUFFER="${LBUFFER}${selected}"
@@ -154,17 +150,12 @@ _determine_mode() {
     cd|pushd|rmdir|mkdir) echo "dir"; return ;;
     kill|pkill|killall) echo "process"; return ;;
     ssh|scp|sftp|telnet|ping|host|dig|nslookup) echo "host"; return ;;
-    export|printenv) echo "env"; return ;;
-    unset) echo "unset"; return ;;
-    unalias) echo "alias"; return ;;
     ga) echo "git-add"; return ;;
   esac
   
   # Git subcommand detection
   if [[ "$cmd" == "git" || "$resolved" == "git" ]]; then
     case "$subcommand" in
-      checkout|co|switch|branch|merge|rebase|diff|log|show)
-        echo "git-branch"; return ;;
       add)
         echo "git-add"; return ;;
     esac
@@ -188,12 +179,8 @@ _determine_mode() {
       echo "text-file"; return ;;
   esac
   
-  # Default behavior
-  if [[ -z "$LBUFFER" || "$LBUFFER" =~ ^[[:space:]]*$ ]]; then
-    echo "history"
-  else
-    echo "file"
-  fi
+  # Default to file mode
+  echo "file"
 }
 
 resolved_cmd=$(_resolve_alias "$cmd")
@@ -242,34 +229,6 @@ _mode_host() {
   _insert_result "$result"
 }
 
-_mode_env() {
-  local result
-  result=$(printenv | cut -d= -f1 | sort | _fzf_picker "Env" "50%,40%" true)
-  _insert_result "$result"
-}
-
-_mode_unset() {
-  local result
-  result=$(printenv | cut -d= -f1 | sort | _fzf_picker "Unset" "50%,40%" true)
-  _insert_result "$result"
-}
-
-_mode_alias() {
-  local result
-  result=$(alias | sed 's/=.*//' | _fzf_picker "Alias" "50%,40%")
-  _insert_result "$result"
-}
-
-_mode_git_branch() {
-  local result
-  result=$(git branch -a 2>/dev/null | \
-    sed 's/^[* ]*//' | \
-    sed 's#^remotes/##' | \
-    sort -u | \
-    _fzf_picker "Branch" "50%,40%")
-  _insert_result "$result"
-}
-
 _mode_git_add() {
   local result
   result=$(git status --short 2>/dev/null | \
@@ -296,15 +255,6 @@ _mode_text_file() {
   fi
 }
 
-_mode_history() {
-  local result
-  result=$(fc -rl 1 | \
-    awk '{cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, "", cmd); if (!seen[cmd]++) print $0}' | \
-    _fzf_picker "History" "80%,60%" false --scheme=history --tac --query="$LBUFFER" | \
-    sed 's/^[ \t]*[0-9]*\**[ \t]*//')
-  _insert_result "$result" "replace"
-}
-
 # ============================================================================
 # Execute Mode
 # ============================================================================
@@ -314,13 +264,8 @@ case "$mode" in
   file) _mode_file ;;
   process) _mode_process ;;
   host) _mode_host ;;
-  env) _mode_env ;;
-  unset) _mode_unset ;;
-  alias) _mode_alias ;;
-  git-branch) _mode_git_branch ;;
   git-add) _mode_git_add ;;
   text-file) _mode_text_file ;;
-  history) _mode_history ;;
 esac
 
 # vim: ft=zsh
