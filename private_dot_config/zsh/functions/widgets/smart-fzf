@@ -51,9 +51,9 @@ _fzf_picker() {
   shift 3
   
   if [[ "$multi" == "true" ]]; then
-    fzf-tmux -p "$size" --prompt "$prompt" -m "$@" | paste -sd " " -
+    fzf-tmux -p "$size" --ghost "$prompt" -m "$@" | paste -sd " " -
   else
-    fzf-tmux -p "$size" --prompt "$prompt" "$@"
+    fzf-tmux -p "$size" --ghost "$prompt" "$@"
   fi
 }
 
@@ -201,20 +201,20 @@ mode=$(_determine_mode "$cmd" "$resolved_cmd")
 
 _mode_dir() {
   local result
-  result=$(_list_files dir | _fzf_picker "Dir> ")
+  result=$(_list_files dir | _fzf_picker "Directories")
   _insert_result "$result" "single"
 }
 
 _mode_file() {
   local result
-  result=$(_list_files file | _fzf_picker "File> " "80%,60%" true)
+  result=$(_list_files file | _fzf_picker "Files" "80%,60%" true)
   _insert_result "$result"
 }
 
 _mode_process() {
   local result
   result=$(ps -eo user,pid,ppid,%cpu,%mem,stat,start,time,command 2>/dev/null | \
-    _fzf_picker "Kill> " "80%,60%" true --header-lines=1 --preview-window=hidden | \
+    _fzf_picker "Processes" "80%,60%" true --header-lines=1 --preview-window=hidden | \
     awk '{print $2}')
   _insert_result "$result"
 }
@@ -233,26 +233,26 @@ _mode_host() {
         sed 's/\[//g;s/\].*//g;s/:.*//g'
       [[ -f /etc/hosts ]] && \
         awk '{for(i=2;i<=NF;i++) if($i!="localhost") print $i}' /etc/hosts 2>/dev/null
-    } | sort -u | _fzf_picker "Host> " "50%,40%"
+    } | sort -u | _fzf_picker "Hosts" "50%,40%"
   )
   _insert_result "$result"
 }
 
 _mode_env() {
   local result
-  result=$(printenv | cut -d= -f1 | sort | _fzf_picker "Env> " "50%,40%" true)
+  result=$(printenv | cut -d= -f1 | sort | _fzf_picker "Env" "50%,40%" true)
   _insert_result "$result"
 }
 
 _mode_unset() {
   local result
-  result=$(printenv | cut -d= -f1 | sort | _fzf_picker "Unset> " "50%,40%" true)
+  result=$(printenv | cut -d= -f1 | sort | _fzf_picker "Unset" "50%,40%" true)
   _insert_result "$result"
 }
 
 _mode_alias() {
   local result
-  result=$(alias | sed 's/=.*//' | _fzf_picker "Alias> " "50%,40%")
+  result=$(alias | sed 's/=.*//' | _fzf_picker "Alias" "50%,40%")
   _insert_result "$result"
 }
 
@@ -262,7 +262,7 @@ _mode_git_branch() {
     sed 's/^[* ]*//' | \
     sed 's#^remotes/##' | \
     sort -u | \
-    _fzf_picker "Branch> " "50%,40%")
+    _fzf_picker "Branch" "50%,40%")
   _insert_result "$result"
 }
 
@@ -270,7 +270,7 @@ _mode_git_add() {
   local result
   result=$(git status --short 2>/dev/null | \
     awk '{print $2}' | \
-    _fzf_picker "Git Add> " "80%,60%" true \
+    _fzf_picker "Git Add" "80%,60%" true \
       --preview 'git diff --color=always {} 2>/dev/null || git diff --color=always --cached {} 2>/dev/null || bat --color=always {}')
   _insert_result "$result"
 }
@@ -278,7 +278,7 @@ _mode_git_add() {
 _mode_text_file() {
   local result files
   result=$(_list_files text | \
-    _fzf_picker "Edit> " "80%,60%" false -m \
+    _fzf_picker "Files" "80%,60%" false -m \
       --preview 'bat --color=always --style=numbers --line-range=:500 {} 2>/dev/null || cat {}')
   
   # Quote each file individually for proper escaping with spaces
@@ -296,7 +296,7 @@ _mode_history() {
   local result
   result=$(fc -rl 1 | \
     awk '{cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, "", cmd); if (!seen[cmd]++) print $0}' | \
-    _fzf_picker "History> " "80%,60%" false --scheme=history --tac --query="$LBUFFER" | \
+    _fzf_picker "History" "80%,60%" false --scheme=history --tac --query="$LBUFFER" | \
     sed 's/^[ \t]*[0-9]*\**[ \t]*//')
   _insert_result "$result" "replace"
 }
