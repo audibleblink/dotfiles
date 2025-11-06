@@ -48,7 +48,11 @@ _fzf_picker() {
   local prompt="$1"
   local size="${2:-80%,60%}"
   local multi="${3:-false}"
-  shift 3
+  
+  # Safely shift only available arguments
+  local shift_count=3
+  [[ $# -lt $shift_count ]] && shift_count=$#
+  shift $shift_count
   
   if [[ "$multi" == "true" ]]; then
     fzf-tmux -p "$size" --ghost "$prompt" -m "$@" | paste -sd " " -
@@ -201,7 +205,7 @@ mode=$(_determine_mode "$cmd" "$resolved_cmd")
 
 _mode_dir() {
   local result
-  result=$(_list_files dir | _fzf_picker "Directories")
+  result=$(_list_files dir | _fzf_picker "Directories", "30%,50%")
   _insert_result "$result" "single"
 }
 
