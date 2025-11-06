@@ -55,9 +55,9 @@ _fzf_picker() {
   shift $shift_count
   
   if [[ "$multi" == "true" ]]; then
-    fzf-tmux -p "$size" --ghost "$prompt" -m "$@" | paste -sd " " -
+    fzf-tmux -p "$size" --input-label " $prompt " -m "$@" | paste -sd " " -
   else
-    fzf-tmux -p "$size" --ghost "$prompt" "$@"
+    fzf-tmux -p "$size" --input-label " $prompt " "$@"
   fi
 }
 
@@ -192,7 +192,7 @@ mode=$(_determine_mode "$cmd" "$resolved_cmd")
 
 _mode_dir() {
   local result
-  result=$(_list_files dir | _fzf_picker "Directories", "30%,50%")
+  result=$(_list_files dir | _fzf_picker "Directories" "50%")
   _insert_result "$result" "single"
 }
 
@@ -242,7 +242,7 @@ _mode_text_file() {
   local result files
   result=$(_list_files text | \
     _fzf_picker "Files" "80%,60%" false -m \
-      --preview 'bat --color=always --style=numbers --line-range=:500 {} 2>/dev/null || cat {}')
+      --preview 'fzf-preview.sh {}')
   
   # Quote each file individually for proper escaping with spaces
   if [[ -n "$result" ]]; then

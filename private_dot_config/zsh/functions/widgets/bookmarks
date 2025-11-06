@@ -2,7 +2,7 @@
 
 emulate -L zsh
 
-local dirb=$(hash -d | column -s= -t | fzf-tmux -p 50%,30%  | awk '{print $2}')
+local dirb=$(hash -d | column -s= -t | fzf-tmux --input-label " Bookmarks " -p 50%,30%  | awk '{print $2}')
 
 if ! [[ -z $dirb ]]; then
   BUFFER="cd ${dirb}"

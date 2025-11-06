@@ -65,13 +65,13 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.g
 export FZF_PREVIEW_COMMAND="bat --style=numbers,changes --wrap never --color always {}"
 export FZF_DEFAULT_OPTS='
   --color=fg:#d0d0d0,fg+:#bac2de,bg:#1e1e2e,bg+:#1e1e2e
-  --color=hl:#74c7ec,hl+:#5fd7ff,info:#cba6f7,marker:#f38ba8
+  --color=hl:#74c7ec,hl+:#5fd7ff,info:#cba6f7,marker:#8edf5f
   --color=prompt:#eba0ac,spinner:#f9e2af,pointer:#89b4fa,header:#b4befe
   --color=border:#1e1e2e,separator:#313244,preview-bg:#181825,preview-border:#181825
-  --color=preview-scrollbar:#181825,label:#8edf5f,query:#bac2de,disabled:#3f3d46
+  --color=preview-scrollbar:#bac2de,label:#74c7ec:reverse,query:#bac2de,disabled:#3f3d46
   --border="block" --border-label="" --preview-window="border-sharp" --padding="1,2,1,2"
   --margin="1,2,1,2" --prompt="  " --marker="" --pointer="❯"
-  --separator="─" --scrollbar="" --info="right" --cycle --ghost Search...'
+  --separator="─" --scrollbar="" --info="right" --cycle --ghost Search... --style=full'
 # https://vitormv.github.io/fzf-themes#eyJib3JkZXJTdHlsZSI6ImJsb2NrIiwiYm9yZGVyTGFiZWwiOiIiLCJib3JkZXJMYWJlbFBvc2l0aW9uIjoxMCwicHJldmlld0JvcmRlclN0eWxlIjoic2hhcnAiLCJwYWRkaW5nIjoiMSwyLDEsMiIsIm1hcmdpbiI6IjEsMiwxLDIiLCJwcm9tcHQiOiLvgIIgIiwibWFya2VyIjoi75GEIiwicG9pbnRlciI6IuKdryIsInNlcGFyYXRvciI6IuKUgCIsInNjcm9sbGJhciI6IiIsImxheW91dCI6ImRlZmF1bHQiLCJpbmZvIjoicmlnaHQiLCJjb2xvcnMiOiJmZzojZDBkMGQwLGZnKzojYmFjMmRlLGJnOiMxZTFlMmUsYmcrOiMxZTFlMmUsaGw6Izc0YzdlYyxobCs6IzVmZDdmZixpbmZvOiNjYmE2ZjcsbWFya2VyOiNmMzhiYTgscHJvbXB0OiNlYmEwYWMsc3Bpbm5lcjojZjllMmFmLHBvaW50ZXI6Izg5YjRmYSxoZWFkZXI6I2I0YmVmZSxib3JkZXI6IzFlMWUyZSxzZXBhcmF0b3I6IzMxMzI0NCxwcmV2aWV3LWJnOiMxODE4MjUscHJldmlldy1ib3JkZXI6IzE4MTgyNSxwcmV2aWV3LXNjcm9sbGJhcjojMTgxODI1LGxhYmVsOiM4ZWRmNWYscXVlcnk6I2JhYzJkZSxkaXNhYmxlZDojM2YzZDQ2In0=
 
 export PATH=$PATH:$HOME/.cargo/bin

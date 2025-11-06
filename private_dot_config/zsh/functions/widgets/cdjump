@@ -2,7 +2,7 @@
 
 emulate -L zsh
 
-local dirb=$(dirs -v |  cut -d'	' -f2 | fzf-tmux -p 50%,30%)
+local dirb=$(dirs -v |  cut -d'	' -f2 | fzf-tmux --input-label " Dir Stack " -p 50%,30%)
 
 if ! [[ -z $dirb ]]; then
   BUFFER="cd ${dirb}"
