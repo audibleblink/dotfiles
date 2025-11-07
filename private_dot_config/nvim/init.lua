@@ -6,7 +6,6 @@ vim.o.autoindent = true
 vim.o.autoread = true
 vim.o.breakindent = true
 vim.o.breakindentopt = "list:-1"
--- vim.o.clipboard = "unnamedplus"
 vim.o.colorcolumn = "100"
 vim.o.complete = ".,w,b,kspell"
 vim.o.completeopt = "menuone,noselect,fuzzy,nosort"
@@ -17,8 +16,6 @@ vim.o.foldlevel = 10
 vim.o.foldnestmax = 10
 vim.o.foldtext = ""
 vim.o.formatlistpat = [[^\s*[0-9\-\+\*]\+[\.\)]*\s\+]]
--- NOTE: Filetype plugins override this, so it's enforced via FileType autocmd in 30-autocmds.lua
-vim.opt.formatoptions = "rqnl1j"
 vim.o.guifont = "CodeliaLigatures Nerd Font"
 vim.o.ignorecase = true
 vim.o.incsearch = true
