@@ -96,7 +96,7 @@ vim.api.nvim_create_autocmd("LspProgress", {
 --- FileType {{{
 local x_filetypes = vim.api.nvim_create_augroup("x_filetypes", { clear = true })
 
---- Configure markdown files with spell check, wrapping, folding, and link surround
+--- Setup gitcommit options
 --
 vim.api.nvim_create_autocmd("FileType", {
 	desc = "Commit Messages",
@@ -109,6 +109,8 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+--- Configure markdown files with spell check, wrapping, folding, and link surround
+--
 vim.api.nvim_create_autocmd("FileType", {
 	desc = "Markdown",
 	pattern = "markdown",
@@ -161,7 +163,7 @@ local x_usability = vim.api.nvim_create_augroup("x_usability", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
 	desc = "Mapping for init.lua",
 	group = x_usability,
-	pattern = "lua",
+	pattern = { "lua", "markdown" },
 	callback = function()
 		vim.keymap.set("n", "<down>", "zj", { buffer = true })
 		vim.keymap.set("n", "<up>", "zk", { buffer = true })
@@ -207,13 +209,14 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 	end,
 })
 
--- TODO: Find out who unsets this, making this necessary
+--- This runs after ftplugin loads to enforce preferred settings
+--
 vim.api.nvim_create_autocmd("FileType", {
-	desc = "Re-set formatoptions",
+	desc = "Enforce formatoptions after ftplugin loads",
 	group = x_usability,
 	pattern = "*",
 	callback = function()
-		vim.o.formatoptions = "rqnl1j"
+		vim.opt_local.formatoptions = "rqnl1j"
 	end,
 })
 

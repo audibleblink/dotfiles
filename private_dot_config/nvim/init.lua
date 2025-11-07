@@ -17,7 +17,8 @@ vim.o.foldlevel = 10
 vim.o.foldnestmax = 10
 vim.o.foldtext = ""
 vim.o.formatlistpat = [[^\s*[0-9\-\+\*]\+[\.\)]*\s\+]]
-vim.o.formatoptions = "rqnl1j"
+-- NOTE: Filetype plugins override this, so it's enforced via FileType autocmd in 30-autocmds.lua
+vim.opt.formatoptions = "rqnl1j"
 vim.o.guifont = "CodeliaLigatures Nerd Font"
 vim.o.ignorecase = true
 vim.o.incsearch = true
