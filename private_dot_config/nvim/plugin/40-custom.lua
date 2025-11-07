@@ -2,12 +2,11 @@
 
 -- Breadcrumbs {{{
 
---- Global state for breadcrumbs
-_G.breadcrumbs_enabled = false
-
 local BREADCRUMB_CONFIG = {
 	file_separator = " / ",
 	separator = "  ",
+	debounce_ms = 200,
+	enabled = false,
 }
 
 --- LSP SymbolKind to TreeSitter highlight group mapping
@@ -74,15 +73,13 @@ local SYMBOL_KIND_TO_ICON = {
 
 --- Get colors from active colorscheme with fallbacks
 local function get_theme_colors()
-	-- Try to extract from existing highlight groups
-	local hl_filepath = vim.api.nvim_get_hl(0, { name = "Comment" })
-	local hl_sep = vim.api.nvim_get_hl(0, { name = "Comment" })
-	local hl_winbar_bg = vim.api.nvim_get_hl(0, { name = "StatusLine" })
+	local hl_comment = vim.api.nvim_get_hl(0, { name = "Comment" })
+	local hl_statusline = vim.api.nvim_get_hl(0, { name = "StatusLine" })
 
 	return {
-		file = hl_filepath.fg and string.format("#%06x", hl_filepath.fg),
-		separator = hl_sep.fg and string.format("#%06x", hl_sep.fg),
-		background = hl_winbar_bg.bg and string.format("#%06x", hl_winbar_bg.bg),
+		file = hl_comment.fg and string.format("#%06x", hl_comment.fg),
+		separator = hl_comment.fg and string.format("#%06x", hl_comment.fg),
+		background = hl_statusline.bg and string.format("#%06x", hl_statusline.bg),
 	}
 end
 
@@ -101,18 +98,24 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 	desc = "Update breadcrumb highlights on colorscheme change",
 })
 
+--- Check if a position is within a range (uses positive logic for clarity)
 local function range_contains_pos(range, line, char)
 	local start_line, start_char = range.start.line, range.start.character
 	local end_line, end_char = range["end"].line, range["end"].character
 
-	return not (
-		line < start_line
-		or line > end_line
-		or (line == start_line and char < start_char)
-		or (line == end_line and char > end_char)
-	)
+	if line < start_line or line > end_line then
+		return false
+	end
+	if line == start_line and char < start_char then
+		return false
+	end
+	if line == end_line and char > end_char then
+		return false
+	end
+	return true
 end
 
+--- Find the symbol path at a given position (optimized to stop after first match)
 local function find_symbol_path(symbol_list, line, char, path)
 	if not symbol_list then
 		return false
@@ -121,15 +124,19 @@ local function find_symbol_path(symbol_list, line, char, path)
 	for _, symbol in ipairs(symbol_list) do
 		if range_contains_pos(symbol.range, line, char) then
 			table.insert(path, { name = symbol.name, kind = symbol.kind })
-			find_symbol_path(symbol.children, line, char, path)
-			return true
+			-- Recurse into children if they exist
+			if symbol.children then
+				find_symbol_path(symbol.children, line, char, path)
+			end
+			return true -- Stop searching siblings once we find a match
 		end
 	end
 	return false
 end
 
+--- LSP callback for document symbols (config param required by LSP API but unused)
 ---@diagnostic disable-next-line: unused-local
-local function lsp_callback(err, symbols, ctx, config)
+local function lsp_callback(err, symbols, ctx, _config)
 	-- Ensure we're setting the winbar for the correct window
 	local win = vim.fn.bufwinid(ctx.bufnr)
 	if win == -1 or not vim.api.nvim_win_is_valid(win) then
@@ -162,8 +169,9 @@ local function lsp_callback(err, symbols, ctx, config)
 	local symbols_path = {}
 	find_symbol_path(symbols, pos[1] - 1, pos[2], symbols_path)
 
-	for i, symbol in ipairs(symbols_path) do
-		if i > 1 or #breadcrumbs > 0 then
+	for _, symbol in ipairs(symbols_path) do
+		-- Add separator before each symbol (except the very first breadcrumb)
+		if #breadcrumbs > 0 then
 			table.insert(breadcrumbs, " %#BreadcrumbSeparator#" .. BREADCRUMB_CONFIG.separator .. " %*")
 		end
 		-- Get TreeSitter highlight group for this symbol kind
@@ -177,26 +185,54 @@ end
 
 -- Debounce timer to avoid excessive LSP requests
 local breadcrumb_timer = nil
-local function breadcrumbs_set()
-	local buffer_enabled = vim.b.breadcrumbs_enabled
-	local global_enabled = _G.breadcrumbs_enabled
 
-	if not buffer_enabled and not global_enabled then
+--- Update breadcrumbs with debouncing and proper cleanup
+local function breadcrumbs_set()
+	-- Check if breadcrumbs are enabled (buffer-local takes precedence)
+	local enabled = vim.b.breadcrumbs_enabled
+	if enabled == nil then
+		enabled = BREADCRUMB_CONFIG.enabled
+	end
+
+	if not enabled then
 		return
 	end
 
+	-- Clean up existing timer
 	if breadcrumb_timer then
 		breadcrumb_timer:stop()
+		breadcrumb_timer:close()
 	end
 
-	breadcrumb_timer = vim.defer_fn(function()
-		local bufnr = vim.api.nvim_get_current_buf()
-		local params = vim.lsp.util.make_text_document_params(bufnr)
+	-- Capture current buffer and window to avoid race conditions
+	local bufnr = vim.api.nvim_get_current_buf()
+	local win = vim.api.nvim_get_current_win()
 
+	breadcrumb_timer = vim.defer_fn(function()
+		-- Verify buffer and window are still valid
+		if not vim.api.nvim_buf_is_valid(bufnr) or not vim.api.nvim_win_is_valid(win) then
+			return
+		end
+
+		-- Check if any LSP client supports documentSymbol
+		local clients = vim.lsp.get_clients({ bufnr = bufnr })
+		local has_document_symbol = false
+		for _, client in ipairs(clients) do
+			if client.server_capabilities.documentSymbolProvider then
+				has_document_symbol = true
+				break
+			end
+		end
+
+		if not has_document_symbol then
+			return
+		end
+
+		local params = vim.lsp.util.make_text_document_params(bufnr)
 		if params.uri then
 			vim.lsp.buf_request(bufnr, "textDocument/documentSymbol", { textDocument = params }, lsp_callback)
 		end
-	end, 200)
+	end, BREADCRUMB_CONFIG.debounce_ms)
 end
 
 local breadcrumbs_augroup = vim.api.nvim_create_augroup("Breadcrumbs", { clear = true })
@@ -207,14 +243,20 @@ vim.api.nvim_create_autocmd("CursorMoved", {
 	desc = "Set breadcrumbs",
 })
 
---- Toggle breadcrumbs
+--- Toggle breadcrumbs globally
 local function toggle_breadcrumbs()
-	_G.breadcrumbs_enabled = not _G.breadcrumbs_enabled
-	if _G.breadcrumbs_enabled then
+	BREADCRUMB_CONFIG.enabled = not BREADCRUMB_CONFIG.enabled
+
+	if BREADCRUMB_CONFIG.enabled then
 		breadcrumbs_set()
 		vim.notify("Breadcrumbs enabled", vim.log.levels.INFO)
 	else
-		-- Clear winbar in current window
+		-- Clear winbar in current window and stop timer
+		if breadcrumb_timer then
+			breadcrumb_timer:stop()
+			breadcrumb_timer:close()
+			breadcrumb_timer = nil
+		end
 		vim.api.nvim_set_option_value("winbar", "", { win = vim.api.nvim_get_current_win() })
 		vim.notify("Breadcrumbs disabled", vim.log.levels.INFO)
 	end
