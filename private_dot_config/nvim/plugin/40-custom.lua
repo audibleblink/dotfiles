@@ -3,7 +3,7 @@
 -- Breadcrumbs {{{
 
 --- Global state for breadcrumbs
-_G.breadcrumbs_enabled = true
+_G.breadcrumbs_enabled = false
 
 local BREADCRUMB_CONFIG = {
 	file_separator = " / ",
@@ -178,8 +178,10 @@ end
 -- Debounce timer to avoid excessive LSP requests
 local breadcrumb_timer = nil
 local function breadcrumbs_set()
-	-- Check buffer-local variable first, then fall back to global
-	if not vim.b.breadcrumbs_enabled or not _G.breadcrumbs_enabled then
+	local buffer_enabled = vim.b.breadcrumbs_enabled
+	local global_enabled = _G.breadcrumbs_enabled
+
+	if not buffer_enabled and not global_enabled then
 		return
 	end
 
