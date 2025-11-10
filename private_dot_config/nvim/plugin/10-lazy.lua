@@ -766,21 +766,22 @@ local plugins = {
 					},
 				},
 				layout = {
+					select = {
+						layout = "ivy",
+					},
+
 					layout = {
 						box = "horizontal",
 						backdrop = 30,
 						width = 0.8,
 						height = 0.6,
-						border = "solid",
-						title = "{title} {live} {flags}",
-						title_pos = "center",
-
+						border = "none",
 						{
 							box = "vertical",
-							{ win = "list", border = "solid" },
-							{ win = "input", height = 1, border = "hpad" },
+							{ win = "list", border = true },
+							{ win = "input", height = 1, border = true, title = "{title} {live} {flags}" },
 						},
-						{ win = "preview", title = "{preview}", width = 0.6, border = "solid" },
+						{ win = "preview", title = "{preview:Preview}", width = 0.6, border = "solid" },
 					},
 				},
 				sources = {
@@ -908,6 +909,32 @@ local plugins = {
 			vim.keymap.set("n", "<leader><Space>", Snacks.picker.resume, { desc = "Snacks: Resume" })
 			vim.keymap.set("n", "<leader>fh", Snacks.picker.help, { desc = "Snacks: Help" })
 			vim.keymap.set({ "n", "x" }, "ghx", require("snacks").gitbrowse.open, { desc = "[Git] Open in web" })
+
+			local snacks_hl_overrides = {
+				SnacksPickerInputTitle = "@comment.note",
+				SnacksPickerPreviewTitle = "@comment.error",
+
+				SnacksPickerListBorder = "TablineFill",
+				SnacksPickerList = "TablineFill",
+				SnacksPickerInputBorder = "TabLine",
+				SnacksPickerInput = "TabLine",
+				SnacksPickerPreviewBorder = "TabLineSel",
+				SnacksPickerPreview = "TabLineSel",
+			}
+
+			vim.api.nvim_create_autocmd("BufWinEnter", {
+				desc = "Snacks: Apply highlight overrides",
+				group = vim.api.nvim_create_augroup("snacks_hl_overrides", { clear = true }),
+				callback = function(e)
+					if vim.bo[e.buf].filetype ~= "snacks_picker_input" then
+						return
+					end
+
+					for dst_grp, src_grp in pairs(snacks_hl_overrides) do
+						vim.cmd(" highlight! link " .. dst_grp .. " " .. src_grp)
+					end
+				end,
+			})
 		end,
 	},
 	-- }}}
