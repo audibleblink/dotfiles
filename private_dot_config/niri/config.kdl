@@ -1,4 +1,5 @@
 input {
+    workspace-auto-back-and-forth
     keyboard {
         xkb {
             layout "us"
@@ -10,6 +11,7 @@ input {
     touchpad {
         // tap
         natural-scroll
+		dwt
     }
 
     mouse {
@@ -18,24 +20,8 @@ input {
     focus-follows-mouse max-scroll-amount="0%"
 }
 
-//output "DP-3" {
-//    mode "3840x2160@240"
-//    scale 2
-//    transform "normal"
-//    variable-refresh-rate on-demand=true
-//    position x=0 y=0
-//}
-
-//output "DP-2" {
-//    mode "2560x1440@240"
-//    scale 1
-//    transform "normal"
-//    variable-refresh-rate on-demand=true
-//    position x=1920 y=0
-//}
-
 layout {
-    gaps 5
+    gaps 3
     center-focused-column "never"
     preset-column-widths {
         proportion 0.33333
@@ -59,10 +45,10 @@ layout {
     }
 
     struts {
-        left 2
-        right 2
-        top 2
-        bottom 2
+        left -2
+        right -2
+        top 0
+        bottom 0
     }
 }
 
@@ -104,15 +90,17 @@ hotkey-overlay {
    skip-at-startup
 }
 
-//screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
-screenshot-path null
-screenshot-notification-disable
-animations {
-    // Uncomment to turn off all animations.
-    // off
+screenshot-path "~/Pictures/Screenshots/%Y-%m-%d %H-%M-%S.png"
 
-    // Slow down all animations by this factor. Values below 1 speed them up instead.
+animations {
     slowdown 2.5
+}
+
+window-rule {
+    match app-id="com.blink.float"
+    open-floating true
+    default-column-width { fixed 960; }
+    default-window-height { fixed 640; }
 }
 
 window-rule {
@@ -134,7 +122,8 @@ window-rule {
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
     Mod+Return { spawn "ghostty"; }
-    Mod+D { spawn "pikabar-launcher"; }
+    Mod+D { spawn "fuzzel"; }
+    Mod+P { spawn "ghostty" "--class=com.blink.float" "-e" "btop"; }
     Super+Alt+L { spawn "pikabar-lock"; }
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn "pamixer" "-i" "5"; }
