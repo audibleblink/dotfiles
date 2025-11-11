@@ -120,7 +120,8 @@ window-rule {
 }
 
 binds {
-    Mod+Shift+Slash { show-hotkey-overlay; }
+    Mod+M { show-hotkey-overlay; }
+    Mod+E { spawn "nemo"; }
     Mod+Return { spawn "ghostty"; }
     Mod+D { spawn "fuzzel"; }
     Mod+P { spawn "ghostty" "--class=com.blink.float" "-e" "btop"; }
@@ -192,9 +193,8 @@ binds {
     Mod+R { switch-preset-column-width; }
     Mod+Shift+R { switch-preset-window-height; }
     Mod+Ctrl+R { reset-window-height; }
-    // Mod+F { maximize-column; }
-    Mod+F { fullscreen-window; }
-    Mod+Shift+F { spawn "nemo"; }
+    Mod+F { maximize-column; }
+    Mod+Shift+F { fullscreen-window; }
     Mod+C { center-column; }
     Mod+Minus { set-column-width "-10%"; }
     Mod+Equal { set-column-width "+10%"; }
@@ -207,6 +207,5 @@ binds {
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
 
-    Mod+Shift+E { quit; }
     Ctrl+Alt+Delete { quit; }
 }
