@@ -8,11 +8,12 @@ function atuin-popup() {
   LBUFFER="$(sed 1q $out)"
 }
 
+
 # bind ^R only if we're in a tmux terminal
 if [[ -v TMUX ]]; then
   zle     -N   atuin-popup
   bindkey '^R' atuin-popup $LBUFFER
-  eval "$(atuin init zsh --disable-up-arrow --disable-ctrl-r)"
+  (( $+commands[atuin] && ! $+functions[_atuin_preexec] )) && zsh-defer -c 'eval "$(atuin init zsh --disable-up-arrow --disable-ctrl-r)"'
 else
-  eval "$(atuin init zsh --disable-up-arrow)"
+  (( $+commands[atuin] && ! $+functions[_atuin_preexec] )) && zsh-defer -c 'eval "$(atuin init zsh --disable-up-arrow)"'
 fi
