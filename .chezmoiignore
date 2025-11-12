@@ -64,6 +64,9 @@ Library/Preferences/com.amethyst.Amethyst.plist
 .config/dunst/
 .config/gtk-3.0/
 .config/i3/
+.config/fuzzel/
+.config/niri/
+.config/pikabar/
 .config/polybar/
 .config/termite/
 .urxvt/
