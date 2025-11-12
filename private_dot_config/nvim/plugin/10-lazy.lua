@@ -572,6 +572,12 @@ local plugins = {
 						vim.cmd.tcd(cur_directory)
 						vim.notify("TCD: " .. cur_directory, vim.log.levels.INFO)
 					end, { buffer = buf_id })
+					vim.keymap.set("n", "<C-t>", function()
+						vim.cmd.tabedit(MiniFiles.get_fs_entry().path)
+					end, { buffer = buf_id })
+					vim.keymap.set("n", "<C-v>", function()
+						vim.cmd.vsplit(MiniFiles.get_fs_entry().path)
+					end, { buffer = buf_id })
 				end,
 			})
 
@@ -746,6 +752,7 @@ local plugins = {
 		priority = 1000,
 		opts = {
 			picker = {
+				prompt = " ",
 				actions = {
 					sidekick_send = function(...)
 						return require("sidekick.cli.snacks").send(...)
@@ -914,12 +921,14 @@ local plugins = {
 				SnacksPickerInputTitle = "@comment.note",
 				SnacksPickerPreviewTitle = "@comment.error",
 
-				SnacksPickerListBorder = "TablineFill",
-				SnacksPickerList = "TablineFill",
-				SnacksPickerInputBorder = "TabLine",
-				SnacksPickerInput = "TabLine",
-				SnacksPickerPreviewBorder = "TabLineSel",
-				SnacksPickerPreview = "TabLineSel",
+				SnacksPickerListBorder = "TablineSel",
+				SnacksPickerList = "TablineSel",
+
+				SnacksPickerInputBorder = "TabLineFill",
+				SnacksPickerInput = "TabLineFill",
+
+				SnacksPickerPreviewBorder = "TabLine",
+				SnacksPickerPreview = "TabLine",
 			}
 
 			vim.api.nvim_create_autocmd("BufWinEnter", {
