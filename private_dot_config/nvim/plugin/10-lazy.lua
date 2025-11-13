@@ -752,7 +752,7 @@ local plugins = {
 		priority = 1000,
 		opts = {
 			picker = {
-				prompt = " ",
+				prompt = "  ",
 				actions = {
 					sidekick_send = function(...)
 						return require("sidekick.cli.snacks").send(...)
@@ -917,18 +917,20 @@ local plugins = {
 			vim.keymap.set("n", "<leader>fh", Snacks.picker.help, { desc = "Snacks: Help" })
 			vim.keymap.set({ "n", "x" }, "ghx", require("snacks").gitbrowse.open, { desc = "[Git] Open in web" })
 
+			vim.api.nvim_set_hl(0, "mySnacks", { bg = "#111120" })
+
 			local snacks_hl_overrides = {
 				SnacksPickerInputTitle = "@comment.note",
 				SnacksPickerPreviewTitle = "@comment.error",
 
-				SnacksPickerListBorder = "TablineSel",
-				SnacksPickerList = "TablineSel",
+				-- SnacksPickerListBorder = "TablineFill",
+				-- SnacksPickerList = "TablineFill",
 
-				SnacksPickerInputBorder = "TabLineFill",
-				SnacksPickerInput = "TabLineFill",
+				SnacksPickerInputBorder = "TabLine",
+				SnacksPickerInput = "TabLine",
 
-				SnacksPickerPreviewBorder = "TabLine",
-				SnacksPickerPreview = "TabLine",
+				SnacksPickerPreviewBorder = "mySnacks",
+				SnacksPickerPreview = "mySnacks",
 			}
 
 			vim.api.nvim_create_autocmd("BufWinEnter", {
