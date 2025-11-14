@@ -198,41 +198,47 @@ local function breadcrumbs_set()
 		return
 	end
 
-	-- Clean up existing timer
-	if breadcrumb_timer then
-		breadcrumb_timer:stop()
-		breadcrumb_timer:close()
-	end
-
 	-- Capture current buffer and window to avoid race conditions
 	local bufnr = vim.api.nvim_get_current_buf()
 	local win = vim.api.nvim_get_current_win()
 
-	breadcrumb_timer = vim.defer_fn(function()
-		-- Verify buffer and window are still valid
-		if not vim.api.nvim_buf_is_valid(bufnr) or not vim.api.nvim_win_is_valid(win) then
-			return
-		end
+	-- Reuse timer instead of creating new ones
+	if not breadcrumb_timer then
+		breadcrumb_timer = vim.uv.new_timer()
+	else
+		-- Just stop and restart the existing timer
+		breadcrumb_timer:stop()
+	end
 
-		-- Check if any LSP client supports documentSymbol
-		local clients = vim.lsp.get_clients({ bufnr = bufnr })
-		local has_document_symbol = false
-		for _, client in ipairs(clients) do
-			if client.server_capabilities.documentSymbolProvider then
-				has_document_symbol = true
-				break
+	breadcrumb_timer:start(
+		BREADCRUMB_CONFIG.debounce_ms,
+		0,
+		vim.schedule_wrap(function()
+			-- Verify buffer and window are still valid
+			if not vim.api.nvim_buf_is_valid(bufnr) or not vim.api.nvim_win_is_valid(win) then
+				return
 			end
-		end
 
-		if not has_document_symbol then
-			return
-		end
+			-- Check if any LSP client supports documentSymbol
+			local clients = vim.lsp.get_clients({ bufnr = bufnr })
+			local has_document_symbol = false
+			for _, client in ipairs(clients) do
+				if client.server_capabilities.documentSymbolProvider then
+					has_document_symbol = true
+					break
+				end
+			end
 
-		local params = vim.lsp.util.make_text_document_params(bufnr)
-		if params.uri then
-			vim.lsp.buf_request(bufnr, "textDocument/documentSymbol", { textDocument = params }, lsp_callback)
-		end
-	end, BREADCRUMB_CONFIG.debounce_ms)
+			if not has_document_symbol then
+				return
+			end
+
+			local params = vim.lsp.util.make_text_document_params(bufnr)
+			if params.uri then
+				vim.lsp.buf_request(bufnr, "textDocument/documentSymbol", { textDocument = params }, lsp_callback)
+			end
+		end)
+	)
 end
 
 local breadcrumbs_augroup = vim.api.nvim_create_augroup("Breadcrumbs", { clear = true })
