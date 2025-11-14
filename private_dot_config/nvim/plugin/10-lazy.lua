@@ -918,34 +918,20 @@ local plugins = {
 			vim.keymap.set({ "n", "x" }, "ghx", require("snacks").gitbrowse.open, { desc = "[Git] Open in web" })
 
 			vim.api.nvim_set_hl(0, "mySnacks", { bg = "#111120" })
-
 			local snacks_hl_overrides = {
-				SnacksPickerInputTitle = "@comment.note",
-				SnacksPickerPreviewTitle = "@comment.error",
-
 				-- SnacksPickerListBorder = "TablineFill",
 				-- SnacksPickerList = "TablineFill",
-
+				SnacksPickerInputTitle = "@comment.note",
+				SnacksPickerPreviewTitle = "@comment.error",
 				SnacksPickerInputBorder = "TabLine",
 				SnacksPickerInput = "TabLine",
-
 				SnacksPickerPreviewBorder = "mySnacks",
 				SnacksPickerPreview = "mySnacks",
 			}
 
-			vim.api.nvim_create_autocmd("BufWinEnter", {
-				desc = "Snacks: Apply highlight overrides",
-				group = vim.api.nvim_create_augroup("snacks_hl_overrides", { clear = true }),
-				callback = function(e)
-					if vim.bo[e.buf].filetype ~= "snacks_picker_input" then
-						return
-					end
-
-					for dst_grp, src_grp in pairs(snacks_hl_overrides) do
-						vim.cmd(" highlight! link " .. dst_grp .. " " .. src_grp)
-					end
-				end,
-			})
+			for dst_grp, src_grp in pairs(snacks_hl_overrides) do
+				vim.cmd(" highlight! link " .. dst_grp .. " " .. src_grp)
+			end
 		end,
 	},
 	-- }}}
