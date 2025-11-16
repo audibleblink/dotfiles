@@ -75,6 +75,7 @@ spawn-at-startup "/usr/bin/mate-polkit"
 spawn-at-startup "pikabar"
 spawn-at-startup "systemctl" "--user" "enable" "--now" "hypridle"
 spawn-at-startup "swww-daemon"
+spawn-at-startup "wl-paste --watch cliphist store"
 
 environment {
     LD_PRELOAD ""
@@ -140,6 +141,7 @@ binds {
     Mod+D { spawn "fuzzel"; }
     Mod+P { spawn "ghostty" "--class=com.blink.float" "-e" "btop"; }
     Super+Alt+L { spawn "pikabar-lock"; }
+	Mod+Space { spawn-sh "cliphist list | fuzzel -d | cliphist decode | wl-copy"; }
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn "pamixer" "-i" "5"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn "pamixer" "-d" "5"; }
