@@ -1,5 +1,5 @@
 ---
-model: anthropic/claude-sonnet-4-5-20250929
+model: anthropic/claude-sonnet-4-5
 mode: primary
 temperature: 0.1
 tools:
