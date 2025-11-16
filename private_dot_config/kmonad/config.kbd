@@ -44,7 +44,7 @@
   ctx (tap-next esc lctrl)	;; dual-role ctrl-esc
 
   ;;meh (tap-next tab M-@num)	;; dual-role layer switch
-  meh (tap-next tab lmet)	;; dual-role alt-meta
+  meh (tap-next-press tab lmet)	;; dual-role alt-meta
   )
 
 (deflayer base

@@ -13,7 +13,7 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 
 # sort completions by when they were last used
 zstyle ':completion:*:*:*:*' file-sort modification
 # enable cycling through completions 
-zstyle ':completion:*' menu select
+zstyle ':completion:*' menu select=0
 # don't show $cdpath directories in completion
 zstyle ':completion:*:complete:(cd|pushd):*' tag-order 'local-directories named-directories'
 
