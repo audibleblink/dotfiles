@@ -7,6 +7,7 @@ set -eufo pipefail
 pkgs=(
 		acpi
 		atuin
+		bat
 		bc
 		dos2unix
 		dust
@@ -16,7 +17,6 @@ pkgs=(
 		sof-firmware
 		starship
 		tmux
-		tree-sitter-cli
 		uv
 		zstd
 	gvfs-nfs	
@@ -38,6 +38,7 @@ pkgs=(
         fd-find
         tmux
         tree
+		tree-sitter-cli
         unzip
         zsh
         zstd
@@ -58,7 +59,7 @@ pkgs+=(
 
 
 sudo apt update
-sudo apt install -t experimental -y ${pkgs[@]}
+sudo apt install -y ${pkgs[@]}
 
 # installs atuin and starship
 /bin/bash -c "$(curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh)"

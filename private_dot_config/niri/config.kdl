@@ -67,33 +67,33 @@ layout {
 }
 
 layer-rule {
-    match namespace="^swww-daemon$"
+    match namespace="^quickshell$"
     place-within-backdrop true
 }
 
 spawn-at-startup "/usr/bin/mate-polkit"
-spawn-at-startup "pikabar"
-spawn-at-startup "systemctl" "--user" "enable" "--now" "hypridle"
-spawn-at-startup "swww-daemon"
-spawn-at-startup "wl-paste --watch cliphist store"
+spawn-at-startup "dms" "run"
+spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
+spawn-at-startup "/usr/libexec/polkit-mate-authentication-agent-1"
 
 environment {
-    LD_PRELOAD ""
-    MOZ_ENABLE_WAYLAND "1"
-    XDG_SESSION_TYPE "wayland"
-    XDG_CURRENT_DESKTOP "niri"
-    XDG_SESSION_DESKTOP "niri"
-    MOZ_DBUS_REMOTE "1"
-    GDK_BACKEND "wayland"
-    QT_AUTO_SCREEN_SCALE_FACTOR "1"
-    QT_WAYLAND_FORCE_DPI "physical"
-    EGL_PLATFORM "wayland"
+     _JAVA_AWT_WM_NONREPARENTING "1"
     CLUTTER_BACKEND "wayland"
+    EGL_PLATFORM "wayland"
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+    GDK_BACKEND "wayland"
+    LD_PRELOAD ""
+    MOZ_DBUS_REMOTE "1"
+    MOZ_ENABLE_WAYLAND "1"
+    QT_AUTO_SCREEN_SCALE_FACTOR "1"
+    QT_QPA_PLATFORM "wayland"
+    QT_QPA_PLATFORMTHEME "qt6ct"
+    QT_WAYLAND_FORCE_DPI "physical"
     TERM "ghostty"
     TERMINAL "ghostty"
-     _JAVA_AWT_WM_NONREPARENTING "1"
-    ELECTRON_OZONE_PLATFORM_HINT "auto"
-    QT_QPA_PLATFORMTHEME "qt6ct"
+    XDG_CURRENT_DESKTOP "niri"
+    XDG_SESSION_DESKTOP "niri"
+    XDG_SESSION_TYPE "wayland"
     //nv __GL_VRR_ALLOWED "1"
     //nv __GL_GSYNC_ALLOWED "1"
 
@@ -108,14 +108,14 @@ hotkey-overlay {
 screenshot-path "~/Pictures/Screenshots/%Y-%m-%d %H-%M-%S.png"
 
 animations {
-    slowdown 2.5
+    slowdown 2.0
 }
 
 window-rule {
     match app-id="com.blink.float"
     open-floating true
-    default-column-width { fixed 960; }
-    default-window-height { fixed 640; }
+    default-column-width { fixed 1080; }
+    default-window-height { fixed 820; }
 }
 
 window-rule {
@@ -135,17 +135,36 @@ window-rule {
 }
 
 binds {
-    Mod+M { show-hotkey-overlay; }
+
+    Mod+B hotkey-overlay-title="Toggle Menubar" { 
+      spawn "dms" "ipc" "call" "bar" "toggle";
+	}
+	Mod+Space hotkey-overlay-title="Application Launcher" {
+		spawn "dms" "ipc" "call" "spotlight" "toggle";
+	}
+	Mod+P hotkey-overlay-title="Clipboard Manager" {
+		spawn "dms" "ipc" "call" "clipboard" "toggle";
+	}
+	Mod+M hotkey-overlay-title="Task Manager" {
+		spawn "dms" "ipc" "call" "processlist" "toggle";
+	}
+	Mod+Comma hotkey-overlay-title="Settings" {
+		spawn "dms" "ipc" "call" "settings" "toggle";
+	}
+	Mod+Y hotkey-overlay-title="Browse Wallpapers" {
+		spawn "dms" "ipc" "call" "dankdash" "wallpaper";
+	}
+    Mod+Shift+M { show-hotkey-overlay; }
     Mod+E { spawn "nemo"; }
     Mod+Return { spawn "ghostty"; }
-    Mod+D { spawn "fuzzel"; }
-    Mod+P { spawn "ghostty" "--class=com.blink.float" "-e" "btop"; }
-    Super+Alt+L { spawn "pikabar-lock"; }
-	Mod+Space { spawn-sh "cliphist list | fuzzel -d | cliphist decode | wl-copy"; }
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn "pamixer" "-i" "5"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn "pamixer" "-d" "5"; }
     XF86AudioMute        allow-when-locked=true { spawn "pamixer" "-t"; }
+	XF86AudioPlay        allow-when-locked=true { spawn "dms" "ipc" "call" "mpris" "playPause"; }
+
+	XF86MonBrightnessUp    allow-when-locked=true { spawn "dms" "ipc" "call" "brightness" "increment" "15" "backlight:intel_backlight"; }
+	XF86MonBrightnessDown  allow-when-locked=true { spawn "dms" "ipc" "call" "brightness" "decrement" "15" "backlight:intel_backlight"; }
 
     Mod+Shift+Q { spawn "wlogout"; }
     Mod+Q { close-window; }
@@ -203,8 +222,8 @@ binds {
 
     Mod+BracketLeft  { consume-or-expel-window-left; }
     Mod+BracketRight { consume-or-expel-window-right; }
-    Mod+Comma  { consume-window-into-column; }
-    Mod+Period { expel-window-from-column; }
+    // Mod+Comma  { consume-window-into-column; }
+    // Mod+Period { expel-window-from-column; }
 
     Mod+R { switch-preset-column-width; }
     Mod+Shift+R { switch-preset-window-height; }
