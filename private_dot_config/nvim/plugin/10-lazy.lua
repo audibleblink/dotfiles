@@ -113,9 +113,27 @@ local plugins = {
 		"catppuccin/nvim",
 		name = "catppuccin-macchiato",
 		priority = 1000,
-		config = function()
+		opts = { transparent_background = false },
+		config = function(_, opts)
+			require("catppuccin").setup(opts)
 			vim.cmd.colorscheme("catppuccin-macchiato")
 		end,
+		keys = {
+			{
+				"<leader>tt",
+				function()
+					local cat = require("catppuccin")
+					cat.options.transparent_background = not cat.options.transparent_background
+					cat.compile()
+					vim.cmd.colorscheme(vim.g.colors_name or "catppuccin-macchiato")
+					vim.notify(
+						"Transparency: " .. (cat.options.transparent_background and "ON" or "OFF"),
+						vim.log.levels.INFO
+					)
+				end,
+				desc = "Toggle Transparency",
+			},
+		},
 	},
 	-- }}}
 
