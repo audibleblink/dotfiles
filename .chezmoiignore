@@ -17,6 +17,7 @@ tests/*
 **/tmux/plugins/**
 !**/tmux/plugins/
 !**/tmux/plugins/tpm/**
+.config/television/
 
 {{- if (ne .chezmoi.os "darwin") }}
 .config/karabiner
@@ -41,26 +42,33 @@ Library/Preferences/com.amethyst.Amethyst.plist
 
 {{- if .headless }}
 .local/share/fonts
-.config/alacritty
+.config/DankMaterialShell/
+.config/aerospace/
+.config/alacritty/
+.config/autorunner/
+.config/compton/
 .config/conky/
 .config/dunst/
-.config/termite/
-.config/i3/
-.config/autorunner/
+.config/ghostty/
 .config/gtk-3.0/
-.config/compton/
+.config/i3/
+.config/kmonad/
+.config/niri/
+.config/obsidian/
 .config/polybar/
 .config/qutebrowser/
+.config/termite/
 .urxvt/
 .Xresources
 .config/obsidian/
-.config/kitty/*
+.config/kitty/
 {{- end }}
 
 {{- if (eq .chezmoi.os "darwin") }}
 .config/autorunner/
 .config/compton/
 .config/conky/
+.config/DankMaterialShell/
 .config/dunst/
 .config/gtk-3.0/
 .config/i3/
