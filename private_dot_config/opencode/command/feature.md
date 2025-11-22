@@ -1,7 +1,6 @@
 ---
 description: Plan bugfixes or feature requests.
 agent: plan
-model: anthropic/claude-sonnet-4-20250514
 ---
 
 # Initial ask

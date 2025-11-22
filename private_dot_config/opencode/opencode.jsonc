@@ -4,6 +4,67 @@
 	"model": "anthropic/claude-sonnet-4-5",
 	"autoshare": false,
 	"autoupdate": true,
+
+	// allow for use of Claude skills in Opencode. See ./skills/
+	"plugin": ["opencode-skills"],
+	"mcp": {
+		"tmux": {
+			"type": "local",
+			"command": ["npx", "@audibleblink/tmux-mcp-server"],
+			"enabled": true
+		},
+		// Disabled globally. Copy to project folders when needed
+		"context7": {
+			"type": "local",
+			"command": ["npx", "-y", "@upstash/context7-mcp"],
+			"enabled": false
+		},
+		// Disabled globally. Copy to project folders when needed
+		"serena": {
+			"type": "local",
+			"command": [
+				"uvx",
+				"--from",
+				"git+https://github.com/oraios/serena",
+				"serena-mcp-server",
+				"--context",
+				"opencode",
+				"--project",
+				"."
+			],
+			"enabled": false
+		}
+	},
+	// Disable these tools on default agents (non-serena agent)
+	"tools": {
+		"serena*": false,
+		"context7*": false
+	},
+
+	"keybinds": {
+		"leader": "ctrl+b",
+		"input_newline": "<leader>enter,shift+enter",
+		"messages_half_page_down": "ctrl+d",
+		"messages_half_page_up": "ctrl+u",
+		"messages_copy": "<leader>y"
+	},
+
+	"permission": {
+		"bash": {
+			"git *": "ask",
+			"*": "allow"
+		}
+	},
+
+	"lsp": {
+		"pyright": {
+			"command": ["basedpyright"]
+		},
+		"typescript": {
+			"command": ["deno"]
+		}
+	},
+
 	"provider": {
 		"ollama": {
 			"npm": "@ai-sdk/openai-compatible",
@@ -22,62 +83,6 @@
 					"name": "Gemma3n"
 				}
 			}
-		}
-	},
-	"plugin": ["opencode-skills"],
-	"mcp": {
-		"tmux": {
-			"type": "local",
-			"command": ["npx", "@audibleblink/tmux-mcp-server"],
-			"enabled": true
-		},
-		"context7": {
-			"type": "local",
-			"command": [
-				"npx",
-				"-y",
-				"@upstash/context7-mcp"
-			],
-			"enabled": false
-		},
-		"serena": {
-			"type": "local",
-			"command": [
-				"uvx",
-				"--from",
-				"git+https://github.com/oraios/serena",
-				"serena-mcp-server",
-				"--context",
-				"opencode",
-				"--project",
-				"."
-			],
-			"enabled": false
-		}
-	},
-	"tools": {
-		"serena*": false,
-		"context7*": false
-	},
-	"keybinds": {
-		"leader": "ctrl+b",
-		"input_newline": "<leader>enter,shift+enter",
-		"messages_half_page_down": "ctrl+d",
-		"messages_half_page_up": "ctrl+u",
-		"messages_copy": "<leader>y"
-	},
-	"permission": {
-		"bash": {
-			"git *": "ask",
-			"*": "allow"
-		}
-	},
-	"lsp": {
-		"pyright": {
-			"command": ["basedpyright"]
-		},
-		"typescript": {
-			"command": ["deno"]
 		}
 	}
 }
