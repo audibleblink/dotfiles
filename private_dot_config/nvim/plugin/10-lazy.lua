@@ -976,7 +976,7 @@ local plugins = {
 		version = "1.*",
 		opts = {
 			open_cmd = "qutebrowser %s",
-			invert_colors = '{"rest": "auto","image": "never"}',
+			invert_colors = '{"rest": "never","image": "never"}',
 		},
 	},
 	--- }}}
