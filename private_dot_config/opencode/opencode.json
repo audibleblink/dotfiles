@@ -24,7 +24,13 @@
 			}
 		}
 	},
+	"plugin": ["opencode-skills"],
 	"mcp": {
+		"tmux": {
+			"type": "local",
+			"command": ["npx", "@audibleblink/tmux-mcp-server"],
+			"enabled": true
+		},
 		"context7": {
 			"type": "local",
 			"command": [
