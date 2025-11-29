@@ -112,6 +112,7 @@ local plugins = {
 	{
 		"catppuccin/nvim",
 		name = "catppuccin-macchiato",
+		lazy = false,
 		priority = 1000,
 		opts = { transparent_background = false },
 		config = function(_, opts)
@@ -554,7 +555,12 @@ local plugins = {
 				},
 				window = {
 					delay = 400,
-					config = { anchor = "SE", row = "auto", col = "auto" },
+					config = {
+						anchor = "SE",
+						row = "auto",
+						col = "auto",
+						width = "auto",
+					},
 				},
 			})
 
