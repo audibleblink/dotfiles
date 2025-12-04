@@ -1065,6 +1065,11 @@ local plugins = {
 				},
 			},
 			modes = {
+				lsp_document_symbols = {
+					focus = false,
+					win = { position = "left" },
+					mode = "lsp_document_symbols",
+				},
 				symbols = {
 					focus = false,
 					win = { position = "left" },
