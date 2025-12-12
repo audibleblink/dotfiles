@@ -80,7 +80,7 @@ alias -g e="${EDITOR}"
 alias reload="source ${ZDOTDIR}/.zshrc"
 alias view='nvim -R'
 alias zl="e ~/.zshrc_local"
-
+alias -g bat=$(which bat || which batcat)
 alias cat='bat --paging=never'                                     
 alias less='bat --paging=always'                                       
 
