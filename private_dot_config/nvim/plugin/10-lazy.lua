@@ -500,7 +500,6 @@ local plugins = {
 			require("mini.comment").setup()
 			require("mini.icons").setup()
 			require("mini.move").setup()
-			require("mini.pairs").setup()
 			require("mini.surround").setup()
 			require("mini.bufremove").setup()
 			vim.keymap.set("n", "<leader>q", require("mini.bufremove").delete, { desc = "Close buffer, keep split" })
