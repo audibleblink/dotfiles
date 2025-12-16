@@ -66,6 +66,43 @@
 	},
 
 	"provider": {
+		// "azure-foundry-openai": {
+		// 	"npm": "@ai-sdk/openai",
+		// 	"name": "Azure Foundry (OpenAI)",
+		// 	"options": {
+		// 		"baseURL": "{env:AZURE_FOUNDRY_HOST}/models",
+		// 		"useDeploymentBasedUrls": true,
+		// 		"apiKey": "{env:AZURE_FOUNDRY_OPENAI_KEY}",
+		// 		"resourceName": "rule10-ai"
+		// 	},
+		// 	"models": {
+		// 		"gpt-5": {
+		// 			"name": "GPT 5.2"
+		// 		}
+		// 	}
+		// },
+		"azure-foundry-claude": {
+			"npm": "@ai-sdk/anthropic",
+			"name": "Azure Foundry (Claude)",
+			"options": {
+				"baseURL": "{env:AZURE_FOUNDRY_HOST}/anthropic/v1",
+				"apiKey": "{env:AZURE_FOUNDRY_CLAUDE_KEY}",
+				"headers": {
+					"anthropic-version": "2023-06-01"
+				}
+			},
+			"models": {
+				"claude-opus-4-5": {
+					"name": "Opus 4.5"
+				},
+				"claude-sonnet-4-5": {
+					"name": "Sonnet 4.5"
+				},
+				"claude-haiku-4-5": {
+					"name": "Haiku 4.5"
+				}
+			}
+		},
 		"ollama": {
 			"npm": "@ai-sdk/openai-compatible",
 			"name": "Ollama (local)",
