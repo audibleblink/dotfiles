@@ -15,6 +15,7 @@ set -g @plugin 'christoomey/vim-tmux-navigator'
 set -g @plugin 'audibleblink/tmux-floax'
 set -g @plugin 'catppuccin/tmux'
 set -g @plugin 'erikw/tmux-dark-notify'
+set -g @plugin 'azorng/tmux-smooth-scroll'
 # ]]]
 # Plugin Overrides [[[
 set -g @continuum-restore 'on'
@@ -139,7 +140,7 @@ set -as terminal-features "*:hyperlinks"
 set -s copy-command 'pbcopy'
 set -g default-shell /bin/zsh
 {{ else  }}
-set -s copy-command 'xsel -i'
+set -s copy-command 'wl-copy'
 set -g default-shell /usr/bin/zsh
 {{ end }}
 {{ if .arch }}
