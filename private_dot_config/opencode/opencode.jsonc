@@ -7,12 +7,12 @@
 	"autoupdate": true,
 
 	// allow for use of Claude skills in Opencode. See ./skills/
-	"plugin": ["opencode-skills"],
+	"plugin": ["opencode-anthropic-auth@0.0.13"],
 	"mcp": {
 		"tmux": {
 			"type": "local",
 			"command": ["npx", "@audibleblink/tmux-mcp-server"],
-			"enabled": true
+			"enabled": false
 		},
 		// Disabled globally. Copy to project folders when needed
 		"context7": {
