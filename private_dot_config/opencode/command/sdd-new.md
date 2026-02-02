@@ -11,8 +11,9 @@ $ARGUMENTS
 
 **Output**
 
-A PRD outlining the requirements of the requested feature. Interview the requester for anything you, the LLM, is missing. 
-Also Hammer out technology stack choice with the user.
+A PRD outlining the requirements of the requested feature. 
+Interview the requester for anything you, the LLM, feel is missing. 
+Also hammer out technology stack choices with the user.
 
 Once a complete PRD is finalized, write it out as ./prd.md
 
