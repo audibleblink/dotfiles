@@ -7,3 +7,4 @@ zig = "0.13.0"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
+experimental = true
