@@ -6,21 +6,23 @@
 	"autoshare": false,
 	"autoupdate": true,
 
-	// allow for use of Claude skills in Opencode. See ./skills/
 	"plugin": ["opencode-anthropic-auth@0.0.13"],
 	"mcp": {
+		"playwright": {
+			"type": "local",
+			"command": ["npx", "@playwright/mcp@latest"],
+			"enabled": false
+		},
 		"tmux": {
 			"type": "local",
 			"command": ["npx", "@audibleblink/tmux-mcp-server"],
 			"enabled": false
 		},
-		// Disabled globally. Copy to project folders when needed
 		"context7": {
 			"type": "local",
 			"command": ["npx", "-y", "@upstash/context7-mcp"],
 			"enabled": false
 		},
-		// Disabled globally. Copy to project folders when needed
 		"serena": {
 			"type": "local",
 			"command": [
@@ -62,24 +64,9 @@
 	},
 
 	"provider": {
-		// "azure-foundry-openai": {
-		// 	"npm": "@ai-sdk/openai",
-		// 	"name": "Azure Foundry (OpenAI)",
-		// 	"options": {
-		// 		"baseURL": "{env:AZURE_FOUNDRY_HOST}/models",
-		// 		"useDeploymentBasedUrls": true,
-		// 		"apiKey": "{env:AZURE_FOUNDRY_OPENAI_KEY}",
-		// 		"resourceName": "rule10-ai"
-		// 	},
-		// 	"models": {
-		// 		"gpt-5": {
-		// 			"name": "GPT 5.2"
-		// 		}
-		// 	}
-		// },
 		"azure-foundry-claude": {
 			"npm": "@ai-sdk/anthropic",
-			"name": "Azure Foundry (Claude)",
+			"name": "Azure Anthropic",
 			"options": {
 				"baseURL": "{env:AZURE_FOUNDRY_HOST}/anthropic/v1",
 				"apiKey": "{env:AZURE_FOUNDRY_CLAUDE_KEY}",
@@ -99,6 +86,21 @@
 				}
 			}
 		},
+
+		"azure-foundry-openai": {
+			"npm": "@ai-sdk/azure",
+			"name": "Azure OpenAI",
+			"options": {
+				"resourceName": "rule10",
+				"apiKey": "{env:AZURE_FOUNDRY_OPENAI_KEY}"
+			},
+			"models": {
+				"rule10-gpt-5-2": {
+					"name": "gpt-5.2"
+				}
+			}
+		}
+	},
 		"ollama": {
 			"npm": "@ai-sdk/openai-compatible",
 			"name": "Ollama (local)",
