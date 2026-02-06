@@ -99,8 +99,8 @@
 					"name": "gpt-5.2"
 				}
 			}
-		}
-	},
+		},
+
 		"ollama": {
 			"npm": "@ai-sdk/openai-compatible",
 			"name": "Ollama (local)",
