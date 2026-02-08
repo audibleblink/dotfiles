@@ -6,7 +6,9 @@
 	"autoshare": false,
 	"autoupdate": true,
 
-	"plugin": ["opencode-anthropic-auth@0.0.13"],
+	"plugin": [
+		"opencode-anthropic-auth@0.0.13"
+	],
 	"mcp": {
 		"playwright": {
 			"type": "local",
@@ -37,6 +39,12 @@
 			],
 			"enabled": false
 		}
+	},
+
+	// Disable these tools on default agents (non-serena agent)
+	"tools": {
+		"serena*": false,
+		"context7*": false
 	},
 
 	"keybinds": {
