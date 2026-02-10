@@ -1,13 +1,13 @@
 ---
-model: anthropic/claude-sonnet-4-5
+# model: anthropic/claude-sonnet-4-5
 mode: primary
-temperature: 0.2
-tools:
-  read: false
-  edit: false
-  write: false
-  patch: false
-  serena*: false
+temperature: 0.1
+permission:
+  read: ask
+  edit: ask
+  write: ask
+  patch: ask
+  bash: ask
 ---
 
 
