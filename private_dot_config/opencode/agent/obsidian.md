@@ -3,12 +3,12 @@ description: Obsidian vault assistant — creates, edits, and organizes notes wi
 mode: primary
 model: anthropic/claude-sonnet-4-5
 temperature: 0.3
-tools:
+permission:
   bash: ask
-  read: true
+  read: allow
   write: ask
   edit: ask
-  patch: true
+  patch: allow
 color: "#7C3AED"
 ---
 
