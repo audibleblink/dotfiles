@@ -21,8 +21,10 @@ Implement the feature
 
 3. **Implement the next phase**
  
-   Choose only the next unfinished phase. If multiple phases can be conducted in parallel, 
-   recursively spin off sub-agents for each
+   Choose only the next unfinished phase. 
+
+   - Delegate each phase to a subtask/subagent
+   - Commit each phase on completion withing the same subtask/subagent
 
    For each pending task:
    - Show which task is being worked on
@@ -31,12 +33,6 @@ Implement the feature
    - Validate functionality and correctness
    - Mark task complete in the tasks file: `- [ ]` → `- [x]`
    - Continue to next task in the phase
-
-   **Pause if:**
-   - Task is unclear → ask for clarification
-   - Implementation reveals a design issue → suggest updating artifacts
-   - Error or blocker encountered → report and wait for guidance
-   - User interrupts
 
    **Exit if:**
    - Phase Complete
@@ -47,18 +43,17 @@ Implement the feature
    - Tasks completed this session
    - Overall progress: "N/M tasks complete"
    - If all done: say so and @git commit
-   - If paused: explain why and wait for guidance
 
 **Output During Implementation**
 
 ```
 ## Implementing: <change-name>
 
-Working on task 3/7: <task description>
+Delegating phase 3/7: <task description>
 [...implementation happening...]
 ✓ Task complete
 
-Working on task 4/7: <task description>
+Delegating phase 4/7: <task description>
 [...implementation happening...]
 ✓ Task complete
 ```
@@ -70,5 +65,6 @@ Working on task 4/7: <task description>
 - If implementation reveals issues, pause and suggest artifact updates
 - Keep code changes minimal and scoped to each task
 - Update task checkbox immediately after completing each task
-- Pause on errors, blockers, or unclear requirements - don't guess
+- Each phase is implemented in a subtask/subagent
+- Commit after each phase
 
