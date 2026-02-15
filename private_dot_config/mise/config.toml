@@ -3,6 +3,7 @@ go = "1.24.5"
 node = "24.7"
 python = "3.13.5"
 rust = "1.88.0"
+uv = "latest"
 zig = "0.13.0"
 
 [settings]

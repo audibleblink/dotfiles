@@ -23,8 +23,9 @@ Implement the feature
  
    Choose only the next unfinished phase. 
 
-   - Delegate each phase to a subtask/subagent
-   - Commit each phase on completion withing the same subtask/subagent
+   - Delegate each phase to a subtask
+     - If you are OpenCode, use the Task Tool
+   - Commit each phase on completion within the same subtask
 
    For each pending task:
    - Show which task is being worked on

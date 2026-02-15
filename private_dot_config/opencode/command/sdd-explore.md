@@ -15,7 +15,7 @@ $ARGUMENTS
 ## Checklist
 
 - [ ] Understand the current, relevant code
-- [ ] Review the ask with the user by asking clarifying questions. Do not continue until these questions are answered
+- [ ] Review the ask with the user by asking clarifying questions with the question tool. Do not continue until these questions are answered
 - [ ] Only after the list of clarifying questions have been answered, present at least 3 options of implementation overview, listing pro/cons and impact to the project
 - [ ] Answer questions the user may have 
 
