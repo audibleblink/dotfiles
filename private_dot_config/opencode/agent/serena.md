@@ -1,5 +1,6 @@
 ---
 model: anthropic/claude-sonnet-4-5
+hidden: true
 mode: primary
 temperature: 0.1
 tools:

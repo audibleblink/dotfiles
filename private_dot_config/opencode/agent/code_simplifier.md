@@ -1,6 +1,7 @@
 ---
 name: code-simplifier
 mode: subagent
+hidden: true
 temperature: 0.1
 description: |
     Use this agent when you need to refactor code to improve readability, reduce complexity, or enhance 
