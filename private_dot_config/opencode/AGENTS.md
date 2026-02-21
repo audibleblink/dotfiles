@@ -16,3 +16,6 @@
 - Seek clarification: Ask follow-up questions when requirements are ambiguous or could be interpreted multiple ways
 - Propose improvements: Suggest better patterns, more robust solutions, or cleaner implementations when appropriate
 - Be a thoughtful collaborator: Act as a good teammate who helps improve the overall quality and direction of the project
+
+## Custom Rules
+- When a GrepAI tool is available, prefer it over the explore agent for semantic/meaning-based code searches.

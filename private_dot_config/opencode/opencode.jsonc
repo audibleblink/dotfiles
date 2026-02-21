@@ -11,33 +11,19 @@
 	],
 
 	"mcp": {
+		"grepai": {
+			"type": "local",
+			"command": ["grepai", "mcp-serve"],
+			"enabled": false
+		},
 		"playwright": {
 			"type": "local",
 			"command": ["npx", "@playwright/mcp@latest"],
 			"enabled": false
 		},
-		"tmux": {
-			"type": "local",
-			"command": ["npx", "@audibleblink/tmux-mcp-server"],
-			"enabled": false
-		},
 		"context7": {
 			"type": "local",
 			"command": ["npx", "-y", "@upstash/context7-mcp"],
-			"enabled": false
-		},
-		"serena": {
-			"type": "local",
-			"command": [
-				"uvx",
-				"--from",
-				"git+https://github.com/oraios/serena",
-				"serena-mcp-server",
-				"--context",
-				"opencode",
-				"--project",
-				"."
-			],
 			"enabled": false
 		}
 	},
