@@ -2,6 +2,7 @@ vim.g.mapleader = " " -- ensure leader is set so subsequent mappings use it
 vim.cmd.packadd("nohlsearch")
 vim.loader.enable(true)
 
+vim.o.exrc = true
 vim.o.autoindent = true
 vim.o.autoread = true
 vim.o.breakindent = true

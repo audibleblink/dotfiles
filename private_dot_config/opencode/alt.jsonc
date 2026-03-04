@@ -1,59 +1,8 @@
 {
 	"$schema": "https://opencode.ai/config.json",
-	"model": "anthropic/claude-sonnet-4-6",
-	"small_model": "anthropic/claude-haiku-4-5",
-	"autoshare": false,
-	"autoupdate": true,
-
-	"plugin": [
-		"opencode-anthropic-auth@0.0.13"
-	],
-
-	"mcp": {
-
-{
-		"promptd": {
-			"type": "local",
-			"command": ["uvx", "--from", "git+https://github.com/audibleblink/promptd", "promptd"],
-			"enabled": true
-		},
-		"grepai": {
-			"type": "local",
-			"command": ["grepai", "mcp-serve"],
-			"enabled": false
-		},
-		"playwright": {
-			"type": "local",
-			"command": ["npx", "@playwright/mcp@latest"],
-			"enabled": false
-		},
-		"context7": {
-			"type": "local",
-			"command": ["npx", "-y", "@upstash/context7-mcp"],
-			"enabled": false
-		}
-	},
-
-	// Disable these tools on default agents
-	"tools": {
-		// "context7*": false
-	},
-
-	"permission": {
-		"bash": {
-			"git *": "ask",
-			"*": "allow"
-		}
-	},
-
-	"lsp": {
-		"pyright": {
-			"command": ["basedpyright"]
-		},
-		"typescript": {
-			"command": ["deno"]
-		}
-	},
+	"model": "walthropic/claude-sonnet-4-6",
+	"small_model": "walthropic/claude-haiku-4-5",
+	"disabled_providers": ["openai", "gemini", "anthropic"],
 
 	"provider": {
 		"azure-foundry-claude": {
@@ -93,24 +42,6 @@
 			}
 		},
 
-		"ollama": {
-			"npm": "@ai-sdk/openai-compatible",
-			"name": "Ollama (local)",
-			"options": {
-				"baseURL": "http://localhost:11434/v1"
-			},
-			"models": {
-				"gpt-oss:latest": {
-					"name": "GPT-OSS"
-				},
-				"qwen3:latest": {
-					"name": "Qwen3"
-				},
-				"gemma3n:e4b-it-q8_0": {
-					"name": "Gemma3n"
-				}
-			}
-		},
 		"walthropic": {
 			"npm": "@ai-sdk/anthropic",
 			"name": "Walthropic",

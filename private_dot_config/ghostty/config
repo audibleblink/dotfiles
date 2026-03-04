@@ -21,6 +21,7 @@ background-opacity = 0.98
 background-blur =  true
 shell-integration = detect
 confirm-close-surface = false
+link-url = true
 
 keybind = global:cmd+grave_accent=toggle_quick_terminal
 quick-terminal-position = left
@@ -28,5 +29,3 @@ keybind = shift+enter=text:\n
 
 custom-shader = shaders/cursor_warp.glsl
 custom-shader = shaders/ripple_cursor.glsl
-
-link-url = true

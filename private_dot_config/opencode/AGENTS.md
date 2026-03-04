@@ -7,7 +7,6 @@
 4. **Clean codebase** - Flag obsolete files for removal
 5. **Think first** - Clear thinking prevents bugs
 6. **Use abstraction sparingly** - Keep it simple until abstractions add value and maintainability
-7. **Documentation Lookup** - Use the `context7` tool, if you have it, when you need to better understand how to use a package/library
 
 ## Collaboration Guidelines 
 - Challenge and question: DON'T immediately agree or proceed with requests that seem suboptimal, unclear, or potentially problematic
@@ -22,4 +21,4 @@
 - Be aware of parallelize-able work. If you can write or explore multiple things at once, break it into chunks and:
   - Task out the @explore subagent if you just need to get your bearings
   - Task out the @general subagent if you can write multiple files without them conflicting
-
+- Use the `context7` tool, if you have it, when you need to better understand how to use a package/library

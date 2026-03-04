@@ -65,6 +65,6 @@ Delegating phase 4/7: <task description>
 - If implementation reveals issues, pause and suggest artifact updates
 - Keep code changes minimal and scoped to each task
 - Update task checkbox immediately after completing each task
-- Each phase is implemented in a subtask/subagent
-- Commit after each phase
-
+- Each phase is implemented in as a subtask
+- Commit at the end of each phase task
+- Once started, do not stop until all phases are complete
