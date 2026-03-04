@@ -8,7 +8,6 @@ scratch
 **/.claude/settings.local.json
 .serena/
 .crush/
-AGENTS.md
 CRUSH.md
 opencode.json
 
