@@ -23,8 +23,8 @@ Implement the feature
  
    Choose only the next unfinished phase. 
 
-   - Delegate each phase to a subtask
-     - If you are OpenCode, use the Task Tool
+   - Create a dependency graph from the phase definitions in the execution plan
+   - Delegate each phase of independent work to a subtask using the @general subagent
    - Commit each phase on completion within the same subtask
 
    For each pending task:
@@ -43,7 +43,6 @@ Implement the feature
    Display:
    - Tasks completed this session
    - Overall progress: "N/M tasks complete"
-   - If all done: say so and @git commit
 
 **Output During Implementation**
 
