@@ -36,6 +36,7 @@ User wants to do: $ARGUMENTS
 - **Description**: From the `description` frontmatter field (required).
 - **Arguments**: If `$ARGUMENTS` appears in the body, the prompt is registered with a single required string argument called `arguments`. If absent, no arguments.
 - **Content**: Full markdown body below frontmatter, served as a `UserMessage`. `$ARGUMENTS` is replaced with the provided argument value at request time.
+- `$ARGUMENTS` substitution applies only to the body, not the description.
 - Extra frontmatter fields are ignored.
 
 ## Server Architecture
@@ -56,7 +57,12 @@ Three responsibilities:
 
 ### No Config
 
-The prompts directory defaults to `~/.config/blink-mcp/prompts/`. Can be overridden via CLI argument or environment variable. No database, no state beyond disk.
+The prompts directory defaults to `~/.config/blink-mcp/prompts/`. Can be overridden via `--prompts-dir` CLI argument or `BLINK_MCP_PROMPTS_DIR` environment variable. No database, no state beyond disk.
+
+### Error Handling
+
+- **Malformed files**: If a `.md` file has no frontmatter, missing `description`, or invalid YAML — log a warning and skip the file.
+- **Missing directory**: If the prompts directory doesn't exist on startup, create it.
 
 ## Migration
 
