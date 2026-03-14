@@ -41,7 +41,7 @@ User wants to do: $ARGUMENTS
 
 ## Server Architecture
 
-Single file: `server.py`
+Primary entry point: `server.py`, with supporting modules (`prompt_loader.py`, `watcher.py`) split by responsibility.
 
 Three responsibilities:
 
