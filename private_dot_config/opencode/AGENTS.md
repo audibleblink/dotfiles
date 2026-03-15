@@ -19,3 +19,7 @@
 
 ## Custom Rules
 - When a GrepAI tool is available, prefer it over the explore agent for semantic/meaning-based code searches.
+- Be aware of parallelize-able work. If you can write or explore multiple things at once, break it into chunks and:
+  - Task out the @explore subagent if you just need to get your bearings
+  - Task out the @general subagent if you can write multiple files without them conflicting
+
