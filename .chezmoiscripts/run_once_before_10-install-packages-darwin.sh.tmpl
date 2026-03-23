@@ -1,4 +1,4 @@
-{{- if and (eq .chezmoi.os "darwin") (.personal) -}}
+{{- if and (eq .chezmoi.os "darwin") -}}
 #!/bin/bash
 
 set -eufo pipefail
@@ -9,7 +9,6 @@ set -eufo pipefail
 	"cormacrelf/tap/dark-notify"
 	"borders"
 	"curl"
-	"direnv"
 	"dockutil"
 	"dos2unix"
 	"dust"
