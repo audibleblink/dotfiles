@@ -25,6 +25,7 @@ tests/*
 .config/aerospace
 .config/sketchybar
 Library/Preferences/com.amethyst.Amethyst.plist
+Library/Preferences/private_mo.com.sleeplessmind.kindaVim.plist
 .config/nvim/lua/plugins/auto-dark.lua
 .config/nvim/lazy.lock
 .config/opencode/plugin/notify.js
