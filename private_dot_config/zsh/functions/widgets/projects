@@ -1,15 +1,35 @@
-# interactively search ~/Code/, prefering tmux popup when possible
+# Interactively select a project under ~/code and cd into it.
+# Uses fzf-tmux popup with a git log preview. Works from any directory.
 
 emulate -L zsh
 
-cd ~/code
+local code_root=~/code
 
-local dirb=$(basename $(fd -IH -s \\.git\$ -x dirname) | fzf-tmux -p 70% --input-label " Projects " --preview-window 'right,70%' --preview 'cd {};git log --graph --decorate --all --pretty=format:"%C(cyan)%h%Creset %C()%s%Creset%n%C(dim italic white)      └─ %ar by %an %C(auto)  %D%n";cd -')
+# Find all git project roots relative to $code_root, one per line.
+# fd finds .git dirs, dirname strips the trailing /.git, then we make the path
+# relative by stripping the root prefix so the preview and buffer stay clean.
+local projects
+projects=$(
+  fd -IH -s '\.git$' --type d "$code_root" \
+    --exec dirname \
+    | sed "s|^${code_root}/||" \
+    | sort
+)
 
-if ! [[ -z $dirb ]]; then
-  BUFFER="cd ${dirb}"
-  zle accept-line
-fi
- 
+local selected
+selected=$(
+  print -r -- "$projects" \
+    | fzf-tmux -p 70% \
+        --input-label ' Projects ' \
+        --preview-window 'right,70%' \
+        --preview "git -C ${code_root}/{} log --graph --decorate --all \
+--pretty=format:'%C(cyan)%h%Creset %s%n%C(dim italic white)      └─ %ar by %an %C(auto)  %D'" \
+        --bind "ctrl-t:execute-silent(zsh -c 'fpath=(~/.config/zsh/functions/default \$fpath); autoload -Uz tm; tm -p \"${code_root}/{}\"')+abort"
+)
+
+[[ -n $selected ]] || return
+
+BUFFER="cd ${code_root}/${selected}"
+zle accept-line
+
 # vim: ft=zsh
-

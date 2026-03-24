@@ -1,16 +1,32 @@
 # tmux default start/attach
+# Usage: tm [session]
+#        tm -p <path>   — create/switch session named after basename of <path>, rooted there
 
 emulate -L zsh
 
-local session="${1:-LOCAL}"
+local dir=""
+local session=""
+local -a path_opt=()
 
-if [ -z "$TMUX" ]; then
-    tmux new-session -As "${session}"
+zparseopts -D -F -- p:=path_opt || { echo "usage: tm [-p <path>] [session]" >&2; return 1 }
+
+if [[ ${#path_opt} -gt 0 ]]; then
+  dir="${path_opt[2]}"
+  session="${dir:t}"   # basename
 else
-  if ! tmux has-session -t "${session}" 2> /dev/null; then
-    TMUX= tmux new-session -ds "${session}"
+  session="${1:-LOCAL}"
+fi
+
+local -a dir_flag=()
+[[ -n "$dir" ]] && dir_flag=(-c "$dir")
+
+if [[ -z "$TMUX" ]]; then
+  tmux new-session -As "$session" "${dir_flag[@]}"
+else
+  if ! tmux has-session -t "$session" 2>/dev/null; then
+    TMUX= tmux new-session -ds "$session" "${dir_flag[@]}"
   fi
-  tmux switch-client -t "${session}"
+  tmux switch-client -t "$session"
 fi
 
 # vim: ft=zsh
