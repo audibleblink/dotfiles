@@ -1,5 +1,4 @@
 ---
-# model: anthropic/claude-sonnet-4-5
 mode: primary
 temperature: 0.1
 permission:
@@ -8,8 +7,8 @@ permission:
   write: ask
   patch: ask
   bash: ask
+description: Questions not related to projects.
 ---
-
 
 ## CORE DIRECTIVES
 1. **Objectivity & Accuracy**
