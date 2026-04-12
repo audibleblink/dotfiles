@@ -6,15 +6,15 @@
 	"autoupdate": true,
 
 	"plugin": [
-		"opencode-anthropic-auth@0.0.13"
+		"opencode-claude-auth"
+		// "opencode-anthropic-auth@0.0.13"
 	],
 
 	"mcp": {
-
 		"promptd": {
 			"type": "local",
 			"command": ["uvx", "--from", "git+https://github.com/audibleblink/promptd", "promptd"],
-			"enabled": true
+			"enabled": false
 		},
 		"grepai": {
 			"type": "local",
@@ -55,83 +55,15 @@
 	},
 
 	"provider": {
-		"azure-foundry-claude": {
-			"npm": "@ai-sdk/anthropic",
-			"name": "Azure Anthropic",
-			"options": {
-				"baseURL": "{env:AZURE_FOUNDRY_HOST}/anthropic/v1",
-				"apiKey": "{env:AZURE_FOUNDRY_CLAUDE_KEY}",
-				"headers": {
-					"anthropic-version": "2023-06-01"
-				}
-			},
-			"models": {
-				"claude-opus-4-5": {
-					"name": "Opus 4.5"
-				},
-				"claude-sonnet-4-5": {
-					"name": "Sonnet 4.5"
-				},
-				"claude-haiku-4-5": {
-					"name": "Haiku 4.5"
-				}
-			}
-		},
-
-		"azure-foundry-openai": {
-			"npm": "@ai-sdk/azure",
-			"name": "Azure OpenAI",
-			"options": {
-				"resourceName": "rule10",
-				"apiKey": "{env:AZURE_FOUNDRY_OPENAI_KEY}"
-			},
-			"models": {
-				"rule10-gpt-5-2": {
-					"name": "gpt-5.2"
-				}
-			}
-		},
-
 		"ollama": {
 			"npm": "@ai-sdk/openai-compatible",
 			"name": "Ollama (local)",
 			"options": {
-				"baseURL": "http://localhost:11434/v1"
+				"baseURL": "http://192.168.1.35:11434/v1"
 			},
 			"models": {
-				"gpt-oss:latest": {
-					"name": "GPT-OSS"
-				},
-				"qwen3:latest": {
-					"name": "Qwen3"
-				},
-				"gemma3n:e4b-it-q8_0": {
-					"name": "Gemma3n"
-				}
-			}
-		},
-		"walthropic": {
-			"npm": "@ai-sdk/anthropic",
-			"name": "Walthropic",
-			"options": {
-				"baseURL": "http://localhost:8888/v1",
-				"apiKey": "hunter2"
-			},
-			"models": {
-				"claude-sonnet-4-5": {
-					"name": "Claude Sonnet 4.5"
-				},
-				"claude-sonnet-4-6": {
-					"name": "Claude Sonnet 4.6"
-				},
-				"claude-opus-4-5": {
-					"name": "Claude Opus 4.5"
-				},
-				"claude-opus-4-6": {
-					"name": "Claude Opus 4.6"
-				},
-				"claude-haiku-4-5": {
-					"name": "Claude Haiku"
+				"gemma4:latest": {
+					"name": "Gemma4"
 				}
 			}
 		}
