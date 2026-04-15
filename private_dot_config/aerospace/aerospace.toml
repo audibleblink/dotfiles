@@ -2,8 +2,29 @@ start-at-login = true
 after-startup-command = ['exec-and-forget borders' ]
 
 [[on-window-detected]]
-if.app-id = 'com.microsoft.VSCodeInsiders'
-run = ['layout floating']
+if.app-id = 'com.google.Chrome'
+run = 'move-node-to-workspace 1'
+[[on-window-detected]]
+if.app-id = 'jrg.mozilla.firefox'
+run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = ['move-node-to-workspace 2','layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.iCal'
+run = 'move-node-to-workspace 3'
+[[on-window-detected]]
+if.app-id = 'com.apple.mail'
+run = 'move-node-to-workspace 3'
+[[on-window-detected]]
+if.app-id = 'com.microsoft.teams2'
+run = 'move-node-to-workspace 3'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = 'layout floating'
 
 [key-mapping]
 preset = 'qwerty'

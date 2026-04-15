@@ -718,6 +718,7 @@ local plugins = {
 				mux = {
 					enabled = true,
 					backend = "tmux",
+					create = "split",
 				},
 				prompts = {
 					commit = function()

@@ -6,8 +6,9 @@
 	"autoupdate": true,
 
 	"plugin": [
-		"opencode-claude-auth"
 		// "opencode-anthropic-auth@0.0.13"
+		"opencode-claude-auth"
+		"superpowers@git+https://github.com/obra/superpowers.git"
 	],
 
 	"mcp": {

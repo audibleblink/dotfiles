@@ -1,0 +1,6 @@
+# ## Worktree path template
+worktree-path = "{{ repo_path }}/.worktrees/{{ branch | sanitize }}"
+
+# ## LLM commit messages
+[commit.generation]
+command = "opencode run -m anthropic/claude-haiku-4.5 --variant fast"
