@@ -1,0 +1,6 @@
+{
+  "anthropic": {
+    "type": "api_key",
+    "key": "!op read 'op://infra/claude-code/work'"
+  }
+}

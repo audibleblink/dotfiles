@@ -1,0 +1,24 @@
+{
+  "lastChangelogVersion": "0.68.0",
+  "defaultProvider": "anthropic",
+  "defaultModel": "claude-sonnet-4-6",
+  "enableInstallTelemetry": false,
+  "doubleEscapeAction": "tree",
+  "editorPaddingX": 1,
+  "defaultThinkingLevel": "off",
+  "skills": [
+    "~/code/skills"
+  ],
+  "enabledModels": [
+    "anthropic/claude-sonnet-4-6",
+    "anthropic/claude-opus-4-7",
+    "anthropic/claude-haiku-4-5"
+  ],
+  "packages": [
+    "npm:pi-mono-ask-user-question",
+    "npm:pi-mono-simplify",
+    "npm:@tintinweb/pi-tasks",
+    "npm:@tintinweb/pi-subagents",
+    "https://github.com/davebcn87/pi-autoresearch"
+  ]
+}

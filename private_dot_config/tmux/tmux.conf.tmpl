@@ -20,6 +20,8 @@ set -g @plugin 'azorng/tmux-smooth-scroll'
 # Plugin Overrides [[[
 set -g @continuum-restore 'on'
 
+set -g extended-keys on
+set -g extended-keys-format csi-u
 set -g @resurrect-restore 'R'
 set -g @resurrect-save 'S'
 set -g @resurrect-strategy-nvim 'session'
