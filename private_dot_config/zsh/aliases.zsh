@@ -60,6 +60,7 @@ alias fml='e -O $( git diff --name-only | uniq )' # Open all merge conflicts
 # ]]]
 
 (( $+commands[tree] )) && alias tree='LS_COLORS="di=34:ln=35:so=32;40:ex=31" tree --charset utf-8'
+(( $+commands[pi] )) && export PI_CODING_AGENT_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/pi/agent"
 
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 export FZF_PREVIEW_COMMAND="bat --style=numbers,changes --wrap never --color always {}"

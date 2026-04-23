@@ -715,6 +715,14 @@ local plugins = {
 						prompt = { "<leader>p", "prompt", mode = "n", desc = "insert prompt or context" },
 					},
 				},
+				tools = {
+					pi = {
+						cmd = { "zsh", "-c", "-i", "pi" },
+					},
+					opencode = {
+						cmd = { "zsh", "-c", "-i", "opencode" },
+					},
+				},
 				mux = {
 					enabled = true,
 					backend = "tmux",
