@@ -16,7 +16,6 @@
   ],
   "packages": [
     "npm:pi-mono-ask-user-question",
-    "npm:pi-mono-simplify",
     "npm:@tintinweb/pi-tasks",
     "npm:@tintinweb/pi-subagents",
     "https://github.com/davebcn87/pi-autoresearch"
