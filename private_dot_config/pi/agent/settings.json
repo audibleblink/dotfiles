@@ -4,7 +4,6 @@
   "defaultModel": "claude-sonnet-4-6",
   "enableInstallTelemetry": false,
   "doubleEscapeAction": "tree",
-  "editorPaddingX": 1,
   "defaultThinkingLevel": "off",
   "skills": [
     "~/code/skills"
@@ -15,9 +14,11 @@
     "anthropic/claude-haiku-4-5"
   ],
   "packages": [
-    "npm:pi-mono-ask-user-question",
-    "npm:@tintinweb/pi-tasks",
-    "npm:@tintinweb/pi-subagents",
-    "https://github.com/davebcn87/pi-autoresearch"
-  ]
+    "npm:@ollama/pi-web-search"
+    "https://github.com/davebcn87/pi-autoresearch",
+  ],
+  "theme": "catppuccin-mocha",
+  "quietStartup": true,
+  "treeFilterMode": "default",
+  "hideThinkingBlock": false
 }
