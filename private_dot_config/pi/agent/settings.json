@@ -15,6 +15,7 @@
   ],
   "packages": [
     "https://github.com/davebcn87/pi-autoresearch",
+    "https://github.com/audibleblink/pi-harness"
   ],
   "theme": "catppuccin-mocha",
   "quietStartup": true,
