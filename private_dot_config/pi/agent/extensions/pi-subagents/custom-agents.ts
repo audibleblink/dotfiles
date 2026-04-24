@@ -1,5 +1,5 @@
 /**
- * custom-agents.ts — Load user-defined agents from project (.pi/agents/) and global (~/.pi/agent/agents/) locations.
+ * custom-agents.ts — Load user-defined agents from project and personal (XDG) locations.
  */
 
 import { existsSync, readdirSync, readFileSync } from "node:fs";
@@ -10,21 +10,43 @@ import { BUILTIN_TOOL_NAMES } from "./agent-types.js";
 import type { AgentConfig, MemoryScope, ThinkingLevel } from "./types.js";
 
 /**
+ * Resolve the personal (global) agents directory. Precedence:
+ *   1. $PI_CODING_AGENT_DIR/agents            (explicit override)
+ *   2. $XDG_CONFIG_HOME/pi/agent/agents       (XDG)
+ *   3. ~/.config/pi/agent/agents              (XDG default)
+ * Used for writing (new agents). Reading also falls back to the legacy
+ * ~/.pi/agent/agents path if it exists.
+ */
+export function getPersonalAgentsDir(): string {
+  const piDir = process.env.PI_CODING_AGENT_DIR;
+  if (piDir) return join(piDir, "agents");
+  const xdg = process.env.XDG_CONFIG_HOME || join(homedir(), ".config");
+  return join(xdg, "pi", "agent", "agents");
+}
+
+/** Legacy personal dir (pre-XDG). Still read for backward compatibility. */
+export function getLegacyPersonalAgentsDir(): string {
+  return join(homedir(), ".pi", "agent", "agents");
+}
+
+/**
  * Scan for custom agent .md files from multiple locations.
- * Discovery hierarchy (higher priority wins):
- *   1. Project: <cwd>/.pi/agents/*.md
- *   2. Global:  ~/.pi/agent/agents/*.md
+ * Discovery hierarchy (higher priority wins, later overrides earlier):
+ *   1. Legacy personal: ~/.pi/agent/agents/*.md            (backward compat)
+ *   2. Personal (XDG):  $PI_CODING_AGENT_DIR or ~/.config/pi/agent/agents/*.md
+ *   3. Project:         <cwd>/.pi/agents/*.md
  *
- * Project-level agents override global ones with the same name.
  * Any name is allowed — names matching defaults (e.g. "Explore") override them.
  */
 export function loadCustomAgents(cwd: string): Map<string, AgentConfig> {
-  const globalDir = join(homedir(), ".pi", "agent", "agents");
+  const legacyDir = getLegacyPersonalAgentsDir();
+  const personalDir = getPersonalAgentsDir();
   const projectDir = join(cwd, ".pi", "agents");
 
   const agents = new Map<string, AgentConfig>();
-  loadFromDir(globalDir, agents, "global");   // lower priority
-  loadFromDir(projectDir, agents, "project");  // higher priority (overwrites)
+  loadFromDir(legacyDir, agents, "global");    // lowest priority (legacy)
+  if (personalDir !== legacyDir) loadFromDir(personalDir, agents, "global");
+  loadFromDir(projectDir, agents, "project");  // highest priority
   return agents;
 }
 

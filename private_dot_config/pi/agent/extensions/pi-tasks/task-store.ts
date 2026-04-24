@@ -2,7 +2,12 @@
  * task-store.ts — File-backed task store with CRUD, dependency management, and file locking.
  *
  * Session-scoped (default): in-memory Map — no disk I/O.
- * Shared (PI_TASK_LIST_ID set): ~/.pi/tasks/<listId>.json with file locking.
+ * Shared (PI_TASK_LIST_ID set): <personal dir>/tasks/<listId>.json with file locking.
+ *
+ * Personal dir precedence:
+ *   1. $PI_CODING_AGENT_DIR/tasks
+ *   2. $XDG_CONFIG_HOME/pi/agent/tasks (defaults to ~/.config/pi/agent/tasks)
+ *   3. Legacy ~/.pi/tasks (read-only fallback if it already exists)
  */
 
 import { existsSync, mkdirSync, readFileSync, renameSync, unlinkSync, writeFileSync } from "node:fs";
@@ -10,7 +15,18 @@ import { homedir } from "node:os";
 import { dirname, isAbsolute, join } from "node:path";
 import type { Task, TaskStatus, TaskStoreData } from "./types.js";
 
-const TASKS_DIR = join(homedir(), ".pi", "tasks");
+function resolveTasksDir(): string {
+  const piDir = process.env.PI_CODING_AGENT_DIR;
+  if (piDir) return join(piDir, "tasks");
+  const legacy = join(homedir(), ".pi", "tasks");
+  const xdg = process.env.XDG_CONFIG_HOME || join(homedir(), ".config");
+  const xdgPath = join(xdg, "pi", "agent", "tasks");
+  // Prefer legacy only if it exists and XDG dir does not — keeps existing shared lists working.
+  if (existsSync(legacy) && !existsSync(xdgPath)) return legacy;
+  return xdgPath;
+}
+
+const TASKS_DIR = resolveTasksDir();
 const LOCK_RETRY_MS = 50;
 const LOCK_MAX_RETRIES = 100; // 5s max
 

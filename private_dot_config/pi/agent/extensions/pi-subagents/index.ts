@@ -11,7 +11,6 @@
  */
 
 import { existsSync, mkdirSync, readFileSync, unlinkSync } from "node:fs";
-import { homedir } from "node:os";
 import { join } from "node:path";
 import type { ExtensionAPI, ExtensionCommandContext, ExtensionContext } from "@mariozechner/pi-coding-agent";
 import { Text } from "@mariozechner/pi-tui";
@@ -20,7 +19,7 @@ import { AgentManager } from "./agent-manager.js";
 import { getAgentConversation, getDefaultMaxTurns, getGraceTurns, normalizeMaxTurns, setDefaultMaxTurns, setGraceTurns, steerAgent } from "./agent-runner.js";
 import { BUILTIN_TOOL_NAMES, getAgentConfig, getAllTypes, getAvailableTypes, getDefaultAgentNames, getUserAgentNames, registerAgents, resolveType } from "./agent-types.js";
 import { registerRpcHandlers } from "./cross-extension-rpc.js";
-import { loadCustomAgents } from "./custom-agents.js";
+import { loadCustomAgents, getPersonalAgentsDir, getLegacyPersonalAgentsDir } from "./custom-agents.js";
 import { GroupJoinManager } from "./group-join.js";
 import { resolveAgentInvocationConfig, resolveJoinMode } from "./invocation-config.js";
 import { type ModelRegistry, resolveModel } from "./model-resolver.js";
@@ -531,7 +530,7 @@ export default function (pi: ExtensionAPI) {
       ...defaultDescs,
       ...(customDescs.length > 0 ? ["", "Custom agents:", ...customDescs] : []),
       "",
-      "Custom agents can be defined in .pi/agents/<name>.md (project) or ~/.pi/agent/agents/<name>.md (global) — they are picked up automatically. Project-level agents override global ones. Creating a .md file with the same name as a default agent overrides it.",
+      "Custom agents can be defined in .pi/agents/<name>.md (project) or $PI_CODING_AGENT_DIR/agents/<name>.md (personal, defaults to $XDG_CONFIG_HOME/pi/agent/agents, i.e. ~/.config/pi/agent/agents) — picked up automatically. Project-level agents override personal ones. Creating a .md file with the same name as a default agent overrides it. The legacy path ~/.pi/agent/agents is still read for backward compatibility.",
     ].join("\n");
   };
 
@@ -579,7 +578,7 @@ Guidelines:
         description: "A short (3-5 word) description of the task (shown in UI).",
       }),
       subagent_type: Type.String({
-        description: `The type of specialized agent to use. Available types: ${getAvailableTypes().join(", ")}. Custom agents from .pi/agents/*.md (project) or ~/.pi/agent/agents/*.md (global) are also available.`,
+        description: `The type of specialized agent to use. Available types: ${getAvailableTypes().join(", ")}. Custom agents from .pi/agents/*.md (project) or the personal XDG dir (see extension docs) are also available.`,
       }),
       model: Type.Optional(
         Type.String({
@@ -1082,14 +1081,18 @@ Guidelines:
   // ---- /agents interactive menu ----
 
   const projectAgentsDir = () => join(process.cwd(), ".pi", "agents");
-  const personalAgentsDir = () => join(homedir(), ".pi", "agent", "agents");
+  const personalAgentsDir = () => getPersonalAgentsDir();
+  const legacyPersonalAgentsDir = () => getLegacyPersonalAgentsDir();
+  const personalLocationLabel = () => `Personal (${personalAgentsDir()}/)`;
 
-  /** Find the file path of a custom agent by name (project first, then global). */
+  /** Find the file path of a custom agent by name (project first, then personal XDG, then legacy). */
   function findAgentFile(name: string): { path: string; location: "project" | "personal" } | undefined {
     const projectPath = join(projectAgentsDir(), `${name}.md`);
     if (existsSync(projectPath)) return { path: projectPath, location: "project" };
     const personalPath = join(personalAgentsDir(), `${name}.md`);
     if (existsSync(personalPath)) return { path: personalPath, location: "personal" };
+    const legacyPath = join(legacyPersonalAgentsDir(), `${name}.md`);
+    if (existsSync(legacyPath)) return { path: legacyPath, location: "personal" };
     return undefined;
   }
 
@@ -1321,7 +1324,7 @@ Guidelines:
   async function ejectAgent(ctx: ExtensionCommandContext, name: string, cfg: AgentConfig) {
     const location = await ctx.ui.select("Choose location", [
       "Project (.pi/agents/)",
-      "Personal (~/.pi/agent/agents/)",
+      personalLocationLabel(),
     ]);
     if (!location) return;
 
@@ -1383,7 +1386,7 @@ Guidelines:
     // No file (built-in default) — create a stub
     const location = await ctx.ui.select("Choose location", [
       "Project (.pi/agents/)",
-      "Personal (~/.pi/agent/agents/)",
+      personalLocationLabel(),
     ]);
     if (!location) return;
 
@@ -1421,7 +1424,7 @@ Guidelines:
   async function showCreateWizard(ctx: ExtensionCommandContext) {
     const location = await ctx.ui.select("Choose location", [
       "Project (.pi/agents/)",
-      "Personal (~/.pi/agent/agents/)",
+      personalLocationLabel(),
     ]);
     if (!location) return;
 
