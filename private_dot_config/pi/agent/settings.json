@@ -14,7 +14,6 @@
     "anthropic/claude-haiku-4-5"
   ],
   "packages": [
-    "npm:@ollama/pi-web-search"
     "https://github.com/davebcn87/pi-autoresearch",
   ],
   "theme": "catppuccin-mocha",

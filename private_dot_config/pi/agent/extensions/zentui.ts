@@ -439,6 +439,9 @@ function detectRuntime(entries: Set<string>): RuntimeCandidate | undefined {
 	return undefined;
 }
 
+// Runtime versions don't change during a session; cache per (cwd, runtime).
+const runtimeVersionCache = new Map<string, string | undefined>();
+
 async function readRuntimeInfo(cwd: string): Promise<RuntimeInfo | undefined> {
 	let entries: Set<string>;
 	try {
@@ -448,23 +451,22 @@ async function readRuntimeInfo(cwd: string): Promise<RuntimeInfo | undefined> {
 	}
 	const runtime = detectRuntime(entries);
 	if (!runtime) return undefined;
-	return { name: runtime.name, symbol: runtime.symbol, version: await runtime.version(cwd) };
+	const cacheKey = `${runtime.name}\0${cwd}`;
+	let version = runtimeVersionCache.get(cacheKey);
+	if (!runtimeVersionCache.has(cacheKey)) {
+		version = await runtime.version(cwd);
+		runtimeVersionCache.set(cacheKey, version);
+	}
+	return { name: runtime.name, symbol: runtime.symbol, version };
 }
 
 // ────────────────────────── ui ──────────────────────────
-
-const OSC133_ZONE_START = "\x1b]133;A\x07";
-const OSC133_ZONE_END = "\x1b]133;B\x07";
-const OSC133_ZONE_FINAL = "\x1b]133;C\x07";
-const originalUserMessageRender = UserMessageComponent.prototype.render;
 
 type AutocompleteEditorInternals = {
 	autocompleteList?: Pick<Component, "render">;
 	isShowingAutocomplete?: () => boolean;
 	autocompleteProvider?: unknown;
 };
-
-let currentUiTheme: Theme | undefined;
 
 const TRUECOLOR_BACKGROUND_ANSI = /\x1b\[48;2;\d+;\d+;\d+m/g;
 const INDEXED_BACKGROUND_ANSI = /\x1b\[48;5;\d+m/g;
@@ -477,49 +479,17 @@ function stripBackgroundAnsi(text: string): string {
 		.replace(SIMPLE_BACKGROUND_ANSI, "");
 }
 
-function fillStyledLine(
-	content: string,
-	width: number,
-	background?: (text: string) => string,
-): string {
+function fillStyledLine(content: string, width: number): string {
 	const truncated = truncateToWidth(stripBackgroundAnsi(content), width, "");
 	const padWidth = Math.max(0, width - visibleWidth(truncated));
-	const pad = padWidth > 0 ? (background ? background(" ".repeat(padWidth)) : " ".repeat(padWidth)) : "";
-	return `${truncated}${pad}`;
+	return padWidth > 0 ? `${truncated}${" ".repeat(padWidth)}` : truncated;
 }
 
-function patchUserMessageComponent(uiTheme: Theme): void {
-	currentUiTheme = uiTheme;
-
+// Render user messages as plain containers, bypassing pi's default styling.
+function patchUserMessageComponent(): void {
 	const prototype = UserMessageComponent.prototype as { render(width: number): string[] };
 	prototype.render = function (this: UserMessageComponent, width: number): string[] {
 		return Container.prototype.render.call(this, width) as string[];
-		if (!currentUiTheme) {
-			return originalUserMessageRender.call(this, width);
-		}
-
-		const railWidth = 4;
-		const innerWidth = Math.max(1, width - railWidth);
-		const baseLines = Container.prototype.render.call(this, innerWidth) as string[];
-		if (baseLines.length === 0) return baseLines;
-
-		const hasLeadingSpacer = baseLines.length > 1 && visibleWidth(baseLines[0] ?? "") === 0;
-		const leadingLines = hasLeadingSpacer ? [baseLines[0] ?? ""] : [];
-		const contentLines = hasLeadingSpacer ? baseLines.slice(1) : baseLines;
-		const leftRail = `${currentUiTheme.fg("accent", "│")}\x1b[0m `;
-		const rightRail = ` ${currentUiTheme.fg("accent", "│")}\x1b[0m`;
-		const topBorder = currentUiTheme.fg("accent", "╭") + currentUiTheme.fg("border", "─".repeat(Math.max(0, width - 2))) + currentUiTheme.fg("accent", "╮");
-		const bottomBorder = currentUiTheme.fg("accent", "╰") + currentUiTheme.fg("border", "─".repeat(Math.max(0, width - 2))) + currentUiTheme.fg("accent", "╯");
-
-		const styledLines = contentLines.map((line) => `${leftRail}${fillStyledLine(line, innerWidth)}${rightRail}`);
-
-		if (styledLines.length === 0) return leadingLines;
-
-		const framedLines = [topBorder, ...styledLines, bottomBorder];
-		framedLines[0] = OSC133_ZONE_START + framedLines[0];
-		framedLines[framedLines.length - 1] =
-			framedLines[framedLines.length - 1] + OSC133_ZONE_END + OSC133_ZONE_FINAL;
-		return [...leadingLines, ...framedLines];
 	};
 }
 
@@ -695,14 +665,10 @@ function getRuntimeColorToken(runtime: RuntimeInfo | undefined): string {
 	}
 }
 
-function formatRuntimeSegment(
-	theme: Pick<Theme, "fg">,
-	runtime: RuntimeInfo | undefined,
-	mutedColor: string,
-): string {
+function formatRuntimeSegment(theme: Pick<Theme, "fg">, runtime: RuntimeInfo | undefined): string {
 	if (!runtime) return "";
 	const label = runtime.version ? `${runtime.symbol} ${runtime.version}` : runtime.symbol;
-	return `${colorize(theme, mutedColor, "via")} ${colorize(theme, getRuntimeColorToken(runtime), label)}`;
+	return `${colorize(theme, "text", "via")} ${colorize(theme, getRuntimeColorToken(runtime), label)}`;
 }
 
 function formatCwdLabel(cwd: string, cwdIcon: string): string {
@@ -727,6 +693,9 @@ export default function (pi: ExtensionAPI) {
 	let requestFooterRender: (() => void) | undefined;
 	let projectRefreshInFlight = false;
 	let projectRefreshPending = false;
+	let projectRefreshDebounceTimer: NodeJS.Timeout | undefined;
+	let lastProjectRefreshAt = 0;
+	const PROJECT_REFRESH_MIN_INTERVAL_MS = 500;
 
 	const refresh = () => requestFooterRender?.();
 
@@ -752,12 +721,9 @@ export default function (pi: ExtensionAPI) {
 		state.runtime = runtime;
 	};
 
-	const scheduleProjectRefresh = (ctx: ExtensionContext) => {
-		if (projectRefreshInFlight) {
-			projectRefreshPending = true;
-			return;
-		}
+	const runProjectRefresh = (ctx: ExtensionContext) => {
 		projectRefreshInFlight = true;
+		lastProjectRefreshAt = Date.now();
 		void refreshProjectState(ctx).finally(() => {
 			projectRefreshInFlight = false;
 			refresh();
@@ -766,6 +732,23 @@ export default function (pi: ExtensionAPI) {
 				scheduleProjectRefresh(ctx);
 			}
 		});
+	};
+
+	const scheduleProjectRefresh = (ctx: ExtensionContext) => {
+		if (projectRefreshInFlight) {
+			projectRefreshPending = true;
+			return;
+		}
+		const elapsed = Date.now() - lastProjectRefreshAt;
+		if (elapsed >= PROJECT_REFRESH_MIN_INTERVAL_MS) {
+			runProjectRefresh(ctx);
+			return;
+		}
+		if (projectRefreshDebounceTimer) return;
+		projectRefreshDebounceTimer = setTimeout(() => {
+			projectRefreshDebounceTimer = undefined;
+			runProjectRefresh(ctx);
+		}, PROJECT_REFRESH_MIN_INTERVAL_MS - elapsed);
 	};
 
 	const installFooter = (ctx: ExtensionContext) => {
@@ -826,7 +809,7 @@ export default function (pi: ExtensionAPI) {
 					const branchLabel = branch
 						? `${colorize(theme, "text", "on")} ${gitIcon} ${gitColor(branch)}${statusBlock ? ` ${statusBlock}` : ""}`
 						: "";
-					const runtimeLabel = formatRuntimeSegment(theme, state.runtime, "text");
+					const runtimeLabel = formatRuntimeSegment(theme, state.runtime);
 
 					const left = [cwdLabel, branchLabel, runtimeLabel].filter(Boolean).join(" ");
 					const right = [
@@ -894,7 +877,7 @@ export default function (pi: ExtensionAPI) {
 	const installUi = (ctx: ExtensionContext) => {
 		ensureConfigExists();
 		currentConfig = loadConfig();
-		patchUserMessageComponent(ctx.ui.theme);
+		patchUserMessageComponent();
 		syncState(ctx);
 		installFooter(ctx);
 		installEditor(ctx);
