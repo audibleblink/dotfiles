@@ -5,9 +5,6 @@
   "enableInstallTelemetry": false,
   "doubleEscapeAction": "tree",
   "defaultThinkingLevel": "off",
-  "skills": [
-    "~/code/skills"
-  ],
   "enabledModels": [
     "anthropic/claude-sonnet-4-6",
     "anthropic/claude-opus-4-7",
@@ -20,5 +17,32 @@
   "theme": "catppuccin-mocha",
   "quietStartup": true,
   "treeFilterMode": "default",
-  "hideThinkingBlock": false
+  "hideThinkingBlock": false,
+  "stealthSkills": [
+    "angr-symexec",
+    "attack-chain-outliner",
+    "detection-engineering",
+    "google-secops-yaral",
+    "grepai",
+    "kql-mde-xdr",
+    "mcp-builder",
+    "notebooklm",
+    "obsidian-vault",
+    "react-best-practices",
+    "rizin-re",
+    "ship-learn-next",
+    "skill-creator",
+    "typst-copilot",
+    "youtube-transcript",
+ 	"executing-plans",
+ 	"finishing-a-development-branch",
+ 	"receiving-code-review",
+ 	"requesting-code-review",
+ 	"subagent-driven-development",
+ 	"test-driven-development",
+ 	"using-superpowers",
+ 	"verification-before-completion",
+ 	"writing-plans",
+ 	"writing-skills"
+  ]
 }
