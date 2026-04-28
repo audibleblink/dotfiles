@@ -457,7 +457,15 @@ local plugins = {
 					},
 				},
 				denols = {
-					filetypes = vim.tbl_extend("keep", { "json", "jsonc" }, vim.lsp.config.denols.filetypes),
+					-- nvim-lspconfig ships denols with a custom root_dir function that
+					-- refuses to start outside Deno projects. When root_dir is a
+					-- function, root_markers is ignored — so we replace the function.
+					root_dir = function(bufnr, on_dir)
+						local fname = vim.api.nvim_buf_get_name(bufnr)
+						local dir = vim.fs.root(fname, { "deno.json", "deno.jsonc", "package.json", ".git" })
+						on_dir(dir or vim.fs.dirname(fname))
+					end,
+					filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "json", "jsonc" },
 				},
 			}
 			for server, config in pairs(custom) do
