@@ -35,7 +35,10 @@ For multi-step work, state a brief plan with a verify step per item.
 
 ## Parallelize
 - Independent work → chunk it.
-- `@explore` for recon. `@general` for non-conflicting parallel writes.
+- `Agent` tool for subagents
+    - `Explore` for light/fast recon. 
+    - `Plan` for implementation planning
+    - `general-purpose` for non-conflicting parallel writes
 
 ## Environment
 - Use `context7` to learn unfamiliar libraries.
