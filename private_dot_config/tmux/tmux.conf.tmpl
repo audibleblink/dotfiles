@@ -44,14 +44,14 @@ set -g @catppuccin_status_fill "icon"
 set -g @catppuccin_status_middle_separator ""
 set -g @catppuccin_status_right_separator "█ "
 set -g @catppuccin_window_current_fill "number"
-set -g @catppuccin_window_current_number_color "#{@thm_peach}"
-set -g @catppuccin_window_current_text "#W#{?window_zoomed_flag,  ,}"
+set -g @catppuccin_window_current_number_color "#{?window_bell_flag,#{@thm_maroon},#{@thm_peach}}"
+set -g @catppuccin_window_current_text "#W#{?window_zoomed_flag,  ,}#{?window_bell_flag, 🔔,}"
 set -g @catppuccin_window_default_fill "number"
-set -g @catppuccin_window_default_text "#W"
-set -g @catppuccin_window_number_color "#{@thm_overlay_2}"
+set -g @catppuccin_window_default_text "#W#{?window_bell_flag, 🔔,}"
+set -g @catppuccin_window_number_color "#{?window_bell_flag,#{@thm_maroon},#{@thm_overlay_2}}"
 set -g @catppuccin_window_number_position "right"
 set -g @catppuccin_window_status_style "rounded"
-set -g @catppuccin_window_text "#W"
+set -g @catppuccin_window_text "#W#{?window_bell_flag, 🔔,}"
 
 set -g @floax-bind 'C-Space'
 set -g @floax-border-color 'yellow'
@@ -79,7 +79,11 @@ set -g status-bg default
 set -g status-style bg=default
 set -g status-right-length 120
 set -g status-left-length 120
-set -g allow-rename off
+set -g allow-rename on
+set -g monitor-bell on
+set -g bell-action any
+set -g set-titles on
+set -g set-titles-string "#S:#I:#W"
 
 set -g  status-left  "#{E:@catppuccin_status_session} "
 set -g status-right ""

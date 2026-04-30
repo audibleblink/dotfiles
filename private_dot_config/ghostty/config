@@ -29,3 +29,5 @@ keybind = shift+enter=text:\n
 
 custom-shader = shaders/cursor_warp.glsl
 custom-shader = shaders/ripple_cursor.glsl
+bell-features = system,audio,attention,title,border
+bell-audio-path = ~/.config/ghostty/bell.mp3
