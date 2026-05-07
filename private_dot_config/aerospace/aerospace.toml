@@ -58,6 +58,11 @@ alt-j = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-ar
 alt-k = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors up'
 alt-l = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors right'
 
+alt-y = 'swap left'
+alt-u = 'swap down'
+alt-i = 'swap up'
+alt-o = 'swap right'
+
 # See: https://nikitabobko.github.io/AeroSpace/commands#move
 alt-shift-h = 'move left'
 alt-shift-j = 'move down'
