@@ -30,13 +30,13 @@ run = 'layout floating'
 preset = 'qwerty'
 
 [gaps]
-outer.top    = [ { monitor."retina" = 0 }, 15]
-outer.bottom = [ { monitor."retina" = 5 }, 15]
-outer.left   = [ { monitor."retina" = 5 }, 15]
-outer.right  = [ { monitor."retina" = 5 }, 15]
+outer.top    = [ { monitor."retina" = 0 }, 0]
+outer.bottom = [ { monitor."retina" = 5 }, 10]
+outer.left   = [ { monitor."retina" = 5 }, 10]
+outer.right  = [ { monitor."retina" = 5 }, 10]
 
-inner.horizontal = [ { monitor."retina" = 12 }, 20]
-inner.vertical   = [ { monitor."retina" = 12 }, 20]
+inner.horizontal = [ { monitor."retina" = 12 }, 10]
+inner.vertical   = [ { monitor."retina" = 12 }, 10]
 
 [mode.main.binding]
 alt-enter = 'exec-and-forget open -a Ghostty.app'
@@ -53,10 +53,10 @@ alt-shift-right = 'join-with right'
 alt-slash = 'layout tiles horizontal vertical'
 alt-comma = 'layout accordion horizontal vertical'
 
-alt-h = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors left'
-alt-j = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors down'
-alt-k = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors up'
-alt-l = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors right'
+alt-h = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-the-workspace left'
+alt-j = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-the-workspace down'
+alt-k = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-the-workspace up'
+alt-l = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-the-workspace right'
 
 alt-y = 'swap left'
 alt-u = 'swap down'

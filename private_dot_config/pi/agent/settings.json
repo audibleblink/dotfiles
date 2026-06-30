@@ -1,13 +1,14 @@
 {
-	"lastChangelogVersion": "0.70.6",
+	"lastChangelogVersion": "0.80.2",
 	"defaultProvider": "anthropic",
-	"defaultModel": "claude-sonnet-4-6",
+	"defaultModel": "claude-sonnet-5",
 	"enableInstallTelemetry": false,
 	"doubleEscapeAction": "tree",
 	"defaultThinkingLevel": "off",
+	"defaultPrimaryAgent": "build",
 	"enabledModels": [
-		"anthropic/claude-sonnet-4-6",
-		"anthropic/claude-opus-4-7",
+		"anthropic/claude-sonnet-5",
+		"anthropic/claude-opus-4-8",
 		"anthropic/claude-haiku-4-5"
 	],
 	"packages": [
@@ -19,33 +20,9 @@
 	"treeFilterMode": "default",
 	"hideThinkingBlock": false,
 	"stealthSkills": [
-		"angr-symexec",
-		"attack-chain-outliner",
-		"censys",
-		"classify-skill",
-		"detection-engineering",
-		"executing-plans",
-		"finishing-a-development-branch",
-		"google-secops-yaral",
-		"grepai",
-		"kql-mde-xdr",
-		"mcp-builder",
-		"notebooklm",
-		"obsidian-vault",
-		"react-best-practices",
-		"receiving-code-review",
-		"requesting-code-review",
-		"rizin-re",
-		"ship-learn-next",
-		"skill-creator",
-		"subagent-driven-development",
-		"test-driven-development",
-		"typst-copilot",
-		"using-superpowers",
-		"verification-before-completion",
-		"writing-plans",
-		"writing-skills",
-		"youtube-search",
-		"youtube-transcript"
+		"browser-use",
+		"context7",
+		"exa-search",
+		"pi"
 	]
 }
