@@ -7,34 +7,15 @@
 
 	"plugin": [
 		// "opencode-claude-auth",
-		"superpowers@git+https://github.com/obra/superpowers.git"
+		"superpowers@git+https://github.com/obra/superpowers.git",
+		"opencode-autoresearch@latest"
 	],
 
 	"mcp": {
-		"promptd": {
-			"type": "local",
-			"command": ["uvx", "--from", "git+https://github.com/audibleblink/promptd", "promptd"],
-			"enabled": false
-		},
-		"grepai": {
-			"type": "local",
-			"command": ["grepai", "mcp-serve"],
-			"enabled": false
-		},
-		"playwright": {
-			"type": "local",
-			"command": ["npx", "@playwright/mcp@latest"],
-			"enabled": false
-		},
-		"context7": {
-			"type": "local",
-			"command": ["npx", "-y", "@upstash/context7-mcp"],
-			"enabled": false
-		},
 		"hindsight": {
 			"type": "remote",
 			"url": "http://gpu.hyrule.link:8888/mcp/opencode",
-			"enabled": false,
+			"enabled": false
 		}
 	},
 
