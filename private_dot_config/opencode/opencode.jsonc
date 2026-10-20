@@ -24,12 +24,15 @@
 		// "context7*": false
 	},
 
-	"permission": {
-		"bash": {
-			"git *": "ask",
-			"*": "allow"
-		}
-	},
+	"permissions": [
+		{ "action": "shell", "resource": "git *", "effect": "ask" },
+		{ "action": "shell", "resource": "*", "effect": "allow" },
+		// V1 asked before touching paths outside the project; V2 allows by default.
+		{ "action": "external_directory", "resource": "*", "effect": "ask" }
+	],
+
+	// Todos are off by default in V2.
+	"experimental": { "todo": true },
 
 	"lsp": {
 		"pyright": {

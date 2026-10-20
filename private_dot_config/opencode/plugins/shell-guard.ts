@@ -6,9 +6,13 @@
  *   - heredoc-to-file (cat <<EOF > file)                              → use `write`
  *   - pip install                                                     → use `uv`
  *
- * Ported from pi-harness/extensions/shell-guard.ts to opencode's
- * `tool.execute.before` hook (throwing blocks the call). Add rules to RULES.
+ * Ported from pi-harness/extensions/shell-guard.ts to opencode's V2
+ * `ctx.tool.hook("execute.before")` (throwing blocks the call). Add rules to RULES.
  */
+
+import { readFileSync } from "node:fs";
+import { homedir } from "node:os";
+import { join } from "node:path";
 
 type Rule = {
 	name: string;
@@ -48,17 +52,35 @@ const RULES: Rule[] = [
 	},
 ];
 
-export const ShellGuard = async () => {
-	return {
-		"tool.execute.before": async (input: { tool: string }, output: { args: { command?: string } }) => {
-			if (input.tool !== "bash") return;
-			const cmd = output.args?.command ?? "";
+/** Rule names in `disabled` of ~/.config/opencode/shell-guard.json are skipped (read once at init). */
+function loadDisabled(): Set<string> {
+	try {
+		const d = JSON.parse(readFileSync(join(homedir(), ".config/opencode/shell-guard.json"), "utf8")).disabled;
+		return new Set(Array.isArray(d) ? d.filter((x) => typeof x === "string") : []);
+	} catch {
+		return new Set();
+	}
+}
+
+// V2 names the shell tool `shell`; `bash` was its V1 name.
+const SHELL_TOOLS = new Set(["shell", "bash"]);
+
+export default {
+	id: "shell-guard",
+	async setup(ctx: {
+		tool: { hook(name: "execute.before", cb: (e: { tool: string; input: unknown }) => void): Promise<unknown> };
+	}) {
+		const disabled = loadDisabled();
+		const active = RULES.filter((r) => !disabled.has(r.name));
+		await ctx.tool.hook("execute.before", (event) => {
+			if (!SHELL_TOOLS.has(event.tool)) return;
+			const cmd = (event.input as { command?: string })?.command ?? "";
 			if (!cmd) return;
-			for (const rule of RULES) {
+			for (const rule of active) {
 				if (rule.test(cmd)) {
 					throw new Error(`[shell-guard:${rule.name}] ${rule.reason}`);
 				}
 			}
-		},
-	};
+		});
+	},
 };

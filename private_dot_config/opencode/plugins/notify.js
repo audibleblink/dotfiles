@@ -1,10 +1,16 @@
-export const NotificationPlugin = async ({ client, $ }) => {
-  return {
-    event: async ({ event }) => {
-      // Send notification on session completion
-      if (event.type === "session.idle") {
-        await $`osascript -e 'display notification "Session completed!" with title "opencode"'`
+import { execFile } from "node:child_process"
+
+export default {
+  id: "notify",
+  setup(ctx) {
+    const controller = new AbortController()
+    void (async () => {
+      for await (const event of ctx.event.subscribe({ signal: controller.signal })) {
+        if (event.type === "session.idle") {
+          execFile("osascript", ["-e", 'display notification "Session completed!" with title "opencode"'], () => {})
+        }
       }
-    },
-  }
+    })().catch(() => {})
+    return () => controller.abort()
+  },
 }
